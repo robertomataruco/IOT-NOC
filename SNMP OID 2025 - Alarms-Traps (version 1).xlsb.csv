@@ -1,0 +1,273 @@
+Node;Name;OID;MIB;Syntax;Access;Status;Descr;UMS WEB Parameter;Remarks;
+alarm;trapSequenceID; .1.3.6.1.4.1.15921.60.1.1.1; MAX-PRO-ALARM-MIB; INTEGER; read-only; current; Trap Sequence ID.;;??????????UMS?????;
+;trapTimeStamp; .1.3.6.1.4.1.15921.60.1.1.2; MAX-PRO-ALARM-MIB; DISPLAYSTRING; read-only; current; Absolute Time (Time Stamp).;Device Alarm Time;????????UMS???;
+;trapDeviceType; .1.3.6.1.4.1.15921.60.1.1.3; MAX-PRO-ALARM-MIB; DISPLAYSTRING; read-only; current; Device Type.;;??????????RU/EU/ACU/AU?;
+;trapDeviceSerial; .1.3.6.1.4.1.15921.60.1.1.4; MAX-PRO-ALARM-MIB; DISPLAYSTRING; read-only; current; Device Serial Number (Unique).;;????????????;
+;trapRemoteIndex; .1.3.6.1.4.1.15921.60.1.1.5; MAX-PRO-ALARM-MIB; DISPLAYSTRING; read-only; current; Remote Index.;;????????????;
+;trapCtrlSerialNum; .1.3.6.1.4.1.15921.60.1.1.6; MAX-PRO-ALARM-MIB; DISPLAYSTRING; read-only; current; Control Unit Serial Number (Unique).;;???????????;
+;trapCtrlName; .1.3.6.1.4.1.15921.60.1.1.7; MAX-PRO-ALARM-MIB; DISPLAYSTRING; read-only; current; Control Unit Name.;Fault Location;??????siteinfo;
+;trapModuleName; .1.3.6.1.4.1.15921.60.1.1.8; MAX-PRO-ALARM-MIB; DISPLAYSTRING; read-only; current; Module Name.;;?????????;
+;trapSeverity; .1.3.6.1.4.1.15921.60.1.1.9; MAX-PRO-ALARM-MIB; INTEGER {notification(0),minor(1),major(2),critical(3)}; read-only; current; Event's Severity.;Alarm Level;????;
+;trapChannel; .1.3.6.1.4.1.15921.60.1.1.10; MAX-PRO-ALARM-MIB; DISPLAYSTRING; read-only; current; Addition data for specific event(seeModule Trap Description).;;?????;
+;trapChannelDescription; .1.3.6.1.4.1.15921.60.1.1.11; MAX-PRO-ALARM-MIB; DISPLAYSTRING; read-only; current; Description of Addition data forspecificevent (see Module Trap Description).;;???????;
+;trapBandID; .1.3.6.1.4.1.15921.60.1.1.12; MAX-PRO-ALARM-MIB;" INTEGER {band-WCS(24),band-2500T(25),band-N3500F(44),
+band-N3500G(45),band-1900B(47),band-EAWS-A(48),band-N/A(0)}"; read-only; current; Description of band information for the trap even;;??????ACU????????;
+;trapSetOrClear; .1.3.6.1.4.1.15921.60.1.1.13; MAX-PRO-ALARM-MIB; INTEGER {clearTrap(0),setTrap(1)}; read-only; current; 0=ClearTrap, 1=SetTrap;;1???, 0????, ????0-1??;
+;trapProbableCause; .1.3.6.1.4.1.15921.60.1.1.14; MAX-PRO-ALARM-MIB; DISPLAYSTRING; read-only; current;Alarm Probable Cause;Probable Cause;????;????????
+;trapHandleMeasures; .1.3.6.1.4.1.15921.60.1.1.15; MAX-PRO-ALARM-MIB; DISPLAYSTRING; read-only; current;Alarm Handle Measures;Handle Measures;???????????;????????
+;;;;;;;;Alarm Name;???????;
+;;;;;;;;Alarm Instance;????OID5+11+10??;
+;;;;;;;;Specific Problem;????;
+;;;;;;;;Alarm Type;???????????;
+;;;;;;;;Additional Text;????;
+;;;;;;;;Additional Information;????;
+;;;;;;;;Alarm Number;???????ID;
+;;;;;;;;Alarm Sequence;?????;
+;;;;;;;;Device Alarm Squence;?????;
+;;;;;;;;Device AlarmID;?OID???????;
+;;;;;;;;Status;???????????;
+;;;;;;;;Alarm Classification;??????????????;
+;;;;;;;;NE Status;????????????????;
+;;;;;;;;Alarm Syschronization Time;???????;
+;;;;;;;;NE IP;??;
+;;;;;;;;Sub Device Name;??;????????
+;;;;;;;;Alarm Source SN;??;
+;;;;;;;;Sub Device Status;??;
+;;;;;;;;Integrated Manufacturer;??;
+;;;;;;;;Region;?????????;
+;;;;;;;;Site;?????????;
+;;;;;;;;Sbunet;?????????;
+;;;;;;;;Device Type;???Repeater;?????
+;;;;;;;;Device Sub Type;??????ComflexMax????Active DAS?;?????
+;;;;;;;;Network Model;???5GNR(5G);
+;;;;;;;;Manufacturer;??????Comba????Vendor?;
+;;;;;;;;Project Status;????????;
+;;;;;;;;Ack User;??????;
+;;;;;;;;Ack User;??????;
+;;;;;;;;Re Ack User;????????;
+;;;;;;;;Re Ack User;????????;
+;;;;;;;;North Forward;??????;
+;;;;;;;;North Forward Port;??????;
+;;;;;;;;North Forward Time;??????;
+;;;;;;;;Alarm Change Time;????????????;
+;;;;;;;;Remarks;???????????;
+;;;;;;;;;;
+;Alarm Name;;;;;;Alarm Probable Cause;Alarm Type;Alarm Handle Measures;
+traps;a-poiOverallAlarm; .1.3.6.1.4.1.15921.60.1.2.100; MAX-PRO-ALARM-MIB;/;/; current; The alarm will occur while any sub-alarm occur in A-POI module.;Device Alarm;"1. Check the  alarm source to find the root cause
+2. Clear the related alarm to clear the overall alarm";
+;a-poiDlInputShutdownAlarm; .1.3.6.1.4.1.15921.60.1.2.101; MAX-PRO-ALARM-MIB;/;/; current; The detected channel power >38dBm(Low Power), >50dBm(High Power);Environmental Alarm;"1. Please check the RIU input power
+2. Add the suitable attenuator on the input port of RIU";
+;a-poiFanFault; .1.3.6.1.4.1.15921.60.1.2.102; MAX-PRO-ALARM-MIB;/;/; current; The alarm will occur while any one of FANs fail.;Device Alarm;"1. Check the connection of the FAN
+2. Replace the related FAN module";
+;a-poiLowInputPower; .1.3.6.1.4.1.15921.60.1.2.103; MAX-PRO-ALARM-MIB;/;/; current; The alarm will occur while DC input power<38V or AC  input power<100V.;Environmental Alarm;"1. Check the power socket connection
+2. Change the PSU module for AC supply
+3. Change the RIU ";??WEB?????????????????????
+;a-poiOverTemperature; .1.3.6.1.4.1.15921.60.1.2.104; MAX-PRO-ALARM-MIB;/;/; current; The detected temperature greater than overtemperature threshold.;Environmental Alarm;"1. Check if there is FAN alarm
+2. Check the environment temperature, need to guarantee the environment temperature no more than 45 degree
+3. Check the mechanical of the device, make sure there is no dust in the device
+4. Keeps some clearance (20cm) of the device";
+;a-poiDlInputOverloadAlarm; .1.3.6.1.4.1.15921.60.1.2.105; MAX-PRO-ALARM-MIB;/;/; current; The detected channel power >37dBm(Low Power), >49dBm(High Power);Environmental Alarm;"1. Please check the RIU input power
+2. Add the suitable attenuator on the input port of RIU";
+;a-poiDlRfLowPower; .1.3.6.1.4.1.15921.60.1.2.106; MAX-PRO-ALARM-MIB;/;/; current; The detected channel power <-40dBm(default value) .;Environmental Alarm;"1. Please check the input  power
+2. Adjust the suitable attenuator on the input port of RIU
+3. Check the RF input connection of RIU
+4. Change the RIU";
+;a-poiVersionMismatch; .1.3.6.1.4.1.15921.60.1.2.107; MAX-PRO-ALARM-MIB;/;/; current; Module version mismatch to A-POI.;Device Alarm;"1. Please check the device version and system version
+2. Please check the release note for the version match";
+;a-poiServiceOff; .1.3.6.1.4.1.15921.60.1.2.108; MAX-PRO-ALARM-MIB;/;/; current; A-POI service off - A-POI cann't operation.;Service Alarm;"1. Check the other alarms in the device
+2. Try clear the related alarm
+3. Turn on the RF switch
+4. Change the unit if necessary";
+;euOverallAlarm; .1.3.6.1.4.1.15921.60.1.2.200; MAX-PRO-ALARM-MIB;/;/; current; The alarm will occur while any sub-alarm occur in the unit.;Device Alarm;"1. Check the  alarm source to find the root cause
+2. Clear the related alarm to clear the overall alarm";
+;euInputUnderVoltage; .1.3.6.1.4.1.15921.60.1.2.202; MAX-PRO-ALARM-MIB;/;/; current; The alarm will occur while DC input power<38V or AC  input power<100V.;Environmental Alarm;"1. Check the input power voltage range
+2. Check the connection of the power socket
+3. Replace the module";
+;euPowerSupplyOverTemperature; .1.3.6.1.4.1.15921.60.1.2.203; MAX-PRO-ALARM-MIB;/;/; current; The alarm will occur while power supply in high temperature.;Environmental Alarm;"1. Check if there is FAN alarm
+2. Check the environment temperature, need to guarantee the environment temperature no more than 45 degree
+3. Check the mechanical of the device, make sure there is no dust in the device
+4. Keeps some clearance (20cm) of the device";
+;euFanFault; .1.3.6.1.4.1.15921.60.1.2.204; MAX-PRO-ALARM-MIB;/;/; current; The alarm will occur while any one of FANs(totally 4) fail.;Device Alarm;"1. Check the connection of the FAN
+2. Replace the related FAN module";
+;euOverTemperature; .1.3.6.1.4.1.15921.60.1.2.205; MAX-PRO-ALARM-MIB;/;/; current; The detected temperature greater than overtemperature threshold.;Environmental Alarm;"1. Check if there is FAN alarm
+2. Check the environment temperature, need to guarantee the environment temperature no more than 45 degree
+3. Check the mechanical of the device, make sure there is no dust in the device
+4. Keeps some clearance (20cm) of the device";
+;euCpriLinkTxFault; .1.3.6.1.4.1.15921.60.1.2.206; MAX-PRO-ALARM-MIB;/;/; current;"Indicates one of the following SFP problems :TX/RX levels, Temperature,
+TX/RX fault, TX/RX disable, absence (removing the SFP from the cage) . ";Link Alarm;"1. Check if a fiber optic cable is disconnected, make sure the connection is stable
+2. Check if SFP problem- try to replace with another SFP
+3. Clean fiber optic cable/connector";
+;euCpriLinkRxFault; .1.3.6.1.4.1.15921.60.1.2.207; MAX-PRO-ALARM-MIB;/;/; current;" Indicates one of the following SFP problems :TX/RX levels, Temperature,
+TX/RX fault, TX/RX disable, absence (removing the SFP from the cage) . ";Link Alarm;"1. Check if a fiber optic cable is disconnected, make sure the connection is stable
+2. Check if SFP problem- try to replace with another SFP
+3. Clean fiber optic cable/connector";
+;euCpriSyncFault; .1.3.6.1.4.1.15921.60.1.2.208; MAX-PRO-ALARM-MIB;/;/; current; Indicates the SFP Synthesizer failure .;Link Alarm;"1. Check if a fiber optic cable is disconnected 
+2. Check if SFP problem- try to replace with another SFP
+3. Clean fiber optic cable/connector
+4. Check if the pair of SFPs are in same type
+5. Check the software version and its release note for the limitation";
+;euCpriLinkFault; .1.3.6.1.4.1.15921.60.1.2.209; MAX-PRO-ALARM-MIB;/;/; current; Indicates the SFP link failure.;Link Alarm;"1. Check if the fiber optic cable is disconnected 
+2. Check if the Sync fault
+2. Check if SFP problem - try to replace with another SFP
+3. Clean fiber optic cable/connector
+4. Check if the pair of SFPs are in same type
+5. Reboot the device";
+;euCpriOverTemperature; .1.3.6.1.4.1.15921.60.1.2.210; MAX-PRO-ALARM-MIB;/;/; current; Indicates the SFP is in high temperature.;Environmental Alarm;"1. Check if the device has the over temperature alarm, and deal with OverallAlarm 
+2. Check the SFP install  
+3. Change the SFP ";
+;euCpriManufacturerInvalid; .1.3.6.1.4.1.15921.60.1.2.211; MAX-PRO-ALARM-MIB;/;/; current; Indicates the SFP is not certificated by manufactured.;Application Alarm;1. Change the SFP to the valid brand  ;
+;euSynthesizerUnlocked; .1.3.6.1.4.1.15921.60.1.2.212; MAX-PRO-ALARM-MIB;/;/; current; Indicates the system Synthesizer failure . ;Device Alarm;"1.Reset the device
+2.Update the device to latest software version
+3. Replace the device
+4. Check the fiber connection for primary DCU
+5. Check the SFP related alarm";
+;euHardwareFault; .1.3.6.1.4.1.15921.60.1.2.213; MAX-PRO-ALARM-MIB;/;/; current; The alarm will occur while the hardware is fail;Device Alarm;"1. Check if any other alarms are occurred
+2. Reboot the device
+3. Change the device if hardware is fail";
+;euVersionMismatch; .1.3.6.1.4.1.15921.60.1.2.214; MAX-PRO-ALARM-MIB;/;/; current; Module version not match to system version.;Application Alarm;"1. Please check the device version and system version
+2. Please check the release note for the version match";
+;ruOverallAlarm; .1.3.6.1.4.1.15921.60.1.2.300; MAX-PRO-ALARM-MIB;/;/; current; The alarm will occur while any sub-alarm occur in the unit.;Device Alarm;"1. Check the  alarm source to find the root cause
+2. Clear the related alarm to clear the overall alarm";
+;ruHardwareFault; .1.3.6.1.4.1.15921.60.1.2.301; MAX-PRO-ALARM-MIB;/;/; current; The alarm will occur while the hardware is fail.;Device Alarm;"1. Check if any other alarms are occurred
+2. Reboot the device
+3. Change the device if hardware is fail";
+;ruOverTemperature; .1.3.6.1.4.1.15921.60.1.2.302; MAX-PRO-ALARM-MIB;/;/; current; The alarm will occur while the temperature of RU is higher then threshold.;Environmental Alarm;"1. Check if there is FAN alarm(dMRU)
+2. Check the environment temperature, need to guarantee the environment temperature no more than 45 degree
+3. Check the mechanical of the device, make sure there is no dust in the device
+4. Keeps some clearance (20cm) of the device";
+;ruUnderVoltage; .1.3.6.1.4.1.15921.60.1.2.303; MAX-PRO-ALARM-MIB;/;/; current; The alarm will occur while DC input power<38V or AC  input power<100V.;Environmental Alarm;"1. Verify input power level
+2. Check the connections of the power socket
+3. Replace the device";
+;ruSfpTxFault; .1.3.6.1.4.1.15921.60.1.2.304; MAX-PRO-ALARM-MIB;/;/; current;" Indicates one of the following SFP problems (aggregated per port):
+TX levels(<-3dBm or >5dBm),Temperature,TX disable,
+absence (removing the SFP from the cage) and TBD.
+Add Port number as Trap parameter.";Link Alarm;"1. Check if a fiber optic cable is disconnected, make sure the connection is stable
+2. Check if SFP problem- try to replace with another SFP
+3. Clean fiber optic cable/connector";
+;ruSfpRxFault; .1.3.6.1.4.1.15921.60.1.2.305; MAX-PRO-ALARM-MIB;/;/; current;" Indicates one of the following SFP problems (aggregated per port):
+RX levels(<-10dBm ),Temperature, RX disable,
+absence (removing the SFP from the cage) and TBD.
+Add Port number as Trap parameter.";Link Alarm;"1. Check if a fiber optic cable is disconnected, make sure the connection is stable
+2. Check if SFP problem- try to replace with another SFP
+3. Clean fiber optic cable/connector";
+;ruSfpSyncfault; .1.3.6.1.4.1.15921.60.1.2.306; MAX-PRO-ALARM-MIB;/;/; current; Indicates the SFP Synthesizer failure .;Link Alarm;"1. Check if a fiber optic cable is disconnected 
+2. Check if SFP problem- try to replace with another SFP
+3. Clean fiber optic cable/connector
+4. Check if the pair of SFPs are in same type
+5. Check the software version and its release note for the limitation";
+;ruSfpOverTemperature; .1.3.6.1.4.1.15921.60.1.2.307; MAX-PRO-ALARM-MIB;/;/; current; Indicates the temperature of SFP is higher than threshold.;Environmental Alarm;"1. Check if the device has the over temperature alarm, and deal with OverallAlarm 
+2. Check the SFP install  
+3. Change the SFP ";
+;ruSfpManufacturerInvalid; .1.3.6.1.4.1.15921.60.1.2.308; MAX-PRO-ALARM-MIB;/;/; current; Indicates the SFP is not certificated by manufactured.;Application Alarm;1. Change the SFP to the valid brand  ;
+;ruFanAlarm; .1.3.6.1.4.1.15921.60.1.2.309; MAX-PRO-ALARM-MIB;/;/; current; The alarm will occur while any one of FANs(totally 4) fail.;Device Alarm;"1. Check the connection of the FAN
+2. Replace the related FAN module";
+;ruOverPowerConsumption; .1.3.6.1.4.1.15921.60.1.2.310; MAX-PRO-ALARM-MIB;/;/; current; The alarm will occur while RU is working over its design power consumption.;Device Alarm;"1. Check the other alarms in the device
+2. Check if the output power if it is over the rated level 
+3. Check the antenna port connections
+4. Reboot the device";
+;ruOverflow; .1.3.6.1.4.1.15921.60.1.2.311; MAX-PRO-ALARM-MIB;/;/; current; Indicates the uplink input  of RU is overflow.;Environmental Alarm;"1. Keep the enough distance between UE's and RU's antenna
+2. Reboot the device";
+;ruLowTransmission; .1.3.6.1.4.1.15921.60.1.2.312; MAX-PRO-ALARM-MIB;/;/; current; Indicates the downlink input is normal, but the downlink output of device is too low.;Device Alarm;"1. Check the other alarms in the device
+2. Check if the output power is too low 
+3. Reboot the device
+4. Change the device";
+;ruVswrAlarm; .1.3.6.1.4.1.15921.60.1.2.313; MAX-PRO-ALARM-MIB;/;/; current; Indicates the VSWR is largr than threshold (2.0).;Environmental Alarm;"1. Check the connection of antenna port, make sure it is connection with antenna or load
+2. Check the connected antenna or load is in good condition
+3. Change the antenna or load
+4. Test the device VSWR 
+5. Chane the device";
+;ruAntennaAlarm; .1.3.6.1.4.1.15921.60.1.2.314; MAX-PRO-ALARM-MIB;/;/; current; Indicates the antenna port VSRW is largr than threshold(3.0).;Environmental Alarm;"1. Check the connection of antenna port, make sure it is connection with antenna or load
+2. Check the connected antenna or load is in good condition
+3. Change the antenna or load
+4. Test the device VSWR 
+5. Chane the device";
+;ruPaAlarm; .1.3.6.1.4.1.15921.60.1.2.315; MAX-PRO-ALARM-MIB;/;/; current; The alarm will occur while PA is alarm.;Device Alarm;"1. Check the other alarms in the device
+2. Reboot the device
+3. Chane the device";
+;ruVersionMismatch; .1.3.6.1.4.1.15921.60.1.2.317; MAX-PRO-ALARM-MIB;/;/; current; Module version not match to system version.;Application Alarm;"1. Please check the device version and system version
+2. Please check the release note for the version match";
+;ruServiceOff; .1.3.6.1.4.1.15921.60.1.2.318; MAX-PRO-ALARM-MIB;/;/; current; Device service off.;Service Alarm;"1. Check the other alarms in the device
+2. Try clear the related alarm
+3. Check the carrier, radio switch config
+4. Reboot the device
+5. Change the device if hardware issue";
+;ruMismatch; .1.3.6.1.4.1.15921.60.1.2.319; MAX-PRO-ALARM-MIB;/;/; current;The RU and EU module type is not match, the RU work abnormal.;Application Alarm;"1. Check the other alarms in the device
+2. Reboot the device
+3. Connect the RU to right EU";
+;ruDLOutputLowAlarm; .1.3.6.1.4.1.15921.60.1.2.320; MAX-PRO-ALARM-MIB;/;/; current;Download Output Power is  less than threshold(-99 dBm as default value);Device Alarm;"1. Check the other alarms in the device
+2. Check the input power in the AU
+3. Reboot the device
+4. Change the device";
+;ruDLOutputOverAlarm; .1.3.6.1.4.1.15921.60.1.2.321; MAX-PRO-ALARM-MIB;/;/; current;Download Output Power is  more than threshold(48dBm as default value);Device Alarm;"1. Check the other alarms in the device
+2. Reboot the device
+3. Set some ATT value in RU";
+;auOverallAlarm; .1.3.6.1.4.1.15921.60.1.2.400; MAX-PRO-ALARM-MIB;/;/; current; The alarm will occur while any sub-alarm occur in the unit.;Device Alarm;"1. Check the  alarm source to find the root cause
+2. clear the related alarm to clear the overall alarm";
+;auPowerSupplyOverTemperature; .1.3.6.1.4.1.15921.60.1.2.402; MAX-PRO-ALARM-MIB;/;/; current; The alarm will occur while power supply in high temperature.;Environmental Alarm;"1. Check if there is FAN alarm
+2. Check the environment temperature, need to guarantee the environment temperature no more than 45 degree
+3. Check the mechanical of the device, make sure there is no dust in the device
+4. Keeps some clearance (20cm) of the device";
+;auPowerSupplyInputUnderVoltage; .1.3.6.1.4.1.15921.60.1.2.403; MAX-PRO-ALARM-MIB;/;/; current; The alarm will occur while DC input power<38V or AC  input power<100V.;Environmental Alarm;"1. Check the input power voltage range
+2. Check the connection of the power socket
+3. Replace the module";
+;auOverTemperature; .1.3.6.1.4.1.15921.60.1.2.404; MAX-PRO-ALARM-MIB;/;/; current; The detected temperature greater than overtemperature threshold.;Environmental Alarm;"1. Check if there is FAN alarm
+2. Check the environment temperature, need to guarantee the environment temperature no more than 45 degree
+3. Check the mechanical of the device, make sure there is no dust in the device
+4. Keeps some clearance (20cm) of the device";
+;auFanFault; .1.3.6.1.4.1.15921.60.1.2.405; MAX-PRO-ALARM-MIB;/;/; current; The alarm will occur while any one of FANs(totally 4) in AU fail.;Device Alarm;"1. Check the connection of the FAN
+2. Replace the related FAN module";
+;auCpriLinkTxFault; .1.3.6.1.4.1.15921.60.1.2.406; MAX-PRO-ALARM-MIB;/;/; current;" Indicates one of the following SFP problems :TX/RX levels, Temperature,
+TX/RX fault, TX/RX disable, absence (removing the SFP from the cage) .";Link Alarm;"1. Check if a fiber optic cable is disconnected, make sure the connection is stable
+2. Check if SFP problem- try to replace with another SFP
+3. Clean fiber optic cable/connector";
+;auCpriLinkRxFault; .1.3.6.1.4.1.15921.60.1.2.407; MAX-PRO-ALARM-MIB;/;/; current;" Indicates one of the following SFP problems :TX/RX levels, Temperature,
+TX/RX fault, TX/RX disable, absence (removing the SFP from the cage) .";Link Alarm;"1. Check if a fiber optic cable is disconnected, make sure the connection is stable
+2. Check if SFP problem- try to replace with another SFP
+3. Clean fiber optic cable/connector";
+;auCpriSyncFault; .1.3.6.1.4.1.15921.60.1.2.408; MAX-PRO-ALARM-MIB;/;/; current; Indicates the SFP Synthesizer failure.;Link Alarm;"1. Check if a fiber optic cable is disconnected 
+2. Check if SFP problem- try to replace with another SFP
+3. Clean fiber optic cable/connector
+4. Check if the pair of SFPs are in same type
+5. Check the software version and its release note for the limitation";
+;auCpriLinkFault; .1.3.6.1.4.1.15921.60.1.2.409; MAX-PRO-ALARM-MIB;/;/; current; Indicates the SFP link failure.;Link Alarm;"1. Check if the fiber optic cable is disconnected 
+2. Check if the Sync fault
+2. Check if SFP problem - try to replace with another SFP
+3. Clean fiber optic cable/connector
+4. Check if the pair of SFPs are in same type
+5. Check the software version and its release note for the limitation";
+;auCpriOverTemperature; .1.3.6.1.4.1.15921.60.1.2.410; MAX-PRO-ALARM-MIB;/;/; current; Indicates the SFP is in high temperature.;Environmental Alarm;"1. Check if the device has the over temperature alarm, and deal with OverallAlarm 
+2. Check the SFP install  
+3. Change the SFP ";
+;auCpriManufacturerInvalid; .1.3.6.1.4.1.15921.60.1.2.411; MAX-PRO-ALARM-MIB;/;/; current; Indicates the SFP is not certificated by manufactured .;Application Alarm;1. Change the SFP to the valid brand  ;
+;auHardwareFault; .1.3.6.1.4.1.15921.60.1.2.412; MAX-PRO-ALARM-MIB;/;/; current; The alarm will occur while hardware is fail.;Device Alarm;"1. Check if any other alarms are occurred
+2. Reboot the device
+3. Change the device if hardware is fail";
+;auSynthesizerUnlocked; .1.3.6.1.4.1.15921.60.1.2.413; MAX-PRO-ALARM-MIB;/;/; current; Indicates the system Synthesizer failure.;Device Alarm;"1.Reset the device
+2.Update the device to latest software version
+3. Replace the device
+4. Check if the equipment mode is set to slave DCU
+5. Check the SFP related alarm";
+;auSystemOverTimeDelay; .1.3.6.1.4.1.15921.60.1.2.415; MAX-PRO-ALARM-MIB;/;/; current; AU system over time delay , the system delays more than 60us.;Application Alarm;"1.Check the delay threshold no more than 60us
+2. Check the fiber link connections
+3. Check the total fiber length, which is no more than 10km 
+4. Rebootthe device
+5. Replace the device";
+;auDLInputOverPowerInChannel; .1.3.6.1.4.1.15921.60.1.2.416; MAX-PRO-ALARM-MIB;/;/; current; The DL input power is more than threshold(10dBm as default value).;Environmental Alarm;"1. Please check the input  power
+2. Adjust the suitable attenuator on the input port of RIU
+3. Check the RF input connection between RIU and AU
+4. Change the AU";
+;auBaselineBaselineDismatch; .1.3.6.1.4.1.15921.60.1.2.417; MAX-PRO-ALARM-MIB;/;/; current; The system topology changes, it is different from the baseline .;Application Alarm;"1. Check if any topology changes comparing to the baseline 
+2. Check if the fiber connection is stable";
+;auVersionMismatch; .1.3.6.1.4.1.15921.60.1.2.418; MAX-PRO-ALARM-MIB;/;/; current; Module version not match to system version.;Application Alarm;"1. Please check the device version and system version
+2. Please check the release note for the version match";
+;auServiceOff; .1.3.6.1.4.1.15921.60.1.2.419; MAX-PRO-ALARM-MIB;/;/; current; Device service off .;Service Alarm;"1. Check the other alarms in the device
+2. Try clear the related alarm
+3. Check the carrier, radio switch config
+4. Reboot the device
+5. Change the device if hardware issue";
+;auTddNrSyncLoss; .1.3.6.1.4.1.15921.60.1.2.420; MAX-PRO-ALARM-MIB;/;/; current; Only in TDD NR band, indicates the TDD NR sync failure.;Environmental Alarm;"1. Check the input signal config , make sure it is correct config 
+2. Check the input level, it needs to fit the input signal level range";
+;auTddLteSyncLoss; .1.3.6.1.4.1.15921.60.1.2.421; MAX-PRO-ALARM-MIB;/;/; current; Only in TDD LTE band , indicates the TDD LTE sync failure.;Environmental Alarm;"1. Check the input signal config , make sure it is correct config 
+2. Check the input level, it needs to fit the input signal level range";
+;auHeartbeat; .1.3.6.1.4.1.15921.60.1.2.422; MAX-PRO-ALARM-MIB;/;/; current; Heartbeat.;Link Alarm;;
+fileOperator;fileOperatorReport; .1.3.6.1.4.1.15921.60.1.3.1; MAX-PRO-ALARM-MIB;/;/; current; file operator report;;;

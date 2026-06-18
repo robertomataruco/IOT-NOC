@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">NOC Portal Zabbix</string>
+    <string name="title_activity_main">NOC Portal Zabbix</string>
+    <string name="package_name">com.ricastechnology.noczabbix</string>
+    <string name="custom_url_scheme">com.ricastechnology.noczabbix</string>
+</resources>

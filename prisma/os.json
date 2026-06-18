@@ -1,0 +1,152 @@
+[
+  {
+    "osId": "OS-2026-KTDH17",
+    "oldestDate": "2018-05-03T09:28:05.000Z",
+    "durationString": "2946 dia(s) e 6 hora(s)",
+    "alarmGroups": [
+      {
+        "name": "Subtensão de Entrada (RU)",
+        "severity": 3,
+        "description": "Tensão de energia muito baixa (Subtensão). Verifique a conexão do cabo ou substitua a fonte.",
+        "probableCause": "The alarm will occur while DC input power<38V or AC  input power<100V.",
+        "handleMeasures": "1. Verify input power level\n2. Check the connections of the power socket\n3. Replace the device",
+        "firstSeen": "2026-05-18T16:46:21.641Z",
+        "lastSeen": "2026-05-18T16:48:21.181Z",
+        "count": 3
+      },
+      {
+        "name": "Alarme Geral do Módulo",
+        "severity": 3,
+        "description": "Ocorre quando qualquer sub-alarme no módulo é acionado. Verifique a causa primária no equipamento. [Canal/Porta: CH. 2]",
+        "probableCause": "The alarm will occur while any sub-alarm occur in A-POI module.",
+        "handleMeasures": "1. Check the  alarm source to find the root cause\n2. Clear the related alarm to clear the overall alarm",
+        "firstSeen": "2018-05-03T09:28:05.000Z",
+        "lastSeen": "2018-05-03T10:47:25.000Z",
+        "count": 14
+      },
+      {
+        "name": "Baixa Potência de RF DL (A-POI)",
+        "severity": 0,
+        "description": "Potência do canal detectada está muito baixa. Verifique a entrada de RF ou cabos coaxiais. [Canal/Porta: CH. 5]",
+        "probableCause": "The detected channel power <17dBm(Low Power)",
+        "handleMeasures": "1. Please check the input  power\n2. Adjust the suitable attenuator on the input port of RIU\n3. Check the RF input connection of RIU\n4. Change the RIU",
+        "firstSeen": "2018-05-03T10:38:55.000Z",
+        "lastSeen": "2018-05-03T10:41:49.000Z",
+        "count": 2
+      }
+    ],
+    "equipment": "HOTEL FASANO S1",
+    "ip": "192.170.115.101",
+    "site": "HOTEL FASANO S1",
+    "model": "AU",
+    "sn": "AA2470153359",
+    "createdAt": "2026-05-27T16:27:30.128Z",
+    "status": "CONCLUIDA",
+    "notes": "SOLUÇÃO APLICADA por Roberto Mataruco Duarte:\nResolvido",
+    "technician": "",
+    "logs": [
+      {
+        "timestamp": "2026-05-27T16:27:30.128Z",
+        "text": "Ordem de Serviço registrada no sistema."
+      },
+      {
+        "timestamp": "2026-05-27T16:28:44.225Z",
+        "text": "Status alterado para: Em Atendimento"
+      },
+      {
+        "timestamp": "2026-05-28T16:49:00.872Z",
+        "text": "Lifecycle: Status atualizado para Pendente/Pausa"
+      },
+      {
+        "timestamp": "2026-05-28T16:49:02.086Z",
+        "text": "Lifecycle: Status retornado para Novo"
+      },
+      {
+        "timestamp": "2026-05-28T16:54:13.434Z",
+        "text": "Chamado solucionado por Roberto Mataruco Duarte. Solução: Resolvido"
+      }
+    ]
+  },
+  {
+    "osId": "OS-2026-39MNEO",
+    "oldestDate": "2018-04-04T01:09:01.000Z",
+    "durationString": "2976 dia(s) e 15 hora(s)",
+    "alarmGroups": [
+      {
+        "name": "auTddNrSyncLoss",
+        "severity": 0,
+        "description": "Only in TDD NR band, indicates the TDD NR sync failure.",
+        "probableCause": "Only in TDD NR band, indicates the TDD NR sync failure.",
+        "handleMeasures": "1. Check the input signal config , make sure it is correct config \n2. Check the input level, it needs to fit the input signal level range",
+        "firstSeen": "2018-04-04T02:01:18.000Z",
+        "lastSeen": "2018-05-03T10:43:17.000Z",
+        "count": 15
+      },
+      {
+        "name": "auHeartbeat",
+        "severity": 0,
+        "description": "Heartbeat.",
+        "probableCause": "Heartbeat.",
+        "handleMeasures": "Verificar conexões físicas do equipamento.",
+        "firstSeen": "2018-05-03T09:05:31.000Z",
+        "lastSeen": "2018-05-03T09:13:32.000Z",
+        "count": 9
+      },
+      {
+        "name": "Alarme Geral do Módulo",
+        "severity": 3,
+        "description": "Ocorre quando qualquer sub-alarme no módulo é acionado. Verifique a causa primária no equipamento. [Canal/Porta: CH. 2]",
+        "probableCause": "The alarm will occur while any sub-alarm occur in A-POI module.",
+        "handleMeasures": "1. Check the  alarm source to find the root cause\n2. Clear the related alarm to clear the overall alarm",
+        "firstSeen": "2018-04-04T01:09:01.000Z",
+        "lastSeen": "2018-04-04T02:27:12.000Z",
+        "count": 15
+      },
+      {
+        "name": "auOverallAlarm",
+        "severity": 0,
+        "description": "The alarm will occur while any sub-alarm occur in the unit.",
+        "probableCause": "The alarm will occur while any sub-alarm occur in the unit.",
+        "handleMeasures": "1. Check the  alarm source to find the root cause\n2. clear the related alarm to clear the overall alarm",
+        "firstSeen": "2018-04-04T02:01:21.000Z",
+        "lastSeen": "2018-04-04T02:11:53.000Z",
+        "count": 9
+      },
+      {
+        "name": "ruOverflow",
+        "severity": 0,
+        "description": "Indicates the uplink input  of RU is overflow.",
+        "probableCause": "Indicates the uplink input  of RU is overflow.",
+        "handleMeasures": "1. Keep the enough distance between UE's and RU's antenna\n2. Reboot the device",
+        "firstSeen": "2018-04-04T02:08:15.000Z",
+        "lastSeen": "2018-04-04T02:08:15.000Z",
+        "count": 1
+      },
+      {
+        "name": "a-poiDlInputShutdownAlarm",
+        "severity": 0,
+        "description": "The detected channel power >38dBm(Low Power), >50dBm(High Power) [Canal/Porta: CH. 6]",
+        "probableCause": "The detected channel power >51dBm.",
+        "handleMeasures": "1. Please check the RIU input power\n2. Add the suitable attenuator on the input port of RIU",
+        "firstSeen": "2018-04-04T02:07:58.000Z",
+        "lastSeen": "2018-04-04T02:07:58.000Z",
+        "count": 1
+      }
+    ],
+    "equipment": "MAG SHOPPING S1",
+    "ip": "192.170.114.101",
+    "site": "S1 MAG Shopping",
+    "model": "AU",
+    "sn": "AA23B0115815",
+    "createdAt": "2026-05-28T16:55:11.606Z",
+    "status": "NOVA",
+    "notes": "",
+    "technician": "",
+    "logs": [
+      {
+        "timestamp": "2026-05-28T16:55:11.606Z",
+        "text": "Ordem de Serviço registrada no sistema."
+      }
+    ]
+  }
+]

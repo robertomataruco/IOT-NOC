@@ -1,0 +1,196 @@
+Alarm Name;OID;Minimum Threshold;Maximum Threshold;Hierarchy;Alarm Probable Cause;Alarm Type;Alarm Handle Measures
+a-poiOverallAlarm; .1.3.6.1.4.1.15921.60.1.2.100;NA;NA;Major; The alarm will occur while any sub-alarm occur in A-POI module.;Device Alarm;"1. Check the  alarm source to find the root cause
+2. Clear the related alarm to clear the overall alarm"
+a-poiDlInputShutdownAlarm; .1.3.6.1.4.1.15921.60.1.2.101;NA;>51dBm ;Critic; The detected channel power >51dBm.;Environmental Alarm;"1. Please check the RIU input power
+2. Add the suitable attenuator on the input port of RIU"
+a-poiFanFault; .1.3.6.1.4.1.15921.60.1.2.102;NA;NA;Minor; The alarm will occur while any one of FANs fail.;Device Alarm;"1. Check the connection of the FAN
+2. Replace the related FAN module"
+a-poiLowInputPower; .1.3.6.1.4.1.15921.60.1.2.103;<38VDC / <100VAC;NA;Critic; The alarm will occur while DC input power<38V or AC  input power<100V.;Environmental Alarm;"1. Check the power socket connection
+2. Change the PSU module for AC supply
+3. Change the RIU "
+a-poiOverTemperature; .1.3.6.1.4.1.15921.60.1.2.104;NA;>80°C;Critic; The detected temperature greater than overtemperature threshold.;Environmental Alarm;"1. Check if there is FAN alarm
+2. Check the environment temperature, need to guarantee the environment temperature no more than 45 degree
+3. Check the mechanical of the device, make sure there is no dust in the device
+4. Keeps some clearance (20cm) of the device"
+a-poiDlInputOverloadAlarm; .1.3.6.1.4.1.15921.60.1.2.105;NA;>49dBm high power(configurable);Critic; The detected channel power >49dBm(High Power);Environmental Alarm;"1. Please check the RIU input power
+2. Add the suitable attenuator on the input port of RIU"
+a-poiDlRfLowPower; .1.3.6.1.4.1.15921.60.1.2.106;<17dBm low power(configurable);NA;Major; The detected channel power <17dBm(Low Power);Environmental Alarm;"1. Please check the input  power
+2. Adjust the suitable attenuator on the input port of RIU
+3. Check the RF input connection of RIU
+4. Change the RIU"
+euOverallAlarm; .1.3.6.1.4.1.15921.60.1.2.200;NA;NA;Major; The alarm will occur while any sub-alarm occur in the unit.;Device Alarm;"1. Check the  alarm source to find the root cause
+2. Clear the related alarm to clear the overall alarm"
+euInputUnderVoltage; .1.3.6.1.4.1.15921.60.1.2.202;<38VDC / <100VAC;NA;Critic; The alarm will occur while DC input power<38V or AC  input power<100V.;Environmental Alarm;"1. Check the input power voltage range
+2. Check the connection of the power socket
+3. Replace the module"
+euPowerSupplyOverTemperature; .1.3.6.1.4.1.15921.60.1.2.203;NA;>80°C(configurable);Critic; The alarm will occur while power supply in high temperature.;Environmental Alarm;"1. Check if there is FAN alarm
+2. Check the environment temperature, need to guarantee the environment temperature no more than 45 degree
+3. Check the mechanical of the device, make sure there is no dust in the device
+4. Keeps some clearance (20cm) of the device"
+euFanFault; .1.3.6.1.4.1.15921.60.1.2.204;NA;NA;Minor; The alarm will occur while any one of FANs(totally 4) fail.;Device Alarm;"1. Check the connection of the FAN
+2. Replace the related FAN module"
+euOverTemperature; .1.3.6.1.4.1.15921.60.1.2.205;NA;>80°C(configurable);Critic; The detected temperature greater than overtemperature threshold.;Environmental Alarm;"1. Check if there is FAN alarm
+2. Check the environment temperature, need to guarantee the environment temperature no more than 45 degree
+3. Check the mechanical of the device, make sure there is no dust in the device
+4. Keeps some clearance (20cm) of the device"
+euCpriLinkTxFault; .1.3.6.1.4.1.15921.60.1.2.206;<-3dBm;>5dBm;Major;"Indicates one of the following SFP problems :TX/RX levels, Temperature,
+TX/RX fault, TX/RX disable, absence (removing the SFP from the cage) . ";Link Alarm;"1. Check if a fiber optic cable is disconnected, make sure the connection is stable
+2. Check if SFP problem- try to replace with another SFP
+3. Clean fiber optic cable/connector"
+euCpriLinkRxFault; .1.3.6.1.4.1.15921.60.1.2.207;<-10dBm;NA;Major;" Indicates one of the following SFP problems :TX/RX levels, Temperature,
+TX/RX fault, TX/RX disable, absence (removing the SFP from the cage) . ";Link Alarm;"1. Check if a fiber optic cable is disconnected, make sure the connection is stable
+2. Check if SFP problem- try to replace with another SFP
+3. Clean fiber optic cable/connector"
+euCpriSyncFault; .1.3.6.1.4.1.15921.60.1.2.208;NA;NA;Major; Indicates the SFP Synthesizer failure .;Link Alarm;"1. Check if a fiber optic cable is disconnected 
+2. Check if SFP problem- try to replace with another SFP
+3. Clean fiber optic cable/connector
+4. Check if the pair of SFPs are in same type
+5. Check the software version and its release note for the limitation"
+euCpriLinkFault; .1.3.6.1.4.1.15921.60.1.2.209;NA;NA;Major; Indicates the SFP link failure.;Link Alarm;"1. Check if the fiber optic cable is disconnected 
+2. Check if the Sync fault
+2. Check if SFP problem - try to replace with another SFP
+3. Clean fiber optic cable/connector
+4. Check if the pair of SFPs are in same type
+5. Reboot the device"
+euCpriOverTemperature; .1.3.6.1.4.1.15921.60.1.2.210;NA;>80°C(configurable);Critic; Indicates the SFP is in high temperature.;Environmental Alarm;"1. Check if the device has the over temperature alarm, and deal with OverallAlarm 
+2. Check the SFP install  
+3. Change the SFP "
+euHardwareFault; .1.3.6.1.4.1.15921.60.1.2.213;NA;NA;Critic; The alarm will occur while the hardware is fail;Device Alarm;"1. Check if any other alarms are occurred
+2. Reboot the device
+3. Change the device if hardware is fail"
+euVersionMismatch; .1.3.6.1.4.1.15921.60.1.2.214;NA;NA;Minor; Module version not match to system version.;Application Alarm;"1. Please check the device version and system version
+2. Please check the release note for the version match"
+ruOverallAlarm; .1.3.6.1.4.1.15921.60.1.2.300;NA;NA;Major; The alarm will occur while any sub-alarm occur in the unit.;Device Alarm;"1. Check the  alarm source to find the root cause
+2. Clear the related alarm to clear the overall alarm"
+ruHardwareFault; .1.3.6.1.4.1.15921.60.1.2.301;NA;NA;Critic; The alarm will occur while the hardware is fail.;Device Alarm;"1. Check if any other alarms are occurred
+2. Reboot the device
+3. Change the device if hardware is fail"
+ruOverTemperature; .1.3.6.1.4.1.15921.60.1.2.302;NA;>80°C(configurable);Critic; The alarm will occur while the temperature of RU is higher then threshold.;Environmental Alarm;"1. Check if there is FAN alarm(dMRU)
+2. Check the environment temperature, need to guarantee the environment temperature no more than 45 degree
+3. Check the mechanical of the device, make sure there is no dust in the device
+4. Keeps some clearance (20cm) of the device"
+ruUnderVoltage; .1.3.6.1.4.1.15921.60.1.2.303;<38VDC / <100VAC;NA;Critic; The alarm will occur while DC input power<38V or AC  input power<100V.;Environmental Alarm;"1. Verify input power level
+2. Check the connections of the power socket
+3. Replace the device"
+ruSfpTxFault; .1.3.6.1.4.1.15921.60.1.2.304;<-3dBm;>5dBm;Major;" Indicates one of the following SFP problems (aggregated per port):
+TX levels(<-3dBm or >5dBm),Temperature,TX disable,
+absence (removing the SFP from the cage) and TBD.
+Add Port number as Trap parameter.";Link Alarm;"1. Check if a fiber optic cable is disconnected, make sure the connection is stable
+2. Check if SFP problem- try to replace with another SFP
+3. Clean fiber optic cable/connector"
+ruSfpRxFault; .1.3.6.1.4.1.15921.60.1.2.305;<-10dBm;NA;Major;" Indicates one of the following SFP problems (aggregated per port):
+RX levels(<-10dBm ),Temperature, RX disable,
+absence (removing the SFP from the cage) and TBD.
+Add Port number as Trap parameter.";Link Alarm;"1. Check if a fiber optic cable is disconnected, make sure the connection is stable
+2. Check if SFP problem- try to replace with another SFP
+3. Clean fiber optic cable/connector"
+ruSfpSyncfault; .1.3.6.1.4.1.15921.60.1.2.306;NA;NA;Major; Indicates the SFP Synthesizer failure .;Link Alarm;"1. Check if a fiber optic cable is disconnected 
+2. Check if SFP problem- try to replace with another SFP
+3. Clean fiber optic cable/connector
+4. Check if the pair of SFPs are in same type
+5. Check the software version and its release note for the limitation"
+ruSfpOverTemperature; .1.3.6.1.4.1.15921.60.1.2.307;NA;>80°C;Critic; Indicates the temperature of SFP is higher than threshold.;Environmental Alarm;"1. Check if the device has the over temperature alarm, and deal with OverallAlarm 
+2. Check the SFP install  
+3. Change the SFP "
+ruOverPowerConsumption; .1.3.6.1.4.1.15921.60.1.2.310;NA;" >100W(RUL ERP: 610400-000081-0000)
+>55W(RUL ERP: 610400-000169-0000 )";Critic; The alarm will occur while RU is working over its design power consumption.;Device Alarm;"1. Check the other alarms in the device
+2. Check if the output power if it is over the rated level 
+3. Check the antenna port connections
+4. Reboot the device"
+ruOverflow; .1.3.6.1.4.1.15921.60.1.2.311;NA;>30dB;Critic; Indicates the uplink input  of RU is overflow.;Environmental Alarm;"1. Keep the enough distance between UE's and RU's antenna
+2. Reboot the device"
+ruLowTransmission; .1.3.6.1.4.1.15921.60.1.2.312;NA;NA;Minor; Indicates the downlink input is normal, but the downlink output of device is too low.;Device Alarm;"1. Check the other alarms in the device
+2. Check if the output power is too low 
+3. Reboot the device
+4. Change the device"
+ruVswrAlarm; .1.3.6.1.4.1.15921.60.1.2.313;NA;>2.0(configurable);Major; Indicates the VSWR is more than threshold (2.0).;Environmental Alarm;"1. Check the connection of antenna port, make sure it is connection with antenna or load
+2. Check the connected antenna or load is in good condition
+3. Change the antenna or load
+4. Test the device VSWR 
+5. Chane the device"
+ruAntennaAlarm; .1.3.6.1.4.1.15921.60.1.2.314;NA;>2.5(configurable);Critic; Indicates the antenna port VSRW is more than threshold(2.5).;Environmental Alarm;"1. Check the connection of antenna port, make sure it is connection with antenna or load
+2. Check the connected antenna or load is in good condition
+3. Change the antenna or load
+4. Test the device VSWR 
+5. Chane the device"
+ruPaAlarm; .1.3.6.1.4.1.15921.60.1.2.315;NA;NA;Critic; The alarm will occur while PA is alarm.;Device Alarm;"1. Check the other alarms in the device
+2. Reboot the device
+3. Chane the device"
+ruVersionMismatch; .1.3.6.1.4.1.15921.60.1.2.317;NA;NA;Minor; Module version not match to system version.;Application Alarm;"1. Please check the device version and system version
+2. Please check the release note for the version match"
+ruServiceOff; .1.3.6.1.4.1.15921.60.1.2.318;NA;NA;Major; Device service off.;Service Alarm;"1. Check the other alarms in the device
+2. Try clear the related alarm
+3. Check the carrier, radio switch config
+4. Reboot the device
+5. Change the device if hardware issue"
+ruMismatch; .1.3.6.1.4.1.15921.60.1.2.319;NA;NA;Minor;The RU and EU module type is not match, the RU work abnormal.;Application Alarm;"1. Check the other alarms in the device
+2. Reboot the device
+3. Connect the RU to right EU"
+ruDLOutputLowAlarm; .1.3.6.1.4.1.15921.60.1.2.320;<-99dBm (configurable);NA;Minor;Download Output Power is  less than threshold(-99 dBm as default value);Device Alarm;"1. Check the other alarms in the device
+2. Check the input power in the AU
+3. Reboot the device
+4. Change the device"
+ruDLOutputOverAlarm; .1.3.6.1.4.1.15921.60.1.2.321;NA;">nominal power+2dB (configurable)
+(700>19dBm
+1800,2100,2600>23dBm
+3500>29dBm)";Critic;Download Output Power is  more than threshold(48dBm as default value);Device Alarm;"1. Check the other alarms in the device
+2. Reboot the device
+3. Set some ATT value in RU"
+auOverallAlarm; .1.3.6.1.4.1.15921.60.1.2.400;NA;NA;Major; The alarm will occur while any sub-alarm occur in the unit.;Device Alarm;"1. Check the  alarm source to find the root cause
+2. clear the related alarm to clear the overall alarm"
+auPowerSupplyOverTemperature; .1.3.6.1.4.1.15921.60.1.2.402;NA;>80°C(configurable);Critic; The alarm will occur while power supply in high temperature.;Environmental Alarm;"1. Check if there is FAN alarm
+2. Check the environment temperature, need to guarantee the environment temperature no more than 45 degree
+3. Check the mechanical of the device, make sure there is no dust in the device
+4. Keeps some clearance (20cm) of the device"
+auPowerSupplyInputUnderVoltage; .1.3.6.1.4.1.15921.60.1.2.403;<38VDC / <100VAC;NA;Critic; The alarm will occur while DC input power<38V or AC  input power<100V.;Environmental Alarm;"1. Check the input power voltage range
+2. Check the connection of the power socket
+3. Replace the module"
+auOverTemperature; .1.3.6.1.4.1.15921.60.1.2.404;NA;>80°C (configurable);Critic; The detected temperature greater than overtemperature threshold.;Environmental Alarm;"1. Check if there is FAN alarm
+2. Check the environment temperature, need to guarantee the environment temperature no more than 45 degree
+3. Check the mechanical of the device, make sure there is no dust in the device
+4. Keeps some clearance (20cm) of the device"
+auFanFault; .1.3.6.1.4.1.15921.60.1.2.405;NA;NA;Minor; The alarm will occur while any one of FANs(totally 4) in AU fail.;Device Alarm;"1. Check the connection of the FAN
+2. Replace the related FAN module"
+auCpriLinkTxFault; .1.3.6.1.4.1.15921.60.1.2.406;<-3dBm;>5dBm;Major;" Indicates one of the following SFP problems :TX/RX levels, Temperature,
+TX/RX fault, TX/RX disable, absence (removing the SFP from the cage) .";Link Alarm;"1. Check if a fiber optic cable is disconnected, make sure the connection is stable
+2. Check if SFP problem- try to replace with another SFP
+3. Clean fiber optic cable/connector"
+auCpriLinkRxFault; .1.3.6.1.4.1.15921.60.1.2.407;<-10dBm;NA;Major;" Indicates one of the following SFP problems :TX/RX levels, Temperature,
+TX/RX fault, TX/RX disable, absence (removing the SFP from the cage) .";Link Alarm;"1. Check if a fiber optic cable is disconnected, make sure the connection is stable
+2. Check if SFP problem- try to replace with another SFP
+3. Clean fiber optic cable/connector"
+auCpriSyncFault; .1.3.6.1.4.1.15921.60.1.2.408;NA;NA;Major; Indicates the SFP Synthesizer failure.;Link Alarm;"1. Check if a fiber optic cable is disconnected 
+2. Check if SFP problem- try to replace with another SFP
+3. Clean fiber optic cable/connector
+4. Check if the pair of SFPs are in same type
+5. Check the software version and its release note for the limitation"
+auCpriLinkFault; .1.3.6.1.4.1.15921.60.1.2.409;NA;NA;Critic; Indicates the SFP link failure.;Link Alarm;"1. Check if the fiber optic cable is disconnected 
+2. Check if the Sync fault
+2. Check if SFP problem - try to replace with another SFP
+3. Clean fiber optic cable/connector
+4. Check if the pair of SFPs are in same type
+5. Check the software version and its release note for the limitation"
+auCpriOverTemperature; .1.3.6.1.4.1.15921.60.1.2.410;NA;>80°C(configurable);Critic; Indicates the SFP is in high temperature.;Environmental Alarm;"1. Check if the device has the over temperature alarm, and deal with OverallAlarm 
+2. Check the SFP install  
+3. Change the SFP "
+auHardwareFault; .1.3.6.1.4.1.15921.60.1.2.412;NA;NA;Critic; The alarm will occur while hardware is fail.;Device Alarm;"1. Check if any other alarms are occurred
+2. Reboot the device
+3. Change the device if hardware is fail"
+auSystemOverTimeDelay; .1.3.6.1.4.1.15921.60.1.2.415;NA;>70us;Critic; AU system over time delay , the system delays more than 70us.;Application Alarm;"1.Check the delay threshold no more than 60us
+2. Check the fiber link connections
+3. Check the total fiber length, which is no more than 10km 
+4. Rebootthe device
+5. Replace the device"
+auDLInputOverPowerInChannel; .1.3.6.1.4.1.15921.60.1.2.416;NA;>10dBm (configurable);Critic; The DL input power is more than threshold(10dBm as default value).;Environmental Alarm;"1. Please check the input  power
+2. Adjust the suitable attenuator on the input port of RIU
+3. Check the RF input connection between RIU and AU
+4. Change the AU"
+auVersionMismatch; .1.3.6.1.4.1.15921.60.1.2.418;NA;NA;Minor; Module version not match to system version.;Application Alarm;"1. Please check the device version and system version
+2. Please check the release note for the version match"
+auServiceOff; .1.3.6.1.4.1.15921.60.1.2.419;NA;NA;Critic; Device service off .;Service Alarm;"1. Check the other alarms in the device
+2. Try clear the related alarm
+3. Check the carrier, radio switch config
+4. Reboot the device
+5. Change the device if hardware issue"
+auTddNrSyncLoss; .1.3.6.1.4.1.15921.60.1.2.420;NA;NA;Major; Only in TDD NR band, indicates the TDD NR sync failure.;Environmental Alarm;"1. Check the input signal config , make sure it is correct config 
+2. Check the input level, it needs to fit the input signal level range"

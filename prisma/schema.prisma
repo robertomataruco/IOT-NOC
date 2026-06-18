@@ -1,0 +1,188 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/client"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dashboard.db"
+}
+
+model User {
+  id                 String     @id @default(uuid())
+  name               String
+  username           String     @unique
+  passwordHash       String
+  role               String     @default("USER") // ADMIN or USER
+  company            String?
+  companyId          String?
+  companyRef         Company?   @relation("CompanyToUser", fields: [companyId], references: [id], onDelete: SetNull)
+  phone              String?
+  email              String?
+  mustChangePassword Boolean    @default(false)
+  canAccessInfo      Boolean    @default(false)
+  lastActive         DateTime?
+  createdAt          DateTime   @default(now())
+  access             UserAccess[]
+}
+
+model State {
+  id        String   @id @default(uuid())
+  name      String   @unique
+  uf        String   @unique
+  cities    City[]
+  createdAt DateTime @default(now())
+}
+
+model City {
+  id          String       @id @default(uuid())
+  name        String
+  stateId     String
+  state       State        @relation(fields: [stateId], references: [id], onDelete: Cascade)
+  devices     Device[]
+  kronDevices KronDevice[]
+  access      UserAccess[]
+  address     String?
+  latitude    Float?
+  longitude   Float?
+  createdAt   DateTime     @default(now())
+
+  @@unique([name, stateId])
+}
+
+model Device {
+  id           String   @id @default(uuid())
+  name         String
+  ip           String   @unique
+  serial       String?  @unique
+  cityId       String
+  city         City     @relation(fields: [cityId], references: [id], onDelete: Cascade)
+  traps        Trap[]
+  lastSeen     DateTime @default(now())
+  hasAlarm     Boolean  @default(false)
+  lastSnmpData String?
+  lastSnmpSync DateTime?
+  status       String   @default("ONLINE")
+  active       Boolean  @default(true)
+  syncError    String?
+  companyId    String?
+  company      Company? @relation("CompanyToDevice", fields: [companyId], references: [id], onDelete: SetNull)
+  vpnUsername  String?
+  vpnStatus    String   @default("OFFLINE")
+  vpnIp        String?
+  vpnLastSeen  DateTime?
+  address      String?
+  latitude     Float?
+  longitude    Float?
+  createdAt    DateTime @default(now())
+  telemetry    DeviceTelemetry[]
+}
+
+model DeviceTelemetry {
+  id         String   @id @default(uuid())
+  deviceId   String
+  device     Device   @relation(fields: [deviceId], references: [id], onDelete: Cascade)
+  timestamp  DateTime @default(now())
+  hardware   String   // e.g. "apoi1_ch1", "au1", "ausfp1", "eu1"
+  metrics    String   // JSON string of metrics, e.g. { "dlPower": 35.00, "ulPower": -12.45, "temperature": 36 }
+
+  @@index([deviceId, hardware, timestamp])
+}
+
+model UserAccess {
+  userId     String
+  cityId     String
+  permission String @default("VIEW")
+  user       User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  city       City   @relation(fields: [cityId], references: [id], onDelete: Cascade)
+
+  @@id([userId, cityId])
+}
+
+model Trap {
+  id              String    @id @default(uuid())
+  deviceId        String?
+  deviceSerial    String?
+  ctrlName        String?
+  severity        Int       @default(0)
+  oid             String
+  alarmName       String
+  description     String
+  fullText        String
+  timestamp       DateTime  @default(now())
+  isCleared       Boolean   @default(false)
+  // Controle de notificações: quando foi enviado o último alerta para este alarme
+  // Usado para evitar spam: só reenvia se passaram mais de 24h (lembrete)
+  lastNotifiedAt  DateTime?
+
+  device          Device?   @relation(fields: [deviceId], references: [id])
+}
+
+model Company {
+  id            String    @id @default(uuid())
+  name          String    @unique
+  status        String    @default("ATIVO")
+  paymentStatus String    @default("PAGO")
+  dueDate       DateTime?
+  lastPaymentAt DateTime?
+  blockedAt     DateTime?
+  createdAt     DateTime  @default(now())
+
+  users         User[]       @relation("CompanyToUser")
+  devices       Device[]     @relation("CompanyToDevice")
+  kronDevices   KronDevice[]
+}
+
+// ─── KRON KS-3000 — Medição Elétrica via MQTT ────────────────────────────────
+
+model KronDevice {
+  id        String   @id @default(uuid())
+  name      String                   // Ex: "Medidor Quadro Principal"
+  serial    String   @unique         // Serial do KS-3000 — chave de identificação MQTT
+  mqttTopic String                   // Ex: "kron/ABC123/data"
+  location  String?                  // Localização física
+  cityId    String?                  // Vínculo com cidade (Estado → Cidade → Medidor)
+  companyId String?
+  active    Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  city      City?         @relation(fields: [cityId], references: [id], onDelete: SetNull)
+  company   Company?      @relation(fields: [companyId], references: [id], onDelete: SetNull)
+  readings  KronReading[]
+}
+
+model KronReading {
+  id           String   @id @default(uuid())
+  kronDeviceId String
+  receivedAt   DateTime @default(now())
+
+  // ─── Tensão Trifásica (V) ───
+  voltageA     Float?   // Va  — Fase A
+  voltageB     Float?   // Vb  — Fase B
+  voltageC     Float?   // Vc  — Fase C
+
+  // ─── Corrente por Fase (A) ───
+  currentI1    Float?   // I1
+  currentI2    Float?   // I2
+  currentI3    Float?   // I3
+
+  // ─── Potência Ativa Trifásica (kW) ───
+  activePowerTotal Float?  // Ptot / P3F
+
+  // ─── Fator de Potência por Fase ───
+  powerFactor1 Float?   // FP1
+  powerFactor2 Float?   // FP2
+  powerFactor3 Float?   // FP3
+
+  // ─── Energia (kWh) ───
+  energyActivePos Float?  // EA+ — Energia Ativa Positiva acumulada
+  energyActiveNeg Float?  // EA- — Energia Ativa Negativa acumulada
+
+  // ─── Payload bruto para debug ───
+  rawPayload   String?
+
+  device       KronDevice @relation(fields: [kronDeviceId], references: [id], onDelete: Cascade)
+
+  @@index([kronDeviceId, receivedAt])
+}

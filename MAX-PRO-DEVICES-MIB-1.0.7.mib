@@ -1,0 +1,4300 @@
+--
+-- MAX-PRO-DEVICES-MIB.mib
+--
+
+    MAX-PRO-DEVICES-MIB DEFINITIONS ::= BEGIN
+ 
+        IMPORTS
+            OBJECT-TYPE, MODULE-IDENTITY, NOTIFICATION-TYPE            
+                FROM SNMPv2-SMI            
+            DisplayString,TEXTUAL-CONVENTION            
+                FROM SNMPv2-TC;
+		       
+		Float ::= TEXTUAL-CONVENTION
+		    STATUS          current
+		    DESCRIPTION     "This type represents a 32-bit (4-octet) IEEE
+		                    floating-point number in binary interchange format."
+		    REFERENCE       "IEEE Standard for Floating-Point Arithmetic,
+		                    Standard 754-2008"
+		    SYNTAX          OCTET STRING (SIZE(32))
+    
+    	-- 1.3.6.1.4.1.15921.60
+        max-comflexpro MODULE-IDENTITY 
+            LAST-UPDATED "202405091712Z"          
+            ORGANIZATION 
+                "N/A"
+            CONTACT-INFO 
+                "N/A"
+            DESCRIPTION 
+                "This is max-pro devices mib Version: 1.0.7"
+            REVISION "202405091712Z"          
+            DESCRIPTION 
+                "Version 1.0.7"
+            ::= { digitalDAS 60 }
+--
+-- Node definitions
+--
+    	-- 1.3.6.1.4.1
+        enterprises OBJECT IDENTIFIER ::= { iso(1) org(3) dod(6) internet(1) private(4) 1 }
+        
+        -- 1.3.6.1.4.1.15921
+        digitalDAS OBJECT IDENTIFIER ::= { enterprises 15921 }
+        
+        -- 1.3.6.1.4.1.15921.60.2
+        AU          OBJECT IDENTIFIER ::= {max-comflexpro 2 }
+        
+		-- 1.3.6.1.4.1.15921.60.2.10
+		A-POI          OBJECT IDENTIFIER ::= { AU 10 }
+		
+		-- 1.3.6.1.4.1.15921.60.2.20
+        EU          OBJECT IDENTIFIER ::= { AU 20 }
+        
+        -- 1.3.6.1.4.1.15921.60.2.30
+        RU         OBJECT IDENTIFIER ::= { AU 30 } 
+        
+        -- 1.3.6.1.4.1.15921.60.2.40
+        RU10G      OBJECT IDENTIFIER ::= { AU 40 }        
+        
+        -- 1.3.6.1.4.1.15921.60.2.50
+         SAU      OBJECT IDENTIFIER ::= { AU 50 }  
+             
+        -- 1.3.6.1.4.1.15921.60.2.100       
+        UpdateTransaction OBJECT IDENTIFIER ::= { AU 100 }
+        
+        ConfigTransaction OBJECT IDENTIFIER ::= { AU 101 }
+        
+        ExportTransaction OBJECT IDENTIFIER ::= { AU 102 } 
+        
+-- --------------------------------------------------------------------------
+-- Last Update 16/10/2022 by Jmr
+-- AU ----------------------------------------------------------------------
+--auDeviceInfo  OBJECT IDENTIFIER ::= { AU 1 }
+
+		-- 1.3.6.1.4.1.15921.60.2.1
+        auDeviceInfo  OBJECT IDENTIFIER ::= { AU 1 }
+        
+		auID                   OBJECT-TYPE
+            SYNTAX              INTEGER
+            MAX-ACCESS          read-only
+            STATUS              current
+            DESCRIPTION
+                                "AU Index - system define."
+        ::= { auDeviceInfo 1 }
+		
+		auEquipmentModel       OBJECT-TYPE
+            SYNTAX              DisplayString
+            MAX-ACCESS          read-only
+            STATUS              current
+            DESCRIPTION
+                                "AU Equipment Model."
+        ::= { auDeviceInfo 2 }
+        
+        auEquipmentMode       OBJECT-TYPE
+            SYNTAX              INTEGER
+            {
+            			primarily(0),
+					    secondary(1)
+            }
+            MAX-ACCESS          read-write
+            STATUS              current
+            DESCRIPTION
+                                "AU Equipment Model."
+        ::= { auDeviceInfo 3 }
+        
+        auEquipmentSN          OBJECT-TYPE
+            SYNTAX              DisplayString
+            MAX-ACCESS          read-only
+            STATUS              current
+            DESCRIPTION
+                                "AU Equipment Serial No."
+        ::= { auDeviceInfo 4 }
+        
+        auSiteInfo             OBJECT-TYPE
+            SYNTAX              DisplayString
+            MAX-ACCESS          read-write
+            STATUS              current
+            DESCRIPTION
+                                "Site Info."
+        ::= { auDeviceInfo 5 }
+        
+        auEquipmentTemperature OBJECT-TYPE
+            SYNTAX              INTEGER
+            MAX-ACCESS          read-only
+            STATUS              current
+            DESCRIPTION
+                                "AU Equipment Temperature."
+        ::= { auDeviceInfo 6 }
+        
+        auHardwareVersion      OBJECT-TYPE
+            SYNTAX              INTEGER
+            MAX-ACCESS          read-only
+            STATUS              current
+            DESCRIPTION
+                                "AU Hardware Version."
+        ::= { auDeviceInfo 7 }
+        
+        auFanSpeed             OBJECT-TYPE    	
+            SYNTAX              INTEGER
+            UNITS               "r/min" 
+            MAX-ACCESS          read-only
+            STATUS              current
+            DESCRIPTION
+                                "AU Fan Speed."
+        ::= { auDeviceInfo 8 }
+        
+        auDateTime             OBJECT-TYPE
+            SYNTAX              DisplayString
+            MAX-ACCESS          read-write
+            STATUS              current
+            DESCRIPTION
+                                "AU Device Date Time."
+        ::= { auDeviceInfo 9 }
+        
+        auSystemMaxDelay       OBJECT-TYPE
+            SYNTAX              INTEGER 
+            MAX-ACCESS          read-only
+            STATUS              current
+            DESCRIPTION
+                                "AU System Max Delay."
+        ::= { auDeviceInfo 10 }            
+        
+        auLongitude            OBJECT-TYPE
+            SYNTAX              DisplayString
+            MAX-ACCESS          read-write
+            STATUS              current
+            DESCRIPTION
+                                "Longitude."
+        ::= { auDeviceInfo 12 }
+        
+        auLatitude             OBJECT-TYPE
+            SYNTAX              DisplayString
+            MAX-ACCESS          read-write
+            STATUS              current
+            DESCRIPTION
+                                "Latitude."
+        ::= { auDeviceInfo 13 }
+        
+        auSystemVersion        OBJECT-TYPE
+            SYNTAX              DisplayString
+            MAX-ACCESS          read-only
+            STATUS              current
+            DESCRIPTION
+                                "System Version."
+        ::= { auDeviceInfo 14 }
+        
+        a-poiFirmwareVersion      OBJECT-TYPE
+            SYNTAX              DisplayString
+            MAX-ACCESS          read-only
+            STATUS              current
+            DESCRIPTION
+                                "A-POI Firmware Version."
+        ::= { auDeviceInfo 15 }
+        
+        a-poiFDDFirmwareVersion      OBJECT-TYPE
+            SYNTAX              DisplayString
+            MAX-ACCESS          read-only
+            STATUS              current
+            DESCRIPTION
+                                "A-POI-FDD Firmware Version."
+        ::= { auDeviceInfo 16 }
+        
+        auFirmwareVersion      OBJECT-TYPE
+            SYNTAX              DisplayString
+            MAX-ACCESS          read-only
+            STATUS              current
+            DESCRIPTION
+                                "AU Firmware Version."
+        ::= { auDeviceInfo 17 }
+                
+        eu25GFirmwareVersion   OBJECT-TYPE
+            SYNTAX              DisplayString
+            MAX-ACCESS          read-only
+            STATUS              current
+            DESCRIPTION
+                                "EU-25G Firmware Version."
+        ::= { auDeviceInfo 19 }
+                
+        rulFirmwareVersion   OBJECT-TYPE
+            SYNTAX              DisplayString
+            MAX-ACCESS          read-only
+            STATUS              current
+            DESCRIPTION
+                                "RUL Firmware Version."
+        ::= { auDeviceInfo 20 }   
+        
+        a-poi-5GFirmwareVersion   OBJECT-TYPE
+            SYNTAX              DisplayString
+            MAX-ACCESS          read-only
+            STATUS              current
+            DESCRIPTION
+                                "A-POI-5G Firmware Version."
+        ::= { auDeviceInfo 21 } 
+        
+        a-poi-4GFirmwareVersion   OBJECT-TYPE
+            SYNTAX              DisplayString
+            MAX-ACCESS          read-only
+            STATUS              current
+            DESCRIPTION
+                                "A-POI-4G Firmware Version."
+        ::= { auDeviceInfo 22 } 
+        
+        eu10GFirmwareVersion   OBJECT-TYPE
+            SYNTAX              DisplayString
+            MAX-ACCESS          read-only
+            STATUS              current
+            DESCRIPTION
+                                "EU-10G Firmware Version."
+        ::= { auDeviceInfo 23 }
+                 
+        ruhtFirmwareVersion   OBJECT-TYPE
+            SYNTAX              DisplayString
+            MAX-ACCESS          read-only
+            STATUS              current
+            DESCRIPTION
+                                "RUHT Firmware Version."
+        ::= { auDeviceInfo 24 }  
+        
+         ruht2FirmwareVersion   OBJECT-TYPE
+            SYNTAX              DisplayString
+            MAX-ACCESS          read-only
+            STATUS              current
+            DESCRIPTION
+                                "RUHT2 Firmware Version."
+        ::= { auDeviceInfo 25 }  
+        
+        ruhfFirmwareVersion   OBJECT-TYPE
+            SYNTAX              DisplayString
+            MAX-ACCESS          read-only
+            STATUS              current
+            DESCRIPTION
+                                "RUHF Firmware Version."
+        ::= { auDeviceInfo 26 } 
+        
+        a-poih-TDDFirmwareVersion   OBJECT-TYPE
+            SYNTAX              DisplayString
+            MAX-ACCESS          read-only
+            STATUS              current
+            DESCRIPTION
+                                "A-POIH-TDD Firmware Version."
+        ::= { auDeviceInfo 27 } 
+        
+        a-poih-FDDFirmwareVersion   OBJECT-TYPE
+            SYNTAX              DisplayString
+            MAX-ACCESS          read-only
+            STATUS              current
+            DESCRIPTION
+                                "A-POIH-FDD Firmware Version."
+        ::= { auDeviceInfo 28 }                                                                                    
+        
+-- AU ---------------------------------------------------------------------- 
+--auCommInfo    OBJECT IDENTIFIER ::= { AU 2 }        
+        -- 1.3.6.1.4.1.15921.60.2.2
+        auCommInfo    OBJECT IDENTIFIER ::= { AU 2 }
+       
+        auIPType               OBJECT-TYPE
+            SYNTAX              INTEGER
+            {
+            			ipv4(0),
+            			ipv6(1)
+            }
+            MAX-ACCESS          read-write
+            STATUS              current
+            DESCRIPTION
+                                "AU IP Type."
+        ::= { auCommInfo 1 }
+        
+        auIPAddress            OBJECT-TYPE
+            SYNTAX              DisplayString
+            MAX-ACCESS          read-only
+            STATUS              current
+            DESCRIPTION
+                                "AU IP Address."
+        ::= { auCommInfo 2 }
+        
+        auDefaultGateway       OBJECT-TYPE
+            SYNTAX              DisplayString
+            MAX-ACCESS          read-only
+            STATUS              current
+            DESCRIPTION
+                                "AU Default Gateway."
+        ::= { auCommInfo 3 }
+        
+        auSubnetMask           OBJECT-TYPE
+            SYNTAX              DisplayString
+            MAX-ACCESS          read-only
+            STATUS              current
+            DESCRIPTION
+                                "AU Subnet Mask."
+        ::= { auCommInfo 4 }
+        
+        auIPV6Address          OBJECT-TYPE
+            SYNTAX              DisplayString
+            MAX-ACCESS          read-only
+            STATUS              current
+            DESCRIPTION
+                                "AU IPV6 Address."
+        ::= { auCommInfo 5 }
+        
+        auIPV6SubPreLen        OBJECT-TYPE
+            SYNTAX              INTEGER
+            MAX-ACCESS          read-only
+            STATUS              current
+            DESCRIPTION
+                                "AU IPV6 Subnet Prefix Length."
+        ::= { auCommInfo 6 }
+        
+        auIPV6DefaultGateway   OBJECT-TYPE
+            SYNTAX              DisplayString
+            MAX-ACCESS          read-only
+            STATUS              current
+            DESCRIPTION
+                                "AU IPV6 Default Gateway."
+        ::= { auCommInfo 7 }
+        
+        snmpVersion             OBJECT-TYPE
+            SYNTAX              INTEGER
+            {
+            			v2c(0),
+					    v3(1)
+            }
+            MAX-ACCESS          read-write
+            STATUS              current
+            DESCRIPTION
+                                "SNMP Protocol Version."
+        ::= { auCommInfo 8 }
+        
+        snmpTrapDestIP          OBJECT-TYPE
+            SYNTAX              DisplayString
+            MAX-ACCESS          read-write
+            STATUS              current
+            DESCRIPTION
+                                "The IP address of the AU Trap Destination."
+        ::= { auCommInfo 9 }
+        
+        snmpTrapPort            OBJECT-TYPE
+            SYNTAX              INTEGER
+            MAX-ACCESS          read-write
+            STATUS              current
+            DESCRIPTION
+                                "AU SNMP Trap Port."
+        ::= { auCommInfo 10 }
+        
+        snmpPort                OBJECT-TYPE
+            SYNTAX              INTEGER
+            MAX-ACCESS          read-write
+            STATUS              current
+            DESCRIPTION
+                                "SNMP UDP Port Number."
+        ::= { auCommInfo 11 }
+         
+        readCommunity           OBJECT-TYPE
+            SYNTAX              DisplayString
+            MAX-ACCESS          read-write
+            STATUS              current
+            DESCRIPTION
+                                "SNMPv2C readCommunity."
+        ::= { auCommInfo 12 }
+        
+        writeCommunity          OBJECT-TYPE
+            SYNTAX              DisplayString
+            MAX-ACCESS          read-write
+            STATUS              current
+            DESCRIPTION
+                                "SNMPv2C writeCommunity."
+        ::= { auCommInfo 13 }
+        
+        snmpUserName            OBJECT-TYPE
+            SYNTAX              DisplayString
+            MAX-ACCESS          read-write
+            STATUS              current
+            DESCRIPTION
+                                "SNMPv3 snmpUserName."
+        ::= { auCommInfo 14 }
+        
+        snmpAuthenAlgorithm     OBJECT-TYPE
+            SYNTAX              INTEGER
+            {
+            			none(0),
+            			sha(1),
+            			md5(2)
+            }
+            MAX-ACCESS          read-write
+            STATUS              current
+            DESCRIPTION
+                                "SNMPv3 Authentication Algorithm."
+        ::= { auCommInfo 15 }
+        
+		snmpAuthenPassword      OBJECT-TYPE
+            SYNTAX              DisplayString
+            MAX-ACCESS          read-write
+            STATUS              current
+            DESCRIPTION
+                                "SNMPv3 Authentication Password."
+        ::= { auCommInfo 16 }
+        
+        snmpPrivacyAlgorithm    OBJECT-TYPE
+            SYNTAX              INTEGER
+            {
+            			none(0),
+            			des(1),
+            			aes(2)
+            }
+            MAX-ACCESS          read-write
+            STATUS              current
+            DESCRIPTION
+                                "SNMPv3 Privacy Algorithm."
+        ::= { auCommInfo 17 }
+        
+        snmpPrivacyPassword     OBJECT-TYPE
+            SYNTAX              DisplayString
+            MAX-ACCESS          read-write
+            STATUS              current
+            DESCRIPTION
+                                "SNMPv3 Privacy Password."
+        ::= { auCommInfo 18 }    
+        
+        snmpHeartbeatInterval  OBJECT-TYPE
+		    SYNTAX              INTEGER(1..20)
+		    UNITS         		  "min"
+		    MAX-ACCESS          read-write 
+		    STATUS              current 
+		    DESCRIPTION
+                        "The SNMP trap heartbeat interval"
+		::= { auCommInfo 19 }
+
+		snmpHeartbeatSwitch  OBJECT-TYPE
+		    SYNTAX              INTEGER{on(1),off(0)} 
+		    MAX-ACCESS          read-write 
+		    STATUS              current 
+		    DESCRIPTION
+                        "The SNMP trap heartbeat swtich"
+		::= { auCommInfo 20 }
+        
+		
+-- AU ---------------------------------------------------------------------- 
+--auRfInfo    OBJECT IDENTIFIER ::= { AU 3 }         
+ 
+        -- 1.3.6.1.4.1.15921.60.2.3
+        auRfInfo      OBJECT IDENTIFIER ::= { AU 3 }
+        
+        -- 1.3.6.1.4.1.15921.60.2.3.1
+		auRfInfoTable    OBJECT-TYPE
+              SYNTAX  SEQUENCE OF DcuRfInfoEntry
+              ACCESS  not-accessible
+              STATUS  current
+              DESCRIPTION
+                  "AU RF Information  1-16."
+              ::= { auRfInfo   1 }
+
+
+		auRfInfoEntry OBJECT-TYPE
+		              SYNTAX  DcuRfInfoEntry
+		              ACCESS  not-accessible
+		              STATUS  current
+		              DESCRIPTION
+		                  "An entry in the table about Device  Infomation of RF."
+		              INDEX   { auRfInfoIndex }
+		              ::= { auRfInfoTable    1 }
+		
+		DcuRfInfoEntry::=
+		      SEQUENCE {  
+		              auRfInfoIndex      INTEGER,
+					  auDlPwrIn          Float,
+					  auUlPwrOut         Float
+		}  
+		
+		auRfInfoIndex          OBJECT-TYPE
+		    SYNTAX              INTEGER
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "AU RF Index."
+		::= { auRfInfoEntry 1 }
+		
+		auDlPwrIn              OBJECT-TYPE
+		    SYNTAX              Float
+		    UNITS               "dBm" 
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "AU DL Input Power."
+		::= { auRfInfoEntry 2 }
+		
+		auUlPwrOut             OBJECT-TYPE
+		    SYNTAX              Float
+		    UNITS               "dBm" 
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "AU UL Output Power."
+		::= { auRfInfoEntry 3 }
+		
+		
+-- AU ---------------------------------------------------------------------- 
+--auSFPInfo    OBJECT IDENTIFIER ::= { AU 4 }          
+        -- 1.3.6.1.4.1.15921.60.2.4
+        auSFPInfo     OBJECT IDENTIFIER ::= { AU 4 }
+        
+        -- 1.3.6.1.4.1.15921.60.2.4.1
+		auSFPInfoTable    OBJECT-TYPE
+              SYNTAX  SEQUENCE OF DcuSFPInfoEntry
+              ACCESS  not-accessible
+              STATUS  current
+              DESCRIPTION
+                  "AU SFP Information  A-F,1-8."
+              ::= { auSFPInfo   1 }
+
+
+		auSFPInfoEntry OBJECT-TYPE
+		              SYNTAX  DcuSFPInfoEntry
+		              ACCESS  not-accessible
+		              STATUS  current
+		              DESCRIPTION
+		                  "An entry in the table about Device  Infomation of SFP."
+		              INDEX   { auSFPInfoIndex }
+		              ::= { auSFPInfoTable    1 }
+		
+		DcuSFPInfoEntry::=
+		      SEQUENCE {  
+		              auSFPInfoIndex     INTEGER,
+		              auSFPPortNum       DisplayString,
+					  auSFPTemperature   INTEGER,		
+					  auSFPTxPower       Float,
+					  auSFPRxPower       Float
+		}  
+		
+		auSFPInfoIndex         OBJECT-TYPE
+		    SYNTAX              INTEGER 
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "SFP Index. The Index 1-6 represent Optical Port A-F. The Index 7-14 represent Optical Port 1-8."
+		::= { auSFPInfoEntry 1 }
+		
+		auSFPPortNum           OBJECT-TYPE
+		    SYNTAX              DisplayString 
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "Optical Port A-F and Optical Port 1-8."
+		::= { auSFPInfoEntry 2 }
+		
+		auSFPTemperature       OBJECT-TYPE
+		    SYNTAX              INTEGER
+		    UNITS               "C"  
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "AU SFP Temperature."
+		::= { auSFPInfoEntry 3 }
+		
+		auSFPTxPower           OBJECT-TYPE
+		    SYNTAX              Float
+		    UNITS               "dBm"  
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "AU SFP Tx Power."
+		::= { auSFPInfoEntry 4 }
+		
+		auSFPRxPower           OBJECT-TYPE
+		    SYNTAX              Float
+		    UNITS               "dBm"  
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "AU SFP Rx Power."
+		::= { auSFPInfoEntry 5 }		
+		
+		
+-- AU ---------------------------------------------------------------------- 
+--auControl    OBJECT IDENTIFIER ::= { AU 5 }          
+        
+        -- 1.3.6.1.4.1.15921.60.2.5
+        auControl     OBJECT IDENTIFIER ::= { AU 5 }
+        
+        auHardwareReset        OBJECT-TYPE
+            SYNTAX              INTEGER
+            {
+        				reset(1)
+			} 
+            MAX-ACCESS          read-write
+            STATUS              current
+            DESCRIPTION
+                                "AU Hardware Reset."
+        ::= { auControl 1 }
+        
+        auSoftwareReset        OBJECT-TYPE
+            SYNTAX              INTEGER
+            {
+        				reset(1)
+			} 
+            MAX-ACCESS          read-write
+            STATUS              current
+            DESCRIPTION
+                                "AU Software Reset."
+        ::= { auControl 2 }
+        
+        auBaseLineSave         OBJECT-TYPE
+            SYNTAX              INTEGER
+            {
+        				save(1)
+			} 
+            MAX-ACCESS          read-write
+            STATUS              current
+            DESCRIPTION
+                                "AU BaseLine Save."
+        ::= { auControl 3 }
+        
+        auBaseLineClear        OBJECT-TYPE
+            SYNTAX              INTEGER
+            {
+        				clear(1)
+			} 
+            MAX-ACCESS          read-write
+            STATUS              current
+            DESCRIPTION
+                                "AU BaseLine Clear."
+        ::= { auControl 4 }
+        
+              
+		
+        
+-- --------------------------------------------------------------------------
+-- Last Update 16/10/2022 by Jmr
+-- A-POI ----------------------------------------------------------------------
+-- maA-POI          OBJECT IDENTIFIER ::= { AU 10 }      
+		
+		--
+		-- 1.3.6.1.4.1.15921.60.2.10.1
+		a-poiInfoTable    OBJECT-TYPE
+              SYNTAX  SEQUENCE OF a-poiInfoEntry
+              ACCESS  not-accessible
+              STATUS  current
+              DESCRIPTION
+                  "Device  Infomation of the A-POI 1-16."
+              ::= { A-POI   1 }
+
+
+		a-poiInfoEntry  OBJECT-TYPE
+		              SYNTAX  a-poiInfoEntry
+		              ACCESS  not-accessible
+		              STATUS  current
+		              DESCRIPTION
+		                  "An entry in the table about Device  Infomation of A-POI."
+		              INDEX   { a-poiIndex }
+		              ::= { a-poiInfoTable    1 }
+		
+		a-poiInfoEntry::=
+		      SEQUENCE {  
+		              a-poiIndex             INTEGER,
+		              a-poiEquipmentModel    DisplayString,
+		              a-poiEquipmentSN       DisplayString,
+		              a-poiSiteInfo          DisplayString,
+		              a-poiFirmwareversion   DisplayString,
+		              a-poiHardwareversion   INTEGER,
+		              a-poiBandInfo          INTEGER,
+		              a-poiCombinerMode      INTEGER,
+		              a-poiTemperature       INTEGER,
+		              a-poiBandSwitch1       INTEGER,
+		              a-poiBandSwitch2       INTEGER,
+		              a-poiBandSwitch3       INTEGER,
+		              a-poiBandSwitch4       INTEGER,
+		              a-poiBandSwitch5       INTEGER,
+		              a-poiBandSwitch6       INTEGER,
+		              a-poiBandSwitch7       INTEGER,
+		              a-poiBandSwitch8       INTEGER,
+		              a-poiDlPwrIn1          Float,
+		              a-poiDlPwrIn2          Float,
+		              a-poiDlPwrIn3          Float, 
+		              a-poiDlPwrIn4          Float,
+		              a-poiDlPwrIn5          Float,
+		              a-poiDlPwrIn6          Float,
+		              a-poiDlPwrIn7          Float, 
+		              a-poiDlPwrIn8          Float,		              
+		              a-poiReset             INTEGER,		              
+		}  
+		
+		a-poiIndex                OBJECT-TYPE
+		    SYNTAX              INTEGER 
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "A-POI Num ."
+		::= { a-poiInfoEntry 1 }
+		
+		a-poiEquipmentModel       OBJECT-TYPE
+            SYNTAX              DisplayString
+            MAX-ACCESS          read-only
+            STATUS              current
+            DESCRIPTION
+                                "A-POI Equipment Model."
+        ::= { a-poiInfoEntry 2 }
+        
+        a-poiEquipmentSN          OBJECT-TYPE
+		    SYNTAX              DisplayString
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "A-POI Equipment Serial No."
+		::= { a-poiInfoEntry 3 }
+		
+		a-poiSiteInfo             OBJECT-TYPE
+		    SYNTAX              DisplayString
+		    MAX-ACCESS          read-write
+		    STATUS              current
+		    DESCRIPTION
+		                        "a-poiSiteInfo."
+		::= { a-poiInfoEntry 4 }
+		
+		a-poiFirmwareversion      OBJECT-TYPE
+		    SYNTAX              DisplayString
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "A-POI Firmware Version."
+		::= { a-poiInfoEntry 5 }
+		
+		a-poiHardwareversion      OBJECT-TYPE
+		    SYNTAX              INTEGER
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "A-POI Hardware Version."
+		::= { a-poiInfoEntry 6 }
+		
+		a-poiBandInfo             OBJECT-TYPE
+		    SYNTAX              INTEGER
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "A-POI Band information."
+		::= { a-poiInfoEntry 7 }
+		
+		a-poiCombinerMode         OBJECT-TYPE
+		    SYNTAX              INTEGER{ a-poi-2to1(0), a-poi-4to1(1),a-poi-8to1(2)}
+		    MAX-ACCESS          read-write
+		    STATUS              current
+		    DESCRIPTION
+		                        "A-POI Combiner Mode."
+		::= { a-poiInfoEntry 8 }
+		
+		a-poiTemperature          OBJECT-TYPE
+		    SYNTAX              INTEGER
+		    UNITS               "C" 
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "A-POI Equipment Temperature."
+		::= { a-poiInfoEntry 9 }
+		
+		a-poiBandSwitch1          OBJECT-TYPE
+		    SYNTAX              INTEGER { off(0), on(1)}
+		    MAX-ACCESS          read-write
+		    STATUS              current
+		    DESCRIPTION
+		                        "A-POI band switch."
+		::= { a-poiInfoEntry 10 }
+		
+		a-poiBandSwitch2          OBJECT-TYPE
+		    SYNTAX              INTEGER { off(0), on(1)}
+		    MAX-ACCESS          read-write
+		    STATUS              current
+		    DESCRIPTION
+		                        "A-POI band switch."
+		::= { a-poiInfoEntry 11 }
+		
+		a-poiBandSwitch3          OBJECT-TYPE
+		    SYNTAX              INTEGER { off(0), on(1)}
+		    MAX-ACCESS          read-write
+		    STATUS              current
+		    DESCRIPTION
+		                        "A-POI band switch."
+		::= { a-poiInfoEntry 12 }
+		
+		a-poiBandSwitch4          OBJECT-TYPE
+		    SYNTAX              INTEGER { off(0), on(1)}
+		    MAX-ACCESS          read-write
+		    STATUS              current
+		    DESCRIPTION
+		                        "A-POI band switch."
+		::= { a-poiInfoEntry 13 }
+		
+		a-poiBandSwitch5          OBJECT-TYPE
+		    SYNTAX              INTEGER { off(0), on(1)}
+		    MAX-ACCESS          read-write
+		    STATUS              current
+		    DESCRIPTION
+		                        "A-POI band switch."
+		::= { a-poiInfoEntry 14 }
+		
+		a-poiBandSwitch6          OBJECT-TYPE
+		    SYNTAX              INTEGER { off(0), on(1)}
+		    MAX-ACCESS          read-write
+		    STATUS              current
+		    DESCRIPTION
+		                        "A-POI band switch."
+		::= { a-poiInfoEntry 15 }
+		
+		a-poiBandSwitch7          OBJECT-TYPE
+		    SYNTAX              INTEGER { off(0), on(1)}
+		    MAX-ACCESS          read-write
+		    STATUS              current
+		    DESCRIPTION
+		                        "A-POI band switch."
+		::= { a-poiInfoEntry 16 }
+		
+		a-poiBandSwitch8          OBJECT-TYPE
+		    SYNTAX              INTEGER { off(0), on(1)}
+		    MAX-ACCESS          read-write
+		    STATUS              current
+		    DESCRIPTION
+		                        "A-POI band switch."
+		::= { a-poiInfoEntry 17 }
+		
+		a-poiDlPwrIn1             OBJECT-TYPE
+		    SYNTAX              Float
+		    UNITS               "dBm" 
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "A-POI ch1 DL Input Power ."
+		::= { a-poiInfoEntry 18 }
+		
+		a-poiDlPwrIn2             OBJECT-TYPE
+		    SYNTAX              Float
+		    UNITS               "dBm" 
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "A-POI ch2 DL Input Power ."
+		::= { a-poiInfoEntry 19 }
+		
+		a-poiDlPwrIn3             OBJECT-TYPE
+		    SYNTAX              Float
+		    UNITS               "dBm" 
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "A-POI ch3 DL Input Power ."
+		::= { a-poiInfoEntry 20 }
+		
+		a-poiDlPwrIn4             OBJECT-TYPE
+		    SYNTAX              Float
+		    UNITS               "dBm" 
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "A-POI ch4 DL Input Power ."
+		::= { a-poiInfoEntry 21 }
+		
+		
+		a-poiDlPwrIn5             OBJECT-TYPE
+		    SYNTAX              Float
+		    UNITS               "dBm" 
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "A-POI ch5 DL Input Power ."
+		::= { a-poiInfoEntry 22 }
+		
+		a-poiDlPwrIn6             OBJECT-TYPE
+		    SYNTAX              Float
+		    UNITS               "dBm" 
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "A-POI ch6 DL Input Power ."
+		::= { a-poiInfoEntry 23 }
+		
+		a-poiDlPwrIn7             OBJECT-TYPE
+		    SYNTAX              Float
+		    UNITS               "dBm" 
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "A-POI ch7 DL Input Power ."
+		::= { a-poiInfoEntry 24 }
+		
+		a-poiDlPwrIn8             OBJECT-TYPE
+		    SYNTAX              Float
+		    UNITS               "dBm" 
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "A-POI ch8 DL Input Power ."
+		::= { a-poiInfoEntry 25 }		
+		
+		a-poiReset                OBJECT-TYPE
+		    SYNTAX              INTEGER
+		    {
+        				reset(1)
+			} 
+		    MAX-ACCESS          read-write
+		    STATUS              current
+		    DESCRIPTION
+		                        "A-POI Software Reset."
+		::= { a-poiInfoEntry 26 }
+		
+-- --------------------------------------------------------------------------
+-- Last Update 16/10/2022 by Jmr
+-- EU ----------------------------------------------------------------------
+-- EU          OBJECT IDENTIFIER ::= { AU 20 }  
+		
+		-- 1.3.6.1.4.1.15921.60.2.20.1
+		euDeviceInfoTable    OBJECT-TYPE
+              SYNTAX  SEQUENCE OF EuDeviceInfoEntry
+              ACCESS  not-accessible
+              STATUS  current
+              DESCRIPTION
+                    "Device  Infomation of the EU 1-16.
+                    Index 1~4 is equal to EU1-1~EU1-4.
+                    Index 5~8 is equal to EU2-1~EU2-4.
+                    Index 9~12 is equal to EU3-1~EU3-4.
+                    Index 13~16 is equal to EU4-1~EU4-4."
+              ::= { EU   1 }
+
+
+		euDeviceInfoEntry OBJECT-TYPE
+		              SYNTAX  EuDeviceInfoEntry
+		              ACCESS  not-accessible
+		              STATUS  current
+		              DESCRIPTION
+		                  "An entry in the table about Device  Infomation of EU."
+		              INDEX   { euDeviceInfoIndex }
+		              ::= { euDeviceInfoTable    1 }
+		
+		
+		EuDeviceInfoEntry::=
+		      SEQUENCE {  
+		              euDeviceInfoIndex   INTEGER,
+		              euTopologyLocation  DisplayString,
+		              euEquipmentModel    DisplayString,
+		              euCPRIRate          INTEGER,
+		              euEquipmentSN       DisplayString,		           
+		              euSiteInfo          DisplayString,
+		              euTemperature       INTEGER,
+		              euFirmwareversion   DisplayString,
+		              euHardwareversion   INTEGER,
+		              euFanSpeed          INTEGER,
+		              euHardwareReset     INTEGER,
+		              euSoftwareReset     INTEGER,		            
+		}  
+		
+		euDeviceInfoIndex      OBJECT-TYPE
+		    SYNTAX              INTEGER 
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "EU Num ."
+		::= { euDeviceInfoEntry 1 }
+		
+		euTopologyLocation     OBJECT-TYPE
+            SYNTAX              DisplayString
+            MAX-ACCESS          read-only
+            STATUS              current
+            DESCRIPTION
+                                "Location of the EU in the topology, eg: EU1-1 "
+        ::= { euDeviceInfoEntry 2 }
+		
+		euEquipmentModel       OBJECT-TYPE
+            SYNTAX              DisplayString
+            MAX-ACCESS          read-only
+            STATUS              current
+            DESCRIPTION
+                                "EU Equipment Model."
+        ::= { euDeviceInfoEntry 3 }
+        
+        euCPRIRate             OBJECT-TYPE
+		    SYNTAX              INTEGER
+		    {
+        				eu-25G(0),
+        				eu-10G(1)
+			} 
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "EU Equipment Mode."
+		::= { euDeviceInfoEntry 4 }
+		
+		euEquipmentSN          OBJECT-TYPE
+		    SYNTAX              DisplayString
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "EU Equipment Serial No."
+		::= { euDeviceInfoEntry 5 }
+		
+		euSiteInfo          OBJECT-TYPE
+		    SYNTAX              DisplayString
+		    MAX-ACCESS          read-write
+		    STATUS              current
+		    DESCRIPTION
+		                        "EU Site Info."
+		::= { euDeviceInfoEntry 6 }
+        
+        euTemperature          OBJECT-TYPE
+		    SYNTAX              INTEGER
+		    UNITS               "C"
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "EU Temperature."
+		::= { euDeviceInfoEntry 7 }
+		
+		euFirmwareversion      OBJECT-TYPE
+            SYNTAX              DisplayString
+            MAX-ACCESS          read-only
+            STATUS              current
+            DESCRIPTION
+                                "EU Firmware Version."
+        ::= { euDeviceInfoEntry 8 }
+        
+        euHardwareversion      OBJECT-TYPE
+            SYNTAX              INTEGER
+            MAX-ACCESS          read-only
+            STATUS              current
+            DESCRIPTION
+                                "EU Hardware Version."
+        ::= { euDeviceInfoEntry 9 }
+		
+		euFanSpeed             OBJECT-TYPE
+		    SYNTAX              INTEGER
+		    UNITS               "r/min"
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "EU Fan Speed."
+		::= { euDeviceInfoEntry 10 }
+		
+		euHardwareReset        OBJECT-TYPE
+            SYNTAX              INTEGER
+            {
+        				reset(1)
+			} 
+            MAX-ACCESS          read-write
+            STATUS              current
+            DESCRIPTION
+                                "EU Hardware Reset."
+        ::= { euDeviceInfoEntry 11 }
+        
+        euSoftwareReset        OBJECT-TYPE
+            SYNTAX              INTEGER
+            {
+        				reset(1)
+			} 
+            MAX-ACCESS          read-write
+            STATUS              current
+            DESCRIPTION
+                                "EU Software Reset."
+        ::= { euDeviceInfoEntry 12 }
+		
+		
+		
+-- EU ----------------------------------------------------------------------
+-- EU          OBJECT IDENTIFIER ::= { AU 20 }  
+		
+		-- 1.3.6.1.4.1.15921.60.2.20.2	
+		euSFPInfoTable    OBJECT-TYPE
+              SYNTAX  SEQUENCE OF EuSFPInfoEntry
+              ACCESS  not-accessible
+              STATUS  current
+              DESCRIPTION
+                  "SFP Infomation of the EU OP Port A~D,1~24."
+              ::= { EU   2 }
+        
+        euSFPInfoEntry OBJECT-TYPE
+              SYNTAX  EuSFPInfoEntry
+              ACCESS  not-accessible
+              STATUS  current
+              DESCRIPTION
+                  "An entry in the table about SFP Infomation of EU."
+              INDEX   { euSFPInfoIndex }
+              ::= { euSFPInfoTable    1 }
+              
+        EuSFPInfoEntry::=
+		      SEQUENCE {  
+		              euSFPInfoIndex             INTEGER,
+		              euSFPTemperature-A         INTEGER,
+		              euSFPTxPower-A             Float,
+		              euSFPRxPower-A             Float,	              
+		              euSFPTemperature-B         INTEGER,
+		              euSFPTxPower-B             Float,
+		              euSFPRxPower-B             Float,		              
+		              euSFPTemperature-C         INTEGER,
+		              euSFPTxPower-C             Float,
+		              euSFPRxPower-C             Float,		              
+		              euSFPTemperature-D         INTEGER,
+		              euSFPTxPower-D             Float,
+		              euSFPRxPower-D             Float,
+		              euSFPTemperature-1         INTEGER,
+		              euSFPTxPower-1             Float,
+		              euSFPRxPower-1             Float,
+		              euSFPTemperature-2         INTEGER,
+		              euSFPTxPower-2             Float,
+		              euSFPRxPower-2             Float,
+		              euSFPTemperature-3         INTEGER,
+		              euSFPTxPower-3             Float,
+		              euSFPRxPower-3             Float,
+		              euSFPTemperature-3         INTEGER,
+		              euSFPTxPower-3             Float,
+		              euSFPRxPower-3             Float,
+		              euSFPTemperature-4         INTEGER,
+		              euSFPTxPower-4             Float,
+		              euSFPRxPower-4             Float,
+		              euSFPTemperature-5         INTEGER,
+		              euSFPTxPower-5             Float,
+		              euSFPRxPower-5             Float,
+		              euSFPTemperature-6         INTEGER,
+		              euSFPTxPower-6             Float,
+		              euSFPRxPower-6             Float,
+		              euSFPTemperature-7         INTEGER,
+		              euSFPTxPower-7             Float,
+		              euSFPRxPower-7             Float,
+		              euSFPTemperature-8         INTEGER,
+		              euSFPTxPower-8             Float,
+		              euSFPRxPower-8             Float,
+		              euSFPTemperature-9         INTEGER,
+		              euSFPTxPower-9             Float,
+		              euSFPRxPower-9             Float,
+		              euSFPTemperature-10        INTEGER,
+		              euSFPTxPower-10            Float,
+		              euSFPRxPower-10            Float,
+		              euSFPTemperature-11        INTEGER,
+		              euSFPTxPower-11            Float,
+		              euSFPRxPower-11            Float,
+		              euSFPTemperature-12        INTEGER,
+		              euSFPTxPower-12            Float,
+		              euSFPRxPower-12            Float,
+		              euSFPTemperature-13        INTEGER,
+		              euSFPTxPower-13            Float,
+		              euSFPRxPower-13            Float,
+		              euSFPTemperature-14        INTEGER,
+		              euSFPTxPower-14            Float,
+		              euSFPRxPower-14            Float,
+		              euSFPTemperature-15        INTEGER,
+		              euSFPTxPower-15            Float,
+		              euSFPRxPower-15            Float,
+		              euSFPTemperature-16        INTEGER,
+		              euSFPTxPower-16            Float,
+		              euSFPRxPower-16            Float,
+		              euSFPTemperature-17        INTEGER,
+		              euSFPTxPower-17            Float,
+		              euSFPRxPower-17            Float,
+		              euSFPTemperature-18        INTEGER,
+		              euSFPTxPower-18            Float,
+		              euSFPRxPower-18            Float,
+		              euSFPTemperature-19        INTEGER,
+		              euSFPTxPower-19            Float,
+		              euSFPRxPower-19            Float,
+		              euSFPTemperature-20        INTEGER,
+		              euSFPTxPower-20            Float,
+		              euSFPRxPower-20            Float,
+		              euSFPTemperature-21        INTEGER,
+		              euSFPTxPower-21            Float,
+		              euSFPRxPower-21            Float,
+		              euSFPTemperature-22        INTEGER,
+		              euSFPTxPower-22            Float,
+		              euSFPRxPower-22            Float,
+		              euSFPTemperature-23        INTEGER,
+		              euSFPTxPower-23            Float,
+		              euSFPRxPower-23            Float,
+		              euSFPTemperature-24        INTEGER,
+		              euSFPTxPower-24            Float,
+		              euSFPRxPower-24            Float
+		}  
+		
+		euSFPInfoIndex         OBJECT-TYPE
+		    SYNTAX              INTEGER
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "EU Num. "
+		::= { euSFPInfoEntry 1 }
+		
+		euSFPTemperature-A     OBJECT-TYPE
+		    SYNTAX              INTEGER
+		    UNITS               "C" 
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "EU SFP Temperature."
+		::= { euSFPInfoEntry 2 }
+		
+		euSFPTxPower-A         OBJECT-TYPE
+		    SYNTAX              Float
+		    UNITS               "dBm" 
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "EU SFP Tx Power."
+		::= { euSFPInfoEntry 3 }
+		
+		euSFPRxPower-A         OBJECT-TYPE
+		    SYNTAX              Float
+		    UNITS               "dBm" 
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "EU SFP Rx Power."
+		::= { euSFPInfoEntry 4 }
+		
+		euSFPTemperature-B     OBJECT-TYPE
+		    SYNTAX              INTEGER 
+		    UNITS               "C"
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "EU SFP Temperature."
+		::= { euSFPInfoEntry 5 }
+		
+		euSFPTxPower-B         OBJECT-TYPE
+		    SYNTAX              Float
+		    UNITS               "dBm" 
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "EU SFP Tx Power."
+		::= { euSFPInfoEntry 6 }
+		
+		euSFPRxPower-B         OBJECT-TYPE
+		    SYNTAX              Float
+		    UNITS               "dBm" 
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "EU SFP Rx Power."
+		::= { euSFPInfoEntry 7 }
+		
+		euSFPTemperature-C     OBJECT-TYPE
+		    SYNTAX              INTEGER 
+		    UNITS               "C"
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "EU SFP Temperature."
+		::= { euSFPInfoEntry 8 }
+		
+		euSFPTxPower-C         OBJECT-TYPE
+		    SYNTAX              Float
+		    UNITS               "dBm" 
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "EU SFP Tx Power."
+		::= { euSFPInfoEntry 9 }
+		
+		euSFPRxPower-C         OBJECT-TYPE
+		    SYNTAX              Float
+		    UNITS               "dBm" 
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "EU SFP Rx Power."
+		::= { euSFPInfoEntry 10 }
+		
+		euSFPTemperature-D     OBJECT-TYPE
+		    SYNTAX              INTEGER 
+		    UNITS               "C"
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "EU SFP Temperature."
+		::= { euSFPInfoEntry 11 }
+		
+		euSFPTxPower-D         OBJECT-TYPE
+		    SYNTAX              Float
+		    UNITS               "dBm" 
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "EU SFP Tx Power."
+		::= { euSFPInfoEntry 12 }
+		
+		euSFPRxPower-D         OBJECT-TYPE
+		    SYNTAX              Float
+		    UNITS               "dBm" 
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "EU SFP Rx Power."
+		::= { euSFPInfoEntry 13 }
+		
+		euSFPTemperature-1     OBJECT-TYPE
+		    SYNTAX              INTEGER 
+		    UNITS               "C"
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "EU SFP Temperature."
+		::= { euSFPInfoEntry 14 }
+		
+		euSFPTxPower-1         OBJECT-TYPE
+		    SYNTAX              Float
+		    UNITS               "dBm" 
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "EU SFP Tx Power."
+		::= { euSFPInfoEntry 15 }
+		
+		euSFPRxPower-1         OBJECT-TYPE
+		    SYNTAX              Float
+		    UNITS               "dBm" 
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "EU SFP Rx Power."
+		::= { euSFPInfoEntry 16 }
+		
+		euSFPTemperature-2     OBJECT-TYPE
+		    SYNTAX              INTEGER
+		    UNITS               "C" 
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "EU SFP Temperature."
+		::= { euSFPInfoEntry 17 }
+		
+		euSFPTxPower-2         OBJECT-TYPE
+		    SYNTAX              Float
+		    UNITS               "dBm" 
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "EU SFP Tx Power."
+		::= { euSFPInfoEntry 18 }
+		
+		euSFPRxPower-2         OBJECT-TYPE
+		    SYNTAX              Float
+		    UNITS               "dBm" 
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "EU SFP Rx Power."
+		::= { euSFPInfoEntry 19 }
+		
+		
+		euSFPTemperature-3     OBJECT-TYPE
+		    SYNTAX              INTEGER
+		    UNITS               "C" 
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "EU SFP Temperature."
+		::= { euSFPInfoEntry 20 }
+		
+		euSFPTxPower-3         OBJECT-TYPE
+		    SYNTAX              Float
+		    UNITS               "dBm" 
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "EU SFP Tx Power."
+		::= { euSFPInfoEntry 21 }
+		
+		euSFPRxPower-3         OBJECT-TYPE
+		    SYNTAX              Float
+		    UNITS               "dBm" 
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "EU SFP Rx Power."
+		::= { euSFPInfoEntry 22 }
+		
+		euSFPTemperature-4     OBJECT-TYPE
+		    SYNTAX              INTEGER
+		    UNITS               "C" 
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "EU SFP Temperature."
+		::= { euSFPInfoEntry 23 }
+		
+		euSFPTxPower-4         OBJECT-TYPE
+		    SYNTAX              Float
+		    UNITS               "dBm" 
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "EU SFP Tx Power."
+		::= { euSFPInfoEntry 24 }
+		
+		euSFPRxPower-4         OBJECT-TYPE
+		    SYNTAX              Float
+		    UNITS               "dBm" 
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "EU SFP Rx Power."
+		::= { euSFPInfoEntry 25 }
+		
+		euSFPTemperature-5     OBJECT-TYPE
+		    SYNTAX              INTEGER
+		    UNITS               "C" 
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "EU SFP Temperature."
+		::= { euSFPInfoEntry 26 }
+		
+		euSFPTxPower-5         OBJECT-TYPE
+		    SYNTAX              Float
+		    UNITS               "dBm" 
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "EU SFP Tx Power."
+		::= { euSFPInfoEntry 27 }
+		
+		euSFPRxPower-5         OBJECT-TYPE
+		    SYNTAX              Float
+		    UNITS               "dBm" 
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "EU SFP Rx Power."
+		::= { euSFPInfoEntry 28 }              
+         
+        euSFPTemperature-6     OBJECT-TYPE
+		    SYNTAX              INTEGER
+		    UNITS               "C" 
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "EU SFP Temperature."
+		::= { euSFPInfoEntry 29 }
+		
+		euSFPTxPower-6         OBJECT-TYPE
+		    SYNTAX              Float
+		    UNITS               "dBm" 
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "EU SFP Tx Power."
+		::= { euSFPInfoEntry 30 }
+		
+		euSFPRxPower-6         OBJECT-TYPE
+		    SYNTAX              Float
+		    UNITS               "dBm" 
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "EU SFP Rx Power."
+		::= { euSFPInfoEntry 31 }
+         
+         euSFPTemperature-7    OBJECT-TYPE
+		    SYNTAX              INTEGER
+		    UNITS               "C" 
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "EU SFP Temperature."
+		::= { euSFPInfoEntry 32 }
+		
+		euSFPTxPower-7         OBJECT-TYPE
+		    SYNTAX              Float
+		    UNITS               "dBm" 
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "EU SFP Tx Power."
+		::= { euSFPInfoEntry 33 }
+		
+		euSFPRxPower-7         OBJECT-TYPE
+		    SYNTAX              Float
+		    UNITS               "dBm" 
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "EU SFP Rx Power."
+		::= { euSFPInfoEntry 34 }
+         
+         euSFPTemperature-8    OBJECT-TYPE
+		    SYNTAX              INTEGER
+		    UNITS               "C" 
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "EU SFP Temperature."
+		::= { euSFPInfoEntry 35 }
+		
+		euSFPTxPower-8         OBJECT-TYPE
+		    SYNTAX              Float
+		    UNITS               "dBm" 
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "EU SFP Tx Power."
+		::= { euSFPInfoEntry 36 }
+		
+		euSFPRxPower-8         OBJECT-TYPE
+		    SYNTAX              Float
+		    UNITS               "dBm" 
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "EU SFP Rx Power."
+		::= { euSFPInfoEntry 37 }
+         
+        euSFPTemperature-9     OBJECT-TYPE
+		    SYNTAX              INTEGER
+		    UNITS               "C" 
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "EU SFP Temperature."
+		::= { euSFPInfoEntry 38 }
+		
+		euSFPTxPower-9         OBJECT-TYPE
+		    SYNTAX              Float
+		    UNITS               "dBm" 
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "EU SFP Tx Power."
+		::= { euSFPInfoEntry 39 }
+		
+		euSFPRxPower-9         OBJECT-TYPE
+		    SYNTAX              Float
+		    UNITS               "dBm" 
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "EU SFP Rx Power."
+		::= { euSFPInfoEntry 40 } 
+         
+        euSFPTemperature-10    OBJECT-TYPE
+		    SYNTAX              INTEGER
+		    UNITS               "C" 
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "EU SFP Temperature."
+		::= { euSFPInfoEntry 41 }
+		
+		euSFPTxPower-10        OBJECT-TYPE
+		    SYNTAX              Float
+		    UNITS               "dBm" 
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "EU SFP Tx Power."
+		::= { euSFPInfoEntry 42 }
+		
+		euSFPRxPower-10        OBJECT-TYPE
+		    SYNTAX              Float
+		    UNITS               "dBm" 
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "EU SFP Rx Power."
+		::= { euSFPInfoEntry 43 }  
+		
+		euSFPTemperature-11    OBJECT-TYPE
+		    SYNTAX              INTEGER
+		    UNITS               "C" 
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "EU SFP Temperature."
+		::= { euSFPInfoEntry 44 }
+		
+		euSFPTxPower-11        OBJECT-TYPE
+		    SYNTAX              Float
+		    UNITS               "dBm" 
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "EU SFP Tx Power."
+		::= { euSFPInfoEntry 45 }
+		
+		euSFPRxPower-11        OBJECT-TYPE
+		    SYNTAX              Float
+		    UNITS               "dBm" 
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "EU SFP Rx Power."
+		::= { euSFPInfoEntry 46 } 
+		
+		euSFPTemperature-12    OBJECT-TYPE
+		    SYNTAX              INTEGER
+		    UNITS               "C" 
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "EU SFP Temperature."
+		::= { euSFPInfoEntry 47 }
+		
+		euSFPTxPower-12        OBJECT-TYPE
+		    SYNTAX              Float
+		    UNITS               "dBm" 
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "EU SFP Tx Power."
+		::= { euSFPInfoEntry 48 }
+		
+		euSFPRxPower-12        OBJECT-TYPE
+		    SYNTAX              Float
+		    UNITS               "dBm" 
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "EU SFP Rx Power."
+		::= { euSFPInfoEntry 49 } 
+		
+		euSFPTemperature-13    OBJECT-TYPE
+		    SYNTAX              INTEGER
+		    UNITS               "C" 
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "EU SFP Temperature."
+		::= { euSFPInfoEntry 50 }
+		
+		euSFPTxPower-13        OBJECT-TYPE
+		    SYNTAX              Float
+		    UNITS               "dBm" 
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "EU SFP Tx Power."
+		::= { euSFPInfoEntry 51 }
+		
+		euSFPRxPower-13        OBJECT-TYPE
+		    SYNTAX              Float
+		    UNITS               "dBm" 
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "EU SFP Rx Power."
+		::= { euSFPInfoEntry 52 }
+		
+		euSFPTemperature-14    OBJECT-TYPE
+		    SYNTAX              INTEGER
+		    UNITS               "C" 
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "EU SFP Temperature."
+		::= { euSFPInfoEntry 53 }
+		
+		euSFPTxPower-14        OBJECT-TYPE
+		    SYNTAX              Float
+		    UNITS               "dBm" 
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "EU SFP Tx Power."
+		::= { euSFPInfoEntry 54 }
+		
+		euSFPRxPower-14        OBJECT-TYPE
+		    SYNTAX              Float
+		    UNITS               "dBm" 
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "EU SFP Rx Power."
+		::= { euSFPInfoEntry 55 }
+		
+		euSFPTemperature-15    OBJECT-TYPE
+		    SYNTAX              INTEGER
+		    UNITS               "C" 
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "EU SFP Temperature."
+		::= { euSFPInfoEntry 56 }
+		
+		euSFPTxPower-15        OBJECT-TYPE
+		    SYNTAX              Float
+		    UNITS               "dBm" 
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "EU SFP Tx Power."
+		::= { euSFPInfoEntry 57 }
+		
+		euSFPRxPower-15        OBJECT-TYPE
+		    SYNTAX              Float
+		    UNITS               "dBm" 
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "EU SFP Rx Power."
+		::= { euSFPInfoEntry 58 }  
+		
+		euSFPTemperature-16     OBJECT-TYPE
+		    SYNTAX              INTEGER
+		    UNITS               "C" 
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "EU SFP Temperature."
+		::= { euSFPInfoEntry 59 }
+		
+		euSFPTxPower-16        OBJECT-TYPE
+		    SYNTAX              Float
+		    UNITS               "dBm" 
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "EU SFP Tx Power."
+		::= { euSFPInfoEntry 60 }
+		
+		euSFPRxPower-16        OBJECT-TYPE
+		    SYNTAX              Float
+		    UNITS               "dBm" 
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "EU SFP Rx Power."
+		::= { euSFPInfoEntry 61 }  
+		
+		euSFPTemperature-17    OBJECT-TYPE
+		    SYNTAX              INTEGER
+		    UNITS               "C" 
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "EU SFP Temperature."
+		::= { euSFPInfoEntry 62 }
+		
+		euSFPTxPower-17        OBJECT-TYPE
+		    SYNTAX              Float
+		    UNITS               "dBm" 
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "EU SFP Tx Power."
+		::= { euSFPInfoEntry 63 }
+		
+		euSFPRxPower-17        OBJECT-TYPE
+		    SYNTAX              Float
+		    UNITS               "dBm" 
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "EU SFP Rx Power."
+		::= { euSFPInfoEntry 64 } 
+		
+		euSFPTemperature-18    OBJECT-TYPE
+		    SYNTAX              INTEGER
+		    UNITS               "C" 
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "EU SFP Temperature."
+		::= { euSFPInfoEntry 65 }
+		
+		euSFPTxPower-18           OBJECT-TYPE
+		    SYNTAX              Float
+		    UNITS               "dBm" 
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "EU SFP Tx Power."
+		::= { euSFPInfoEntry 66 }
+		
+		euSFPRxPower-18        OBJECT-TYPE
+		    SYNTAX              Float
+		    UNITS               "dBm" 
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "EU SFP Rx Power."
+		::= { euSFPInfoEntry 67 } 
+		
+		euSFPTemperature-19    OBJECT-TYPE
+		    SYNTAX              INTEGER
+		    UNITS               "C" 
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "EU SFP Temperature."
+		::= { euSFPInfoEntry 68 }
+		
+		euSFPTxPower-19        OBJECT-TYPE
+		    SYNTAX              Float
+		    UNITS               "dBm" 
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "EU SFP Tx Power."
+		::= { euSFPInfoEntry 69 }
+		
+		euSFPRxPower-19        OBJECT-TYPE
+		    SYNTAX              Float
+		    UNITS               "dBm" 
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "EU SFP Rx Power."
+		::= { euSFPInfoEntry 70 } 
+		
+		euSFPTemperature-20     OBJECT-TYPE
+		    SYNTAX              INTEGER
+		    UNITS               "C" 
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "EU SFP Temperature."
+		::= { euSFPInfoEntry 71 }
+		
+		euSFPTxPower-20        OBJECT-TYPE
+		    SYNTAX              Float
+		    UNITS               "dBm" 
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "EU SFP Tx Power."
+		::= { euSFPInfoEntry 72 }
+		
+		euSFPRxPower-20        OBJECT-TYPE
+		    SYNTAX              Float
+		    UNITS               "dBm" 
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "EU SFP Rx Power."
+		::= { euSFPInfoEntry 73 } 
+		
+		euSFPTemperature-21    OBJECT-TYPE
+		    SYNTAX              INTEGER
+		    UNITS               "C" 
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "EU SFP Temperature."
+		::= { euSFPInfoEntry 74 }
+		
+		euSFPTxPower-21        OBJECT-TYPE
+		    SYNTAX              Float
+		    UNITS               "dBm" 
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "EU SFP Tx Power."
+		::= { euSFPInfoEntry 75 }
+		
+		euSFPRxPower-21        OBJECT-TYPE
+		    SYNTAX              Float
+		    UNITS               "dBm" 
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "EU SFP Rx Power."
+		::= { euSFPInfoEntry 76 } 
+		
+		euSFPTemperature-22    OBJECT-TYPE
+		    SYNTAX              INTEGER
+		    UNITS               "C" 
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "EU SFP Temperature."
+		::= { euSFPInfoEntry 77 }
+		
+		euSFPTxPower-22        OBJECT-TYPE
+		    SYNTAX              Float
+		    UNITS               "dBm" 
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "EU SFP Tx Power."
+		::= { euSFPInfoEntry 78 }
+		
+		euSFPRxPower-22        OBJECT-TYPE
+		    SYNTAX              Float
+		    UNITS               "dBm" 
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "EU SFP Rx Power."
+		::= { euSFPInfoEntry 79 } 
+		
+		euSFPTemperature-23    OBJECT-TYPE
+		    SYNTAX              INTEGER
+		    UNITS               "C" 
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "EU SFP Temperature."
+		::= { euSFPInfoEntry 80 }
+		
+		euSFPTxPower-23        OBJECT-TYPE
+		    SYNTAX              Float
+		    UNITS               "dBm" 
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "EU SFP Tx Power."
+		::= { euSFPInfoEntry 81 }
+		
+		euSFPRxPower-23        OBJECT-TYPE
+		    SYNTAX              Float
+		    UNITS               "dBm" 
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "EU SFP Rx Power."
+		::= { euSFPInfoEntry 82 } 
+		
+		euSFPTemperature-24    OBJECT-TYPE
+		    SYNTAX              INTEGER
+		    UNITS               "C" 
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "EU SFP Temperature."
+		::= { euSFPInfoEntry 83 }
+		
+		euSFPTxPower-24        OBJECT-TYPE
+		    SYNTAX              Float
+		    UNITS               "dBm" 
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "EU SFP Tx Power."
+		::= { euSFPInfoEntry 84 }
+		
+		euSFPRxPower-24        OBJECT-TYPE
+		    SYNTAX              Float
+		    UNITS               "dBm" 
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "EU SFP Rx Power."
+		::= { euSFPInfoEntry 85 } 			
+       
+       
+ -- --------------------------------------------------------------------------
+-- Last Update 16/10/2022 by Jmr
+-- RU ----------------------------------------------------------------------
+-- RU          OBJECT IDENTIFIER ::= { AU 30 }       
+       -- 1.3.6.1.4.1.15921.60.2.30.1	
+       ruDeviceInfoTable    OBJECT-TYPE
+              SYNTAX  SEQUENCE OF RUDeviceInfoEntry
+              ACCESS  not-accessible
+              STATUS  current
+              DESCRIPTION
+                  "Device  Infomation of the RU connected to the EU 1-1."
+              ::= { RU   1 }
+
+
+		ruDeviceInfoEntry OBJECT-TYPE
+		              SYNTAX  RUDeviceInfoEntry
+		              ACCESS  not-accessible
+		              STATUS  current
+		              DESCRIPTION
+		                  "An entry in the table about Device  Infomation of RU."
+		              INDEX   { ruDeviceInfoIndex }
+		              ::= { ruDeviceInfoTable    1 }
+		
+		
+		RUDeviceInfoEntry::=
+		      SEQUENCE {  
+		              ruDeviceInfoIndex    INTEGER,
+		              ruConnectEuPortNum  DisplayString,
+		              ruEquipmentModel     DisplayString,
+		              ruEquipmentSN        DisplayString,
+		              ruSiteInfo           DisplayString,
+		              ruTemperature        INTEGER,
+		              ruFirmwareversion    DisplayString,
+		              ruHardwareversion    INTEGER,
+		              ruDCVoltage          INTEGER,
+		              ruPowerConsumption   INTEGER, 
+		              ruSoftwareReset      INTEGER,
+		              ruRFSwitch1          INTEGER,
+		              ruDlPwrOut1          Float,
+		              ruUlPwrIn1           Float,
+		              ruRFSwitch2          INTEGER,
+		              ruDlPwrOut2          Float,
+		              ruUlPwrIn2           Float,
+		              ruRFSwitch3          INTEGER,
+		              ruDlPwrOut3          Float,
+		              ruUlPwrIn3           Float,
+		              ruRFSwitch4          INTEGER,
+		              ruDlPwrOut4          Float,
+		              ruUlPwrIn4           Float, 
+		              ruRFSwitch5          INTEGER,
+		              ruDlPwrOut5          Float,
+		              ruUlPwrIn5           Float,
+		              ruRFSwitch6          INTEGER,
+		              ruDlPwrOut6          Float,
+		              ruUlPwrIn6           Float,
+		              ruRFSwitch7          INTEGER,
+		              ruDlPwrOut7          Float,
+		              ruUlPwrIn7           Float,
+		              ruRFSwitch8          INTEGER,
+		              ruDlPwrOut8          Float,
+		              ruUlPwrIn8           Float,
+		              ruRFSwitch9          INTEGER,
+		              ruDlPwrOut9          Float,
+		              ruUlPwrIn9           Float,
+		              ruRFSwitch10          INTEGER,
+		              ruDlPwrOut10          Float,
+		              ruUlPwrIn10           Float,
+		              ruRFSwitch11          INTEGER,
+		              ruDlPwrOut11          Float,
+		              ruUlPwrIn11           Float,
+		              ruRFSwitch12          INTEGER,
+		              ruDlPwrOut12          Float,
+		              ruUlPwrIn12           Float, 
+		              ruSFPTemperature-1   INTEGER,
+		              ruSFPTxPower-1       Float,
+		              ruSFPRxPower-1       Float,
+		              ruSFPTemperature-2   INTEGER,
+		              ruSFPTxPower-2       Float,
+		              ruSFPRxPower-2       Float		              
+		}  
+		
+		ruDeviceInfoIndex     OBJECT-TYPE
+		    SYNTAX              INTEGER 
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "RU Num ."
+		::= { ruDeviceInfoEntry 1 }
+		
+		ruConnectEuPortNum   OBJECT-TYPE
+		    SYNTAX              DisplayString 
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "The RU Connected to EU Port Num."
+		::= { ruDeviceInfoEntry 2 }	
+		
+		ruEquipmentModel      OBJECT-TYPE
+		    SYNTAX              DisplayString
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "RU Equipment Model."
+		::= { ruDeviceInfoEntry 3 }
+		
+		ruEquipmentSN         OBJECT-TYPE
+		    SYNTAX              DisplayString
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "RU Equipment Serial No."
+		::= { ruDeviceInfoEntry 4 }
+		
+		ruSiteInfo            OBJECT-TYPE
+		    SYNTAX              DisplayString
+		    MAX-ACCESS          read-write
+		    STATUS              current
+		    DESCRIPTION
+		                        "RU Site Info."
+		::= { ruDeviceInfoEntry 5 }
+		
+		ruTemperature         OBJECT-TYPE
+		    SYNTAX              INTEGER
+		    UNITS               "C" 
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "RU Equipment Temperature."
+		::= { ruDeviceInfoEntry 6 }
+		                        
+		ruFirmwareversion     OBJECT-TYPE
+		    SYNTAX              DisplayString
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "RU Firmware Version."
+		::= { ruDeviceInfoEntry 7 }
+		
+		ruHardwareversion     OBJECT-TYPE
+		    SYNTAX              INTEGER
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "RU Hardware Version."
+		::= { ruDeviceInfoEntry 8 }
+		
+		ruDCVoltage           OBJECT-TYPE
+		    SYNTAX              INTEGER
+		    UNITS               "V" 
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "RU DC Voltage."
+		::= { ruDeviceInfoEntry 9 }
+		
+		ruPowerConsumption    OBJECT-TYPE
+		    SYNTAX              INTEGER 
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "RU Power Consumption."
+		::= { ruDeviceInfoEntry 10 }   
+		
+		ruSoftwareReset       OBJECT-TYPE
+		    SYNTAX              INTEGER
+		    {
+        				reset(1)
+			} 
+		    MAX-ACCESS          read-write
+		    STATUS              current
+		    DESCRIPTION
+		                        "RU Software Reset."
+		::= { ruDeviceInfoEntry 11 }	
+
+		ruRFSwitch1           OBJECT-TYPE
+		    SYNTAX              INTEGER { off(0), on(1)}
+		    MAX-ACCESS          read-write
+		    STATUS              current
+		    DESCRIPTION
+		                        "RU ch1 RF Switch."
+		::= { ruDeviceInfoEntry 22 }		
+		
+		ruDlPwrOut1           OBJECT-TYPE
+		    SYNTAX              Float
+		    UNITS               "dBm" 
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "RU ch1 DL Outnput Power."
+		::= { ruDeviceInfoEntry 23 }
+		
+		ruUlPwrIn1           OBJECT-TYPE
+		    SYNTAX              Float
+		    UNITS               "dBm" 
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "RU ch1 UL Input Power."
+		::= { ruDeviceInfoEntry 24 }
+		
+		
+		ruRFSwitch2           OBJECT-TYPE
+		    SYNTAX              INTEGER { off(0), on(1)}
+		    MAX-ACCESS          read-write
+		    STATUS              current
+		    DESCRIPTION
+		                        "RU ch2 RF Switch."
+		::= { ruDeviceInfoEntry 32 }		
+		
+		ruDlPwrOut2           OBJECT-TYPE
+		    SYNTAX              Float
+		    UNITS               "dBm" 
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "RU ch2 DL Outnput Power."
+		::= { ruDeviceInfoEntry 33 }
+		
+		ruUlPwrIn2           OBJECT-TYPE
+		    SYNTAX              Float
+		    UNITS               "dBm" 
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "RU ch2 UL Input Power."
+		::= { ruDeviceInfoEntry 34 }
+		
+		ruRFSwitch3           OBJECT-TYPE
+		    SYNTAX              INTEGER { off(0), on(1)}
+		    MAX-ACCESS          read-write
+		    STATUS              current
+		    DESCRIPTION
+		                        "RU ch3 RF Switch."
+		::= { ruDeviceInfoEntry 42 }		
+		
+		ruDlPwrOut3           OBJECT-TYPE
+		    SYNTAX              Float
+		    UNITS               "dBm" 
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "RU ch3 DL Outnput Power."
+		::= { ruDeviceInfoEntry 43 }
+		
+		ruUlPwrIn3           OBJECT-TYPE
+		    SYNTAX              Float
+		    UNITS               "dBm" 
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "RU ch3 UL Input Power."
+		::= { ruDeviceInfoEntry 44 }
+		
+		ruRFSwitch4           OBJECT-TYPE
+		    SYNTAX              INTEGER { off(0), on(1)}
+		    MAX-ACCESS          read-write
+		    STATUS              current
+		    DESCRIPTION
+		                        "RU ch4 RF Switch."
+		::= { ruDeviceInfoEntry 52 }		
+		
+		ruDlPwrOut4           OBJECT-TYPE
+		    SYNTAX              Float
+		    UNITS               "dBm" 
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "RU ch4 DL Outnput Power."
+		::= { ruDeviceInfoEntry 53 }
+		
+		ruUlPwrIn4           OBJECT-TYPE
+		    SYNTAX              Float
+		    UNITS               "dBm" 
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "RU ch4 UL Input Power."
+		::= { ruDeviceInfoEntry 54 } 
+		
+		ruRFSwitch5           OBJECT-TYPE
+		    SYNTAX              INTEGER { off(0), on(1)}
+		    MAX-ACCESS          read-write
+		    STATUS              current
+		    DESCRIPTION
+		                        "RU ch5 RF Switch."
+		::= { ruDeviceInfoEntry 62 }		
+		
+		ruDlPwrOut5           OBJECT-TYPE
+		    SYNTAX              Float
+		    UNITS               "dBm" 
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "RU ch5 DL Outnput Power."
+		::= { ruDeviceInfoEntry 63 }
+		
+		ruUlPwrIn5           OBJECT-TYPE
+		    SYNTAX              Float
+		    UNITS               "dBm" 
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "RU ch5 UL Input Power."
+		::= { ruDeviceInfoEntry 64 }    
+		
+		ruRFSwitch6           OBJECT-TYPE
+		    SYNTAX              INTEGER { off(0), on(1)}
+		    MAX-ACCESS          read-write
+		    STATUS              current
+		    DESCRIPTION
+		                        "RU ch6 RF Switch."
+		::= { ruDeviceInfoEntry 72 }		
+		
+		ruDlPwrOut6           OBJECT-TYPE
+		    SYNTAX              Float
+		    UNITS               "dBm" 
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "RU ch6 DL Outnput Power."
+		::= { ruDeviceInfoEntry 73 }
+		
+		ruUlPwrIn6           OBJECT-TYPE
+		    SYNTAX              Float
+		    UNITS               "dBm" 
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "RU ch6 UL Input Power."
+		::= { ruDeviceInfoEntry 74 }  
+		
+		ruRFSwitch7           OBJECT-TYPE
+		    SYNTAX              INTEGER { off(0), on(1)}
+		    MAX-ACCESS          read-write
+		    STATUS              current
+		    DESCRIPTION
+		                        "RU ch7 RF Switch."
+		::= { ruDeviceInfoEntry 82 }		
+		
+		ruDlPwrOut7           OBJECT-TYPE
+		    SYNTAX              Float
+		    UNITS               "dBm" 
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "RU ch7 DL Outnput Power."
+		::= { ruDeviceInfoEntry 83 }
+		
+		ruUlPwrIn7           OBJECT-TYPE
+		    SYNTAX              Float
+		    UNITS               "dBm" 
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "RU ch7 UL Input Power."
+		::= { ruDeviceInfoEntry 84 }        
+		
+		ruRFSwitch8           OBJECT-TYPE
+		    SYNTAX              INTEGER { off(0), on(1)}
+		    MAX-ACCESS          read-write
+		    STATUS              current
+		    DESCRIPTION
+		                        "RU ch8 RF Switch."
+		::= { ruDeviceInfoEntry 92 }		
+		
+		ruDlPwrOut8           OBJECT-TYPE
+		    SYNTAX              Float
+		    UNITS               "dBm" 
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "RU ch8 DL Outnput Power."
+		::= { ruDeviceInfoEntry 93 }
+		
+		ruUlPwrIn8           OBJECT-TYPE
+		    SYNTAX              Float
+		    UNITS               "dBm" 
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "RU ch8 UL Input Power."
+		::= { ruDeviceInfoEntry 94 }  
+		
+		ruRFSwitch9           OBJECT-TYPE
+		    SYNTAX              INTEGER { off(0), on(1)}
+		    MAX-ACCESS          read-write
+		    STATUS              current
+		    DESCRIPTION
+		                        "RU ch9 RF Switch."
+		::= { ruDeviceInfoEntry 102 }		
+		
+		ruDlPwrOut9           OBJECT-TYPE
+		    SYNTAX              Float
+		    UNITS               "dBm" 
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "RU ch9 DL Outnput Power."
+		::= { ruDeviceInfoEntry 103 }
+		
+		ruUlPwrIn9           OBJECT-TYPE
+		    SYNTAX              Float
+		    UNITS               "dBm" 
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "RU ch9 UL Input Power."
+		::= { ruDeviceInfoEntry 104 }
+
+        ruRFSwitch10           OBJECT-TYPE
+		    SYNTAX              INTEGER { off(0), on(1)}
+		    MAX-ACCESS          read-write
+		    STATUS              current
+		    DESCRIPTION
+		                        "RU ch10 RF Switch."
+		::= { ruDeviceInfoEntry 112 }		
+		
+		ruDlPwrOut10           OBJECT-TYPE
+		    SYNTAX              Float
+		    UNITS               "dBm" 
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "RU ch10 DL Outnput Power."
+		::= { ruDeviceInfoEntry 113 }
+		
+		ruUlPwrIn10           OBJECT-TYPE
+		    SYNTAX              Float
+		    UNITS               "dBm" 
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "RU ch10 UL Input Power."
+		::= { ruDeviceInfoEntry 114 }    
+		
+		 ruRFSwitch11           OBJECT-TYPE
+		    SYNTAX              INTEGER { off(0), on(1)}
+		    MAX-ACCESS          read-write
+		    STATUS              current
+		    DESCRIPTION
+		                        "RU ch11 RF Switch."
+		::= { ruDeviceInfoEntry 122 }		
+		
+		ruDlPwrOut11           OBJECT-TYPE
+		    SYNTAX              Float
+		    UNITS               "dBm" 
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "RU ch11 DL Outnput Power."
+		::= { ruDeviceInfoEntry 123 }
+		
+		ruUlPwrIn11           OBJECT-TYPE
+		    SYNTAX              Float
+		    UNITS               "dBm" 
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "RU ch11 UL Input Power."
+		::= { ruDeviceInfoEntry 124 }
+
+
+ 		ruRFSwitch12           OBJECT-TYPE
+		    SYNTAX              INTEGER { off(0), on(1)}
+		    MAX-ACCESS          read-write
+		    STATUS              current
+		    DESCRIPTION
+		                        "RU ch12 RF Switch."
+		::= { ruDeviceInfoEntry 132 }		
+		
+		ruDlPwrOut12           OBJECT-TYPE
+		    SYNTAX              Float
+		    UNITS               "dBm" 
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "RU ch12 DL Outnput Power."
+		::= { ruDeviceInfoEntry 133 }
+		
+		ruUlPwrIn12           OBJECT-TYPE
+		    SYNTAX              Float
+		    UNITS               "dBm" 
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "RU ch12 UL Input Power."
+		::= { ruDeviceInfoEntry 134 }
+				
+        ruSFPTemperature-1     OBJECT-TYPE
+		    SYNTAX              INTEGER
+		    UNITS               "C" 
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "RU SFP Temperature."
+		::= { ruDeviceInfoEntry 200 }
+		
+		ruSFPTxPower-1           OBJECT-TYPE
+		    SYNTAX              Float
+		    UNITS               "dBm" 
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "RU SFP Tx Power."
+		::= { ruDeviceInfoEntry 201 }
+		
+		ruSFPRxPower-1           OBJECT-TYPE
+		    SYNTAX              Float
+		    UNITS               "dBm" 
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "RU SFP Rx Power."
+		::= { ruDeviceInfoEntry 202 } 
+		
+		ruSFPTemperature-2    OBJECT-TYPE
+		    SYNTAX              INTEGER
+		    UNITS               "C" 
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "RU SFP Temperature."
+		::= { ruDeviceInfoEntry 220 }
+		
+		ruSFPTxPower-2        OBJECT-TYPE
+		    SYNTAX              Float
+		    UNITS               "dBm" 
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "RU SFP Tx Power."
+		::= { ruDeviceInfoEntry 221 }
+		
+		ruSFPRxPower-2        OBJECT-TYPE
+		    SYNTAX              Float
+		    UNITS               "dBm" 
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "RU SFP Rx Power."
+		::= { ruDeviceInfoEntry 222 }
+		
+-- --------------------------------------------------------------------------
+-- Last Update 20/02/2023 by Jmr
+-- RU10G ----------------------------------------------------------------------
+-- RU10G          OBJECT IDENTIFIER ::= { maDCU 40 }       
+       -- 1.3.6.1.4.1.15921.60.2.30.1	
+       ru10GDeviceInfoTable    OBJECT-TYPE
+              SYNTAX  SEQUENCE OF RU10GDeviceInfoEntry
+              ACCESS  not-accessible
+              STATUS  current
+              DESCRIPTION
+                  "Device  Infomation of the DxRU10G connected to the DEU 1-1."
+              ::= { RU10G   1 }
+
+
+		ru10GDeviceInfoEntry OBJECT-TYPE
+		              SYNTAX  RU10GDeviceInfoEntry
+		              ACCESS  not-accessible
+		              STATUS  current
+		              DESCRIPTION
+		                  "An entry in the table about Device  Infomation of ru."
+		              INDEX   { ru10GDeviceInfoIndex }
+		              ::= { ru10GDeviceInfoTable    1 }
+		
+		
+		RU10GDeviceInfoEntry::=
+		      SEQUENCE {  
+		              ru10GDeviceInfoIndex    INTEGER,
+		              ru10GConnectDeuPortNum  DisplayString,
+		              ru10GEquipmentModel     DisplayString,
+		              ru10GEquipmentSN        DisplayString,
+		              ru10GSiteInfo           DisplayString,
+		              ru10GTemperature        INTEGER,
+		              ru10GFirmwareversion    DisplayString,
+		              ru10GHardwareversion    INTEGER,
+		              ru10GDCVoltage          INTEGER,
+		              ru10GPowerConsumption   INTEGER, 
+		              ru10GSoftwareReset      INTEGER,
+		              ru10GRFSwitch1          INTEGER,
+		              ru10GDlPwrOut1          Float,
+		              ru10GUlPwrIn1           Float,
+		              ru10GRFSwitch2          INTEGER,
+		              ru10GDlPwrOut2          Float,
+		              ru10GUlPwrIn2           Float,
+		              ru10GRFSwitch3          INTEGER,
+		              ru10GDlPwrOut3          Float,
+		              ru10GUlPwrIn3           Float,
+		              ru10GRFSwitch4          INTEGER,
+		              ru10GDlPwrOut4          Float,
+		              ru10GUlPwrIn4           Float,  
+		              	              
+		              ru10GSFPTemperature-1   INTEGER,
+		              ru10GSFPTxPower-1       Float,
+		              ru10GSFPRxPower-1       Float, 
+		           		              
+		              ru10GSFPTemperature-2   INTEGER,
+		              ru10GSFPTxPower-2       Float,
+		              ru10GSFPRxPower-2       Float,
+		           		                
+		              ru10GSFPTemperature-3   INTEGER,
+		              ru10GSFPTxPower-3       Float,
+		              ru10GSFPRxPower-3       Float,
+		     		              
+		}  
+		
+		ru10GDeviceInfoIndex  OBJECT-TYPE
+		    SYNTAX              INTEGER 
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "RU Num ."
+		::= { ru10GDeviceInfoEntry 1 }
+		
+		ru10GConnectDeuPortNum   OBJECT-TYPE
+		    SYNTAX              DisplayString 
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "The RU Connected to DEU Port Num."
+		::= { ru10GDeviceInfoEntry 2 }	
+		
+		ru10GEquipmentModel   OBJECT-TYPE
+		    SYNTAX              DisplayString
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "RU Equipment Model."
+		::= { ru10GDeviceInfoEntry 3 }
+		
+		ru10GEquipmentSN      OBJECT-TYPE
+		    SYNTAX              DisplayString
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "RU Equipment Serial No."
+		::= { ru10GDeviceInfoEntry 4 }
+		
+		ru10GSiteInfo         OBJECT-TYPE
+		    SYNTAX              DisplayString
+		    MAX-ACCESS          read-write
+		    STATUS              current
+		    DESCRIPTION
+		                        "RU Site Info."
+		::= { ru10GDeviceInfoEntry 5 }
+		
+		ru10GTemperature      OBJECT-TYPE
+		    SYNTAX              INTEGER
+		    UNITS               "C" 
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "RU Equipment Temperature."
+		::= { ru10GDeviceInfoEntry 6 }
+		                        
+		ru10GFirmwareversion  OBJECT-TYPE
+		    SYNTAX              DisplayString
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "RU Firmware Version."
+		::= { ru10GDeviceInfoEntry 7 }
+		
+		ru10GHardwareversion     OBJECT-TYPE
+		    SYNTAX              INTEGER
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "RU Hardware Version."
+		::= { ru10GDeviceInfoEntry 8 }  
+
+		ru10GSoftwareReset       OBJECT-TYPE
+		    SYNTAX              INTEGER
+		    {
+        				reset(1)
+			} 
+		    MAX-ACCESS          read-write
+		    STATUS              current
+		    DESCRIPTION
+		                        "RU Software Reset."
+		::= { ru10GDeviceInfoEntry 11 }	
+
+		ru10GRFSwitch1           OBJECT-TYPE
+		    SYNTAX              INTEGER { off(0), on(1)}
+		    MAX-ACCESS          read-write
+		    STATUS              current
+		    DESCRIPTION
+		                        "RU ch1 RF Switch."
+		::= { ru10GDeviceInfoEntry 12 }		
+		
+		ru10GDlPwrOut1           OBJECT-TYPE
+		    SYNTAX              Float
+		    UNITS               "dBm" 
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "RU ch1 DL Outnput Power."
+		::= { ru10GDeviceInfoEntry 13 }
+		
+		ru10GUlPwrIn1           OBJECT-TYPE
+		    SYNTAX              Float
+		    UNITS               "dBm" 
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "RU ch1 UL Input Power."
+		::= { ru10GDeviceInfoEntry 14 }
+		
+		
+		ru10GRFSwitch2           OBJECT-TYPE
+		    SYNTAX              INTEGER { off(0), on(1)}
+		    MAX-ACCESS          read-write
+		    STATUS              current
+		    DESCRIPTION
+		                        "RU ch2 RF Switch."
+		::= { ru10GDeviceInfoEntry 15 }		
+		
+		ru10GDlPwrOut2           OBJECT-TYPE
+		    SYNTAX              Float
+		    UNITS               "dBm" 
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "RU ch2 DL Outnput Power."
+		::= { ru10GDeviceInfoEntry 16 }
+		
+		ru10GUlPwrIn2           OBJECT-TYPE
+		    SYNTAX              Float
+		    UNITS               "dBm" 
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "RU ch2 UL Input Power."
+		::= { ru10GDeviceInfoEntry 17 }
+		
+		ru10GRFSwitch3           OBJECT-TYPE
+		    SYNTAX              INTEGER { off(0), on(1)}
+		    MAX-ACCESS          read-write
+		    STATUS              current
+		    DESCRIPTION
+		                        "RU ch3 RF Switch."
+		::= { ru10GDeviceInfoEntry 18 }		
+		
+		ru10GDlPwrOut3           OBJECT-TYPE
+		    SYNTAX              Float
+		    UNITS               "dBm" 
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "RU ch3 DL Outnput Power."
+		::= { ru10GDeviceInfoEntry 19 }
+		
+		ru10GUlPwrIn3           OBJECT-TYPE
+		    SYNTAX              Float
+		    UNITS               "dBm" 
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "RU ch3 UL Input Power."
+		::= { ru10GDeviceInfoEntry 20 }
+		
+		ru10GRFSwitch4           OBJECT-TYPE
+		    SYNTAX              INTEGER { off(0), on(1)}
+		    MAX-ACCESS          read-write
+		    STATUS              current
+		    DESCRIPTION
+		                        "RU ch4 RF Switch."
+		::= { ru10GDeviceInfoEntry 21 }		
+		
+		ru10GDlPwrOut4           OBJECT-TYPE
+		    SYNTAX              Float
+		    UNITS               "dBm" 
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "RU ch4 DL Outnput Power."
+		::= { ru10GDeviceInfoEntry 22 }
+		
+		ru10GUlPwrIn4           OBJECT-TYPE
+		    SYNTAX              Float
+		    UNITS               "dBm" 
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "RU ch4 UL Input Power."
+		::= { ru10GDeviceInfoEntry 23 }
+		
+        ru10GSFPTemperature-1     OBJECT-TYPE
+		    SYNTAX              INTEGER
+		    UNITS               "C" 
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "RU SFP Temperature."
+		::= { ru10GDeviceInfoEntry 50 }
+		
+		ru10GSFPTxPower-1           OBJECT-TYPE
+		    SYNTAX              Float
+		    UNITS               "dBm" 
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "RU SFP Tx Power."
+		::= { ru10GDeviceInfoEntry 51 }
+		
+		ru10GSFPRxPower-1           OBJECT-TYPE
+		    SYNTAX              Float
+		    UNITS               "dBm" 
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "RU SFP Rx Power."
+		::= { ru10GDeviceInfoEntry 52 } 
+		
+		ru10GSFPTemperature-2    OBJECT-TYPE
+		    SYNTAX              INTEGER
+		    UNITS               "C" 
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "RU SFP Temperature."
+		::= { ru10GDeviceInfoEntry 65 }
+		
+		ru10GSFPTxPower-2        OBJECT-TYPE
+		    SYNTAX              Float
+		    UNITS               "dBm" 
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "RU SFP Tx Power."
+		::= { ru10GDeviceInfoEntry 66 }
+		
+		ru10GSFPRxPower-2        OBJECT-TYPE
+		    SYNTAX              Float
+		    UNITS               "dBm" 
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "RU SFP Rx Power."
+		::= { ru10GDeviceInfoEntry 67 }  
+		
+		-- DCU ---------------------------------------------------------------------- 
+--dcuDevInfo    OBJECT IDENTIFIER ::= { maSDCU 50 }  
+	-- 1.3.6.1.4.1.15921.60.50.1
+	   sauDevInfo      OBJECT IDENTIFIER ::= { SAU 1 } 
+	   
+         -- 1.3.6.1.4.1.15921.60.50.1.1
+		sauDevInfoTable    OBJECT-TYPE
+              SYNTAX  SEQUENCE OF sAUDevInfoEntry
+              ACCESS  not-accessible
+              STATUS  current
+              DESCRIPTION
+                  "Slaver AU Device Information."
+              ::= { sauDevInfo   1 }
+
+    	sauDevInfoEntry OBJECT-TYPE
+	              SYNTAX  sAUDevInfoEntry
+	              ACCESS  not-accessible
+	              STATUS  current
+	              DESCRIPTION
+	                  "An entry in the table about Device Infomation."
+	              INDEX   { sauDevInfoIndex }
+	              ::= { sauDevInfoTable    1 }   
+	    
+	    sAUDevInfoEntry::=
+		      	  SEQUENCE {  
+		              sauDevInfoIndex                   INTEGER, 
+		              sauConnectDcuPortNum              DisplayString,
+					  sauID                             INTEGER,
+					  sauEquipmentModel                 DisplayString,
+					  sauEquipmentMode                  INTEGER,
+					  sauEquipmentSN                    DisplayString, 
+					  sauFirmwareVersion                DisplayString,
+					  sauSiteInfo                       DisplayString,
+					  sauEquipmentTemperature           INTEGER,
+					  sauHardwareVersion                INTEGER,
+					  sauFanSpeed                       INTEGER,
+					  sauDateTime                       DisplayString,  
+					  sauSystemMaxDelay                 INTEGER,
+					  sauLongitude                      DisplayString,
+					  sauLatitude                       DisplayString,
+                      dcuHardwareReset                   INTEGER,
+                      dcuSoftwareReset                   INTEGER,
+		}  
+
+	    sauDevInfoIndex          OBJECT-TYPE
+		    SYNTAX              INTEGER
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "Slaver DCU Device Infomation Index."
+		::= { sauDevInfoEntry 1 }
+         
+         sauConnectDcuPortNum   OBJECT-TYPE
+		    SYNTAX              DisplayString 
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "The Slaver DCU Connected to Master DCU Port Num."
+		::= { sauDevInfoEntry 2 }	
+     
+		sauID                   OBJECT-TYPE
+            SYNTAX              INTEGER
+            MAX-ACCESS          read-only
+            STATUS              current
+            DESCRIPTION
+                                "Slaver DCU Index - system define."
+        ::= { sauDevInfoEntry 3 }
+		
+		sauEquipmentModel       OBJECT-TYPE
+            SYNTAX              DisplayString
+            MAX-ACCESS          read-only
+            STATUS              current
+            DESCRIPTION
+                                "Slaver DCU Equipment Model."
+        ::= { sauDevInfoEntry 4 }
+        
+        sauEquipmentMode       OBJECT-TYPE
+            SYNTAX              INTEGER
+            {
+            	primarily(0),
+				secondary(1),
+            }
+            MAX-ACCESS          read-write
+            STATUS              current
+            DESCRIPTION
+                                "Slaver DCU Equipment Model."
+        ::= { sauDevInfoEntry 5 }
+        
+        sauEquipmentSN          OBJECT-TYPE
+            SYNTAX              DisplayString
+            MAX-ACCESS          read-only
+            STATUS              current
+            DESCRIPTION
+                                "Slaver DCU Equipment Serial No."
+        ::= { sauDevInfoEntry 6 } 
+        
+         sauFirmwareVersion      OBJECT-TYPE
+            SYNTAX              DisplayString
+            MAX-ACCESS          read-only
+            STATUS              current
+            DESCRIPTION
+                                "Slaver DCU Firmware Version."
+        ::= { sauDevInfoEntry 7 }
+
+        
+        sauSiteInfo             OBJECT-TYPE
+            SYNTAX              DisplayString
+            MAX-ACCESS          read-write
+            STATUS              current
+            DESCRIPTION
+                                "Site Info."
+        ::= { sauDevInfoEntry 8 }
+        
+        sauEquipmentTemperature OBJECT-TYPE
+            SYNTAX              INTEGER
+            MAX-ACCESS          read-only
+            STATUS              current
+            DESCRIPTION
+                                "Slaver DCU Equipment Temperature."
+        ::= { sauDevInfoEntry 9 }
+        
+        sauHardwareVersion      OBJECT-TYPE
+            SYNTAX              INTEGER
+            MAX-ACCESS          read-only
+            STATUS              current
+            DESCRIPTION
+                                "Slaver DCU Hardware Version."
+        ::= { sauDevInfoEntry 10 }
+        
+        sauFanSpeed             OBJECT-TYPE    	
+            SYNTAX              INTEGER
+            UNITS               "r/min" 
+            MAX-ACCESS          read-only
+            STATUS              current
+            DESCRIPTION
+                                "Slaver DCU Fan Speed."
+        ::= { sauDevInfoEntry 11 }
+        
+        sauDateTime             OBJECT-TYPE
+            SYNTAX              DisplayString
+            MAX-ACCESS          read-only
+            STATUS              current
+            DESCRIPTION
+                                "Slaver DCU Device Date Time."
+        ::= { sauDevInfoEntry 12 }
+        
+        sauSystemMaxDelay       OBJECT-TYPE
+            SYNTAX              INTEGER 
+            MAX-ACCESS          read-only
+            STATUS              current
+            DESCRIPTION
+                                "Slaver DCU System Max Delay."
+        ::= { sauDevInfoEntry 13 }            
+        
+        sauLongitude           OBJECT-TYPE
+            SYNTAX              DisplayString
+            MAX-ACCESS          read-write
+            STATUS              current
+            DESCRIPTION
+                                "Longitude."
+        ::= { sauDevInfoEntry 14 }
+        
+        sauLatitude             OBJECT-TYPE
+            SYNTAX              DisplayString
+            MAX-ACCESS          read-write
+            STATUS              current
+            DESCRIPTION
+                                "Latitude."
+        ::= { sauDevInfoEntry 15 }                    
+
+        sauHardwareReset        OBJECT-TYPE
+            SYNTAX              INTEGER
+            {
+        				reset(1)
+			} 
+            MAX-ACCESS          read-write
+            STATUS              current
+            DESCRIPTION
+                                "Slaver DCU Hardware Reset."
+        ::= { sauDevInfoEntry 16 }
+        
+        sauSoftwareReset        OBJECT-TYPE
+            SYNTAX              INTEGER
+            {
+        				reset(1)
+			} 
+            MAX-ACCESS          read-write
+            STATUS              current
+            DESCRIPTION
+                                "Slaver DCU Software Reset."
+        ::= { sauDevInfoEntry 17 }    
+	    
+		
+-- DCU ---------------------------------------------------------------------- 
+--dcuRfInfo    OBJECT IDENTIFIER ::= { maSDCU 50 }         
+ 
+        -- 1.3.6.1.4.1.15921.60.50.2
+        sauRfInfo      OBJECT IDENTIFIER ::= { SAU 2 }
+        
+        -- 1.3.6.1.4.1.15921.60.50.2.1
+		sauRfInfoTable    OBJECT-TYPE
+              SYNTAX  SEQUENCE OF sAURfInfoEntry
+              ACCESS  not-accessible
+              STATUS  current
+              DESCRIPTION
+                  "Slaver DCU RF Information  1-16."
+              ::= { sauRfInfo   1 }
+
+
+		sauRfInfoEntry OBJECT-TYPE
+		              SYNTAX  sAURfInfoEntry
+		              ACCESS  not-accessible
+		              STATUS  current
+		              DESCRIPTION
+		                  "An entry in the table about Device  Infomation of RF."
+		              INDEX   { sauRfInfoIndex }
+		              ::= { sauRfInfoTable    1 }
+		
+		sAURfInfoEntry::=
+		      SEQUENCE {  
+		              sauRfInfoIndex      INTEGER,
+					  sauDlPwrIn1          Float,
+					  sauUlPwrOut1         Float,  
+					  sauDlPwrIn2          Float,
+					  sauUlPwrOut2         Float,
+					  sauDlPwrIn3          Float,
+					  sauUlPwrOut3         Float,
+					  sauDlPwrIn4          Float,
+					  sauUlPwrOut4         Float,
+					  sauDlPwrIn5          Float,
+					  sauUlPwrOut5         Float,
+					  sauDlPwrIn6          Float,
+					  sauUlPwrOut6         Float,
+					  sauDlPwrIn7          Float,
+					  sauUlPwrOut7         Float,
+					  sauDlPwrIn8          Float,
+					  sauUlPwrOut8         Float,
+					  sauDlPwrIn9          Float,
+					  sauUlPwrOut9         Float,
+					  sauDlPwrIn10         Float,
+					  sauUlPwrOut10        Float,
+					  sauDlPwrIn11          Float,
+					  sauUlPwrOut11         Float,
+					  sauDlPwrIn12          Float,
+					  sauUlPwrOut12         Float,
+					  sauDlPwrIn13          Float,
+					  sauUlPwrOut13         Float,
+					  sauDlPwrIn14          Float,
+					  sauUlPwrOut14         Float,
+					  sauDlPwrIn15          Float,
+					  sauUlPwrOut15         Float,
+					  sauDlPwrIn16          Float,
+					  sauUlPwrOut16         Float,
+		}  
+		
+		sauRfInfoIndex          OBJECT-TYPE
+		    SYNTAX              INTEGER
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "Slaver DCU RF Index."
+		::= { sauRfInfoEntry 1 }
+		
+		sauDlPwrIn1              OBJECT-TYPE
+		    SYNTAX              Float
+		    UNITS               "dBm" 
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "Slaver DCU DL Input Power CH1."
+		::= { sauRfInfoEntry 2 }
+		
+		sauUlPwrOut1             OBJECT-TYPE
+		    SYNTAX              Float
+		    UNITS               "dBm" 
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "Slaver DCU UL Output Power CH1."
+		::= { sauRfInfoEntry 3 } 
+		
+		sauDlPwrIn2              OBJECT-TYPE
+		    SYNTAX              Float
+		    UNITS               "dBm" 
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "Slaver DCU DL Input Power CH2."
+		::= { sauRfInfoEntry 10 }
+		
+		sauUlPwrOut2             OBJECT-TYPE
+		    SYNTAX              Float
+		    UNITS               "dBm" 
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "Slaver DCU UL Output Power CH2."
+		::= { sauRfInfoEntry 11 }  
+		
+		sauDlPwrIn3              OBJECT-TYPE
+		    SYNTAX              Float
+		    UNITS               "dBm" 
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "Slaver DCU DL Input Power CH3."
+		::= { sauRfInfoEntry 20 }
+		
+		sauUlPwrOut3             OBJECT-TYPE
+		    SYNTAX              Float
+		    UNITS               "dBm" 
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "Slaver DCU UL Output Power CH3."
+		::= { sauRfInfoEntry 21 }  
+		
+		sauDlPwrIn4              OBJECT-TYPE
+		    SYNTAX              Float
+		    UNITS               "dBm" 
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "Slaver DCU DL Input Power CH4."
+		::= { sauRfInfoEntry 30 }
+		
+		sauUlPwrOut4             OBJECT-TYPE
+		    SYNTAX              Float
+		    UNITS               "dBm" 
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "Slaver DCU UL Output Power CH4."
+		::= { sauRfInfoEntry 31 }  
+		
+		sauDlPwrIn5              OBJECT-TYPE
+		    SYNTAX              Float
+		    UNITS               "dBm" 
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "Slaver DCU DL Input Power CH5."
+		::= { sauRfInfoEntry 40 }
+		
+		sauUlPwrOut5             OBJECT-TYPE
+		    SYNTAX              Float
+		    UNITS               "dBm" 
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "Slaver DCU UL Output Power CH5."
+		::= { sauRfInfoEntry 41 }
+
+        sauDlPwrIn6              OBJECT-TYPE
+		    SYNTAX              Float
+		    UNITS               "dBm" 
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "Slaver DCU DL Input Power CH6."
+		::= { sauRfInfoEntry 50 }
+		
+		sauUlPwrOut6             OBJECT-TYPE
+		    SYNTAX              Float
+		    UNITS               "dBm" 
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "Slaver DCU UL Output Power CH6."
+		::= { sauRfInfoEntry 51 } 
+		
+		sauDlPwrIn7              OBJECT-TYPE
+		    SYNTAX              Float
+		    UNITS               "dBm" 
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "Slaver DCU DL Input Power CH7."
+		::= { sauRfInfoEntry 60 }
+		
+		sauUlPwrOut7             OBJECT-TYPE
+		    SYNTAX              Float
+		    UNITS               "dBm" 
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "Slaver DCU UL Output Power CH7."
+		::= { sauRfInfoEntry 61 }
+
+        sauDlPwrIn8              OBJECT-TYPE
+		    SYNTAX              Float
+		    UNITS               "dBm" 
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "Slaver DCU DL Input Power CH8."
+		::= { sauRfInfoEntry 70 }
+		
+		sauUlPwrOut8             OBJECT-TYPE
+		    SYNTAX              Float
+		    UNITS               "dBm" 
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "Slaver DCU UL Output Power CH8."
+		::= { sauRfInfoEntry 71 }  
+		
+		sauDlPwrIn9              OBJECT-TYPE
+		    SYNTAX              Float
+		    UNITS               "dBm" 
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "Slaver DCU DL Input Power CH9."
+		::= { sauRfInfoEntry 80 }
+		
+		sauUlPwrOut9             OBJECT-TYPE
+		    SYNTAX              Float
+		    UNITS               "dBm" 
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "Slaver DCU UL Output Power CH9."
+		::= { sauRfInfoEntry 81 } 
+		
+		sauDlPwrIn10              OBJECT-TYPE
+		    SYNTAX              Float
+		    UNITS               "dBm" 
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "Slaver DCU DL Input Power CH10."
+		::= { sauRfInfoEntry 90 }
+		
+		sauUlPwrOut10             OBJECT-TYPE
+		    SYNTAX              Float
+		    UNITS               "dBm" 
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "Slaver DCU UL Output Power CH10."
+		::= { sauRfInfoEntry 91 }  
+		
+		sauDlPwrIn11              OBJECT-TYPE
+		    SYNTAX              Float
+		    UNITS               "dBm" 
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "Slaver DCU DL Input Power CH11."
+		::= { sauRfInfoEntry 100 }
+		
+		sauUlPwrOut11             OBJECT-TYPE
+		    SYNTAX              Float
+		    UNITS               "dBm" 
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "Slaver DCU UL Output Power CH11."
+		::= { sauRfInfoEntry 101 }
+
+        sauDlPwrIn12              OBJECT-TYPE
+		    SYNTAX              Float
+		    UNITS               "dBm" 
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "Slaver DCU DL Input Power CH12."
+		::= { sauRfInfoEntry 110 }
+		
+		sauUlPwrOut12             OBJECT-TYPE
+		    SYNTAX              Float
+		    UNITS               "dBm" 
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "Slaver DCU UL Output Power CH12."
+		::= { sauRfInfoEntry 111 } 
+		
+		sauDlPwrIn13              OBJECT-TYPE
+		    SYNTAX              Float
+		    UNITS               "dBm" 
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "Slaver DCU DL Input Power CH13."
+		::= { sauRfInfoEntry 120 }
+		
+		sauUlPwrOut13             OBJECT-TYPE
+		    SYNTAX              Float
+		    UNITS               "dBm" 
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "Slaver DCU UL Output Power CH13."
+		::= { sauRfInfoEntry 121 }  
+		
+		sauDlPwrIn14              OBJECT-TYPE
+		    SYNTAX              Float
+		    UNITS               "dBm" 
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "Slaver DCU DL Input Power CH14."
+		::= { sauRfInfoEntry 130 }
+		
+		sauUlPwrOut14             OBJECT-TYPE
+		    SYNTAX              Float
+		    UNITS               "dBm" 
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "Slaver DCU UL Output Power CH14."
+		::= { sauRfInfoEntry 131 }  
+		
+		sauDlPwrIn15              OBJECT-TYPE
+		    SYNTAX              Float
+		    UNITS               "dBm" 
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "Slaver DCU DL Input Power CH15."
+		::= { sauRfInfoEntry 140 }
+		
+		sauUlPwrOut15             OBJECT-TYPE
+		    SYNTAX              Float
+		    UNITS               "dBm" 
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "Slaver DCU UL Output Power CH15."
+		::= { sauRfInfoEntry 141 }  
+		
+		sauDlPwrIn16              OBJECT-TYPE
+		    SYNTAX              Float
+		    UNITS               "dBm" 
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "Slaver DCU DL Input Power CH16."
+		::= { sauRfInfoEntry 150 }
+		
+		sauUlPwrOut16             OBJECT-TYPE
+		    SYNTAX              Float
+		    UNITS               "dBm" 
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "Slaver DCU UL Output Power CH16."
+		::= { sauRfInfoEntry 151 }
+
+		
+-- DCU ---------------------------------------------------------------------- 
+--dcuSFPInfo    OBJECT IDENTIFIER ::= { maSDCU 50 }          
+        -- 1.3.6.1.4.1.15921.60.50.3
+        sauSFPInfo     OBJECT IDENTIFIER ::= { SAU 3 }
+        
+        --  1.3.6.1.4.1.15921.60.50.3.1
+		sauSFPInfoTable    OBJECT-TYPE
+              SYNTAX  SEQUENCE OF sAUSFPInfoEntry
+              ACCESS  not-accessible
+              STATUS  current
+              DESCRIPTION
+                  "Slaver DCU SFP Information  A-F,1-8."
+              ::= { sauSFPInfo   1 }
+
+
+		sauSFPInfoEntry OBJECT-TYPE
+		              SYNTAX  sAUSFPInfoEntry
+		              ACCESS  not-accessible
+		              STATUS  current
+		              DESCRIPTION
+		                  "An entry in the table about Device  Infomation of SFP."
+		              INDEX   { sauSFPInfoIndex }
+		              ::= { sauSFPInfoTable    1 }
+		
+		sAUSFPInfoEntry::=
+		      SEQUENCE {  
+		              sauSFPInfoIndex     INTEGER,
+		              sauSFPTemperature-A   INTEGER,		
+					  sauSFPTxPower-A       Float,
+					  sauSFPRxPower-A       Float, 
+					  sauSFPTemperature-B   INTEGER,		
+					  sauSFPTxPower-B       Float,
+					  sauSFPRxPower-B       Float,
+					  sauSFPTemperature-C   INTEGER,		
+					  sauSFPTxPower-C       Float,
+					  sauSFPRxPower-C       Float, 
+					  sauSFPTemperature-D   INTEGER,		
+					  sauSFPTxPower-D       Float,
+					  sauSFPRxPower-D       Float, 
+					  sauSFPTemperature-E   INTEGER,		
+					  sauSFPTxPower-E       Float,
+					  sauSFPRxPower-E       Float,
+					  sauSFPTemperature-F   INTEGER,		
+					  sauSFPTxPower-F       Float,
+					  sauSFPRxPower-F       Float, 
+					  sauSFPTemperature-1   INTEGER,		
+					  sauSFPTxPower-1       Float,
+					  sauSFPRxPower-1       Float, 
+					  sauSFPTemperature-2   INTEGER,		
+					  sauSFPTxPower-2       Float,
+					  sauSFPRxPower-2       Float,
+					  sauSFPTemperature-3   INTEGER,		
+					  sauSFPTxPower-3       Float,
+					  sauSFPRxPower-3       Float,
+					  sauSFPTemperature-4   INTEGER,		
+					  sauSFPTxPower-4       Float,
+					  sauSFPRxPower-4       Float,
+					  sauSFPTemperature-5   INTEGER,		
+					  sauSFPTxPower-5       Float,
+					  sauSFPRxPower-5       Float,
+					  sauSFPTemperature-6   INTEGER,		
+					  sauSFPTxPower-6       Float,
+					  sauSFPRxPower-6       Float,
+					  sauSFPTemperature-7   INTEGER,		
+					  sauSFPTxPower-7       Float,
+					  sauSFPRxPower-7       Float,  
+					  sauSFPTemperature-8   INTEGER,		
+					  sauSFPTxPower-8       Float,
+					  sauSFPRxPower-8       Float,
+		}  
+		
+		sauSFPInfoIndex         OBJECT-TYPE
+		    SYNTAX              INTEGER 
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "SFP Index. The Index 1-6 represent Optical Port A-F. The Index 7-14 represent Optical Port 1-8."
+		::= { sauSFPInfoEntry 1 }
+		
+		sauSFPTemperature-A       OBJECT-TYPE
+		    SYNTAX              INTEGER
+		    UNITS               "C"  
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "Slaver DCU SFP Temperature."
+		::= { sauSFPInfoEntry 2 }
+		
+		sauSFPTxPower-A           OBJECT-TYPE
+		    SYNTAX              Float
+		    UNITS               "dBm"  
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "Slaver DCU SFP Tx Power."
+		::= { sauSFPInfoEntry 3 }
+		
+		sauSFPRxPower-A           OBJECT-TYPE
+		    SYNTAX              Float
+		    UNITS               "dBm"  
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "Slaver DCU SFP Rx Power."
+		::= { sauSFPInfoEntry 4 }      
+		
+		sauSFPTemperature-B       OBJECT-TYPE
+		    SYNTAX              INTEGER
+		    UNITS               "C"  
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "Slaver DCU SFP Temperature."
+		::= { sauSFPInfoEntry 16 }
+		
+		sauSFPTxPower-B           OBJECT-TYPE
+		    SYNTAX              Float
+		    UNITS               "dBm"  
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "Slaver DCU SFP Tx Power."
+		::= { sauSFPInfoEntry 17 }
+		
+		sauSFPRxPower-B           OBJECT-TYPE
+		    SYNTAX              Float
+		    UNITS               "dBm"  
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "Slaver DCU SFP Rx Power."
+		::= { sauSFPInfoEntry 18 }
+		
+	sauSFPTemperature-C       OBJECT-TYPE
+		    SYNTAX              INTEGER
+		    UNITS               "C"  
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "Slaver DCU SFP Temperature."
+		::= { sauSFPInfoEntry 30 }
+		
+		sauSFPTxPower-C           OBJECT-TYPE
+		    SYNTAX              Float
+		    UNITS               "dBm"  
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "Slaver DCU SFP Tx Power."
+		::= { sauSFPInfoEntry 31 }
+		
+		sauSFPRxPower-C           OBJECT-TYPE
+		    SYNTAX              Float
+		    UNITS               "dBm"  
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "Slaver DCU SFP Rx Power."
+		::= { sauSFPInfoEntry 32 }
+		
+		sauSFPTemperature-D       OBJECT-TYPE
+		    SYNTAX              INTEGER
+		    UNITS               "C"  
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "Slaver DCU SFP Temperature."
+		::= { sauSFPInfoEntry 44 }
+		
+		sauSFPTxPower-D           OBJECT-TYPE
+		    SYNTAX              Float
+		    UNITS               "dBm"  
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "Slaver DCU SFP Tx Power."
+		::= { sauSFPInfoEntry 45 }
+		
+		sauSFPRxPower-D           OBJECT-TYPE
+		    SYNTAX              Float
+		    UNITS               "dBm"  
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "Slaver DCU SFP Rx Power."
+		::= { sauSFPInfoEntry 46 } 
+		
+		sauSFPTemperature-E       OBJECT-TYPE
+		    SYNTAX              INTEGER
+		    UNITS               "C"  
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "Slaver DCU SFP Temperature."
+		::= { sauSFPInfoEntry 58 }
+		
+		sauSFPTxPower-E           OBJECT-TYPE
+		    SYNTAX              Float
+		    UNITS               "dBm"  
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "Slaver DCU SFP Tx Power."
+		::= { sauSFPInfoEntry 59 }
+		
+		sauSFPRxPower-E           OBJECT-TYPE
+		    SYNTAX              Float
+		    UNITS               "dBm"  
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "Slaver DCU SFP Rx Power."
+		::= { sauSFPInfoEntry 60 }  
+		
+		sauSFPTemperature-F       OBJECT-TYPE
+		    SYNTAX              INTEGER
+		    UNITS               "C"  
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "Slaver DCU SFP Temperature."
+		::= { sauSFPInfoEntry 72 }
+		
+		sauSFPTxPower-F           OBJECT-TYPE
+		    SYNTAX              Float
+		    UNITS               "dBm"  
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "Slaver DCU SFP Tx Power."
+		::= { sauSFPInfoEntry 73 }
+		
+		sauSFPRxPower-F           OBJECT-TYPE
+		    SYNTAX              Float
+		    UNITS               "dBm"  
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "Slaver DCU SFP Rx Power."
+		::= { sauSFPInfoEntry 74 }
+		
+        sauSFPTemperature-1       OBJECT-TYPE
+		    SYNTAX              INTEGER
+		    UNITS               "C"  
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "Slaver DCU SFP Temperature."
+		::= { sauSFPInfoEntry 86 }
+		
+		sauSFPTxPower-1           OBJECT-TYPE
+		    SYNTAX              Float
+		    UNITS               "dBm"  
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "Slaver DCU SFP Tx Power."
+		::= { sauSFPInfoEntry 87 }
+		
+		sauSFPRxPower-1           OBJECT-TYPE
+		    SYNTAX              Float
+		    UNITS               "dBm"  
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "Slaver DCU SFP Rx Power."
+		::= { sauSFPInfoEntry 88 }
+		
+		sauSFPTemperature-2       OBJECT-TYPE
+		    SYNTAX              INTEGER
+		    UNITS               "C"  
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "Slaver DCU SFP Temperature."
+		::= { sauSFPInfoEntry 100 }
+		
+		sauSFPTxPower-2           OBJECT-TYPE
+		    SYNTAX              Float
+		    UNITS               "dBm"  
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "Slaver DCU SFP Tx Power."
+		::= { sauSFPInfoEntry 101 }
+		
+		sauSFPRxPower-2           OBJECT-TYPE
+		    SYNTAX              Float
+		    UNITS               "dBm"  
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "Slaver DCU SFP Rx Power."
+		::= { sauSFPInfoEntry 102 } 
+		
+		sauSFPTemperature-3       OBJECT-TYPE
+		    SYNTAX              INTEGER
+		    UNITS               "C"  
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "Slaver DCU SFP Temperature."
+		::= { sauSFPInfoEntry 114 }
+		
+		sauSFPTxPower-3           OBJECT-TYPE
+		    SYNTAX              Float
+		    UNITS               "dBm"  
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "Slaver DCU SFP Tx Power."
+		::= { sauSFPInfoEntry 115 }
+		
+		sauSFPRxPower-3           OBJECT-TYPE
+		    SYNTAX              Float
+		    UNITS               "dBm"  
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "Slaver DCU SFP Rx Power."
+		::= { sauSFPInfoEntry 116 }
+
+       sauSFPTemperature-4       OBJECT-TYPE
+		    SYNTAX              INTEGER
+		    UNITS               "C"  
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "Slaver DCU SFP Temperature."
+		::= { sauSFPInfoEntry 128 }
+		
+		sauSFPTxPower-4           OBJECT-TYPE
+		    SYNTAX              Float
+		    UNITS               "dBm"  
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "Slaver DCU SFP Tx Power."
+		::= { sauSFPInfoEntry 129 }
+		
+		sauSFPRxPower-4           OBJECT-TYPE
+		    SYNTAX              Float
+		    UNITS               "dBm"  
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "Slaver DCU SFP Rx Power."
+		::= { sauSFPInfoEntry 130 }  
+		
+		 sauSFPTemperature-5       OBJECT-TYPE
+		    SYNTAX              INTEGER
+		    UNITS               "C"  
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "Slaver DCU SFP Temperature."
+		::= { sauSFPInfoEntry 142 }
+		
+		sauSFPTxPower-5           OBJECT-TYPE
+		    SYNTAX              Float
+		    UNITS               "dBm"  
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "Slaver DCU SFP Tx Power."
+		::= { sauSFPInfoEntry 143 }
+		
+		sauSFPRxPower-5           OBJECT-TYPE
+		    SYNTAX              Float
+		    UNITS               "dBm"  
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "Slaver DCU SFP Rx Power."
+		::= { sauSFPInfoEntry 144 }
+
+ 	   sauSFPTemperature-6       OBJECT-TYPE
+		    SYNTAX              INTEGER
+		    UNITS               "C"  
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "Slaver DCU SFP Temperature."
+		::= { sauSFPInfoEntry 156 }
+		
+		sauSFPTxPower-6           OBJECT-TYPE
+		    SYNTAX              Float
+		    UNITS               "dBm"  
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "Slaver DCU SFP Tx Power."
+		::= { sauSFPInfoEntry 157 }
+		
+		sauSFPRxPower-6           OBJECT-TYPE
+		    SYNTAX              Float
+		    UNITS               "dBm"  
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "Slaver DCU SFP Rx Power."
+		::= { sauSFPInfoEntry 158 }		
+		
+		sauSFPTemperature-7       OBJECT-TYPE
+		    SYNTAX              INTEGER
+		    UNITS               "C"  
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "Slaver DCU SFP Temperature."
+		::= { sauSFPInfoEntry 170 }
+		
+		sauSFPTxPower-7           OBJECT-TYPE
+		    SYNTAX              Float
+		    UNITS               "dBm"  
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "Slaver DCU SFP Tx Power."
+		::= { sauSFPInfoEntry 171 }
+		
+		sauSFPRxPower-7           OBJECT-TYPE
+		    SYNTAX              Float
+		    UNITS               "dBm"  
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "Slaver DCU SFP Rx Power."
+		::= { sauSFPInfoEntry 172 }
+				
+		sauSFPTemperature-8       OBJECT-TYPE
+		    SYNTAX              INTEGER
+		    UNITS               "C"  
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "Slaver DCU SFP Temperature."
+		::= { sauSFPInfoEntry 184 }
+		
+		sauSFPTxPower-8           OBJECT-TYPE
+		    SYNTAX              Float
+		    UNITS               "dBm"  
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "Slaver DCU SFP Tx Power."
+		::= { sauSFPInfoEntry 185 }
+		
+		sauSFPRxPower-8           OBJECT-TYPE
+		    SYNTAX              Float
+		    UNITS               "dBm"  
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "Slaver DCU SFP Rx Power."
+		::= { sauSFPInfoEntry 186 }		
+
+-- RIU ----------------------------------------------------------------------
+-- slaverRIU          OBJECT IDENTIFIER ::= { maDCU 10 }      
+		
+		sauRIU     OBJECT IDENTIFIER ::= { SAU 4 }		
+		
+		-- 1.3.6.1.4.1.15921.60.2.10.1
+		sriuInfoTable    OBJECT-TYPE
+              SYNTAX  SEQUENCE OF sRiuInfoEntry
+              ACCESS  not-accessible
+              STATUS  current
+              DESCRIPTION
+                  "Device  Infomation of the RIU 1-16."
+              ::= { sauRIU   1 }
+
+
+		sriuInfoEntry  OBJECT-TYPE
+		              SYNTAX  sRiuInfoEntry
+		              ACCESS  not-accessible
+		              STATUS  current
+		              DESCRIPTION
+		                  "An entry in the table about Device  Infomation of RIU."
+		              INDEX   { sriuIndex }
+		              ::= { sriuInfoTable    1 }
+		
+		sRiuInfoEntry::=
+		      SEQUENCE {  
+		              sriuIndex             INTEGER,
+		              sriuEquipmentModel    DisplayString,
+		              sriuEquipmentSN       DisplayString,
+		              sriuSiteInfo          DisplayString,
+		              sriuFirmwareversion   DisplayString,
+		              sriuHardwareversion   INTEGER,
+		              sriuBandInfo          INTEGER,
+		              sriuCombinerMode      INTEGER,
+		              sriuTemperature       INTEGER,
+		              sriuBandSwitch1       INTEGER,
+		              sriuBandSwitch2       INTEGER,
+		              sriuBandSwitch3       INTEGER,
+		              sriuBandSwitch4       INTEGER,
+		              sriuBandSwitch5       INTEGER,
+		              sriuBandSwitch6       INTEGER,
+		              sriuBandSwitch7       INTEGER,
+		              sriuBandSwitch8       INTEGER,
+		              sriuDlPwrIn1          Float,
+		              sriuDlPwrIn2          Float,
+		              sriuDlPwrIn3          Float, 
+		              sriuDlPwrIn4          Float,
+		              sriuDlPwrIn5          Float,
+		              sriuDlPwrIn6          Float,
+		              sriuDlPwrIn7          Float, 
+		              sriuDlPwrIn8          Float,		              
+		              sriuReset             INTEGER,		              
+		}  
+		
+		sriuIndex                OBJECT-TYPE
+		    SYNTAX              INTEGER 
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "RIU Num ."
+		::= { sriuInfoEntry 1 }
+		
+		sriuEquipmentModel       OBJECT-TYPE
+            SYNTAX              DisplayString
+            MAX-ACCESS          read-only
+            STATUS              current
+            DESCRIPTION
+                                "RIU Equipment Model."
+        ::= { sriuInfoEntry 2 }
+        
+        sriuEquipmentSN          OBJECT-TYPE
+		    SYNTAX              DisplayString
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "RIU Equipment Serial No."
+		::= { sriuInfoEntry 3 }
+		
+		sriuSiteInfo             OBJECT-TYPE
+		    SYNTAX              DisplayString
+		    MAX-ACCESS          read-write
+		    STATUS              current
+		    DESCRIPTION
+		                        "riuSiteInfo."
+		::= { sriuInfoEntry 4 }
+		
+		sriuFirmwareversion      OBJECT-TYPE
+		    SYNTAX              DisplayString
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "RIU Firmware Version."
+		::= { sriuInfoEntry 5 }
+		
+		sriuHardwareversion      OBJECT-TYPE
+		    SYNTAX              INTEGER
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "RIU Hardware Version."
+		::= { sriuInfoEntry 6 }
+		
+		sriuBandInfo             OBJECT-TYPE
+		    SYNTAX              INTEGER
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "RIU Band information."
+		::= { sriuInfoEntry 7 }
+		
+		sriuCombinerMode         OBJECT-TYPE
+		    SYNTAX              INTEGER{ riu-2to1(0), riu-4to1(1),riu-8to1(2)}
+		    MAX-ACCESS          read-write
+		    STATUS              current
+		    DESCRIPTION
+		                        "RIU Combiner Mode."
+		::= { sriuInfoEntry 8 }
+		
+		sriuTemperature          OBJECT-TYPE
+		    SYNTAX              INTEGER
+		    UNITS               "C" 
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "RIU Equipment Temperature."
+		::= { sriuInfoEntry 9 }
+		
+		sriuBandSwitch1          OBJECT-TYPE
+		    SYNTAX              INTEGER { off(0), on(1)}
+		    MAX-ACCESS          read-write
+		    STATUS              current
+		    DESCRIPTION
+		                        "RIU band switch."
+		::= { sriuInfoEntry 10 }
+		
+		sriuBandSwitch2          OBJECT-TYPE
+		    SYNTAX              INTEGER { off(0), on(1)}
+		    MAX-ACCESS          read-write
+		    STATUS              current
+		    DESCRIPTION
+		                        "RIU band switch."
+		::= { sriuInfoEntry 11 }
+		
+		sriuBandSwitch3          OBJECT-TYPE
+		    SYNTAX              INTEGER { off(0), on(1)}
+		    MAX-ACCESS          read-write
+		    STATUS              current
+		    DESCRIPTION
+		                        "RIU band switch."
+		::= { sriuInfoEntry 12 }
+		
+		sriuBandSwitch4          OBJECT-TYPE
+		    SYNTAX              INTEGER { off(0), on(1)}
+		    MAX-ACCESS          read-write
+		    STATUS              current
+		    DESCRIPTION
+		                        "RIU band switch."
+		::= { sriuInfoEntry 13 }
+		
+		sriuBandSwitch5          OBJECT-TYPE
+		    SYNTAX              INTEGER { off(0), on(1)}
+		    MAX-ACCESS          read-write
+		    STATUS              current
+		    DESCRIPTION
+		                        "RIU band switch."
+		::= { sriuInfoEntry 14 }
+		
+		sriuBandSwitch6          OBJECT-TYPE
+		    SYNTAX              INTEGER { off(0), on(1)}
+		    MAX-ACCESS          read-write
+		    STATUS              current
+		    DESCRIPTION
+		                        "RIU band switch."
+		::= { sriuInfoEntry 15 }
+		
+		sriuBandSwitch7          OBJECT-TYPE
+		    SYNTAX              INTEGER { off(0), on(1)}
+		    MAX-ACCESS          read-write
+		    STATUS              current
+		    DESCRIPTION
+		                        "RIU band switch."
+		::= { sriuInfoEntry 16 }
+		
+		sriuBandSwitch8          OBJECT-TYPE
+		    SYNTAX              INTEGER { off(0), on(1)}
+		    MAX-ACCESS          read-write
+		    STATUS              current
+		    DESCRIPTION
+		                        "RIU band switch."
+		::= { sriuInfoEntry 17 }
+		
+		sriuDlPwrIn1             OBJECT-TYPE
+		    SYNTAX              Float
+		    UNITS               "dBm" 
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "RIU ch1 DL Input Power ."
+		::= { sriuInfoEntry 18 }
+		
+		sriuDlPwrIn2             OBJECT-TYPE
+		    SYNTAX              Float
+		    UNITS               "dBm" 
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "RIU ch2 DL Input Power ."
+		::= { sriuInfoEntry 19 }
+		
+		sriuDlPwrIn3             OBJECT-TYPE
+		    SYNTAX              Float
+		    UNITS               "dBm" 
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "RIU ch3 DL Input Power ."
+		::= { sriuInfoEntry 20 }
+		
+		sriuDlPwrIn4             OBJECT-TYPE
+		    SYNTAX              Float
+		    UNITS               "dBm" 
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "RIU ch4 DL Input Power ."
+		::= { sriuInfoEntry 21 }
+		
+		
+		sriuDlPwrIn5             OBJECT-TYPE
+		    SYNTAX              Float
+		    UNITS               "dBm" 
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "RIU ch5 DL Input Power ."
+		::= { sriuInfoEntry 22 }
+		
+		sriuDlPwrIn6             OBJECT-TYPE
+		    SYNTAX              Float
+		    UNITS               "dBm" 
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "RIU ch6 DL Input Power ."
+		::= { sriuInfoEntry 23 }
+		
+		sriuDlPwrIn7             OBJECT-TYPE
+		    SYNTAX              Float
+		    UNITS               "dBm" 
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "RIU ch7 DL Input Power ."
+		::= { sriuInfoEntry 24 }
+		
+		sriuDlPwrIn8             OBJECT-TYPE
+		    SYNTAX              Float
+		    UNITS               "dBm" 
+		    MAX-ACCESS          read-only
+		    STATUS              current
+		    DESCRIPTION
+		                        "RIU ch8 DL Input Power ."
+		::= { sriuInfoEntry 25 }		
+		
+		sriuReset                OBJECT-TYPE
+		    SYNTAX              INTEGER
+		    {
+        				reset(1)
+			} 
+		    MAX-ACCESS          read-write
+		    STATUS              current
+		    DESCRIPTION
+		                        "RIU Software Reset."
+		::= { sriuInfoEntry 26 }   		
+			
+
+		
+-- --------------------------------------------------------------------------
+-- UpdateTransaction ----------------------------------------------------------------------
+-- UpdateTransaction      OBJECT IDENTIFIER ::= { maDCU 100 } 		
+
+        UpdateSftpTransactionStatus OBJECT-TYPE
+	        SYNTAX        INTEGER {
+	        				sftp-not-configured(1),
+	        				sftp-ready(2),
+	        				in-progress(3),
+	        				swap-inprogress(4),
+	        				swap-rebooting(5),
+	        				swap-failed(6)	
+	        			  }
+	        MAX-ACCESS    read-only
+	        STATUS        current
+	        DESCRIPTION   "ONE Software update status"
+        ::= { UpdateTransaction 1 }
+        
+        UpdateSftpTransactionAddress OBJECT-TYPE
+	        SYNTAX        DisplayString
+	        MAX-ACCESS    read-write
+	        STATUS        current
+	        DESCRIPTION   "ONE Software update SFTP server address"
+        ::= { UpdateTransaction 2 }
+        
+        UpdateSftpTransactionUser OBJECT-TYPE
+	        SYNTAX        DisplayString (SIZE (1..20))
+	        MAX-ACCESS    read-write
+	        STATUS        current
+	        DESCRIPTION   "ONE Software update SFTP user"
+        ::= { UpdateTransaction 3 }
+        
+		UpdateSftpTransactionPassword OBJECT-TYPE
+	        SYNTAX        DisplayString (SIZE (1..20))
+	        MAX-ACCESS    read-write
+	        STATUS        current
+	        DESCRIPTION   "ONE Software update SFTP password"
+        ::= { UpdateTransaction 4 }
+        
+		UpdateSftpTransactionFileName OBJECT-TYPE
+	        SYNTAX        DisplayString (SIZE (5..128))
+	        MAX-ACCESS    read-write
+	        STATUS        current
+	        DESCRIPTION   "ONE Software update SFTP file name."
+        ::= { UpdateTransaction 5 }
+
+		UpdateSwPckAction OBJECT-TYPE
+	        SYNTAX        INTEGER {
+	        				download-start(1)
+	        			  }
+	        MAX-ACCESS    read-write
+	        STATUS        current
+	        DESCRIPTION   "ONE Software update action write only"
+        ::= { UpdateTransaction 6 } 
+        
+        UpdateSftpTransactionProgress OBJECT-TYPE
+	        SYNTAX        INTEGER(0..100)
+	        MAX-ACCESS    read-only
+	        STATUS        current
+	        DESCRIPTION   "ONE Software update package progress"
+        ::= { UpdateTransaction 7 }      
+        
+		UpdateSftpTransactionFailReason OBJECT-TYPE
+	        SYNTAX        DisplayString (SIZE (1..64))
+	        MAX-ACCESS    read-only
+	        STATUS        current
+	        DESCRIPTION   "ONE Software update fail reason."
+        ::= { UpdateTransaction 8 }
+        
+-- --------------------------------------------------------------------------
+-- Last Update 16/10/2022 by Jmr
+-- maConfigTransaction ----------------------------------------------------------------------
+-- maConfigTransaction      OBJECT IDENTIFIER ::= { maDCU 101 } 	  
+        
+        ConfigSftpTransactionStatus OBJECT-TYPE
+	        SYNTAX        INTEGER {
+	        				sftp-not-configured(1),
+	        				sftp-ready(2),
+	        				in-progress(3),
+	        				succeed(4),
+	        				failed(5)	
+	        			  }
+	        MAX-ACCESS    read-only
+	        STATUS        current
+	        DESCRIPTION   "Import Config file status"
+        ::= { ConfigTransaction 1 }
+        
+        ConfigSftpTransactionAddress OBJECT-TYPE
+	        SYNTAX        DisplayString
+	        MAX-ACCESS    read-write
+	        STATUS        current
+	        DESCRIPTION   "Config file import SFTP server address"
+        ::= { ConfigTransaction 2 }
+        
+        ConfigSftpTransactionUser OBJECT-TYPE
+	        SYNTAX        DisplayString (SIZE (1..20))
+	        MAX-ACCESS    read-write
+	        STATUS        current
+	        DESCRIPTION   "Config file import SFTP user"
+        ::= { ConfigTransaction 3 }
+        
+		ConfigSftpTransactionPassword OBJECT-TYPE
+	        SYNTAX        DisplayString (SIZE (1..20))
+	        MAX-ACCESS    read-write
+	        STATUS        current
+	        DESCRIPTION   "Config file import SFTP password"
+        ::= { ConfigTransaction 4 }
+        
+		ConfigSftpTransactionFileName OBJECT-TYPE
+	        SYNTAX        DisplayString (SIZE (5..128))
+	        MAX-ACCESS    read-write
+	        STATUS        current
+	        DESCRIPTION   "Config file import SFTP file name."
+        ::= { ConfigTransaction 5 }
+
+		ConfigFileAction OBJECT-TYPE
+	        SYNTAX        INTEGER {
+	        				config-start(1)
+	        			  }
+	        MAX-ACCESS    read-write
+	        STATUS        current
+	        DESCRIPTION   "Config file import can take up to 5-10 minutes."
+        ::= { ConfigTransaction 6 }       
+        
+		ConfigFailReason OBJECT-TYPE
+	        SYNTAX        DisplayString (SIZE (1..64))
+	        MAX-ACCESS    read-only
+	        STATUS        current
+	        DESCRIPTION   "Config file import fail reason."
+        ::= { ConfigTransaction 7 }
+
+ -- --------------------------------------------------------------------------
+-- maExportTransaction ----------------------------------------------------------------------
+-- maExportTransaction      OBJECT IDENTIFIER ::= { maDCU 102 } 	  
+    
+    	ExportSftpTransactionStatus OBJECT-TYPE
+	        SYNTAX        INTEGER {
+	        				sftp-not-configured(1),
+	        				sftp-ready(2),
+	        				in-progress(3),
+	        				succeed(4),
+	        				failed(5)	
+	        			  }
+	        MAX-ACCESS    read-only
+	        STATUS        current
+	        DESCRIPTION   "Export parameter file status"
+        ::= { ExportTransaction 1 }
+        
+        ExportSftpTransactionAddress OBJECT-TYPE
+	        SYNTAX        DisplayString
+	        MAX-ACCESS    read-write
+	        STATUS        current
+	        DESCRIPTION   "Parameter file export SFTP server address"
+        ::= { ExportTransaction 2 }
+        
+        ExportSftpTransactionUser OBJECT-TYPE
+	        SYNTAX        DisplayString (SIZE (1..20))
+	        MAX-ACCESS    read-write
+	        STATUS        current
+	        DESCRIPTION   "Parameter file export SFTP user"
+        ::= { ExportTransaction 3 }
+        
+		ExportSftpTransactionPassword OBJECT-TYPE
+	        SYNTAX        DisplayString (SIZE (1..20))
+	        MAX-ACCESS    read-write
+	        STATUS        current
+	        DESCRIPTION   "Parameter file export SFTP password"
+        ::= { ExportTransaction 4 }
+        
+        ExportSftpTransactionFileName OBJECT-TYPE
+	        SYNTAX        DisplayString (SIZE (5..128))
+	        MAX-ACCESS    read-write
+	        STATUS        current
+	        DESCRIPTION   "Config file export SFTP file name."
+        ::= { ExportTransaction 5 }
+        
+		ExportPckAction OBJECT-TYPE
+	        SYNTAX        INTEGER {
+	        				export-start(1)
+	        			  }
+	        MAX-ACCESS    read-write
+	        STATUS        current
+	        DESCRIPTION   "Parameter file export action write only"
+        ::= { ExportTransaction 6 }       
+        
+		ExportSftpTransactionFailReason OBJECT-TYPE
+	        SYNTAX        DisplayString (SIZE (1..64))
+	        MAX-ACCESS    read-only
+	        STATUS        current
+	        DESCRIPTION   "Parameter file export fail reason."
+        ::= { ExportTransaction 7 }
+        
+   
+    	            
+   
+ 
+    END
+
+--
+-- MAX-PRO-DEVICES-MIB.mib
+--

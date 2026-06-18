@@ -1,0 +1,5887 @@
+DPC-DISTRIBUTED-ACDCRECTIFIERINFO-MIB DEFINITIONS ::= BEGIN
+
+IMPORTS
+    NOTIFICATION-TYPE, OBJECT-TYPE, MODULE-IDENTITY, 
+    enterprises, Counter32, Integer32
+        FROM SNMPv2-SMI
+    NOTIFICATION-GROUP
+        FROM SNMPv2-CONF
+    DisplayString
+        FROM SNMPv2-TC;
+
+dpc MODULE-IDENTITY
+    LAST-UPDATED "201904091848Z"
+    ORGANIZATION 
+        "Beijing Dynamic Power Shenzhen R&D(DPC)"
+    CONTACT-INFO 
+        "Beijing Dynamic Power Shenzhen R&D(DPC).
+              Postal: 518000
+              Shenzhen,China
+              web:  www.dpc.com.cn"
+    DESCRIPTION 
+        "dpcDistributedPower is 10 of dpc.
+         Branch overview:
+         acDistribution is the branch of dpcDistributedPower`s node,which branch will be 1.
+		 rectifier is the branch of dpcDistributedPower`s node,which branch will be 2.
+		 dcDistribution is the branch of dpcDistributedPower`s node,which branch will be 3.
+		 systemAlarm is the branch of dpcDistributedPower`s node,which branch will be 4. 
+		 solarController is the branch of dpcDistributedPower`s node,which branch will be 5.
+		 dcdcConverter is the branch of dpcDistributedPower`s node,which branch will be 6.
+        "
+
+    REVISION "201904091849Z"
+    DESCRIPTION 
+        "Version:V100
+         First revision.
+        
+        
+        Author Black"
+                 
+::= { enterprises 39553 }
+    
+--
+-- Node definitions
+--
+---------------------------------------------------------------
+--  DPC Distribution Information{ DPC 10 }
+--------------------------------------------------------------- 
+    -- 1.3.6.1.4.1.39553.10
+    dpcDistributedPower OBJECT IDENTIFIER ::= { dpc 10 }
+
+---------------------------------------------------------------
+--  AC Distribution Information{ dpcDistributedPower 1 }
+---------------------------------------------------------------         
+    -- 1.3.6.1.4.1.39553.10.1
+    --acDistribution OBJECT IDENTIFIER ::= { dpcDistributedPower 1 }   
+    rectifier OBJECT IDENTIFIER ::= { dpcDistributedPower 2 }
+        
+    -- 1.3.6.1.4.1.39553.10.2.1
+    --analog OBJECT IDENTIFIER ::= { rectifier 1 }          
+        -- 1.3.6.1.4.1.39553.10.2.5
+        cabinetInfo OBJECT IDENTIFIER ::= { rectifier 5 }
+  -- 1.3.6.1.4.1.39553.10.2.5.1
+    rectifierNumber  OBJECT-TYPE
+    SYNTAX INTEGER
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION 
+        "The total number of rectifier."
+    ::= { cabinetInfo 1  }
+  -- 1.3.6.1.4.1.39553.10.2.5.2
+    rectifierPower   OBJECT-TYPE
+    SYNTAX INTEGER
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION 
+        "The total power of all rectifier.
+         The actual value = The receive data/1000.
+         The unit of actual value is KW."
+    ::= { cabinetInfo 2  }
+------------------------------------------------------------
+-- ACDC Rectifier information table { cabinetInfo 3 }
+------------------------------------------------------------
+
+acdcRectifierInfoTable OBJECT-TYPE
+    SYNTAX SEQUENCE OF ACDCRectifierInfoEntry
+    MAX-ACCESS not-accessible
+    STATUS current
+    DESCRIPTION "
+        Table holding information about the currently ACDC Rectifier."
+    ::= { cabinetInfo 3 }
+
+acdcRectifierInfoEntry OBJECT-TYPE
+    SYNTAX ACDCRectifierInfoEntry
+    MAX-ACCESS not-accessible
+    STATUS current
+    DESCRIPTION "
+        An entry (conceptual row) in the acdcRectifierInfoTable."
+    INDEX { rectifierIndex }
+    ::= { acdcRectifierInfoTable 1 }
+
+ACDCRectifierInfoEntry ::= SEQUENCE {
+        rectifierIndex INTEGER,
+        rectifierOutputVoltage INTEGER,
+        rectifierOutputCurrent INTEGER,
+        rectifierOutputCurrentLimit INTEGER,
+        rectifierOutputSettingVoltage INTEGER,
+        rectifierInputVoltage INTEGER,
+        rectifierInputVoltageUab INTEGER,
+        rectifierInputVoltageUbc INTEGER,
+        rectifierInputVoltageUca INTEGER,
+        rectifierAmbientTemperature INTEGER,
+        rectifierPrimaryHotPointTemperature INTEGER,
+        rectifierSecondHotPointTemperature INTEGER,
+        rectifierRunTime INTEGER,
+        rectifierType INTEGER,
+        rectifierState INTEGER,
+        rectifierAlarmStatus1 INTEGER,
+        rectifierAlarmStatus2 INTEGER,
+        rectifierBarcode INTEGER,
+        rectifierPhaseSet INTEGER
+    }
+
+    rectifierIndex OBJECT-TYPE
+    SYNTAX INTEGER {
+        acdcRectifier-1 (1),
+        acdcRectifier-2 (2),
+        acdcRectifier-3 (3),
+        acdcRectifier-4 (4),
+        acdcRectifier-5 (5),
+        acdcRectifier-6 (6),
+        acdcRectifier-7 (7),
+        acdcRectifier-8 (8),
+        acdcRectifier-9 (9),
+        acdcRectifier-10    (10),
+        acdcRectifier-11    (11),
+        acdcRectifier-12    (12),
+        acdcRectifier-13    (13),
+        acdcRectifier-14    (14),
+        acdcRectifier-15    (15),
+        acdcRectifier-16    (16),
+        acdcRectifier-17    (17),
+        acdcRectifier-18    (18),
+        acdcRectifier-19    (19),
+        acdcRectifier-20    (20),
+        acdcRectifier-21    (21),
+        acdcRectifier-22    (22),
+        acdcRectifier-23    (23),
+        acdcRectifier-24    (24),
+        acdcRectifier-25    (25),
+        acdcRectifier-26    (26),
+        acdcRectifier-27    (27),
+        acdcRectifier-28    (28),
+        acdcRectifier-29    (29),
+        acdcRectifier-30    (30),
+        acdcRectifier-31    (31),
+        acdcRectifier-32    (32),
+        acdcRectifier-33    (33),
+        acdcRectifier-34    (34),
+        acdcRectifier-35    (35),
+        acdcRectifier-36    (36),
+        acdcRectifier-37    (37),
+        acdcRectifier-38    (38),
+        acdcRectifier-39    (39),
+        acdcRectifier-40    (40),
+        acdcRectifier-41    (41),
+        acdcRectifier-42    (42),
+        acdcRectifier-43    (43),
+        acdcRectifier-44    (44),
+        acdcRectifier-45    (45),
+        acdcRectifier-46    (46),
+        acdcRectifier-47    (47),
+        acdcRectifier-48    (48),
+        acdcRectifier-49    (49),
+        acdcRectifier-50    (50),
+        acdcRectifier-51    (51),
+        acdcRectifier-52    (52),
+        acdcRectifier-53    (53),
+        acdcRectifier-54    (54),
+        acdcRectifier-55    (55),
+        acdcRectifier-56    (56),
+        acdcRectifier-57    (57),
+        acdcRectifier-58    (58),
+        acdcRectifier-59    (59),
+        acdcRectifier-60    (60),
+        acdcRectifier-61    (61),
+        acdcRectifier-62    (62),
+        acdcRectifier-63    (63),
+        acdcRectifier-64    (64),
+        acdcRectifier-65    (65),
+        acdcRectifier-66    (66),
+        acdcRectifier-67    (67),
+        acdcRectifier-68    (68),
+        acdcRectifier-69    (69),
+        acdcRectifier-70    (70),
+        acdcRectifier-71    (71),
+        acdcRectifier-72    (72),
+        acdcRectifier-73    (73),
+        acdcRectifier-74    (74),
+        acdcRectifier-75    (75),
+        acdcRectifier-76    (76),
+        acdcRectifier-77    (77),
+        acdcRectifier-78    (78),
+        acdcRectifier-79    (79),
+        acdcRectifier-80    (80),
+        acdcRectifier-81    (81),
+        acdcRectifier-82    (82),
+        acdcRectifier-83    (83),
+        acdcRectifier-84    (84),
+        acdcRectifier-85    (85),
+        acdcRectifier-86    (86),
+        acdcRectifier-87    (87),
+        acdcRectifier-88    (88),
+        acdcRectifier-89    (89),
+        acdcRectifier-90    (90),
+        acdcRectifier-91    (91),
+        acdcRectifier-92    (92),
+        acdcRectifier-93    (93),
+        acdcRectifier-94    (94),
+        acdcRectifier-95    (95),
+        acdcRectifier-96    (96),
+        acdcRectifier-97    (97),
+        acdcRectifier-98    (98),
+        acdcRectifier-99    (99),
+        acdcRectifier-100   (100),
+        acdcRectifier-101   (101),
+        acdcRectifier-102   (102),
+        acdcRectifier-103   (103),
+        acdcRectifier-104   (104),
+        acdcRectifier-105   (105),
+        acdcRectifier-106   (106),
+        acdcRectifier-107   (107),
+        acdcRectifier-108   (108),
+        acdcRectifier-109   (109),
+        acdcRectifier-110   (110),
+        acdcRectifier-111   (111),
+        acdcRectifier-112   (112),
+        acdcRectifier-113   (113),
+        acdcRectifier-114   (114),
+        acdcRectifier-115   (115),
+        acdcRectifier-116   (116),
+        acdcRectifier-117   (117),
+        acdcRectifier-118   (118),
+        acdcRectifier-119   (119),
+        acdcRectifier-120   (120),
+        acdcRectifier-121   (121),
+        acdcRectifier-122   (122),
+        acdcRectifier-123   (123),
+        acdcRectifier-124   (124),
+        acdcRectifier-125   (125),
+        acdcRectifier-126   (126),
+        acdcRectifier-127   (127),
+        acdcRectifier-128   (128)
+    }
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION "
+        The unique sequence number of this ACDC Rectifier.
+        ACDC Rectifier 1    (1),
+        ACDC Rectifier 2    (2),
+        ACDC Rectifier 3    (3),
+        ACDC Rectifier 4    (4),
+        ACDC Rectifier 5    (5),
+        ACDC Rectifier 6    (6),
+        ACDC Rectifier 7    (7),
+        ACDC Rectifier 8    (8),
+        ACDC Rectifier 9    (9),
+        ACDC Rectifier 10   (10),
+        ACDC Rectifier 11   (11),
+        ACDC Rectifier 12   (12),
+        ACDC Rectifier 13   (13),
+        ACDC Rectifier 14   (14),
+        ACDC Rectifier 15   (15),
+        ACDC Rectifier 16   (16),
+        ACDC Rectifier 17   (17),
+        ACDC Rectifier 18   (18),
+        ACDC Rectifier 19   (19),
+        ACDC Rectifier 20   (20),
+        ACDC Rectifier 21   (21),
+        ACDC Rectifier 22   (22),
+        ACDC Rectifier 23   (23),
+        ACDC Rectifier 24   (24),
+        ACDC Rectifier 25   (25),
+        ACDC Rectifier 26   (26),
+        ACDC Rectifier 27   (27),
+        ACDC Rectifier 28   (28),
+        ACDC Rectifier 29   (29),
+        ACDC Rectifier 30   (30),
+        ACDC Rectifier 31   (31),
+        ACDC Rectifier 32   (32),
+        ACDC Rectifier 33   (33),
+        ACDC Rectifier 34   (34),
+        ACDC Rectifier 35   (35),
+        ACDC Rectifier 36   (36),
+        ACDC Rectifier 37   (37),
+        ACDC Rectifier 38   (38),
+        ACDC Rectifier 39   (39),
+        ACDC Rectifier 40   (40),
+        ACDC Rectifier 41   (41),
+        ACDC Rectifier 42   (42),
+        ACDC Rectifier 43   (43),
+        ACDC Rectifier 44   (44),
+        ACDC Rectifier 45   (45),
+        ACDC Rectifier 46   (46),
+        ACDC Rectifier 47   (47),
+        ACDC Rectifier 48   (48),
+        ACDC Rectifier 49   (49),
+        ACDC Rectifier 50   (50),
+        ACDC Rectifier 51   (51),
+        ACDC Rectifier 52   (52),
+        ACDC Rectifier 53   (53),
+        ACDC Rectifier 54   (54),
+        ACDC Rectifier 55   (55),
+        ACDC Rectifier 56   (56),
+        ACDC Rectifier 57   (57),
+        ACDC Rectifier 58   (58),
+        ACDC Rectifier 59   (59),
+        ACDC Rectifier 60   (60),
+        ACDC Rectifier 61   (61),
+        ACDC Rectifier 62   (62),
+        ACDC Rectifier 63   (63),
+        ACDC Rectifier 64   (64),
+        ACDC Rectifier 65   (65),
+        ACDC Rectifier 66   (66),
+        ACDC Rectifier 67   (67),
+        ACDC Rectifier 68   (68),
+        ACDC Rectifier 69   (69),
+        ACDC Rectifier 70   (70),
+        ACDC Rectifier 71   (71),
+        ACDC Rectifier 72   (72),
+        ACDC Rectifier 73   (73),
+        ACDC Rectifier 74   (74),
+        ACDC Rectifier 75   (75),
+        ACDC Rectifier 76   (76),
+        ACDC Rectifier 77   (77),
+        ACDC Rectifier 78   (78),
+        ACDC Rectifier 79   (79),
+        ACDC Rectifier 80   (80),
+        ACDC Rectifier 81   (81),
+        ACDC Rectifier 82   (82),
+        ACDC Rectifier 83   (83),
+        ACDC Rectifier 84   (84),
+        ACDC Rectifier 85   (85),
+        ACDC Rectifier 86   (86),
+        ACDC Rectifier 87   (87),
+        ACDC Rectifier 88   (88),
+        ACDC Rectifier 89   (89),
+        ACDC Rectifier 90   (90),
+        ACDC Rectifier 91   (91),
+        ACDC Rectifier 92   (92),
+        ACDC Rectifier 93   (93),
+        ACDC Rectifier 94   (94),
+        ACDC Rectifier 95   (95),
+        ACDC Rectifier 96   (96),
+        ACDC Rectifier 97   (97),
+        ACDC Rectifier 98   (98),
+        ACDC Rectifier 99   (99),
+        ACDC Rectifier 100  (100),
+        ACDC Rectifier 101  (101),
+        ACDC Rectifier 102  (102),
+        ACDC Rectifier 103  (103),
+        ACDC Rectifier 104  (104),
+        ACDC Rectifier 105  (105),
+        ACDC Rectifier 106  (106),
+        ACDC Rectifier 107  (107),
+        ACDC Rectifier 108  (108),
+        ACDC Rectifier 109  (109),
+        ACDC Rectifier 110  (110),
+        ACDC Rectifier 111  (111),
+        ACDC Rectifier 112  (112),
+        ACDC Rectifier 113  (113),
+        ACDC Rectifier 114  (114),
+        ACDC Rectifier 115  (115),
+        ACDC Rectifier 116  (116),
+        ACDC Rectifier 117  (117),
+        ACDC Rectifier 118  (118),
+        ACDC Rectifier 119  (119),
+        ACDC Rectifier 120  (120),
+        ACDC Rectifier 121  (121),
+        ACDC Rectifier 122  (122),
+        ACDC Rectifier 123  (123),
+        ACDC Rectifier 124  (124),
+        ACDC Rectifier 125  (125),
+        ACDC Rectifier 126  (126),
+        ACDC Rectifier 127  (127),
+        ACDC Rectifier 128  (128),
+        "
+    ::= { acdcRectifierInfoEntry 1 }
+
+    rectifierOutputVoltage OBJECT-TYPE
+    SYNTAX INTEGER
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION "
+        Output voltage of rectifier.
+         The actual value = The receive data/100.
+         The unit of actual value is volt.
+        "
+    ::= { acdcRectifierInfoEntry 2 }
+    
+    rectifierOutputCurrent OBJECT-TYPE
+    SYNTAX INTEGER
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION "
+        Output current of rectifier.
+         The actual value = The receive data/100.
+         The unit of actual value is ampere.
+         "
+    ::= { acdcRectifierInfoEntry 3 }
+    
+    rectifierOutputCurrentLimit OBJECT-TYPE
+    SYNTAX INTEGER
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION "
+        Output current limit of rectifier.
+         The actual value = The receive data/100.
+         The unit of actual value is ampere.
+         "
+    ::= { acdcRectifierInfoEntry 4 }
+    
+    rectifierOutputSettingVoltage OBJECT-TYPE
+    SYNTAX INTEGER
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION "
+        Output setting voltage of rectifier.
+         The actual value = The receive data/100.
+         The unit of actual value is volt.
+         "
+    ::= { acdcRectifierInfoEntry 5 }
+    
+    rectifierInputVoltage OBJECT-TYPE
+    SYNTAX INTEGER
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION "
+        Input voltage of rectifier.
+         The actual value = The receive data/100.
+         The unit of actual value is volt.
+         "
+    ::= { acdcRectifierInfoEntry 6 }
+    
+    rectifierInputVoltageUab OBJECT-TYPE
+    SYNTAX INTEGER
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION "
+        Input voltage Uab of rectifier.
+         The actual value = The receive data/100.
+         The unit of actual value is volt.
+         "
+    ::= { acdcRectifierInfoEntry 7 }
+    
+    rectifierInputVoltageUbc OBJECT-TYPE
+    SYNTAX INTEGER
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION "
+        Input voltage Ubc of rectifier.
+         The actual value = The receive data/100.
+         The unit of actual value is volt.
+         "
+    ::= { acdcRectifierInfoEntry 8 }
+    
+    rectifierInputVoltageUca OBJECT-TYPE
+    SYNTAX INTEGER
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION "
+        Input voltage Uca of rectifier.
+         The actual value = The receive data/100.
+         The unit of actual value is volt.
+         "
+    ::= { acdcRectifierInfoEntry 9 }
+    
+    rectifierAmbientTemperature OBJECT-TYPE
+    SYNTAX INTEGER
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION "
+        Ambient Temperature of rectifier.
+         The actual value = The receive data/100.
+         The unit of actual value is degree."
+    ::= { acdcRectifierInfoEntry 10 }
+    
+    rectifierPrimaryHotPointTemperature OBJECT-TYPE
+    SYNTAX INTEGER
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION "
+        Primary Hot Point Temperature of rectifier.
+         The actual value = The receive data/100.
+         The unit of actual value is degree."
+    ::= { acdcRectifierInfoEntry 11 }
+    
+    rectifierSecondHotPointTemperature OBJECT-TYPE
+    SYNTAX INTEGER
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION "
+        Second Hot Point Temperature of rectifier.
+         The actual value = The receive data/100.
+         The unit of actual value is degree."
+    ::= { acdcRectifierInfoEntry 12 }
+    
+    rectifierRunTime OBJECT-TYPE
+    SYNTAX INTEGER
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION "
+        Run time of rectifier.
+         The actual value = The receive data/100.
+         The unit of actual value is hour."
+    ::= { acdcRectifierInfoEntry 13 }
+    
+    rectifierType OBJECT-TYPE
+    SYNTAX  INTEGER {typeNone (0),
+                    type27V1500W (271500),
+                    type48V1000W (481000),
+                    type48V6000W (486000),
+                    type48V3000W (483000),
+                    type48V2900W (482900),
+                    type48V2000W (482000),
+                    type48V1160W (481160),
+                    type48V1100W (481100),
+                    type48V290W (48290),
+                    type240V11600W (24011600),
+                    type336V11600W (33611600)
+                    }
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION "
+        Type of rectifier.
+        Receive data is 271500:27V 1500W;
+        Receive data is 486000:48V 6000W;
+        Receive data is 483000:48V 3000W;
+        Receive data is 482900:48V 2900W;
+        Receive data is 482000:48V 2000W;
+        Receive data is 481160:48V 1160W;
+        Receive data is 481100:48V 1100W;
+        Receive data is 48290:48V 290W;
+        Receive data is 24011600:240V 11600W;
+        Receive data is 33611600:336V 11600W.
+        "
+    ::= { acdcRectifierInfoEntry 14 }
+    
+    rectifierState OBJECT-TYPE
+    SYNTAX INTEGER
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION "
+         The state of rectifier.
+        The bit0 to bit31 for the receive data,each bit mean one sate.
+        Bit30:0 mean rectifier is ON,1 mean rectifier is OFF;
+        Bit15:1 mean rectifier output current limit,
+        0 means rectifier no output current limit.
+        Other bits reserve."
+    ::= { acdcRectifierInfoEntry 15 }
+    
+    rectifierAlarmStatus1 OBJECT-TYPE
+    SYNTAX INTEGER
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION "
+         The alarm status of rectifier.
+        Each bit mean a alarm,when corresponding bit is 1 indicate have an alarm,
+        corresponding bit is 0 indicate no alarm.
+        bit0:rectifier current sample fault;bit1:rectifier primary-side circuit short;
+        bit2:mutiple rectifier no output;bit3:single rectifier no output;
+        bit4:rectifier outside circuit short;bit5:rectifier PFC imbalance;
+        bit6:rectifier identify fault;bit7:rectifier lost;
+        bit8:rectifier current sharing slightly fault;bit9:rectifier current sharing severe fault;
+        bit10:rectifier no position;bit11:rectifier output over current;
+        bit12:rectifier E2PROM fault;bit13:rectifier CAN communication fault;
+        bit14:rectifier second side communication fault;bit15:rectifier primary side communication fault;
+        bit16:rectifier fan fault;bit17:rectifier start resistor break;
+        bit18:rectifier PFC over voltage protection;bit19:rectifier PFC under voltage protection;
+        bit20:rectifier AC imbalance;bit21:rectifier AC lose phase;
+        bit22:rectifier AC under voltage protection;bit23:rectifier AC over voltage protection;
+        bit24:rectifier internal circuit short;bit25:rectifier output fuse break;
+        bit26:rectifier secondary hot point over temperature;bit27:rectifier primary hot point over temperature;
+        bit28:rectifier ambient over temperature;bit29:rectifier output under voltage protection;
+        bit30:rectifier output over voltage protection;bit31:rectifier internal over voltage protection."
+    ::= { acdcRectifierInfoEntry 16 }
+    
+    rectifierAlarmStatus2 OBJECT-TYPE
+    SYNTAX INTEGER
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION "
+         The alarm status 2 of rectifier.
+        Each bit mean a alarm,when corresponding bit is 1 indicate have an alarm,
+        corresponding bit is 0 indicate no alarm.
+        bit0:rectifier PFC short;
+        bit1:rectifier OVSD;
+        bit2:rectifier Security Code Error;
+        bit3--bit31:none."
+    ::= { acdcRectifierInfoEntry 17 }
+    
+    rectifierBarcode OBJECT-TYPE
+    SYNTAX INTEGER
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION "
+        Barcode of rectifier.
+         "
+    ::= { acdcRectifierInfoEntry 18 }
+    
+    rectifierPhaseSet OBJECT-TYPE
+    SYNTAX INTEGER {
+        none    (0),
+        phaseA  (1),
+        phaseB  (2),
+        phaseC  (3)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION "
+        Which phase is the rectifier allocated to.
+        none    (0),
+        Phase A (1),
+        Phase B (2),
+        Phase C (3),
+        "
+    ::= { acdcRectifierInfoEntry 19 }
+        -- 1.3.6.1.4.1.39553.10.2.6
+        rectifierSlotSetting OBJECT IDENTIFIER ::= { rectifier 6 }
+  -- 1.3.6.1.4.1.39553.10.2.6.1
+    slot1RelatedRectifier    OBJECT-TYPE
+    SYNTAX INTEGER
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION 
+        "The rectifier ID in the slot 1."
+    ::= { rectifierSlotSetting 1     }
+  -- 1.3.6.1.4.1.39553.10.2.6.2
+    slot2RelatedRectifier    OBJECT-TYPE
+    SYNTAX INTEGER
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION 
+        "The rectifier ID in the slot 2."
+    ::= { rectifierSlotSetting 2     }
+  -- 1.3.6.1.4.1.39553.10.2.6.3
+    slot3RelatedRectifier    OBJECT-TYPE
+    SYNTAX INTEGER
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION 
+        "The rectifier ID in the slot 3."
+    ::= { rectifierSlotSetting 3     }
+  -- 1.3.6.1.4.1.39553.10.2.6.4
+    slot4RelatedRectifier    OBJECT-TYPE
+    SYNTAX INTEGER
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION 
+        "The rectifier ID in the slot 4."
+    ::= { rectifierSlotSetting 4     }
+  -- 1.3.6.1.4.1.39553.10.2.6.5
+    slot5RelatedRectifier    OBJECT-TYPE
+    SYNTAX INTEGER
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION 
+        "The rectifier ID in the slot 5."
+    ::= { rectifierSlotSetting 5     }
+  -- 1.3.6.1.4.1.39553.10.2.6.6
+    slot6RelatedRectifier    OBJECT-TYPE
+    SYNTAX INTEGER
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION 
+        "The rectifier ID in the slot 6."
+    ::= { rectifierSlotSetting 6     }
+  -- 1.3.6.1.4.1.39553.10.2.6.7
+    slot7RelatedRectifier    OBJECT-TYPE
+    SYNTAX INTEGER
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION 
+        "The rectifier ID in the slot 7."
+    ::= { rectifierSlotSetting 7     }
+  -- 1.3.6.1.4.1.39553.10.2.6.8
+    slot8RelatedRectifier    OBJECT-TYPE
+    SYNTAX INTEGER
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION 
+        "The rectifier ID in the slot 8."
+    ::= { rectifierSlotSetting 8     }
+  -- 1.3.6.1.4.1.39553.10.2.6.9
+    slot9RelatedRectifier    OBJECT-TYPE
+    SYNTAX INTEGER
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION 
+        "The rectifier ID in the slot 9."
+    ::= { rectifierSlotSetting 9     }
+  -- 1.3.6.1.4.1.39553.10.2.6.10
+    slot10RelatedRectifier   OBJECT-TYPE
+    SYNTAX INTEGER
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION 
+        "The rectifier ID in the slot 10."
+    ::= { rectifierSlotSetting 10    }
+  -- 1.3.6.1.4.1.39553.10.2.6.11
+    slot11RelatedRectifier   OBJECT-TYPE
+    SYNTAX INTEGER
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION 
+        "The rectifier ID in the slot 11."
+    ::= { rectifierSlotSetting 11    }
+  -- 1.3.6.1.4.1.39553.10.2.6.12
+    slot12RelatedRectifier   OBJECT-TYPE
+    SYNTAX INTEGER
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION 
+        "The rectifier ID in the slot 12."
+    ::= { rectifierSlotSetting 12    }
+  -- 1.3.6.1.4.1.39553.10.2.6.13
+    slot13RelatedRectifier   OBJECT-TYPE
+    SYNTAX INTEGER
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION 
+        "The rectifier ID in the slot 13."
+    ::= { rectifierSlotSetting 13    }
+  -- 1.3.6.1.4.1.39553.10.2.6.14
+    slot14RelatedRectifier   OBJECT-TYPE
+    SYNTAX INTEGER
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION 
+        "The rectifier ID in the slot 14."
+    ::= { rectifierSlotSetting 14    }
+  -- 1.3.6.1.4.1.39553.10.2.6.15
+    slot15RelatedRectifier   OBJECT-TYPE
+    SYNTAX INTEGER
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION 
+        "The rectifier ID in the slot 15."
+    ::= { rectifierSlotSetting 15    }
+  -- 1.3.6.1.4.1.39553.10.2.6.16
+    slot16RelatedRectifier   OBJECT-TYPE
+    SYNTAX INTEGER
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION 
+        "The rectifier ID in the slot 16."
+    ::= { rectifierSlotSetting 16    }
+  -- 1.3.6.1.4.1.39553.10.2.6.17
+    slot17RelatedRectifier   OBJECT-TYPE
+    SYNTAX INTEGER
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION 
+        "The rectifier ID in the slot 17."
+    ::= { rectifierSlotSetting 17    }
+  -- 1.3.6.1.4.1.39553.10.2.6.18
+    slot18RelatedRectifier   OBJECT-TYPE
+    SYNTAX INTEGER
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION 
+        "The rectifier ID in the slot 18."
+    ::= { rectifierSlotSetting 18    }
+  -- 1.3.6.1.4.1.39553.10.2.6.19
+    slot19RelatedRectifier   OBJECT-TYPE
+    SYNTAX INTEGER
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION 
+        "The rectifier ID in the slot 19."
+    ::= { rectifierSlotSetting 19    }
+  -- 1.3.6.1.4.1.39553.10.2.6.20
+    slot20RelatedRectifier   OBJECT-TYPE
+    SYNTAX INTEGER
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION 
+        "The rectifier ID in the slot 20."
+    ::= { rectifierSlotSetting 20    }
+  -- 1.3.6.1.4.1.39553.10.2.6.21
+    slot21RelatedRectifier   OBJECT-TYPE
+    SYNTAX INTEGER
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION 
+        "The rectifier ID in the slot 21."
+    ::= { rectifierSlotSetting 21    }
+  -- 1.3.6.1.4.1.39553.10.2.6.22
+    slot22RelatedRectifier   OBJECT-TYPE
+    SYNTAX INTEGER
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION 
+        "The rectifier ID in the slot 22."
+    ::= { rectifierSlotSetting 22    }
+  -- 1.3.6.1.4.1.39553.10.2.6.23
+    slot23RelatedRectifier   OBJECT-TYPE
+    SYNTAX INTEGER
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION 
+        "The rectifier ID in the slot 23."
+    ::= { rectifierSlotSetting 23    }
+  -- 1.3.6.1.4.1.39553.10.2.6.24
+    slot24RelatedRectifier   OBJECT-TYPE
+    SYNTAX INTEGER
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION 
+        "The rectifier ID in the slot 24."
+    ::= { rectifierSlotSetting 24    }
+  -- 1.3.6.1.4.1.39553.10.2.6.25
+    slot25RelatedRectifier   OBJECT-TYPE
+    SYNTAX INTEGER
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION 
+        "The rectifier ID in the slot 25."
+    ::= { rectifierSlotSetting 25    }
+  -- 1.3.6.1.4.1.39553.10.2.6.26
+    slot26RelatedRectifier   OBJECT-TYPE
+    SYNTAX INTEGER
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION 
+        "The rectifier ID in the slot 26."
+    ::= { rectifierSlotSetting 26    }
+  -- 1.3.6.1.4.1.39553.10.2.6.27
+    slot27RelatedRectifier   OBJECT-TYPE
+    SYNTAX INTEGER
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION 
+        "The rectifier ID in the slot 27."
+    ::= { rectifierSlotSetting 27    }
+  -- 1.3.6.1.4.1.39553.10.2.6.28
+    slot28RelatedRectifier   OBJECT-TYPE
+    SYNTAX INTEGER
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION 
+        "The rectifier ID in the slot 28."
+    ::= { rectifierSlotSetting 28    }
+  -- 1.3.6.1.4.1.39553.10.2.6.29
+    slot29RelatedRectifier   OBJECT-TYPE
+    SYNTAX INTEGER
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION 
+        "The rectifier ID in the slot 29."
+    ::= { rectifierSlotSetting 29    }
+  -- 1.3.6.1.4.1.39553.10.2.6.30
+    slot30RelatedRectifier   OBJECT-TYPE
+    SYNTAX INTEGER
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION 
+        "The rectifier ID in the slot 30."
+    ::= { rectifierSlotSetting 30    }
+  -- 1.3.6.1.4.1.39553.10.2.6.31
+    slot31RelatedRectifier   OBJECT-TYPE
+    SYNTAX INTEGER
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION 
+        "The rectifier ID in the slot 31."
+    ::= { rectifierSlotSetting 31    }
+  -- 1.3.6.1.4.1.39553.10.2.6.32
+    slot32RelatedRectifier   OBJECT-TYPE
+    SYNTAX INTEGER
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION 
+        "The rectifier ID in the slot 32."
+    ::= { rectifierSlotSetting 32    }
+  -- 1.3.6.1.4.1.39553.10.2.6.33
+    slot33RelatedRectifier   OBJECT-TYPE
+    SYNTAX INTEGER
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION 
+        "The rectifier ID in the slot 33."
+    ::= { rectifierSlotSetting 33    }
+  -- 1.3.6.1.4.1.39553.10.2.6.34
+    slot34RelatedRectifier   OBJECT-TYPE
+    SYNTAX INTEGER
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION 
+        "The rectifier ID in the slot 34."
+    ::= { rectifierSlotSetting 34    }
+  -- 1.3.6.1.4.1.39553.10.2.6.35
+    slot35RelatedRectifier   OBJECT-TYPE
+    SYNTAX INTEGER
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION 
+        "The rectifier ID in the slot 35."
+    ::= { rectifierSlotSetting 35    }
+  -- 1.3.6.1.4.1.39553.10.2.6.36
+    slot36RelatedRectifier   OBJECT-TYPE
+    SYNTAX INTEGER
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION 
+        "The rectifier ID in the slot 36."
+    ::= { rectifierSlotSetting 36    }
+  -- 1.3.6.1.4.1.39553.10.2.6.37
+    slot37RelatedRectifier   OBJECT-TYPE
+    SYNTAX INTEGER
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION 
+        "The rectifier ID in the slot 37."
+    ::= { rectifierSlotSetting 37    }
+  -- 1.3.6.1.4.1.39553.10.2.6.38
+    slot38RelatedRectifier   OBJECT-TYPE
+    SYNTAX INTEGER
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION 
+        "The rectifier ID in the slot 38."
+    ::= { rectifierSlotSetting 38    }
+  -- 1.3.6.1.4.1.39553.10.2.6.39
+    slot39RelatedRectifier   OBJECT-TYPE
+    SYNTAX INTEGER
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION 
+        "The rectifier ID in the slot 39."
+    ::= { rectifierSlotSetting 39    }
+  -- 1.3.6.1.4.1.39553.10.2.6.40
+    slot40RelatedRectifier   OBJECT-TYPE
+    SYNTAX INTEGER
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION 
+        "The rectifier ID in the slot 40."
+    ::= { rectifierSlotSetting 40    }
+  -- 1.3.6.1.4.1.39553.10.2.6.41
+    slot41RelatedRectifier   OBJECT-TYPE
+    SYNTAX INTEGER
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION 
+        "The rectifier ID in the slot 41."
+    ::= { rectifierSlotSetting 41    }
+  -- 1.3.6.1.4.1.39553.10.2.6.42
+    slot42RelatedRectifier   OBJECT-TYPE
+    SYNTAX INTEGER
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION 
+        "The rectifier ID in the slot 42."
+    ::= { rectifierSlotSetting 42    }
+  -- 1.3.6.1.4.1.39553.10.2.6.43
+    slot43RelatedRectifier   OBJECT-TYPE
+    SYNTAX INTEGER
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION 
+        "The rectifier ID in the slot 43."
+    ::= { rectifierSlotSetting 43    }
+  -- 1.3.6.1.4.1.39553.10.2.6.44
+    slot44RelatedRectifier   OBJECT-TYPE
+    SYNTAX INTEGER
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION 
+        "The rectifier ID in the slot 44."
+    ::= { rectifierSlotSetting 44    }
+  -- 1.3.6.1.4.1.39553.10.2.6.45
+    slot45RelatedRectifier   OBJECT-TYPE
+    SYNTAX INTEGER
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION 
+        "The rectifier ID in the slot 45."
+    ::= { rectifierSlotSetting 45    }
+  -- 1.3.6.1.4.1.39553.10.2.6.46
+    slot46RelatedRectifier   OBJECT-TYPE
+    SYNTAX INTEGER
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION 
+        "The rectifier ID in the slot 46."
+    ::= { rectifierSlotSetting 46    }
+  -- 1.3.6.1.4.1.39553.10.2.6.47
+    slot47RelatedRectifier   OBJECT-TYPE
+    SYNTAX INTEGER
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION 
+        "The rectifier ID in the slot 47."
+    ::= { rectifierSlotSetting 47    }
+  -- 1.3.6.1.4.1.39553.10.2.6.48
+    slot48RelatedRectifier   OBJECT-TYPE
+    SYNTAX INTEGER
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION 
+        "The rectifier ID in the slot 48."
+    ::= { rectifierSlotSetting 48    }
+  -- 1.3.6.1.4.1.39553.10.2.6.49
+    slot49RelatedRectifier   OBJECT-TYPE
+    SYNTAX INTEGER
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION 
+        "The rectifier ID in the slot 49."
+    ::= { rectifierSlotSetting 49    }
+  -- 1.3.6.1.4.1.39553.10.2.6.50
+    slot50RelatedRectifier   OBJECT-TYPE
+    SYNTAX INTEGER
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION 
+        "The rectifier ID in the slot 50."
+    ::= { rectifierSlotSetting 50    }
+  -- 1.3.6.1.4.1.39553.10.2.6.51
+    slot51RelatedRectifier   OBJECT-TYPE
+    SYNTAX INTEGER
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION 
+        "The rectifier ID in the slot 51."
+    ::= { rectifierSlotSetting 51    }
+  -- 1.3.6.1.4.1.39553.10.2.6.52
+    slot52RelatedRectifier   OBJECT-TYPE
+    SYNTAX INTEGER
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION 
+        "The rectifier ID in the slot 52."
+    ::= { rectifierSlotSetting 52    }
+  -- 1.3.6.1.4.1.39553.10.2.6.53
+    slot53RelatedRectifier   OBJECT-TYPE
+    SYNTAX INTEGER
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION 
+        "The rectifier ID in the slot 53."
+    ::= { rectifierSlotSetting 53    }
+  -- 1.3.6.1.4.1.39553.10.2.6.54
+    slot54RelatedRectifier   OBJECT-TYPE
+    SYNTAX INTEGER
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION 
+        "The rectifier ID in the slot 54."
+    ::= { rectifierSlotSetting 54    }
+  -- 1.3.6.1.4.1.39553.10.2.6.55
+    slot55RelatedRectifier   OBJECT-TYPE
+    SYNTAX INTEGER
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION 
+        "The rectifier ID in the slot 55."
+    ::= { rectifierSlotSetting 55    }
+  -- 1.3.6.1.4.1.39553.10.2.6.56
+    slot56RelatedRectifier   OBJECT-TYPE
+    SYNTAX INTEGER
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION 
+        "The rectifier ID in the slot 56."
+    ::= { rectifierSlotSetting 56    }
+  -- 1.3.6.1.4.1.39553.10.2.6.57
+    slot57RelatedRectifier   OBJECT-TYPE
+    SYNTAX INTEGER
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION 
+        "The rectifier ID in the slot 57."
+    ::= { rectifierSlotSetting 57    }
+  -- 1.3.6.1.4.1.39553.10.2.6.58
+    slot58RelatedRectifier   OBJECT-TYPE
+    SYNTAX INTEGER
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION 
+        "The rectifier ID in the slot 58."
+    ::= { rectifierSlotSetting 58    }
+  -- 1.3.6.1.4.1.39553.10.2.6.59
+    slot59RelatedRectifier   OBJECT-TYPE
+    SYNTAX INTEGER
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION 
+        "The rectifier ID in the slot 59."
+    ::= { rectifierSlotSetting 59    }
+  -- 1.3.6.1.4.1.39553.10.2.6.60
+    slot60RelatedRectifier   OBJECT-TYPE
+    SYNTAX INTEGER
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION 
+        "The rectifier ID in the slot 60."
+    ::= { rectifierSlotSetting 60    }
+  -- 1.3.6.1.4.1.39553.10.2.6.61
+    slot61RelatedRectifier   OBJECT-TYPE
+    SYNTAX INTEGER
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION 
+        "The rectifier ID in the slot 61."
+    ::= { rectifierSlotSetting 61    }
+  -- 1.3.6.1.4.1.39553.10.2.6.62
+    slot62RelatedRectifier   OBJECT-TYPE
+    SYNTAX INTEGER
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION 
+        "The rectifier ID in the slot 62."
+    ::= { rectifierSlotSetting 62    }
+  -- 1.3.6.1.4.1.39553.10.2.6.63
+    slot63RelatedRectifier   OBJECT-TYPE
+    SYNTAX INTEGER
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION 
+        "The rectifier ID in the slot 63."
+    ::= { rectifierSlotSetting 63    }
+  -- 1.3.6.1.4.1.39553.10.2.6.64
+    slot64RelatedRectifier   OBJECT-TYPE
+    SYNTAX INTEGER
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION 
+        "The rectifier ID in the slot 64."
+    ::= { rectifierSlotSetting 64    }
+  -- 1.3.6.1.4.1.39553.10.2.6.65
+    slot65RelatedRectifier   OBJECT-TYPE
+    SYNTAX INTEGER
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION 
+        "The rectifier ID in the slot 65."
+    ::= { rectifierSlotSetting 65    }
+  -- 1.3.6.1.4.1.39553.10.2.6.66
+    slot66RelatedRectifier   OBJECT-TYPE
+    SYNTAX INTEGER
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION 
+        "The rectifier ID in the slot 66."
+    ::= { rectifierSlotSetting 66    }
+  -- 1.3.6.1.4.1.39553.10.2.6.67
+    slot67RelatedRectifier   OBJECT-TYPE
+    SYNTAX INTEGER
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION 
+        "The rectifier ID in the slot 67."
+    ::= { rectifierSlotSetting 67    }
+  -- 1.3.6.1.4.1.39553.10.2.6.68
+    slot68RelatedRectifier   OBJECT-TYPE
+    SYNTAX INTEGER
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION 
+        "The rectifier ID in the slot 68."
+    ::= { rectifierSlotSetting 68    }
+  -- 1.3.6.1.4.1.39553.10.2.6.69
+    slot69RelatedRectifier   OBJECT-TYPE
+    SYNTAX INTEGER
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION 
+        "The rectifier ID in the slot 69."
+    ::= { rectifierSlotSetting 69    }
+  -- 1.3.6.1.4.1.39553.10.2.6.70
+    slot70RelatedRectifier   OBJECT-TYPE
+    SYNTAX INTEGER
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION 
+        "The rectifier ID in the slot 70."
+    ::= { rectifierSlotSetting 70    }
+  -- 1.3.6.1.4.1.39553.10.2.6.71
+    slot71RelatedRectifier   OBJECT-TYPE
+    SYNTAX INTEGER
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION 
+        "The rectifier ID in the slot 71."
+    ::= { rectifierSlotSetting 71    }
+  -- 1.3.6.1.4.1.39553.10.2.6.72
+    slot72RelatedRectifier   OBJECT-TYPE
+    SYNTAX INTEGER
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION 
+        "The rectifier ID in the slot 72."
+    ::= { rectifierSlotSetting 72    }
+  -- 1.3.6.1.4.1.39553.10.2.6.73
+    slot73RelatedRectifier   OBJECT-TYPE
+    SYNTAX INTEGER
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION 
+        "The rectifier ID in the slot 73."
+    ::= { rectifierSlotSetting 73    }
+  -- 1.3.6.1.4.1.39553.10.2.6.74
+    slot74RelatedRectifier   OBJECT-TYPE
+    SYNTAX INTEGER
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION 
+        "The rectifier ID in the slot 74."
+    ::= { rectifierSlotSetting 74    }
+  -- 1.3.6.1.4.1.39553.10.2.6.75
+    slot75RelatedRectifier   OBJECT-TYPE
+    SYNTAX INTEGER
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION 
+        "The rectifier ID in the slot 75."
+    ::= { rectifierSlotSetting 75    }
+  -- 1.3.6.1.4.1.39553.10.2.6.76
+    slot76RelatedRectifier   OBJECT-TYPE
+    SYNTAX INTEGER
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION 
+        "The rectifier ID in the slot 76."
+    ::= { rectifierSlotSetting 76    }
+  -- 1.3.6.1.4.1.39553.10.2.6.77
+    slot77RelatedRectifier   OBJECT-TYPE
+    SYNTAX INTEGER
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION 
+        "The rectifier ID in the slot 77."
+    ::= { rectifierSlotSetting 77    }
+  -- 1.3.6.1.4.1.39553.10.2.6.78
+    slot78RelatedRectifier   OBJECT-TYPE
+    SYNTAX INTEGER
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION 
+        "The rectifier ID in the slot 78."
+    ::= { rectifierSlotSetting 78    }
+  -- 1.3.6.1.4.1.39553.10.2.6.79
+    slot79RelatedRectifier   OBJECT-TYPE
+    SYNTAX INTEGER
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION 
+        "The rectifier ID in the slot 79."
+    ::= { rectifierSlotSetting 79    }
+  -- 1.3.6.1.4.1.39553.10.2.6.80
+    slot80RelatedRectifier   OBJECT-TYPE
+    SYNTAX INTEGER
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION 
+        "The rectifier ID in the slot 80."
+    ::= { rectifierSlotSetting 80    }
+  -- 1.3.6.1.4.1.39553.10.2.6.81
+    slot81RelatedRectifier   OBJECT-TYPE
+    SYNTAX INTEGER
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION 
+        "The rectifier ID in the slot 81."
+    ::= { rectifierSlotSetting 81    }
+  -- 1.3.6.1.4.1.39553.10.2.6.82
+    slot82RelatedRectifier   OBJECT-TYPE
+    SYNTAX INTEGER
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION 
+        "The rectifier ID in the slot 82."
+    ::= { rectifierSlotSetting 82    }
+  -- 1.3.6.1.4.1.39553.10.2.6.83
+    slot83RelatedRectifier   OBJECT-TYPE
+    SYNTAX INTEGER
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION 
+        "The rectifier ID in the slot 83."
+    ::= { rectifierSlotSetting 83    }
+  -- 1.3.6.1.4.1.39553.10.2.6.84
+    slot84RelatedRectifier   OBJECT-TYPE
+    SYNTAX INTEGER
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION 
+        "The rectifier ID in the slot 84."
+    ::= { rectifierSlotSetting 84    }
+  -- 1.3.6.1.4.1.39553.10.2.6.85
+    slot85RelatedRectifier   OBJECT-TYPE
+    SYNTAX INTEGER
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION 
+        "The rectifier ID in the slot 85."
+    ::= { rectifierSlotSetting 85    }
+  -- 1.3.6.1.4.1.39553.10.2.6.86
+    slot86RelatedRectifier   OBJECT-TYPE
+    SYNTAX INTEGER
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION 
+        "The rectifier ID in the slot 86."
+    ::= { rectifierSlotSetting 86    }
+  -- 1.3.6.1.4.1.39553.10.2.6.87
+    slot87RelatedRectifier   OBJECT-TYPE
+    SYNTAX INTEGER
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION 
+        "The rectifier ID in the slot 87."
+    ::= { rectifierSlotSetting 87    }
+  -- 1.3.6.1.4.1.39553.10.2.6.88
+    slot88RelatedRectifier   OBJECT-TYPE
+    SYNTAX INTEGER
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION 
+        "The rectifier ID in the slot 88."
+    ::= { rectifierSlotSetting 88    }
+  -- 1.3.6.1.4.1.39553.10.2.6.89
+    slot89RelatedRectifier   OBJECT-TYPE
+    SYNTAX INTEGER
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION 
+        "The rectifier ID in the slot 89."
+    ::= { rectifierSlotSetting 89    }
+  -- 1.3.6.1.4.1.39553.10.2.6.90
+    slot90RelatedRectifier   OBJECT-TYPE
+    SYNTAX INTEGER
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION 
+        "The rectifier ID in the slot 90."
+    ::= { rectifierSlotSetting 90    }
+  -- 1.3.6.1.4.1.39553.10.2.6.91
+    slot91RelatedRectifier   OBJECT-TYPE
+    SYNTAX INTEGER
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION 
+        "The rectifier ID in the slot 91."
+    ::= { rectifierSlotSetting 91    }
+  -- 1.3.6.1.4.1.39553.10.2.6.92
+    slot92RelatedRectifier   OBJECT-TYPE
+    SYNTAX INTEGER
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION 
+        "The rectifier ID in the slot 92."
+    ::= { rectifierSlotSetting 92    }
+  -- 1.3.6.1.4.1.39553.10.2.6.93
+    slot93RelatedRectifier   OBJECT-TYPE
+    SYNTAX INTEGER
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION 
+        "The rectifier ID in the slot 93."
+    ::= { rectifierSlotSetting 93    }
+  -- 1.3.6.1.4.1.39553.10.2.6.94
+    slot94RelatedRectifier   OBJECT-TYPE
+    SYNTAX INTEGER
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION 
+        "The rectifier ID in the slot 94."
+    ::= { rectifierSlotSetting 94    }
+  -- 1.3.6.1.4.1.39553.10.2.6.95
+    slot95RelatedRectifier   OBJECT-TYPE
+    SYNTAX INTEGER
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION 
+        "The rectifier ID in the slot 95."
+    ::= { rectifierSlotSetting 95    }
+  -- 1.3.6.1.4.1.39553.10.2.6.96
+    slot96RelatedRectifier   OBJECT-TYPE
+    SYNTAX INTEGER
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION 
+        "The rectifier ID in the slot 96."
+    ::= { rectifierSlotSetting 96    }
+  -- 1.3.6.1.4.1.39553.10.2.6.97
+    slot97RelatedRectifier   OBJECT-TYPE
+    SYNTAX INTEGER
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION 
+        "The rectifier ID in the slot 97."
+    ::= { rectifierSlotSetting 97    }
+  -- 1.3.6.1.4.1.39553.10.2.6.98
+    slot98RelatedRectifier   OBJECT-TYPE
+    SYNTAX INTEGER
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION 
+        "The rectifier ID in the slot 98."
+    ::= { rectifierSlotSetting 98    }
+  -- 1.3.6.1.4.1.39553.10.2.6.99
+    slot99RelatedRectifier   OBJECT-TYPE
+    SYNTAX INTEGER
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION 
+        "The rectifier ID in the slot 99."
+    ::= { rectifierSlotSetting 99    }
+  -- 1.3.6.1.4.1.39553.10.2.6.100
+    slot100RelatedRectifier  OBJECT-TYPE
+    SYNTAX INTEGER
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION 
+        "The rectifier ID in the slot 100."
+    ::= { rectifierSlotSetting 100   }
+  -- 1.3.6.1.4.1.39553.10.2.6.101
+    slot101RelatedRectifier OBJECT-TYPE
+    SYNTAX INTEGER
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION 
+        "The rectifier ID in the slot 101."
+    ::= { rectifierSlotSetting 101 }
+  -- 1.3.6.1.4.1.39553.10.2.6.102
+    slot102RelatedRectifier OBJECT-TYPE
+    SYNTAX INTEGER
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION 
+        "The rectifier ID in the slot 102."
+    ::= { rectifierSlotSetting 102 }
+  -- 1.3.6.1.4.1.39553.10.2.6.103
+    slot103RelatedRectifier OBJECT-TYPE
+    SYNTAX INTEGER
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION 
+        "The rectifier ID in the slot 103."
+    ::= { rectifierSlotSetting 103 }
+  -- 1.3.6.1.4.1.39553.10.2.6.104
+    slot104RelatedRectifier OBJECT-TYPE
+    SYNTAX INTEGER
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION 
+        "The rectifier ID in the slot 104."
+    ::= { rectifierSlotSetting 104 }
+  -- 1.3.6.1.4.1.39553.10.2.6.105
+    slot105RelatedRectifier OBJECT-TYPE
+    SYNTAX INTEGER
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION 
+        "The rectifier ID in the slot 105."
+    ::= { rectifierSlotSetting 105 }
+  -- 1.3.6.1.4.1.39553.10.2.6.106
+    slot106RelatedRectifier OBJECT-TYPE
+    SYNTAX INTEGER
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION 
+        "The rectifier ID in the slot 106."
+    ::= { rectifierSlotSetting 106 }
+  -- 1.3.6.1.4.1.39553.10.2.6.107
+    slot107RelatedRectifier OBJECT-TYPE
+    SYNTAX INTEGER
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION 
+        "The rectifier ID in the slot 107."
+    ::= { rectifierSlotSetting 107 }
+  -- 1.3.6.1.4.1.39553.10.2.6.108
+    slot108RelatedRectifier OBJECT-TYPE
+    SYNTAX INTEGER
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION 
+        "The rectifier ID in the slot 108."
+    ::= { rectifierSlotSetting 108 }
+  -- 1.3.6.1.4.1.39553.10.2.6.109
+    slot109RelatedRectifier OBJECT-TYPE
+    SYNTAX INTEGER
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION 
+        "The rectifier ID in the slot 109."
+    ::= { rectifierSlotSetting 109 }
+  -- 1.3.6.1.4.1.39553.10.2.6.110
+    slot110RelatedRectifier OBJECT-TYPE
+    SYNTAX INTEGER
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION 
+        "The rectifier ID in the slot 110."
+    ::= { rectifierSlotSetting 110 }
+  -- 1.3.6.1.4.1.39553.10.2.6.111
+    slot111RelatedRectifier OBJECT-TYPE
+    SYNTAX INTEGER
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION 
+        "The rectifier ID in the slot 111."
+    ::= { rectifierSlotSetting 111 }
+  -- 1.3.6.1.4.1.39553.10.2.6.112
+    slot112RelatedRectifier OBJECT-TYPE
+    SYNTAX INTEGER
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION 
+        "The rectifier ID in the slot 112."
+    ::= { rectifierSlotSetting 112 }
+  -- 1.3.6.1.4.1.39553.10.2.6.113
+    slot113RelatedRectifier OBJECT-TYPE
+    SYNTAX INTEGER
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION 
+        "The rectifier ID in the slot 113."
+    ::= { rectifierSlotSetting 113 }
+  -- 1.3.6.1.4.1.39553.10.2.6.114
+    slot114RelatedRectifier OBJECT-TYPE
+    SYNTAX INTEGER
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION 
+        "The rectifier ID in the slot 114."
+    ::= { rectifierSlotSetting 114 }
+  -- 1.3.6.1.4.1.39553.10.2.6.115
+    slot115RelatedRectifier OBJECT-TYPE
+    SYNTAX INTEGER
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION 
+        "The rectifier ID in the slot 115."
+    ::= { rectifierSlotSetting 115 }
+  -- 1.3.6.1.4.1.39553.10.2.6.116
+    slot116RelatedRectifier OBJECT-TYPE
+    SYNTAX INTEGER
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION 
+        "The rectifier ID in the slot 116."
+    ::= { rectifierSlotSetting 116 }
+  -- 1.3.6.1.4.1.39553.10.2.6.117
+    slot117RelatedRectifier OBJECT-TYPE
+    SYNTAX INTEGER
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION 
+        "The rectifier ID in the slot 117."
+    ::= { rectifierSlotSetting 117 }
+  -- 1.3.6.1.4.1.39553.10.2.6.118
+    slot118RelatedRectifier OBJECT-TYPE
+    SYNTAX INTEGER
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION 
+        "The rectifier ID in the slot 118."
+    ::= { rectifierSlotSetting 118 }
+  -- 1.3.6.1.4.1.39553.10.2.6.119
+    slot119RelatedRectifier OBJECT-TYPE
+    SYNTAX INTEGER
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION 
+        "The rectifier ID in the slot 119."
+    ::= { rectifierSlotSetting 119 }
+  -- 1.3.6.1.4.1.39553.10.2.6.120
+    slot120RelatedRectifier OBJECT-TYPE
+    SYNTAX INTEGER
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION 
+        "The rectifier ID in the slot 120."
+    ::= { rectifierSlotSetting 120 }
+  -- 1.3.6.1.4.1.39553.10.2.6.121
+    slot121RelatedRectifier OBJECT-TYPE
+    SYNTAX INTEGER
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION 
+        "The rectifier ID in the slot 121."
+    ::= { rectifierSlotSetting 121 }
+  -- 1.3.6.1.4.1.39553.10.2.6.122
+    slot122RelatedRectifier OBJECT-TYPE
+    SYNTAX INTEGER
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION 
+        "The rectifier ID in the slot 122."
+    ::= { rectifierSlotSetting 122 }
+  -- 1.3.6.1.4.1.39553.10.2.6.123
+    slot123RelatedRectifier OBJECT-TYPE
+    SYNTAX INTEGER
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION 
+        "The rectifier ID in the slot 123."
+    ::= { rectifierSlotSetting 123 }
+  -- 1.3.6.1.4.1.39553.10.2.6.124
+    slot124RelatedRectifier OBJECT-TYPE
+    SYNTAX INTEGER
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION 
+        "The rectifier ID in the slot 124."
+    ::= { rectifierSlotSetting 124 }
+  -- 1.3.6.1.4.1.39553.10.2.6.125
+    slot125RelatedRectifier OBJECT-TYPE
+    SYNTAX INTEGER
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION 
+        "The rectifier ID in the slot 125."
+    ::= { rectifierSlotSetting 125 }
+  -- 1.3.6.1.4.1.39553.10.2.6.126
+    slot126RelatedRectifier OBJECT-TYPE
+    SYNTAX INTEGER
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION 
+        "The rectifier ID in the slot 126."
+    ::= { rectifierSlotSetting 126 }
+  -- 1.3.6.1.4.1.39553.10.2.6.127
+    slot127RelatedRectifier OBJECT-TYPE
+    SYNTAX INTEGER
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION 
+        "The rectifier ID in the slot 127."
+    ::= { rectifierSlotSetting 127 }
+  -- 1.3.6.1.4.1.39553.10.2.6.128
+    slot128RelatedRectifier OBJECT-TYPE
+    SYNTAX INTEGER
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION 
+        "The rectifier ID in the slot 128."
+    ::= { rectifierSlotSetting 128 }    
+  -- 1.3.6.1.4.1.39553.10.2.6.201
+    rectifierSetState1   OBJECT-TYPE
+    SYNTAX INTEGER
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The rectifier set state.
+         Each bit mean one state,when corresponding bit is 1 indicate rectifier be setted,
+         corresponding bit is 0 indicate not be setted.
+         bit0--bit31 corresponding rectifier 1--rectifier 32."
+    ::= { rectifierSlotSetting 201   }
+  -- 1.3.6.1.4.1.39553.10.2.6.202
+    rectifierSetState2   OBJECT-TYPE
+    SYNTAX INTEGER
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The rectifier set state.
+         Each bit mean one state,when corresponding bit is 1 indicate rectifier be setted,
+         corresponding bit is 0 indicate not be setted.
+         bit0--bit31 corresponding rectifier 33--rectifier 64." 
+    ::= { rectifierSlotSetting 202   }
+  -- 1.3.6.1.4.1.39553.10.2.6.203
+    rectifierSetState3   OBJECT-TYPE
+    SYNTAX INTEGER
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The rectifier set state.
+         Each bit mean one state,when corresponding bit is 1 indicate rectifier be setted,
+         corresponding bit is 0 indicate not be setted.
+         bit0--bit31 corresponding rectifier 65--rectifier 96." 
+    ::= { rectifierSlotSetting 203   }
+  -- 1.3.6.1.4.1.39553.10.2.6.204
+    rectifierSetState4   OBJECT-TYPE
+    SYNTAX INTEGER
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The rectifier set state.
+         Each bit mean one state,when corresponding bit is 1 indicate rectifier be setted,
+         corresponding bit is 0 indicate not be setted.
+         bit0--bit31 corresponding rectifier 97--rectifier 128."    
+    ::= { rectifierSlotSetting 204   }
+  -- 1.3.6.1.4.1.39553.10.2.6.205
+    slotSetState1    OBJECT-TYPE
+    SYNTAX INTEGER
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION 
+        "The slot set state.
+         Each bit mean one state,when corresponding bit is 1 indicate slot be setted,
+         corresponding bit is 0 indicate not be setted.
+         bit0--bit31 corresponding slot 1--slot 32."
+    ::= { rectifierSlotSetting 205   }
+  -- 1.3.6.1.4.1.39553.10.2.6.206
+    slotSetState2    OBJECT-TYPE
+    SYNTAX INTEGER
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION 
+        "The slot set state.
+         Each bit mean one state,when corresponding bit is 1 indicate slot be setted,
+         corresponding bit is 0 indicate not be setted.
+         bit0--bit31 corresponding slot 33--slot 64."
+    ::= { rectifierSlotSetting 206   }
+  -- 1.3.6.1.4.1.39553.10.2.6.207
+    slotSetState3    OBJECT-TYPE
+    SYNTAX INTEGER
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION 
+        "The slot set state.
+         Each bit mean one state,when corresponding bit is 1 indicate slot be setted,
+         corresponding bit is 0 indicate not be setted.
+         bit0--bit31 corresponding slot 65--slot 96."
+    ::= { rectifierSlotSetting 207   }
+  -- 1.3.6.1.4.1.39553.10.2.6.208
+    slotSetState4    OBJECT-TYPE
+    SYNTAX INTEGER
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION 
+        "The slot set state.
+         Each bit mean one state,when corresponding bit is 1 indicate slot be setted,
+         corresponding bit is 0 indicate not be setted.
+         bit0--bit31 corresponding slot 97--slot 128."
+    ::= { rectifierSlotSetting 208   }
+    -- 1.3.6.1.4.1.39553.10.2.6.209
+    chooseRectifierIDSlotSet     OBJECT-TYPE
+    SYNTAX INTEGER(0..128)
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "Slot setting with choose rectifier ID."
+    ::= { rectifierSlotSetting 209   }
+    -- 1.3.6.1.4.1.39553.10.2.6.210
+    chooseSlotIDSlotSet  OBJECT-TYPE
+    SYNTAX INTEGER(0..128)
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "Slot setting with choose slot ID."
+    ::= { rectifierSlotSetting 210   }
+    -- 1.3.6.1.4.1.39553.10.2.6.211
+    confirmSlotSet   OBJECT-TYPE
+    SYNTAX INTEGER
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "Confirm matching choosen rectifier and slot.
+         Read option:0=match success;1=matching;2=match fail;
+         write option:0=no affect;1=confirm matching."
+    ::= { rectifierSlotSetting 211   }
+    -- 1.3.6.1.4.1.39553.10.2.6.212
+    completeSlotSet  OBJECT-TYPE
+    SYNTAX INTEGER
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "Complete matched all rectifier and slot.
+         Read option:0=match success;1=matching;2=match fail;
+         write option:0=no affect;1=confirm matching."
+    ::= { rectifierSlotSetting 212   }
+    -- 1.3.6.1.4.1.39553.10.2.6.213
+    clearSlotSet     OBJECT-TYPE
+    SYNTAX INTEGER
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "Clear slot x matched.(x mean slot ID)"
+    ::= { rectifierSlotSetting 213   }
+    -- 1.3.6.1.4.1.39553.10.2.6.214
+    clearAllSlotSet  OBJECT-TYPE
+    SYNTAX INTEGER
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "Clear all slot matched."
+    ::= { rectifierSlotSetting 214   }
+    -- 1.3.6.1.4.1.39553.10.2.6.215
+    enableSlotSet    OBJECT-TYPE
+    SYNTAX INTEGER {
+        disable (0),
+        enable (1)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "Enable matching rectifier and slot."
+    ::= { rectifierSlotSetting 215   }
+    -- 1.3.6.1.4.1.39553.10.2.6.216
+    queryRectifierID     OBJECT-TYPE
+    SYNTAX INTEGER(0..128)
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "Current query rectifier ID.
+         0=not query;1~128:rectifier ID."
+    ::= { rectifierSlotSetting 216   }
+    -- 1.3.6.1.4.1.39553.10.2.6.217
+    slotValidState1  OBJECT-TYPE
+    SYNTAX INTEGER
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "Slot available status.
+         Each bit mean one state,when corresponding bit is 1 indicate slot not available,
+         corresponding bit is 0 indicate slot available.
+         bit0--bit31 corresponding slot 1--slot 32."
+    ::= { rectifierSlotSetting 217   }
+    -- 1.3.6.1.4.1.39553.10.2.6.218
+    slotValidState2  OBJECT-TYPE
+    SYNTAX INTEGER
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "Slot available status.
+         Each bit mean one state,when corresponding bit is 1 indicate slot not available,
+         corresponding bit is 0 indicate slot available.
+         bit0--bit31 corresponding slot 33--slot 64."
+    ::= { rectifierSlotSetting 218   }
+    -- 1.3.6.1.4.1.39553.10.2.6.219
+    slotValidState3  OBJECT-TYPE
+    SYNTAX INTEGER
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "Slot available status.
+         Each bit mean one state,when corresponding bit is 1 indicate slot not available,
+         corresponding bit is 0 indicate slot available.
+         bit0--bit31 corresponding slot 65--slot 96."
+    ::= { rectifierSlotSetting 219   }
+    -- 1.3.6.1.4.1.39553.10.2.6.220
+    slotValidState4  OBJECT-TYPE
+    SYNTAX INTEGER
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "Slot available status.
+         Each bit mean one state,when corresponding bit is 1 indicate slot not available,
+         corresponding bit is 0 indicate slot available.
+         bit0--bit31 corresponding slot 97--slot 128."
+    ::= { rectifierSlotSetting 220   }
+    -- 1.3.6.1.4.1.39553.10.2.6.221
+    slotPairedCompletedState     OBJECT-TYPE
+    SYNTAX INTEGER {
+        completed (0),
+        matching (1),
+        matchFail (2),
+        disableMatch (3)
+    }
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION 
+        "slot match Completed State.
+         0=completed;1=matching;2=match fail;3=disable match."
+    ::= { rectifierSlotSetting 221   }
+    
+        -- 1.3.6.1.4.1.39553.10.2.7
+        rectifierAlarmSetting OBJECT IDENTIFIER ::= { rectifier 7 }
+        
+  -- 1.3.6.1.4.1.39553.10.2.7.101
+    rectifierCurrentSampleFaultLevel OBJECT-TYPE
+    SYNTAX INTEGER{
+        minor (0),
+        major (1),
+        critical (2)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The level of rectifier current sample fault alarm."
+    ::= { rectifierAlarmSetting 101 }
+  -- 1.3.6.1.4.1.39553.10.2.7.102
+    rectifierPrimaryShortLevel OBJECT-TYPE
+    SYNTAX INTEGER{
+        minor (0),
+        major (1),
+        critical (2)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The level of rectifier primary side circuit short alarm."
+    ::= { rectifierAlarmSetting 102 }
+  -- 1.3.6.1.4.1.39553.10.2.7.103
+    rectifierMutipleNoOutputLevel OBJECT-TYPE
+    SYNTAX INTEGER{
+        minor (0),
+        major (1),
+        critical (2)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The level of mutiple rectifier no output alarm."
+    ::= { rectifierAlarmSetting 103 }
+  -- 1.3.6.1.4.1.39553.10.2.7.104
+    rectifierSingleNoOutputLevel OBJECT-TYPE
+    SYNTAX INTEGER{
+        minor (0),
+        major (1),
+        critical (2)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The level of single rectifier no output alarm."
+    ::= { rectifierAlarmSetting 104 }
+  -- 1.3.6.1.4.1.39553.10.2.7.105
+    rectifierOutputShortLevel OBJECT-TYPE
+    SYNTAX INTEGER{
+        minor (0),
+        major (1),
+        critical (2)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The level of rectifier outside circuit short alarm."
+    ::= { rectifierAlarmSetting 105 }
+  -- 1.3.6.1.4.1.39553.10.2.7.106
+    rectifierPFCImbalanceLevel OBJECT-TYPE
+    SYNTAX INTEGER{
+        minor (0),
+        major (1),
+        critical (2)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The level of rectifier PFC imbalance alarm."
+    ::= { rectifierAlarmSetting 106 }
+  -- 1.3.6.1.4.1.39553.10.2.7.107
+    rectifierIdentifiFaultLevel OBJECT-TYPE
+    SYNTAX INTEGER{
+        minor (0),
+        major (1),
+        critical (2)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The level of rectifier identifi fault alarm."
+    ::= { rectifierAlarmSetting 107 }
+  -- 1.3.6.1.4.1.39553.10.2.7.108
+    rectifierLostLevel OBJECT-TYPE
+    SYNTAX INTEGER{
+        minor (0),
+        major (1),
+        critical (2)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The level of rectifier lost alarm."
+    ::= { rectifierAlarmSetting 108 }
+  -- 1.3.6.1.4.1.39553.10.2.7.109
+    rectifierLihgtCurrentUnequalLevel OBJECT-TYPE
+    SYNTAX INTEGER{
+        minor (0),
+        major (1),
+        critical (2)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The level of rectifier lihgt current unequal alarm."
+    ::= { rectifierAlarmSetting 109 }
+  -- 1.3.6.1.4.1.39553.10.2.7.110
+    rectifierSeriousCurrentUnequalLevel OBJECT-TYPE
+    SYNTAX INTEGER{
+        minor (0),
+        major (1),
+        critical (2)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The level of rectifier serious current unequal alarm."
+    ::= { rectifierAlarmSetting 110 }
+  -- 1.3.6.1.4.1.39553.10.2.7.111
+    rectifierNoPositionLevel OBJECT-TYPE
+    SYNTAX INTEGER{
+        minor (0),
+        major (1),
+        critical (2)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The level of rectifier no position alarm."
+    ::= { rectifierAlarmSetting 111 }
+  -- 1.3.6.1.4.1.39553.10.2.7.112
+    rectifierOutputOverCurrentLevel OBJECT-TYPE
+    SYNTAX INTEGER{
+        minor (0),
+        major (1),
+        critical (2)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The level of rectifier output over current alarm."
+    ::= { rectifierAlarmSetting 112 }
+  -- 1.3.6.1.4.1.39553.10.2.7.113
+    rectifierE2PROMFaultLevel OBJECT-TYPE
+    SYNTAX INTEGER{
+        minor (0),
+        major (1),
+        critical (2)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The level of rectifier E2PROM fault alarm."
+    ::= { rectifierAlarmSetting 113 }
+  -- 1.3.6.1.4.1.39553.10.2.7.114
+    rectifierCanFaultLevel OBJECT-TYPE
+    SYNTAX INTEGER{
+        minor (0),
+        major (1),
+        critical (2)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The level of rectifier CAN communication fault alarm."
+    ::= { rectifierAlarmSetting 114 }
+  -- 1.3.6.1.4.1.39553.10.2.7.115
+    rectifierSecondSideCommFaultLevel OBJECT-TYPE
+    SYNTAX INTEGER{
+        minor (0),
+        major (1),
+        critical (2)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The level of rectifier second side communication fault alarm."
+    ::= { rectifierAlarmSetting 115 }
+  -- 1.3.6.1.4.1.39553.10.2.7.116
+    rectifierPrimarySideCommFaultLevel OBJECT-TYPE
+    SYNTAX INTEGER{
+        minor (0),
+        major (1),
+        critical (2)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The level of rectifier primary side communication fault alarm."
+    ::= { rectifierAlarmSetting 116 }
+  -- 1.3.6.1.4.1.39553.10.2.7.117
+    rectifierFanFaultLevel OBJECT-TYPE
+    SYNTAX INTEGER{
+        minor (0),
+        major (1),
+        critical (2)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The level of rectifier fan fault alarm."
+    ::= { rectifierAlarmSetting 117 }
+  -- 1.3.6.1.4.1.39553.10.2.7.118
+    rectifierStartResistorBreakLevel OBJECT-TYPE
+    SYNTAX INTEGER{
+        minor (0),
+        major (1),
+        critical (2)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The level of rectifier start resistor break alarm."
+    ::= { rectifierAlarmSetting 118 }
+  -- 1.3.6.1.4.1.39553.10.2.7.119
+    rectifierPFCOVPLevel OBJECT-TYPE
+    SYNTAX INTEGER{
+        minor (0),
+        major (1),
+        critical (2)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The level of rectifier PFC over voltage protection alarm."
+    ::= { rectifierAlarmSetting 119 }
+  -- 1.3.6.1.4.1.39553.10.2.7.120
+    rectifierPFCUVPLevel OBJECT-TYPE
+    SYNTAX INTEGER{
+        minor (0),
+        major (1),
+        critical (2)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The level of rectifier PFC under voltage protection alarm."
+    ::= { rectifierAlarmSetting 120 }
+  -- 1.3.6.1.4.1.39553.10.2.7.121
+    rectifierACImbalanceLevel OBJECT-TYPE
+    SYNTAX INTEGER{
+        minor (0),
+        major (1),
+        critical (2)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The level of rectifier AC imbalance alarm."
+    ::= { rectifierAlarmSetting 121 }
+  -- 1.3.6.1.4.1.39553.10.2.7.122
+    rectifierACLosePhaseLevel OBJECT-TYPE
+    SYNTAX INTEGER{
+        minor (0),
+        major (1),
+        critical (2)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The level of rectifier AC lose phase alarm."
+    ::= { rectifierAlarmSetting 122 }
+  -- 1.3.6.1.4.1.39553.10.2.7.123
+    rectifierACUVPLevel OBJECT-TYPE
+    SYNTAX INTEGER{
+        minor (0),
+        major (1),
+        critical (2)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The level of rectifier AC under voltage protection alarm."
+    ::= { rectifierAlarmSetting 123 }
+  -- 1.3.6.1.4.1.39553.10.2.7.124
+    rectifierACOVPLevel OBJECT-TYPE
+    SYNTAX INTEGER{
+        minor (0),
+        major (1),
+        critical (2)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The level of rectifier AC over voltage protection alarm."
+    ::= { rectifierAlarmSetting 124 }
+  -- 1.3.6.1.4.1.39553.10.2.7.125
+    rectifierInternalCircuitShortLevel OBJECT-TYPE
+    SYNTAX INTEGER{
+        minor (0),
+        major (1),
+        critical (2)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The level of rectifier internal circuit short alarm."
+    ::= { rectifierAlarmSetting 125 }
+  -- 1.3.6.1.4.1.39553.10.2.7.126
+    rectifierFuseBreakLevel OBJECT-TYPE
+    SYNTAX INTEGER{
+        minor (0),
+        major (1),
+        critical (2)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The level of rectifier output fuse break alarm."
+    ::= { rectifierAlarmSetting 126 }
+  -- 1.3.6.1.4.1.39553.10.2.7.127
+    rectifierSecondaryOverHotLevel OBJECT-TYPE
+    SYNTAX INTEGER{
+        minor (0),
+        major (1),
+        critical (2)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The level of rectifier secondary hot point over temperature alarm."
+    ::= { rectifierAlarmSetting 127 }
+  -- 1.3.6.1.4.1.39553.10.2.7.128
+    rectifierPrimaryOverHotLevel OBJECT-TYPE
+    SYNTAX INTEGER{
+        minor (0),
+        major (1),
+        critical (2)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The level of rectifier primary hot point over temperature alarm."
+    ::= { rectifierAlarmSetting 128 }
+  -- 1.3.6.1.4.1.39553.10.2.7.129
+    rectifierAmbientOverTempLevel OBJECT-TYPE
+    SYNTAX INTEGER{
+        minor (0),
+        major (1),
+        critical (2)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The level of rectifier ambient over temperature alarm."
+    ::= { rectifierAlarmSetting 129 }
+  -- 1.3.6.1.4.1.39553.10.2.7.130
+    rectifierOutputUVPLevel OBJECT-TYPE
+    SYNTAX INTEGER{
+        minor (0),
+        major (1),
+        critical (2)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The level of rectifier output under voltage protection alarm."
+    ::= { rectifierAlarmSetting 130 }
+  -- 1.3.6.1.4.1.39553.10.2.7.131
+    rectifierOutputOVPLevel OBJECT-TYPE
+    SYNTAX INTEGER{
+        minor (0),
+        major (1),
+        critical (2)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The level of rectifier output over voltage protection alarm."
+    ::= { rectifierAlarmSetting 131 }
+  -- 1.3.6.1.4.1.39553.10.2.7.132
+    rectifierInternalOVPLevel OBJECT-TYPE
+    SYNTAX INTEGER{
+        minor (0),
+        major (1),
+        critical (2)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The level of rectifier internal over voltage protection alarm."
+    ::= { rectifierAlarmSetting 132 }
+    -- 1.3.6.1.4.1.39553.10.2.7.133
+    rectifierPFCShortLevel OBJECT-TYPE
+    SYNTAX INTEGER{
+        minor (0),
+        major (1),
+        critical (2)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The level of rectifier PFC short alarm."
+    ::= { rectifierAlarmSetting 133 }
+    -- 1.3.6.1.4.1.39553.10.2.7.134
+    rectifierOVSDLevel OBJECT-TYPE
+    SYNTAX INTEGER{
+        minor (0),
+        major (1),
+        critical (2)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The level of rectifier OVSD alarm."
+    ::= { rectifierAlarmSetting 134 }
+    -- 1.3.6.1.4.1.39553.10.2.7.135
+    rectifierSecurityCodeErrorLevel OBJECT-TYPE
+    SYNTAX INTEGER{
+        minor (0),
+        major (1),
+        critical (2)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The level of rectifier security code error alarm."
+    ::= { rectifierAlarmSetting 135 }
+    -- 1.3.6.1.4.1.39553.10.2.7.149
+    rectifierSingleFaultLevel OBJECT-TYPE
+    SYNTAX INTEGER{
+        minor (0),
+        major (1),
+        critical (2)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The level of single rectifier alarm."
+    ::= { rectifierAlarmSetting 149 }
+  -- 1.3.6.1.4.1.39553.10.2.7.150
+    rectifierMutipleFaultLevel OBJECT-TYPE
+    SYNTAX INTEGER{
+        minor (0),
+        major (1),
+        critical (2)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The level of multiple rectifier alarm."
+    ::= { rectifierAlarmSetting 150 }
+    
+  -- 1.3.6.1.4.1.39553.10.2.7.201
+    rectifierCurrentSampleFaultValid OBJECT-TYPE
+    SYNTAX INTEGER{
+        disable (0),
+        enable (1)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The validty of rectifier current sample fault alarm."
+    ::= { rectifierAlarmSetting 201 }
+  -- 1.3.6.1.4.1.39553.10.2.7.202
+    rectifierPrimaryShortValid OBJECT-TYPE
+    SYNTAX INTEGER{
+        disable (0),
+        enable (1)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The validty of rectifier primary side circuit short alarm."
+    ::= { rectifierAlarmSetting 202 }
+  -- 1.3.6.1.4.1.39553.10.2.7.203
+    rectifierMutipleNoOutputValid OBJECT-TYPE
+    SYNTAX INTEGER{
+        disable (0),
+        enable (1)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The validty of mutiple rectifier no output alarm."
+    ::= { rectifierAlarmSetting 203 }
+  -- 1.3.6.1.4.1.39553.10.2.7.204
+    rectifierSingleNoOutputValid OBJECT-TYPE
+    SYNTAX INTEGER{
+        disable (0),
+        enable (1)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The validty of single rectifier no output alarm."
+    ::= { rectifierAlarmSetting 204 }
+  -- 1.3.6.1.4.1.39553.10.2.7.205
+    rectifierOutputShortValid OBJECT-TYPE
+    SYNTAX INTEGER{
+        disable (0),
+        enable (1)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The validty of rectifier outside circuit short alarm."
+    ::= { rectifierAlarmSetting 205 }
+  -- 1.3.6.1.4.1.39553.10.2.7.206
+    rectifierPFCImbalanceValid OBJECT-TYPE
+    SYNTAX INTEGER{
+        disable (0),
+        enable (1)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The validty of rectifier PFC imbalance alarm."
+    ::= { rectifierAlarmSetting 206 }
+  -- 1.3.6.1.4.1.39553.10.2.7.207
+    rectifierIdentifiFaultValid OBJECT-TYPE
+    SYNTAX INTEGER{
+        disable (0),
+        enable (1)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The validty of rectifier identifi fault alarm."
+    ::= { rectifierAlarmSetting 207 }
+  -- 1.3.6.1.4.1.39553.10.2.7.208
+    rectifierLostValid OBJECT-TYPE
+    SYNTAX INTEGER{
+        disable (0),
+        enable (1)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The validty of rectifier lost alarm."
+    ::= { rectifierAlarmSetting 208 }
+  -- 1.3.6.1.4.1.39553.10.2.7.209
+    rectifierLihgtCurrentUnequalValid OBJECT-TYPE
+    SYNTAX INTEGER{
+        disable (0),
+        enable (1)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The validty of rectifier lihgt current unequal alarm."
+    ::= { rectifierAlarmSetting 209 }
+  -- 1.3.6.1.4.1.39553.10.2.7.210
+    rectifierSeriousCurrentUnequalValid OBJECT-TYPE
+    SYNTAX INTEGER{
+        disable (0),
+        enable (1)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The validty of rectifier serious current unequal alarm."
+    ::= { rectifierAlarmSetting 210 }
+  -- 1.3.6.1.4.1.39553.10.2.7.211
+    rectifierNoPositionValid OBJECT-TYPE
+    SYNTAX INTEGER{
+        disable (0),
+        enable (1)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The validty of rectifier no position alarm."
+    ::= { rectifierAlarmSetting 211 }
+  -- 1.3.6.1.4.1.39553.10.2.7.212
+    rectifierOutputOverCurrentValid OBJECT-TYPE
+    SYNTAX INTEGER{
+        disable (0),
+        enable (1)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The validty of rectifier output over current alarm."
+    ::= { rectifierAlarmSetting 212 }
+  -- 1.3.6.1.4.1.39553.10.2.7.213
+    rectifierE2PROMFaultValid OBJECT-TYPE
+    SYNTAX INTEGER{
+        disable (0),
+        enable (1)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The validty of rectifier E2PROM fault alarm."
+    ::= { rectifierAlarmSetting 213 }
+  -- 1.3.6.1.4.1.39553.10.2.7.214
+    rectifierCanFaultValid OBJECT-TYPE
+    SYNTAX INTEGER{
+        disable (0),
+        enable (1)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The validty of rectifier CAN communication fault alarm."
+    ::= { rectifierAlarmSetting 214 }
+  -- 1.3.6.1.4.1.39553.10.2.7.215
+    rectifierSecondSideCommFaultValid OBJECT-TYPE
+    SYNTAX INTEGER{
+        disable (0),
+        enable (1)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The validty of rectifier second side communication fault alarm."
+    ::= { rectifierAlarmSetting 215 }
+  -- 1.3.6.1.4.1.39553.10.2.7.216
+    rectifierPrimarySideCommFaultValid OBJECT-TYPE
+    SYNTAX INTEGER{
+        disable (0),
+        enable (1)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The validty of rectifier primary side communication fault alarm."
+    ::= { rectifierAlarmSetting 216 }
+  -- 1.3.6.1.4.1.39553.10.2.7.217
+    rectifierFanFaultValid OBJECT-TYPE
+    SYNTAX INTEGER{
+        disable (0),
+        enable (1)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The validty of rectifier fan fault alarm."
+    ::= { rectifierAlarmSetting 217 }
+  -- 1.3.6.1.4.1.39553.10.2.7.218
+    rectifierStartResistorBreakValid OBJECT-TYPE
+    SYNTAX INTEGER{
+        disable (0),
+        enable (1)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The validty of rectifier start resistor break alarm."
+    ::= { rectifierAlarmSetting 218 }
+  -- 1.3.6.1.4.1.39553.10.2.7.219
+    rectifierPFCOVPValid OBJECT-TYPE
+    SYNTAX INTEGER{
+        disable (0),
+        enable (1)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The validty of rectifier PFC over voltage protection alarm."
+    ::= { rectifierAlarmSetting 219 }
+  -- 1.3.6.1.4.1.39553.10.2.7.220
+    rectifierPFCUVPValid OBJECT-TYPE
+    SYNTAX INTEGER{
+        disable (0),
+        enable (1)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The validty of rectifier PFC under voltage protection alarm."
+    ::= { rectifierAlarmSetting 220 }
+  -- 1.3.6.1.4.1.39553.10.2.7.221
+    rectifierACImbalanceValid OBJECT-TYPE
+    SYNTAX INTEGER{
+        disable (0),
+        enable (1)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The validty of rectifier AC imbalance alarm."
+    ::= { rectifierAlarmSetting 221 }
+  -- 1.3.6.1.4.1.39553.10.2.7.222
+    rectifierACLosePhaseValid OBJECT-TYPE
+    SYNTAX INTEGER{
+        disable (0),
+        enable (1)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The validty of rectifier AC lose phase alarm."
+    ::= { rectifierAlarmSetting 222 }
+  -- 1.3.6.1.4.1.39553.10.2.7.223
+    rectifierACUVPValid OBJECT-TYPE
+    SYNTAX INTEGER{
+        disable (0),
+        enable (1)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The validty of rectifier AC under voltage protection alarm."
+    ::= { rectifierAlarmSetting 223 }
+  -- 1.3.6.1.4.1.39553.10.2.7.224
+    rectifierACOVPValid OBJECT-TYPE
+    SYNTAX INTEGER{
+        disable (0),
+        enable (1)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The validty of rectifier AC over voltage protection alarm."
+    ::= { rectifierAlarmSetting 224 }
+  -- 1.3.6.1.4.1.39553.10.2.7.225
+    rectifierInternalShortValid OBJECT-TYPE
+    SYNTAX INTEGER{
+        disable (0),
+        enable (1)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The validty of rectifier internal circuit short alarm."
+    ::= { rectifierAlarmSetting 225 }
+  -- 1.3.6.1.4.1.39553.10.2.7.226
+    rectifierFuseBreakValid OBJECT-TYPE
+    SYNTAX INTEGER{
+        disable (0),
+        enable (1)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The validty of rectifier output fuse break alarm."
+    ::= { rectifierAlarmSetting 226 }
+  -- 1.3.6.1.4.1.39553.10.2.7.227
+    rectifierSecondaryOverHotValid OBJECT-TYPE
+    SYNTAX INTEGER{
+        disable (0),
+        enable (1)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The validty of rectifier secondary hot point over temperature alarm."
+    ::= { rectifierAlarmSetting 227 }
+  -- 1.3.6.1.4.1.39553.10.2.7.228
+    rectifierPrimaryOverHotValid OBJECT-TYPE
+    SYNTAX INTEGER{
+        disable (0),
+        enable (1)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The validty of rectifier primary hot point over temperature alarm."
+    ::= { rectifierAlarmSetting 228 }
+  -- 1.3.6.1.4.1.39553.10.2.7.229
+    rectifierAmbientOverTempValid OBJECT-TYPE
+    SYNTAX INTEGER{
+        disable (0),
+        enable (1)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The validty of rectifier ambient over temperature alarm."
+    ::= { rectifierAlarmSetting 229 }
+  -- 1.3.6.1.4.1.39553.10.2.7.230
+    rectifierOutputUVPValid OBJECT-TYPE
+    SYNTAX INTEGER{
+        disable (0),
+        enable (1)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The validty of rectifier output under voltage protection alarm."
+    ::= { rectifierAlarmSetting 230 }
+  -- 1.3.6.1.4.1.39553.10.2.7.231
+    rectifierOutputOVPValid OBJECT-TYPE
+    SYNTAX INTEGER{
+        disable (0),
+        enable (1)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The validty of rectifier output over voltage protection alarm."
+    ::= { rectifierAlarmSetting 231 }
+  -- 1.3.6.1.4.1.39553.10.2.7.232
+    rectifierInternalOVPValid OBJECT-TYPE
+    SYNTAX INTEGER{
+        disable (0),
+        enable (1)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The validty of rectifier internal over voltage protection alarm."
+    ::= { rectifierAlarmSetting 232 }
+    -- 1.3.6.1.4.1.39553.10.2.7.233
+    rectifierPFCShortValid OBJECT-TYPE
+    SYNTAX INTEGER{
+        disable (0),
+        enable (1)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The validty of rectifier PFC short alarm."
+    ::= { rectifierAlarmSetting 233 }
+    -- 1.3.6.1.4.1.39553.10.2.7.234
+    rectifierOVSDValid OBJECT-TYPE
+    SYNTAX INTEGER{
+        disable (0),
+        enable (1)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The validty of rectifier OVSD alarm."
+    ::= { rectifierAlarmSetting 234 }
+    -- 1.3.6.1.4.1.39553.10.2.7.235
+    rectifierSecurityCodeErrorValid OBJECT-TYPE
+    SYNTAX INTEGER{
+        disable (0),
+        enable (1)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The validty of rectifier security code error alarm."
+    ::= { rectifierAlarmSetting 235 }
+    -- 1.3.6.1.4.1.39553.10.2.7.249
+    rectifierSingleFaultValid OBJECT-TYPE
+    SYNTAX INTEGER{
+        disable (0),
+        enable (1)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The validty of single rectifier alarm."
+    ::= { rectifierAlarmSetting 249 }
+  -- 1.3.6.1.4.1.39553.10.2.7.250
+    rectifierMutipleFaultValid OBJECT-TYPE
+    SYNTAX INTEGER{
+        disable (0),
+        enable (1)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The validty of multiple rectifier alarm."
+    ::= { rectifierAlarmSetting 250 }
+    
+  -- 1.3.6.1.4.1.39553.10.2.7.301
+    rectifierCurrentSampleFaultSound OBJECT-TYPE
+    SYNTAX INTEGER{
+        disable (0),
+        enable (1)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The sound of rectifier current sample fault alarm."
+    ::= { rectifierAlarmSetting 301 }
+  -- 1.3.6.1.4.1.39553.10.2.7.302
+    rectifierPrimaryShortSound OBJECT-TYPE
+    SYNTAX INTEGER{
+        disable (0),
+        enable (1)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The sound of rectifier primary side circuit short alarm."
+    ::= { rectifierAlarmSetting 302 }
+  -- 1.3.6.1.4.1.39553.10.2.7.303
+    rectifierMutipleNoOutputSound OBJECT-TYPE
+    SYNTAX INTEGER{
+        disable (0),
+        enable (1)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The sound of mutiple rectifier no output alarm."
+    ::= { rectifierAlarmSetting 303 }
+  -- 1.3.6.1.4.1.39553.10.2.7.304
+    rectifierSingleNoOutputSound OBJECT-TYPE
+    SYNTAX INTEGER{
+        disable (0),
+        enable (1)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The sound of single rectifier no output alarm."
+    ::= { rectifierAlarmSetting 304 }
+  -- 1.3.6.1.4.1.39553.10.2.7.305
+    rectifierOutputShortSound OBJECT-TYPE
+    SYNTAX INTEGER{
+        disable (0),
+        enable (1)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The sound of rectifier outside circuit short alarm."
+    ::= { rectifierAlarmSetting 305 }
+  -- 1.3.6.1.4.1.39553.10.2.7.306
+    rectifierPFCImbalanceSound OBJECT-TYPE
+    SYNTAX INTEGER{
+        disable (0),
+        enable (1)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The sound of rectifier PFC imbalance alarm."
+    ::= { rectifierAlarmSetting 306 }
+  -- 1.3.6.1.4.1.39553.10.2.7.307
+    rectifierIdentifiFaultSound OBJECT-TYPE
+    SYNTAX INTEGER{
+        disable (0),
+        enable (1)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The sound of rectifier identifi fault alarm."
+    ::= { rectifierAlarmSetting 307 }
+  -- 1.3.6.1.4.1.39553.10.2.7.308
+    rectifierLostSound OBJECT-TYPE
+    SYNTAX INTEGER{
+        disable (0),
+        enable (1)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The sound of rectifier lost alarm."
+    ::= { rectifierAlarmSetting 308 }
+  -- 1.3.6.1.4.1.39553.10.2.7.309
+    rectifierLihgtCurrentUnequalSound OBJECT-TYPE
+    SYNTAX INTEGER{
+        disable (0),
+        enable (1)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The sound of rectifier lihgt current unequal alarm."
+    ::= { rectifierAlarmSetting 309 }
+  -- 1.3.6.1.4.1.39553.10.2.7.310
+    rectifierSeriousCurrentUnequalSound OBJECT-TYPE
+    SYNTAX INTEGER{
+        disable (0),
+        enable (1)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The sound of rectifier serious current unequal alarm."
+    ::= { rectifierAlarmSetting 310 }
+  -- 1.3.6.1.4.1.39553.10.2.7.311
+    rectifierNoPositionSound OBJECT-TYPE
+    SYNTAX INTEGER{
+        disable (0),
+        enable (1)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The sound of rectifier no position alarm."
+    ::= { rectifierAlarmSetting 311 }
+  -- 1.3.6.1.4.1.39553.10.2.7.312
+    rectifierOutputOverCurrentSound OBJECT-TYPE
+    SYNTAX INTEGER{
+        disable (0),
+        enable (1)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The sound of rectifier output over current alarm."
+    ::= { rectifierAlarmSetting 312 }
+  -- 1.3.6.1.4.1.39553.10.2.7.313
+    rectifierE2PROMFaultSound OBJECT-TYPE
+    SYNTAX INTEGER{
+        disable (0),
+        enable (1)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The sound of rectifier E2PROM fault alarm."
+    ::= { rectifierAlarmSetting 313 }
+  -- 1.3.6.1.4.1.39553.10.2.7.314
+    rectifierCanFaultSound OBJECT-TYPE
+    SYNTAX INTEGER{
+        disable (0),
+        enable (1)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The sound of rectifier CAN communication fault alarm."
+    ::= { rectifierAlarmSetting 314 }
+  -- 1.3.6.1.4.1.39553.10.2.7.315
+    rectifierSecondSideCommFaultSound OBJECT-TYPE
+    SYNTAX INTEGER{
+        disable(0),
+        enable(1)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The sound of rectifier second side communication fault alarm."
+    ::= { rectifierAlarmSetting 315 }
+  -- 1.3.6.1.4.1.39553.10.2.7.316
+    rectifierPrimarySideCommFaultSound OBJECT-TYPE
+    SYNTAX INTEGER{
+        disable (0),
+        enable (1)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The sound of rectifier primary side communication fault alarm."
+    ::= { rectifierAlarmSetting 316 }
+  -- 1.3.6.1.4.1.39553.10.2.7.317
+    rectifierFanFaultSound OBJECT-TYPE
+    SYNTAX INTEGER{
+        disable (0),
+        enable (1)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The sound of rectifier fan fault alarm."
+    ::= { rectifierAlarmSetting 317 }
+  -- 1.3.6.1.4.1.39553.10.2.7.318
+    rectifierStartResistorBreakSound OBJECT-TYPE
+    SYNTAX INTEGER{
+        disable (0),
+        enable (1)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The sound of rectifier start resistor break alarm."
+    ::= { rectifierAlarmSetting 318 }
+  -- 1.3.6.1.4.1.39553.10.2.7.319
+    rectifierPFCOVPSound OBJECT-TYPE
+    SYNTAX INTEGER{
+        disable (0),
+        enable (1)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The sound of rectifier PFC over voltage protection alarm."
+    ::= { rectifierAlarmSetting 319 }
+  -- 1.3.6.1.4.1.39553.10.2.7.320
+    rectifierPFCUVPSound OBJECT-TYPE
+    SYNTAX INTEGER{
+        disable (0),
+        enable (1)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The sound of rectifier PFC under voltage protection alarm."
+    ::= { rectifierAlarmSetting 320 }
+  -- 1.3.6.1.4.1.39553.10.2.7.321
+    rectifierACImbalanceSound OBJECT-TYPE
+    SYNTAX INTEGER{
+        disable (0),
+        enable (1)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The sound of rectifier AC imbalance alarm."
+    ::= { rectifierAlarmSetting 321 }
+  -- 1.3.6.1.4.1.39553.10.2.7.322
+    rectifierACLosePhaseSound OBJECT-TYPE
+    SYNTAX INTEGER{
+        disable (0),
+        enable (1)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The sound of rectifier AC lose phase alarm."
+    ::= { rectifierAlarmSetting 322 }
+  -- 1.3.6.1.4.1.39553.10.2.7.323
+    rectifierACUVPSound OBJECT-TYPE
+    SYNTAX INTEGER{
+        disable (0),
+        enable (1)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The sound of rectifier AC under voltage protection alarm."
+    ::= { rectifierAlarmSetting 323 }
+  -- 1.3.6.1.4.1.39553.10.2.7.324
+    rectifierACOVPSound OBJECT-TYPE
+    SYNTAX INTEGER{
+        disable (0),
+        enable (1)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The sound of rectifier AC over voltage protection alarm."
+    ::= { rectifierAlarmSetting 324 }
+  -- 1.3.6.1.4.1.39553.10.2.7.325
+    rectifierInternalShortSound OBJECT-TYPE
+    SYNTAX INTEGER{
+        disable (0),
+        enable (1)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The sound of rectifier internal circuit short alarm."
+    ::= { rectifierAlarmSetting 325 }
+  -- 1.3.6.1.4.1.39553.10.2.7.326
+    rectifierFuseBreakSound OBJECT-TYPE
+    SYNTAX INTEGER{
+        disable (0),
+        enable (1)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The sound of rectifier output fuse break alarm."
+    ::= { rectifierAlarmSetting 326 }
+  -- 1.3.6.1.4.1.39553.10.2.7.327
+    rectifierSecondaryOverHotSound OBJECT-TYPE
+    SYNTAX INTEGER{
+        disable (0),
+        enable (1)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The sound of rectifier secondary hot point over temperature alarm."
+    ::= { rectifierAlarmSetting 327 }
+  -- 1.3.6.1.4.1.39553.10.2.7.328
+    rectifierPrimaryOverHotSound OBJECT-TYPE
+    SYNTAX INTEGER{
+        disable (0),
+        enable (1)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The sound of rectifier primary hot point over temperature alarm."
+    ::= { rectifierAlarmSetting 328 }
+  -- 1.3.6.1.4.1.39553.10.2.7.329
+    rectifierAmbientOverTempSound OBJECT-TYPE
+    SYNTAX INTEGER{
+        disable (0),
+        enable (1)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The sound of rectifier ambient over temperature alarm."
+    ::= { rectifierAlarmSetting 329 }
+  -- 1.3.6.1.4.1.39553.10.2.7.330
+    rectifierOutputUVPSound OBJECT-TYPE
+    SYNTAX INTEGER{
+        disable (0),
+        enable (1)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The sound of rectifier output under voltage protection alarm."
+    ::= { rectifierAlarmSetting 330 }
+  -- 1.3.6.1.4.1.39553.10.2.7.331
+    rectifierOutputOVPSound OBJECT-TYPE
+    SYNTAX INTEGER{
+        disable (0),
+        enable (1)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The sound of rectifier output over voltage protection alarm."
+    ::= { rectifierAlarmSetting 331 }
+  -- 1.3.6.1.4.1.39553.10.2.7.332
+    rectifierInternalOVPSound OBJECT-TYPE
+    SYNTAX INTEGER{
+        disable (0),
+        enable (1)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The sound of rectifier internal over voltage protection alarm."
+    ::= { rectifierAlarmSetting 332 }
+    -- 1.3.6.1.4.1.39553.10.2.7.333
+    rectifierPFCShortSound OBJECT-TYPE
+    SYNTAX INTEGER{
+        disable (0),
+        enable (1)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The sound of rectifier PFC short alarm."
+    ::= { rectifierAlarmSetting 333 }
+    -- 1.3.6.1.4.1.39553.10.2.7.334
+    rectifierOVSDSound OBJECT-TYPE
+    SYNTAX INTEGER{
+        disable (0),
+        enable (1)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The sound of rectifier OVSD alarm."
+    ::= { rectifierAlarmSetting 334 }
+    -- 1.3.6.1.4.1.39553.10.2.7.335
+    rectifierSecurityCodeErrorSound OBJECT-TYPE
+    SYNTAX INTEGER{
+        disable (0),
+        enable (1)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The sound of rectifier security code error alarm."
+    ::= { rectifierAlarmSetting 335 }
+    -- 1.3.6.1.4.1.39553.10.2.7.349
+    rectifierSingleFaultSound OBJECT-TYPE
+    SYNTAX INTEGER{
+        disable (0),
+        enable (1)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The sound of single rectifier alarm."
+    ::= { rectifierAlarmSetting 349 }
+  -- 1.3.6.1.4.1.39553.10.2.7.350
+    rectifierMutipleFaultSound OBJECT-TYPE
+    SYNTAX INTEGER{
+        disable (0),
+        enable (1)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The sound of multiple rectifier alarm."
+    ::= { rectifierAlarmSetting 350 }
+    
+  -- 1.3.6.1.4.1.39553.10.2.7.401
+    rectifierCurrentSampleFaultRelay OBJECT-TYPE
+    SYNTAX INTEGER{
+        relay1 (0),
+        relay2 (1),
+        relay3 (2),
+        relay4 (3),
+        relay5 (4),
+        relay6 (5),
+        relay7 (6),
+        relay8 (7),
+        relay9 (8),
+        relay10 (9),
+        relay11 (10),
+        relay12 (11),
+        relay13 (12),
+        relay14 (13),
+        relay15 (14),
+        relay16 (15)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The relay of rectifier current sample fault alarm."
+    ::= { rectifierAlarmSetting 401 }
+  -- 1.3.6.1.4.1.39553.10.2.7.402
+    rectifierPrimaryShortRelay OBJECT-TYPE
+    SYNTAX INTEGER{
+        relay1 (0),
+        relay2 (1),
+        relay3 (2),
+        relay4 (3),
+        relay5 (4),
+        relay6 (5),
+        relay7 (6),
+        relay8 (7),
+        relay9 (8),
+        relay10 (9),
+        relay11 (10),
+        relay12 (11),
+        relay13 (12),
+        relay14 (13),
+        relay15 (14),
+        relay16 (15)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The relay of rectifier primary side circuit short alarm."
+    ::= { rectifierAlarmSetting 402 }
+  -- 1.3.6.1.4.1.39553.10.2.7.403
+    rectifierMutipleNoOutputRelay OBJECT-TYPE
+    SYNTAX INTEGER{
+        relay1 (0),
+        relay2 (1),
+        relay3 (2),
+        relay4 (3),
+        relay5 (4),
+        relay6 (5),
+        relay7 (6),
+        relay8 (7),
+        relay9 (8),
+        relay10 (9),
+        relay11 (10),
+        relay12 (11),
+        relay13 (12),
+        relay14 (13),
+        relay15 (14),
+        relay16 (15)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The relay of mutiple rectifier no output alarm."
+    ::= { rectifierAlarmSetting 403 }
+  -- 1.3.6.1.4.1.39553.10.2.7.404
+    rectifierSingleNoOutputRelay OBJECT-TYPE
+    SYNTAX INTEGER{
+        relay1 (0),
+        relay2 (1),
+        relay3 (2),
+        relay4 (3),
+        relay5 (4),
+        relay6 (5),
+        relay7 (6),
+        relay8 (7),
+        relay9 (8),
+        relay10 (9),
+        relay11 (10),
+        relay12 (11),
+        relay13 (12),
+        relay14 (13),
+        relay15 (14),
+        relay16 (15)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The relay of single rectifier no output alarm."
+    ::= { rectifierAlarmSetting 404 }
+  -- 1.3.6.1.4.1.39553.10.2.7.405
+    rectifierOutputShortRelay OBJECT-TYPE
+    SYNTAX INTEGER{
+        relay1 (0),
+        relay2 (1),
+        relay3 (2),
+        relay4 (3),
+        relay5 (4),
+        relay6 (5),
+        relay7 (6),
+        relay8 (7),
+        relay9 (8),
+        relay10 (9),
+        relay11 (10),
+        relay12 (11),
+        relay13 (12),
+        relay14 (13),
+        relay15 (14),
+        relay16 (15)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The relay of rectifier outside circuit short alarm."
+    ::= { rectifierAlarmSetting 405 }
+  -- 1.3.6.1.4.1.39553.10.2.7.406
+    rectifierPFCImbalanceRelay OBJECT-TYPE
+    SYNTAX INTEGER{
+        relay1 (0),
+        relay2 (1),
+        relay3 (2),
+        relay4 (3),
+        relay5 (4),
+        relay6 (5),
+        relay7 (6),
+        relay8 (7),
+        relay9 (8),
+        relay10 (9),
+        relay11 (10),
+        relay12 (11),
+        relay13 (12),
+        relay14 (13),
+        relay15 (14),
+        relay16 (15)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The relay of rectifier PFC imbalance alarm."
+    ::= { rectifierAlarmSetting 406 }
+  -- 1.3.6.1.4.1.39553.10.2.7.407
+    rectifierIdentifiFaultRelay OBJECT-TYPE
+    SYNTAX INTEGER{
+        relay1 (0),
+        relay2 (1),
+        relay3 (2),
+        relay4 (3),
+        relay5 (4),
+        relay6 (5),
+        relay7 (6),
+        relay8 (7),
+        relay9 (8),
+        relay10 (9),
+        relay11 (10),
+        relay12 (11),
+        relay13 (12),
+        relay14 (13),
+        relay15 (14),
+        relay16 (15)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The relay of rectifier identifi fault alarm."
+    ::= { rectifierAlarmSetting 407 }
+  -- 1.3.6.1.4.1.39553.10.2.7.408
+    rectifierLostRelay OBJECT-TYPE
+    SYNTAX INTEGER{
+        relay1 (0),
+        relay2 (1),
+        relay3 (2),
+        relay4 (3),
+        relay5 (4),
+        relay6 (5),
+        relay7 (6),
+        relay8 (7),
+        relay9 (8),
+        relay10 (9),
+        relay11 (10),
+        relay12 (11),
+        relay13 (12),
+        relay14 (13),
+        relay15 (14),
+        relay16 (15)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The relay of rectifier lost alarm."
+    ::= { rectifierAlarmSetting 408 }
+  -- 1.3.6.1.4.1.39553.10.2.7.409
+    rectifierLihgtCurrentUnequalRelay OBJECT-TYPE
+    SYNTAX INTEGER{
+        relay1 (0),
+        relay2 (1),
+        relay3 (2),
+        relay4 (3),
+        relay5 (4),
+        relay6 (5),
+        relay7 (6),
+        relay8 (7),
+        relay9 (8),
+        relay10 (9),
+        relay11 (10),
+        relay12 (11),
+        relay13 (12),
+        relay14 (13),
+        relay15 (14),
+        relay16 (15)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The relay of rectifier lihgt current unequal alarm."
+    ::= { rectifierAlarmSetting 409 }
+  -- 1.3.6.1.4.1.39553.10.2.7.410
+    rectifierSeriousCurrentUnequalRelay OBJECT-TYPE
+    SYNTAX INTEGER{
+        relay1 (0),
+        relay2 (1),
+        relay3 (2),
+        relay4 (3),
+        relay5 (4),
+        relay6 (5),
+        relay7 (6),
+        relay8 (7),
+        relay9 (8),
+        relay10 (9),
+        relay11 (10),
+        relay12 (11),
+        relay13 (12),
+        relay14 (13),
+        relay15 (14),
+        relay16 (15)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The relay of rectifier serious current unequal alarm."
+    ::= { rectifierAlarmSetting 410 }
+  -- 1.3.6.1.4.1.39553.10.2.7.411
+    rectifierNoPositionRelay OBJECT-TYPE
+    SYNTAX INTEGER{
+        relay1 (0),
+        relay2 (1),
+        relay3 (2),
+        relay4 (3),
+        relay5 (4),
+        relay6 (5),
+        relay7 (6),
+        relay8 (7),
+        relay9 (8),
+        relay10 (9),
+        relay11 (10),
+        relay12 (11),
+        relay13 (12),
+        relay14 (13),
+        relay15 (14),
+        relay16 (15)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The relay of rectifier no position alarm."
+    ::= { rectifierAlarmSetting 411 }
+  -- 1.3.6.1.4.1.39553.10.2.7.412
+    rectifierOutputOverCurrentRelay OBJECT-TYPE
+    SYNTAX INTEGER{
+        relay1 (0),
+        relay2 (1),
+        relay3 (2),
+        relay4 (3),
+        relay5 (4),
+        relay6 (5),
+        relay7 (6),
+        relay8 (7),
+        relay9 (8),
+        relay10 (9),
+        relay11 (10),
+        relay12 (11),
+        relay13 (12),
+        relay14 (13),
+        relay15 (14),
+        relay16 (15)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The relay of rectifier output over current alarm."
+    ::= { rectifierAlarmSetting 412 }
+  -- 1.3.6.1.4.1.39553.10.2.7.413
+    rectifierE2PROMFaultRelay OBJECT-TYPE
+    SYNTAX INTEGER{
+        relay1 (0),
+        relay2 (1),
+        relay3 (2),
+        relay4 (3),
+        relay5 (4),
+        relay6 (5),
+        relay7 (6),
+        relay8 (7),
+        relay9 (8),
+        relay10 (9),
+        relay11 (10),
+        relay12 (11),
+        relay13 (12),
+        relay14 (13),
+        relay15 (14),
+        relay16 (15)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The relay of rectifier E2PROM fault alarm."
+    ::= { rectifierAlarmSetting 413 }
+  -- 1.3.6.1.4.1.39553.10.2.7.414
+    rectifierCanFaultRelay OBJECT-TYPE
+    SYNTAX INTEGER{
+        relay1 (0),
+        relay2 (1),
+        relay3 (2),
+        relay4 (3),
+        relay5 (4),
+        relay6 (5),
+        relay7 (6),
+        relay8 (7),
+        relay9 (8),
+        relay10 (9),
+        relay11 (10),
+        relay12 (11),
+        relay13 (12),
+        relay14 (13),
+        relay15 (14),
+        relay16 (15)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The relay of rectifier CAN communication fault alarm."
+    ::= { rectifierAlarmSetting 414 }
+  -- 1.3.6.1.4.1.39553.10.2.7.415
+    rectifierSecondSideCommFaultRelay OBJECT-TYPE
+    SYNTAX INTEGER{
+        relay1 (0),
+        relay2 (1),
+        relay3 (2),
+        relay4 (3),
+        relay5 (4),
+        relay6 (5),
+        relay7 (6),
+        relay8 (7),
+        relay9 (8),
+        relay10 (9),
+        relay11 (10),
+        relay12 (11),
+        relay13 (12),
+        relay14 (13),
+        relay15 (14),
+        relay16 (15)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The relay of rectifier second side communication fault alarm."
+    ::= { rectifierAlarmSetting 415 }
+  -- 1.3.6.1.4.1.39553.10.2.7.416
+    rectifierPrimarySideCommFaultRelay OBJECT-TYPE
+    SYNTAX INTEGER{
+        relay1 (0),
+        relay2 (1),
+        relay3 (2),
+        relay4 (3),
+        relay5 (4),
+        relay6 (5),
+        relay7 (6),
+        relay8 (7),
+        relay9 (8),
+        relay10 (9),
+        relay11 (10),
+        relay12 (11),
+        relay13 (12),
+        relay14 (13),
+        relay15 (14),
+        relay16 (15)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The relay of rectifier primary side communication fault alarm."
+    ::= { rectifierAlarmSetting 416 }
+  -- 1.3.6.1.4.1.39553.10.2.7.417
+    rectifierFanFaultRelay OBJECT-TYPE
+    SYNTAX INTEGER{
+        relay1 (0),
+        relay2 (1),
+        relay3 (2),
+        relay4 (3),
+        relay5 (4),
+        relay6 (5),
+        relay7 (6),
+        relay8 (7),
+        relay9 (8),
+        relay10 (9),
+        relay11 (10),
+        relay12 (11),
+        relay13 (12),
+        relay14 (13),
+        relay15 (14),
+        relay16 (15)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The relay of rectifier fan fault alarm."
+    ::= { rectifierAlarmSetting 417 }
+  -- 1.3.6.1.4.1.39553.10.2.7.418
+    rectifierStartResistorBreakRelay OBJECT-TYPE
+    SYNTAX INTEGER{
+        relay1 (0),
+        relay2 (1),
+        relay3 (2),
+        relay4 (3),
+        relay5 (4),
+        relay6 (5),
+        relay7 (6),
+        relay8 (7),
+        relay9 (8),
+        relay10 (9),
+        relay11 (10),
+        relay12 (11),
+        relay13 (12),
+        relay14 (13),
+        relay15 (14),
+        relay16 (15)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The relay of rectifier start resistor break alarm."
+    ::= { rectifierAlarmSetting 418 }
+  -- 1.3.6.1.4.1.39553.10.2.7.419
+    rectifierPFCOVPRelay OBJECT-TYPE
+    SYNTAX INTEGER{
+        relay1 (0),
+        relay2 (1),
+        relay3 (2),
+        relay4 (3),
+        relay5 (4),
+        relay6 (5),
+        relay7 (6),
+        relay8 (7),
+        relay9 (8),
+        relay10 (9),
+        relay11 (10),
+        relay12 (11),
+        relay13 (12),
+        relay14 (13),
+        relay15 (14),
+        relay16 (15)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The relay of rectifier PFC over voltage protection alarm."
+    ::= { rectifierAlarmSetting 419 }
+  -- 1.3.6.1.4.1.39553.10.2.7.420
+    rectifierPFCUVPRelay OBJECT-TYPE
+    SYNTAX INTEGER{
+        relay1 (0),
+        relay2 (1),
+        relay3 (2),
+        relay4 (3),
+        relay5 (4),
+        relay6 (5),
+        relay7 (6),
+        relay8 (7),
+        relay9 (8),
+        relay10 (9),
+        relay11 (10),
+        relay12 (11),
+        relay13 (12),
+        relay14 (13),
+        relay15 (14),
+        relay16 (15)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The relay of rectifier PFC under voltage protection alarm."
+    ::= { rectifierAlarmSetting 420 }
+  -- 1.3.6.1.4.1.39553.10.2.7.421
+    rectifierACImbalanceRelay OBJECT-TYPE
+    SYNTAX INTEGER{
+        relay1 (0),
+        relay2 (1),
+        relay3 (2),
+        relay4 (3),
+        relay5 (4),
+        relay6 (5),
+        relay7 (6),
+        relay8 (7),
+        relay9 (8),
+        relay10 (9),
+        relay11 (10),
+        relay12 (11),
+        relay13 (12),
+        relay14 (13),
+        relay15 (14),
+        relay16 (15)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The relay of rectifier AC imbalance alarm."
+    ::= { rectifierAlarmSetting 421 }
+  -- 1.3.6.1.4.1.39553.10.2.7.422
+    rectifierACLosePhaseRelay OBJECT-TYPE
+    SYNTAX INTEGER{
+        relay1 (0),
+        relay2 (1),
+        relay3 (2),
+        relay4 (3),
+        relay5 (4),
+        relay6 (5),
+        relay7 (6),
+        relay8 (7),
+        relay9 (8),
+        relay10 (9),
+        relay11 (10),
+        relay12 (11),
+        relay13 (12),
+        relay14 (13),
+        relay15 (14),
+        relay16 (15)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The relay of rectifier AC lose phase alarm."
+    ::= { rectifierAlarmSetting 422 }
+  -- 1.3.6.1.4.1.39553.10.2.7.423
+    rectifierACUVPRelay OBJECT-TYPE
+    SYNTAX INTEGER{
+        relay1 (0),
+        relay2 (1),
+        relay3 (2),
+        relay4 (3),
+        relay5 (4),
+        relay6 (5),
+        relay7 (6),
+        relay8 (7),
+        relay9 (8),
+        relay10 (9),
+        relay11 (10),
+        relay12 (11),
+        relay13 (12),
+        relay14 (13),
+        relay15 (14),
+        relay16 (15)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The relay of rectifier AC under voltage protection alarm."
+    ::= { rectifierAlarmSetting 423 }
+  -- 1.3.6.1.4.1.39553.10.2.7.424
+    rectifierACOVPRelay OBJECT-TYPE
+    SYNTAX INTEGER{
+        relay1 (0),
+        relay2 (1),
+        relay3 (2),
+        relay4 (3),
+        relay5 (4),
+        relay6 (5),
+        relay7 (6),
+        relay8 (7),
+        relay9 (8),
+        relay10 (9),
+        relay11 (10),
+        relay12 (11),
+        relay13 (12),
+        relay14 (13),
+        relay15 (14),
+        relay16 (15)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The relay of rectifier AC over voltage protection alarm."
+    ::= { rectifierAlarmSetting 424 }
+  -- 1.3.6.1.4.1.39553.10.2.7.425
+    rectifierInternalShortRelay OBJECT-TYPE
+    SYNTAX INTEGER{
+        relay1 (0),
+        relay2 (1),
+        relay3 (2),
+        relay4 (3),
+        relay5 (4),
+        relay6 (5),
+        relay7 (6),
+        relay8 (7),
+        relay9 (8),
+        relay10 (9),
+        relay11 (10),
+        relay12 (11),
+        relay13 (12),
+        relay14 (13),
+        relay15 (14),
+        relay16 (15)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The relay of rectifier internal circuit short alarm."
+    ::= { rectifierAlarmSetting 425 }
+  -- 1.3.6.1.4.1.39553.10.2.7.426
+    rectifierFuseBreakRelay OBJECT-TYPE
+    SYNTAX INTEGER{
+        relay1 (0),
+        relay2 (1),
+        relay3 (2),
+        relay4 (3),
+        relay5 (4),
+        relay6 (5),
+        relay7 (6),
+        relay8 (7),
+        relay9 (8),
+        relay10 (9),
+        relay11 (10),
+        relay12 (11),
+        relay13 (12),
+        relay14 (13),
+        relay15 (14),
+        relay16 (15)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The relay of rectifier output fuse break alarm."
+    ::= { rectifierAlarmSetting 426 }
+  -- 1.3.6.1.4.1.39553.10.2.7.427
+    rectifierSecondaryOverHotRelay OBJECT-TYPE
+    SYNTAX INTEGER{
+        relay1 (0),
+        relay2 (1),
+        relay3 (2),
+        relay4 (3),
+        relay5 (4),
+        relay6 (5),
+        relay7 (6),
+        relay8 (7),
+        relay9 (8),
+        relay10 (9),
+        relay11 (10),
+        relay12 (11),
+        relay13 (12),
+        relay14 (13),
+        relay15 (14),
+        relay16 (15)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The relay of rectifier secondary hot point over temperature alarm."
+    ::= { rectifierAlarmSetting 427 }
+  -- 1.3.6.1.4.1.39553.10.2.7.428
+    rectifierPrimaryOverHotRelay OBJECT-TYPE
+    SYNTAX INTEGER{
+        relay1 (0),
+        relay2 (1),
+        relay3 (2),
+        relay4 (3),
+        relay5 (4),
+        relay6 (5),
+        relay7 (6),
+        relay8 (7),
+        relay9 (8),
+        relay10 (9),
+        relay11 (10),
+        relay12 (11),
+        relay13 (12),
+        relay14 (13),
+        relay15 (14),
+        relay16 (15)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The relay of rectifier primary hot point over temperature alarm."
+    ::= { rectifierAlarmSetting 428 }
+  -- 1.3.6.1.4.1.39553.10.2.7.429
+    rectifierAmbientOverTempRelay OBJECT-TYPE
+    SYNTAX INTEGER{
+        relay1 (0),
+        relay2 (1),
+        relay3 (2),
+        relay4 (3),
+        relay5 (4),
+        relay6 (5),
+        relay7 (6),
+        relay8 (7),
+        relay9 (8),
+        relay10 (9),
+        relay11 (10),
+        relay12 (11),
+        relay13 (12),
+        relay14 (13),
+        relay15 (14),
+        relay16 (15)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The relay of rectifier ambient over temperature alarm."
+    ::= { rectifierAlarmSetting 429 }
+  -- 1.3.6.1.4.1.39553.10.2.7.430
+    rectifierOutputUVPRelay OBJECT-TYPE
+    SYNTAX INTEGER{
+        relay1 (0),
+        relay2 (1),
+        relay3 (2),
+        relay4 (3),
+        relay5 (4),
+        relay6 (5),
+        relay7 (6),
+        relay8 (7),
+        relay9 (8),
+        relay10 (9),
+        relay11 (10),
+        relay12 (11),
+        relay13 (12),
+        relay14 (13),
+        relay15 (14),
+        relay16 (15)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The relay of rectifier output under voltage protection alarm."
+    ::= { rectifierAlarmSetting 430 }
+  -- 1.3.6.1.4.1.39553.10.2.7.431
+    rectifierOutputOVPRelay OBJECT-TYPE
+    SYNTAX INTEGER{
+        relay1 (0),
+        relay2 (1),
+        relay3 (2),
+        relay4 (3),
+        relay5 (4),
+        relay6 (5),
+        relay7 (6),
+        relay8 (7),
+        relay9 (8),
+        relay10 (9),
+        relay11 (10),
+        relay12 (11),
+        relay13 (12),
+        relay14 (13),
+        relay15 (14),
+        relay16 (15)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The relay of rectifier output over voltage protection alarm."
+    ::= { rectifierAlarmSetting 431 }
+  -- 1.3.6.1.4.1.39553.10.2.7.432
+    rectifierInternalOVPRelay OBJECT-TYPE
+    SYNTAX INTEGER{
+        relay1 (0),
+        relay2 (1),
+        relay3 (2),
+        relay4 (3),
+        relay5 (4),
+        relay6 (5),
+        relay7 (6),
+        relay8 (7),
+        relay9 (8),
+        relay10 (9),
+        relay11 (10),
+        relay12 (11),
+        relay13 (12),
+        relay14 (13),
+        relay15 (14),
+        relay16 (15)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The relay of rectifier internal over voltage protection alarm."
+    ::= { rectifierAlarmSetting 432 }
+    -- 1.3.6.1.4.1.39553.10.2.7.433
+    rectifierPFCShortRelay OBJECT-TYPE
+    SYNTAX INTEGER{
+        relay1 (0),
+        relay2 (1),
+        relay3 (2),
+        relay4 (3),
+        relay5 (4),
+        relay6 (5),
+        relay7 (6),
+        relay8 (7),
+        relay9 (8),
+        relay10 (9),
+        relay11 (10),
+        relay12 (11),
+        relay13 (12),
+        relay14 (13),
+        relay15 (14),
+        relay16 (15)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The relay of rectifier PFC short alarm."
+    ::= { rectifierAlarmSetting 433 }
+    -- 1.3.6.1.4.1.39553.10.2.7.434
+    rectifierOVSDRelay OBJECT-TYPE
+    SYNTAX INTEGER{
+        relay1 (0),
+        relay2 (1),
+        relay3 (2),
+        relay4 (3),
+        relay5 (4),
+        relay6 (5),
+        relay7 (6),
+        relay8 (7),
+        relay9 (8),
+        relay10 (9),
+        relay11 (10),
+        relay12 (11),
+        relay13 (12),
+        relay14 (13),
+        relay15 (14),
+        relay16 (15)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The relay of rectifier OVSD alarm."
+    ::= { rectifierAlarmSetting 434 }
+    -- 1.3.6.1.4.1.39553.10.2.7.435
+    rectifierSecurityCodeErrorRelay OBJECT-TYPE
+    SYNTAX INTEGER{
+        relay1 (0),
+        relay2 (1),
+        relay3 (2),
+        relay4 (3),
+        relay5 (4),
+        relay6 (5),
+        relay7 (6),
+        relay8 (7),
+        relay9 (8),
+        relay10 (9),
+        relay11 (10),
+        relay12 (11),
+        relay13 (12),
+        relay14 (13),
+        relay15 (14),
+        relay16 (15)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The relay of rectifier security code error alarm."
+    ::= { rectifierAlarmSetting 435 }
+    -- 1.3.6.1.4.1.39553.10.2.7.449
+    rectifierSingleFaultRelay OBJECT-TYPE
+    SYNTAX INTEGER{
+        relay1 (0),
+        relay2 (1),
+        relay3 (2),
+        relay4 (3),
+        relay5 (4),
+        relay6 (5),
+        relay7 (6),
+        relay8 (7),
+        relay9 (8),
+        relay10 (9),
+        relay11 (10),
+        relay12 (11),
+        relay13 (12),
+        relay14 (13),
+        relay15 (14),
+        relay16 (15)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The relay of single rectifier alarm."
+    ::= { rectifierAlarmSetting 449 }
+  -- 1.3.6.1.4.1.39553.10.2.7.450
+    rectifierMutipleFaultRelay OBJECT-TYPE
+    SYNTAX INTEGER{
+        relay1 (0),
+        relay2 (1),
+        relay3 (2),
+        relay4 (3),
+        relay5 (4),
+        relay6 (5),
+        relay7 (6),
+        relay8 (7),
+        relay9 (8),
+        relay10 (9),
+        relay11 (10),
+        relay12 (11),
+        relay13 (12),
+        relay14 (13),
+        relay15 (14),
+        relay16 (15)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The relay of multiple rectifier alarm."
+    ::= { rectifierAlarmSetting 450 }
+    
+  -- 1.3.6.1.4.1.39553.10.2.7.501
+    rectifierCurrentSampleFaultRelayPlace OBJECT-TYPE
+    SYNTAX INTEGER{
+        none (0),
+        do (1),
+        ex1DO (2),
+        ex2DO (3),
+        ex3DO (4),
+        ex4DO (5),
+        ex5DO (6)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The relay place of rectifier current sample fault alarm."
+    ::= { rectifierAlarmSetting 501 }
+  -- 1.3.6.1.4.1.39553.10.2.7.502
+    rectifierPrimaryShortRelayPlace OBJECT-TYPE
+    SYNTAX INTEGER{
+        none (0),
+        do (1),
+        ex1DO (2),
+        ex2DO (3),
+        ex3DO (4),
+        ex4DO (5),
+        ex5DO (6)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The relay place of rectifier primary side circuit short alarm."
+    ::= { rectifierAlarmSetting 502 }
+  -- 1.3.6.1.4.1.39553.10.2.7.503
+    rectifierMutipleNoOutputRelayPlace OBJECT-TYPE
+    SYNTAX INTEGER{
+        none (0),
+        do (1),
+        ex1DO (2),
+        ex2DO (3),
+        ex3DO (4),
+        ex4DO (5),
+        ex5DO (6)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The relay place of mutiple rectifier no output alarm."
+    ::= { rectifierAlarmSetting 503 }
+  -- 1.3.6.1.4.1.39553.10.2.7.504
+    rectifierSingleNoOutputRelayPlace OBJECT-TYPE
+    SYNTAX INTEGER{
+        none (0),
+        do (1),
+        ex1DO (2),
+        ex2DO (3),
+        ex3DO (4),
+        ex4DO (5),
+        ex5DO (6)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The relay place of single rectifier no output alarm."
+    ::= { rectifierAlarmSetting 504 }
+  -- 1.3.6.1.4.1.39553.10.2.7.505
+    rectifierOutputShortRelayPlace OBJECT-TYPE
+    SYNTAX INTEGER{
+        none (0),
+        do (1),
+        ex1DO (2),
+        ex2DO (3),
+        ex3DO (4),
+        ex4DO (5),
+        ex5DO (6)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The relay place of rectifier outside circuit short alarm."
+    ::= { rectifierAlarmSetting 505 }
+  -- 1.3.6.1.4.1.39553.10.2.7.506
+    rectifierPFCImbalanceRelayPlace OBJECT-TYPE
+    SYNTAX INTEGER{
+        none (0),
+        do (1),
+        ex1DO (2),
+        ex2DO (3),
+        ex3DO (4),
+        ex4DO (5),
+        ex5DO (6)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The relay place of rectifier PFC imbalance alarm."
+    ::= { rectifierAlarmSetting 506 }
+  -- 1.3.6.1.4.1.39553.10.2.7.507
+    rectifierIdentifiFaultRelayPlace OBJECT-TYPE
+    SYNTAX INTEGER{
+        none (0),
+        do (1),
+        ex1DO (2),
+        ex2DO (3),
+        ex3DO (4),
+        ex4DO (5),
+        ex5DO (6)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The relay place of rectifier identifi fault alarm."
+    ::= { rectifierAlarmSetting 507 }
+  -- 1.3.6.1.4.1.39553.10.2.7.508
+    rectifierLostRelayPlace OBJECT-TYPE
+    SYNTAX INTEGER{
+        none (0),
+        do (1),
+        ex1DO (2),
+        ex2DO (3),
+        ex3DO (4),
+        ex4DO (5),
+        ex5DO (6)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The relay place of rectifier lost alarm."
+    ::= { rectifierAlarmSetting 508 }
+  -- 1.3.6.1.4.1.39553.10.2.7.509
+    rectifierLihgtCurrentUnequalRelayPlace OBJECT-TYPE
+    SYNTAX INTEGER{
+        none (0),
+        do (1),
+        ex1DO (2),
+        ex2DO (3),
+        ex3DO (4),
+        ex4DO (5),
+        ex5DO (6)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The relay place of rectifier lihgt current unequal alarm."
+    ::= { rectifierAlarmSetting 509 }
+  -- 1.3.6.1.4.1.39553.10.2.7.510
+    rectifierSeriousCurrentUnequalRelayPlace OBJECT-TYPE
+    SYNTAX INTEGER{
+        none (0),
+        do (1),
+        ex1DO (2),
+        ex2DO (3),
+        ex3DO (4),
+        ex4DO (5),
+        ex5DO (6)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The relay place of rectifier serious current unequal alarm."
+    ::= { rectifierAlarmSetting 510 }
+  -- 1.3.6.1.4.1.39553.10.2.7.511
+    rectifierNoPositionRelayPlace OBJECT-TYPE
+    SYNTAX INTEGER{
+        none (0),
+        do (1),
+        ex1DO (2),
+        ex2DO (3),
+        ex3DO (4),
+        ex4DO (5),
+        ex5DO (6)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The relay place of rectifier no position alarm."
+    ::= { rectifierAlarmSetting 511 }
+  -- 1.3.6.1.4.1.39553.10.2.7.512
+    rectifierOutputOverCurrentRelayPlace OBJECT-TYPE
+    SYNTAX INTEGER{
+        none (0),
+        do (1),
+        ex1DO (2),
+        ex2DO (3),
+        ex3DO (4),
+        ex4DO (5),
+        ex5DO (6)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The relay place of rectifier output over current alarm."
+    ::= { rectifierAlarmSetting 512 }
+  -- 1.3.6.1.4.1.39553.10.2.7.513
+    rectifierE2PROMFaultRelayPlace OBJECT-TYPE
+    SYNTAX INTEGER{
+        none (0),
+        do (1),
+        ex1DO (2),
+        ex2DO (3),
+        ex3DO (4),
+        ex4DO (5),
+        ex5DO (6)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The relay place of rectifier E2PROM fault alarm."
+    ::= { rectifierAlarmSetting 513 }
+  -- 1.3.6.1.4.1.39553.10.2.7.514
+    rectifierCanFaultRelayPlace OBJECT-TYPE
+    SYNTAX INTEGER{
+        none (0),
+        do (1),
+        ex1DO (2),
+        ex2DO (3),
+        ex3DO (4),
+        ex4DO (5),
+        ex5DO (6)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The relay place of rectifier CAN communication fault alarm."
+    ::= { rectifierAlarmSetting 514 }
+  -- 1.3.6.1.4.1.39553.10.2.7.515
+    rectifierSecondSideCommFaultRelayPlace OBJECT-TYPE
+    SYNTAX INTEGER{
+        none (0),
+        do (1),
+        ex1DO (2),
+        ex2DO (3),
+        ex3DO (4),
+        ex4DO (5),
+        ex5DO (6)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The relay place of rectifier second side communication fault alarm."
+    ::= { rectifierAlarmSetting 515 }
+  -- 1.3.6.1.4.1.39553.10.2.7.516
+    rectifierPrimarySideCommFaultRelayPlace OBJECT-TYPE
+    SYNTAX INTEGER{
+        none (0),
+        do (1),
+        ex1DO (2),
+        ex2DO (3),
+        ex3DO (4),
+        ex4DO (5),
+        ex5DO (6)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The relay place of rectifier primary side communication fault alarm."
+    ::= { rectifierAlarmSetting 516 }
+  -- 1.3.6.1.4.1.39553.10.2.7.517
+    rectifierFanFaultRelayPlace OBJECT-TYPE
+    SYNTAX INTEGER{
+        none (0),
+        do (1),
+        ex1DO (2),
+        ex2DO (3),
+        ex3DO (4),
+        ex4DO (5),
+        ex5DO (6)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The relay place of rectifier fan fault alarm."
+    ::= { rectifierAlarmSetting 517 }
+  -- 1.3.6.1.4.1.39553.10.2.7.518
+    rectifierStartResistorBreakRelayPlace OBJECT-TYPE
+    SYNTAX INTEGER{
+        none (0),
+        do (1),
+        ex1DO (2),
+        ex2DO (3),
+        ex3DO (4),
+        ex4DO (5),
+        ex5DO (6)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The relay place of rectifier start resistor break alarm."
+    ::= { rectifierAlarmSetting 518 }
+  -- 1.3.6.1.4.1.39553.10.2.7.519
+    rectifierPFCOVPRelayPlace OBJECT-TYPE
+    SYNTAX INTEGER{
+        none (0),
+        do (1),
+        ex1DO (2),
+        ex2DO (3),
+        ex3DO (4),
+        ex4DO (5),
+        ex5DO (6)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The relay place of rectifier PFC over voltage protection alarm."
+    ::= { rectifierAlarmSetting 519 }
+  -- 1.3.6.1.4.1.39553.10.2.7.520
+    rectifierPFCUVPRelayPlace OBJECT-TYPE
+    SYNTAX INTEGER{
+        none (0),
+        do (1),
+        ex1DO (2),
+        ex2DO (3),
+        ex3DO (4),
+        ex4DO (5),
+        ex5DO (6)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The relay place of rectifier PFC under voltage protection alarm."
+    ::= { rectifierAlarmSetting 520 }
+  -- 1.3.6.1.4.1.39553.10.2.7.521
+    rectifierACImbalanceRelayPlace OBJECT-TYPE
+    SYNTAX INTEGER{
+        none (0),
+        do (1),
+        ex1DO (2),
+        ex2DO (3),
+        ex3DO (4),
+        ex4DO (5),
+        ex5DO (6)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The relay place of rectifier AC imbalance alarm."
+    ::= { rectifierAlarmSetting 521 }
+  -- 1.3.6.1.4.1.39553.10.2.7.522
+    rectifierACLosePhaseRelayPlace OBJECT-TYPE
+    SYNTAX INTEGER{
+        none (0),
+        do (1),
+        ex1DO (2),
+        ex2DO (3),
+        ex3DO (4),
+        ex4DO (5),
+        ex5DO (6)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The relay place of rectifier AC lose phase alarm."
+    ::= { rectifierAlarmSetting 522 }
+  -- 1.3.6.1.4.1.39553.10.2.7.523
+    rectifierACUVPRelayPlace OBJECT-TYPE
+    SYNTAX INTEGER{
+        none (0),
+        do (1),
+        ex1DO (2),
+        ex2DO (3),
+        ex3DO (4),
+        ex4DO (5),
+        ex5DO (6)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The relay place of rectifier AC under voltage protection alarm."
+    ::= { rectifierAlarmSetting 523 }
+  -- 1.3.6.1.4.1.39553.10.2.7.524
+    rectifierACOVPRelayPlace OBJECT-TYPE
+    SYNTAX INTEGER{
+        none (0),
+        do (1),
+        ex1DO (2),
+        ex2DO (3),
+        ex3DO (4),
+        ex4DO (5),
+        ex5DO (6)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The relay place of rectifier AC over voltage protection alarm."
+    ::= { rectifierAlarmSetting 524 }
+  -- 1.3.6.1.4.1.39553.10.2.7.525
+    rectifierInternalShortRelayPlace OBJECT-TYPE
+    SYNTAX INTEGER{
+        none (0),
+        do (1),
+        ex1DO (2),
+        ex2DO (3),
+        ex3DO (4),
+        ex4DO (5),
+        ex5DO (6)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The relay place of rectifier internal circuit short alarm."
+    ::= { rectifierAlarmSetting 525 }
+  -- 1.3.6.1.4.1.39553.10.2.7.526
+    rectifierFuseBreakRelayPlace OBJECT-TYPE
+    SYNTAX INTEGER{
+        none (0),
+        do (1),
+        ex1DO (2),
+        ex2DO (3),
+        ex3DO (4),
+        ex4DO (5),
+        ex5DO (6)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The relay place of rectifier output fuse break alarm."
+    ::= { rectifierAlarmSetting 526 }
+  -- 1.3.6.1.4.1.39553.10.2.7.527
+    rectifierSecondaryOverHotRelayPlace OBJECT-TYPE
+    SYNTAX INTEGER{
+        none (0),
+        do (1),
+        ex1DO (2),
+        ex2DO (3),
+        ex3DO (4),
+        ex4DO (5),
+        ex5DO (6)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The relay place of rectifier secondary hot point over temperature alarm."
+    ::= { rectifierAlarmSetting 527 }
+  -- 1.3.6.1.4.1.39553.10.2.7.528
+    rectifierPrimaryOverHotRelayPlace OBJECT-TYPE
+    SYNTAX INTEGER{
+        none (0),
+        do (1),
+        ex1DO (2),
+        ex2DO (3),
+        ex3DO (4),
+        ex4DO (5),
+        ex5DO (6)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The relay place of rectifier primary hot point over temperature alarm."
+    ::= { rectifierAlarmSetting 528 }
+  -- 1.3.6.1.4.1.39553.10.2.7.529
+    rectifierAmbientOverTempRelayPlace OBJECT-TYPE
+    SYNTAX INTEGER{
+        none (0),
+        do (1),
+        ex1DO (2),
+        ex2DO (3),
+        ex3DO (4),
+        ex4DO (5),
+        ex5DO (6)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The relay place of rectifier ambient over temperature alarm."
+    ::= { rectifierAlarmSetting 529 }
+  -- 1.3.6.1.4.1.39553.10.2.7.530
+    rectifierOutputUVPRelayPlace OBJECT-TYPE
+    SYNTAX INTEGER{
+        none (0),
+        do (1),
+        ex1DO (2),
+        ex2DO (3),
+        ex3DO (4),
+        ex4DO (5),
+        ex5DO (6)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The relay place of rectifier output under voltage protection alarm."
+    ::= { rectifierAlarmSetting 530 }
+  -- 1.3.6.1.4.1.39553.10.2.7.531
+    rectifierOutputOVPRelayPlace OBJECT-TYPE
+    SYNTAX INTEGER{
+        none (0),
+        do (1),
+        ex1DO (2),
+        ex2DO (3),
+        ex3DO (4),
+        ex4DO (5),
+        ex5DO (6)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The relay place of rectifier output over voltage protection alarm."
+    ::= { rectifierAlarmSetting 531 }
+  -- 1.3.6.1.4.1.39553.10.2.7.532
+    rectifierInternalOVPRelayPlace OBJECT-TYPE
+    SYNTAX INTEGER{
+        none (0),
+        do (1),
+        ex1DO (2),
+        ex2DO (3),
+        ex3DO (4),
+        ex4DO (5),
+        ex5DO (6)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The relay place of rectifier internal over voltage protection alarm."
+    ::= { rectifierAlarmSetting 532 }
+    -- 1.3.6.1.4.1.39553.10.2.7.533
+    rectifierPFCShortRelayPlace OBJECT-TYPE
+    SYNTAX INTEGER{
+        none (0),
+        do (1),
+        ex1DO (2),
+        ex2DO (3),
+        ex3DO (4),
+        ex4DO (5),
+        ex5DO (6)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The relay place of rectifier PFC short alarm."
+    ::= { rectifierAlarmSetting 533 }
+    -- 1.3.6.1.4.1.39553.10.2.7.534
+    rectifierOVSDRelayPlace OBJECT-TYPE
+    SYNTAX INTEGER{
+        none (0),
+        do (1),
+        ex1DO (2),
+        ex2DO (3),
+        ex3DO (4),
+        ex4DO (5),
+        ex5DO (6)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The relay place of rectifier OVSD alarm."
+    ::= { rectifierAlarmSetting 534 }
+    -- 1.3.6.1.4.1.39553.10.2.7.535
+    rectifierSecurityCodeErrorRelayPlace OBJECT-TYPE
+    SYNTAX INTEGER{
+        none (0),
+        do (1),
+        ex1DO (2),
+        ex2DO (3),
+        ex3DO (4),
+        ex4DO (5),
+        ex5DO (6)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The relay place of rectifier security code error alarm."
+    ::= { rectifierAlarmSetting 535 }
+    -- 1.3.6.1.4.1.39553.10.2.7.549
+    rectifierSingleFaultRelayPlace OBJECT-TYPE
+    SYNTAX INTEGER{
+        none (0),
+        do (1),
+        ex1DO (2),
+        ex2DO (3),
+        ex3DO (4),
+        ex4DO (5),
+        ex5DO (6)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The relay place of single rectifier alarm."
+    ::= { rectifierAlarmSetting 549 }
+  -- 1.3.6.1.4.1.39553.10.2.7.550
+    rectifierMutipleFaultRelayPlace OBJECT-TYPE
+    SYNTAX INTEGER{
+        none (0),
+        do (1),
+        ex1DO (2),
+        ex2DO (3),
+        ex3DO (4),
+        ex4DO (5),
+        ex5DO (6)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The relay place of multiple rectifier alarm."
+    ::= { rectifierAlarmSetting 550 }
+    
+  -- 1.3.6.1.4.1.39553.10.2.7.601
+    rectifierCurrentSampleFaultClass OBJECT-TYPE
+    SYNTAX INTEGER{
+        none (0),
+        acAlarm (1),
+        dcAlarm (2),
+        communicationAlarm (3),
+        lvdAlarm (4),
+        batteryFuseAlarm (5),
+        batteryFuseCathodeAlarm (6),
+        batteryAlarm (7),
+        dcBranchBreak (8),
+        ambientTemperatureAlarm (9),
+        batteryTemperatureAlarm (10),
+        diAlarm (11),
+        acdcRectifierAlarm (12),
+        solarControllerAlarm (13),
+        sindControllerAlarm (14),
+        inverterAlarm (15),
+        dcdcConverterAlarm (16),
+        dcBranchSlightOverCurrentAlarm (17),
+        dcBranchSevereOverCurrentAlarm (18),
+        bmsAlarm (19),
+        plcArithmeticAlarm (20),
+        plcLogicAlarm (21),
+        plcGroupAlarm (22)
+    }
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION 
+        "The class of rectifier current sample fault alarm."
+    ::= { rectifierAlarmSetting 601 }
+  -- 1.3.6.1.4.1.39553.10.2.7.602
+    rectifierPrimaryShortClass OBJECT-TYPE
+    SYNTAX INTEGER{
+        none (0),
+        acAlarm (1),
+        dcAlarm (2),
+        communicationAlarm (3),
+        lvdAlarm (4),
+        batteryFuseAlarm (5),
+        batteryFuseCathodeAlarm (6),
+        batteryAlarm (7),
+        dcBranchBreak (8),
+        ambientTemperatureAlarm (9),
+        batteryTemperatureAlarm (10),
+        diAlarm (11),
+        acdcRectifierAlarm (12),
+        solarControllerAlarm (13),
+        sindControllerAlarm (14),
+        inverterAlarm (15),
+        dcdcConverterAlarm (16),
+        dcBranchSlightOverCurrentAlarm (17),
+        dcBranchSevereOverCurrentAlarm (18),
+        bmsAlarm (19),
+        plcArithmeticAlarm (20),
+        plcLogicAlarm (21),
+        plcGroupAlarm (22)
+    }
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION 
+        "The class of rectifier primary side circuit short alarm."
+    ::= { rectifierAlarmSetting 602 }
+  -- 1.3.6.1.4.1.39553.10.2.7.603
+    rectifierMutipleNoOutputClass OBJECT-TYPE
+    SYNTAX INTEGER{
+        none (0),
+        acAlarm (1),
+        dcAlarm (2),
+        communicationAlarm (3),
+        lvdAlarm (4),
+        batteryFuseAlarm (5),
+        batteryFuseCathodeAlarm (6),
+        batteryAlarm (7),
+        dcBranchBreak (8),
+        ambientTemperatureAlarm (9),
+        batteryTemperatureAlarm (10),
+        diAlarm (11),
+        acdcRectifierAlarm (12),
+        solarControllerAlarm (13),
+        sindControllerAlarm (14),
+        inverterAlarm (15),
+        dcdcConverterAlarm (16),
+        dcBranchSlightOverCurrentAlarm (17),
+        dcBranchSevereOverCurrentAlarm (18),
+        bmsAlarm (19),
+        plcArithmeticAlarm (20),
+        plcLogicAlarm (21),
+        plcGroupAlarm (22)
+    }
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION 
+        "The class of mutiple rectifier no output alarm."
+    ::= { rectifierAlarmSetting 603 }
+  -- 1.3.6.1.4.1.39553.10.2.7.604
+    rectifierSingleNoOutputClass OBJECT-TYPE
+    SYNTAX INTEGER{
+        none (0),
+        acAlarm (1),
+        dcAlarm (2),
+        communicationAlarm (3),
+        lvdAlarm (4),
+        batteryFuseAlarm (5),
+        batteryFuseCathodeAlarm (6),
+        batteryAlarm (7),
+        dcBranchBreak (8),
+        ambientTemperatureAlarm (9),
+        batteryTemperatureAlarm (10),
+        diAlarm (11),
+        acdcRectifierAlarm (12),
+        solarControllerAlarm (13),
+        sindControllerAlarm (14),
+        inverterAlarm (15),
+        dcdcConverterAlarm (16),
+        dcBranchSlightOverCurrentAlarm (17),
+        dcBranchSevereOverCurrentAlarm (18),
+        bmsAlarm (19),
+        plcArithmeticAlarm (20),
+        plcLogicAlarm (21),
+        plcGroupAlarm (22)
+    }
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION 
+        "The class of single rectifier no output alarm."
+    ::= { rectifierAlarmSetting 604 }
+  -- 1.3.6.1.4.1.39553.10.2.7.605
+    rectifierOutputShortClass OBJECT-TYPE
+    SYNTAX INTEGER{
+        none (0),
+        acAlarm (1),
+        dcAlarm (2),
+        communicationAlarm (3),
+        lvdAlarm (4),
+        batteryFuseAlarm (5),
+        batteryFuseCathodeAlarm (6),
+        batteryAlarm (7),
+        dcBranchBreak (8),
+        ambientTemperatureAlarm (9),
+        batteryTemperatureAlarm (10),
+        diAlarm (11),
+        acdcRectifierAlarm (12),
+        solarControllerAlarm (13),
+        sindControllerAlarm (14),
+        inverterAlarm (15),
+        dcdcConverterAlarm (16),
+        dcBranchSlightOverCurrentAlarm (17),
+        dcBranchSevereOverCurrentAlarm (18),
+        bmsAlarm (19),
+        plcArithmeticAlarm (20),
+        plcLogicAlarm (21),
+        plcGroupAlarm (22)
+    }
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION 
+        "The class of rectifier outside circuit short alarm."
+    ::= { rectifierAlarmSetting 605 }
+  -- 1.3.6.1.4.1.39553.10.2.7.606
+    rectifierPFCImbalanceClass OBJECT-TYPE
+    SYNTAX INTEGER{
+        none (0),
+        acAlarm (1),
+        dcAlarm (2),
+        communicationAlarm (3),
+        lvdAlarm (4),
+        batteryFuseAlarm (5),
+        batteryFuseCathodeAlarm (6),
+        batteryAlarm (7),
+        dcBranchBreak (8),
+        ambientTemperatureAlarm (9),
+        batteryTemperatureAlarm (10),
+        diAlarm (11),
+        acdcRectifierAlarm (12),
+        solarControllerAlarm (13),
+        sindControllerAlarm (14),
+        inverterAlarm (15),
+        dcdcConverterAlarm (16),
+        dcBranchSlightOverCurrentAlarm (17),
+        dcBranchSevereOverCurrentAlarm (18),
+        bmsAlarm (19),
+        plcArithmeticAlarm (20),
+        plcLogicAlarm (21),
+        plcGroupAlarm (22)
+    }
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION 
+        "The class of rectifier PFC imbalance alarm."
+    ::= { rectifierAlarmSetting 606 }
+  -- 1.3.6.1.4.1.39553.10.2.7.607
+    rectifierIdentifiFaultClass OBJECT-TYPE
+    SYNTAX INTEGER{
+        none (0),
+        acAlarm (1),
+        dcAlarm (2),
+        communicationAlarm (3),
+        lvdAlarm (4),
+        batteryFuseAlarm (5),
+        batteryFuseCathodeAlarm (6),
+        batteryAlarm (7),
+        dcBranchBreak (8),
+        ambientTemperatureAlarm (9),
+        batteryTemperatureAlarm (10),
+        diAlarm (11),
+        acdcRectifierAlarm (12),
+        solarControllerAlarm (13),
+        sindControllerAlarm (14),
+        inverterAlarm (15),
+        dcdcConverterAlarm (16),
+        dcBranchSlightOverCurrentAlarm (17),
+        dcBranchSevereOverCurrentAlarm (18),
+        bmsAlarm (19),
+        plcArithmeticAlarm (20),
+        plcLogicAlarm (21),
+        plcGroupAlarm (22)
+    }
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION 
+        "The class of rectifier identifi fault alarm."
+    ::= { rectifierAlarmSetting 607 }
+  -- 1.3.6.1.4.1.39553.10.2.7.608
+    rectifierLostClass OBJECT-TYPE
+    SYNTAX INTEGER{
+        none (0),
+        acAlarm (1),
+        dcAlarm (2),
+        communicationAlarm (3),
+        lvdAlarm (4),
+        batteryFuseAlarm (5),
+        batteryFuseCathodeAlarm (6),
+        batteryAlarm (7),
+        dcBranchBreak (8),
+        ambientTemperatureAlarm (9),
+        batteryTemperatureAlarm (10),
+        diAlarm (11),
+        acdcRectifierAlarm (12),
+        solarControllerAlarm (13),
+        sindControllerAlarm (14),
+        inverterAlarm (15),
+        dcdcConverterAlarm (16),
+        dcBranchSlightOverCurrentAlarm (17),
+        dcBranchSevereOverCurrentAlarm (18),
+        bmsAlarm (19),
+        plcArithmeticAlarm (20),
+        plcLogicAlarm (21),
+        plcGroupAlarm (22)
+    }
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION 
+        "The class of rectifier lost alarm."
+    ::= { rectifierAlarmSetting 608 }
+  -- 1.3.6.1.4.1.39553.10.2.7.609
+    rectifierLihgtCurrentUnequalClass OBJECT-TYPE
+    SYNTAX INTEGER{
+        none (0),
+        acAlarm (1),
+        dcAlarm (2),
+        communicationAlarm (3),
+        lvdAlarm (4),
+        batteryFuseAlarm (5),
+        batteryFuseCathodeAlarm (6),
+        batteryAlarm (7),
+        dcBranchBreak (8),
+        ambientTemperatureAlarm (9),
+        batteryTemperatureAlarm (10),
+        diAlarm (11),
+        acdcRectifierAlarm (12),
+        solarControllerAlarm (13),
+        sindControllerAlarm (14),
+        inverterAlarm (15),
+        dcdcConverterAlarm (16),
+        dcBranchSlightOverCurrentAlarm (17),
+        dcBranchSevereOverCurrentAlarm (18),
+        bmsAlarm (19),
+        plcArithmeticAlarm (20),
+        plcLogicAlarm (21),
+        plcGroupAlarm (22)
+    }
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION 
+        "The class of rectifier lihgt current unequal alarm."
+    ::= { rectifierAlarmSetting 609 }
+  -- 1.3.6.1.4.1.39553.10.2.7.610
+    rectifierSeriousCurrentUnequalClass OBJECT-TYPE
+    SYNTAX INTEGER{
+        none (0),
+        acAlarm (1),
+        dcAlarm (2),
+        communicationAlarm (3),
+        lvdAlarm (4),
+        batteryFuseAlarm (5),
+        batteryFuseCathodeAlarm (6),
+        batteryAlarm (7),
+        dcBranchBreak (8),
+        ambientTemperatureAlarm (9),
+        batteryTemperatureAlarm (10),
+        diAlarm (11),
+        acdcRectifierAlarm (12),
+        solarControllerAlarm (13),
+        sindControllerAlarm (14),
+        inverterAlarm (15),
+        dcdcConverterAlarm (16),
+        dcBranchSlightOverCurrentAlarm (17),
+        dcBranchSevereOverCurrentAlarm (18),
+        bmsAlarm (19),
+        plcArithmeticAlarm (20),
+        plcLogicAlarm (21),
+        plcGroupAlarm (22)
+    }
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION 
+        "The class of rectifier serious current unequal alarm."
+    ::= { rectifierAlarmSetting 610 }
+  -- 1.3.6.1.4.1.39553.10.2.7.611
+    rectifierNoPositionClass OBJECT-TYPE
+    SYNTAX INTEGER{
+        none (0),
+        acAlarm (1),
+        dcAlarm (2),
+        communicationAlarm (3),
+        lvdAlarm (4),
+        batteryFuseAlarm (5),
+        batteryFuseCathodeAlarm (6),
+        batteryAlarm (7),
+        dcBranchBreak (8),
+        ambientTemperatureAlarm (9),
+        batteryTemperatureAlarm (10),
+        diAlarm (11),
+        acdcRectifierAlarm (12),
+        solarControllerAlarm (13),
+        sindControllerAlarm (14),
+        inverterAlarm (15),
+        dcdcConverterAlarm (16),
+        dcBranchSlightOverCurrentAlarm (17),
+        dcBranchSevereOverCurrentAlarm (18),
+        bmsAlarm (19),
+        plcArithmeticAlarm (20),
+        plcLogicAlarm (21),
+        plcGroupAlarm (22)
+    }
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION 
+        "The class of rectifier no position alarm."
+    ::= { rectifierAlarmSetting 611 }
+  -- 1.3.6.1.4.1.39553.10.2.7.612
+    rectifierOutputOverCurrentClass OBJECT-TYPE
+    SYNTAX INTEGER{
+        none (0),
+        acAlarm (1),
+        dcAlarm (2),
+        communicationAlarm (3),
+        lvdAlarm (4),
+        batteryFuseAlarm (5),
+        batteryFuseCathodeAlarm (6),
+        batteryAlarm (7),
+        dcBranchBreak (8),
+        ambientTemperatureAlarm (9),
+        batteryTemperatureAlarm (10),
+        diAlarm (11),
+        acdcRectifierAlarm (12),
+        solarControllerAlarm (13),
+        sindControllerAlarm (14),
+        inverterAlarm (15),
+        dcdcConverterAlarm (16),
+        dcBranchSlightOverCurrentAlarm (17),
+        dcBranchSevereOverCurrentAlarm (18),
+        bmsAlarm (19),
+        plcArithmeticAlarm (20),
+        plcLogicAlarm (21),
+        plcGroupAlarm (22)
+    }
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION 
+        "The class of rectifier output over current alarm."
+    ::= { rectifierAlarmSetting 612 }
+  -- 1.3.6.1.4.1.39553.10.2.7.613
+    rectifierE2PROMFaultClass OBJECT-TYPE
+    SYNTAX INTEGER{
+        none (0),
+        acAlarm (1),
+        dcAlarm (2),
+        communicationAlarm (3),
+        lvdAlarm (4),
+        batteryFuseAlarm (5),
+        batteryFuseCathodeAlarm (6),
+        batteryAlarm (7),
+        dcBranchBreak (8),
+        ambientTemperatureAlarm (9),
+        batteryTemperatureAlarm (10),
+        diAlarm (11),
+        acdcRectifierAlarm (12),
+        solarControllerAlarm (13),
+        sindControllerAlarm (14),
+        inverterAlarm (15),
+        dcdcConverterAlarm (16),
+        dcBranchSlightOverCurrentAlarm (17),
+        dcBranchSevereOverCurrentAlarm (18),
+        bmsAlarm (19),
+        plcArithmeticAlarm (20),
+        plcLogicAlarm (21),
+        plcGroupAlarm (22)
+    }
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION 
+        "The class of rectifier E2PROM fault alarm."
+    ::= { rectifierAlarmSetting 613 }
+  -- 1.3.6.1.4.1.39553.10.2.7.614
+    rectifierCanFaultClass OBJECT-TYPE
+    SYNTAX INTEGER{
+        none (0),
+        acAlarm (1),
+        dcAlarm (2),
+        communicationAlarm (3),
+        lvdAlarm (4),
+        batteryFuseAlarm (5),
+        batteryFuseCathodeAlarm (6),
+        batteryAlarm (7),
+        dcBranchBreak (8),
+        ambientTemperatureAlarm (9),
+        batteryTemperatureAlarm (10),
+        diAlarm (11),
+        acdcRectifierAlarm (12),
+        solarControllerAlarm (13),
+        sindControllerAlarm (14),
+        inverterAlarm (15),
+        dcdcConverterAlarm (16),
+        dcBranchSlightOverCurrentAlarm (17),
+        dcBranchSevereOverCurrentAlarm (18),
+        bmsAlarm (19),
+        plcArithmeticAlarm (20),
+        plcLogicAlarm (21),
+        plcGroupAlarm (22)
+    }
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION 
+        "The class of rectifier CAN communication fault alarm."
+    ::= { rectifierAlarmSetting 614 }
+  -- 1.3.6.1.4.1.39553.10.2.7.615
+    rectifierSecondSideCommFaultClass OBJECT-TYPE
+    SYNTAX INTEGER{
+        none (0),
+        acAlarm (1),
+        dcAlarm (2),
+        communicationAlarm (3),
+        lvdAlarm (4),
+        batteryFuseAlarm (5),
+        batteryFuseCathodeAlarm (6),
+        batteryAlarm (7),
+        dcBranchBreak (8),
+        ambientTemperatureAlarm (9),
+        batteryTemperatureAlarm (10),
+        diAlarm (11),
+        acdcRectifierAlarm (12),
+        solarControllerAlarm (13),
+        sindControllerAlarm (14),
+        inverterAlarm (15),
+        dcdcConverterAlarm (16),
+        dcBranchSlightOverCurrentAlarm (17),
+        dcBranchSevereOverCurrentAlarm (18),
+        bmsAlarm (19),
+        plcArithmeticAlarm (20),
+        plcLogicAlarm (21),
+        plcGroupAlarm (22)
+    }
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION 
+        "The class of rectifier second side communication fault alarm."
+    ::= { rectifierAlarmSetting 615 }
+  -- 1.3.6.1.4.1.39553.10.2.7.616
+    rectifierPrimarySideCommFaultClass OBJECT-TYPE
+    SYNTAX INTEGER{
+        none (0),
+        acAlarm (1),
+        dcAlarm (2),
+        communicationAlarm (3),
+        lvdAlarm (4),
+        batteryFuseAlarm (5),
+        batteryFuseCathodeAlarm (6),
+        batteryAlarm (7),
+        dcBranchBreak (8),
+        ambientTemperatureAlarm (9),
+        batteryTemperatureAlarm (10),
+        diAlarm (11),
+        acdcRectifierAlarm (12),
+        solarControllerAlarm (13),
+        sindControllerAlarm (14),
+        inverterAlarm (15),
+        dcdcConverterAlarm (16),
+        dcBranchSlightOverCurrentAlarm (17),
+        dcBranchSevereOverCurrentAlarm (18),
+        bmsAlarm (19),
+        plcArithmeticAlarm (20),
+        plcLogicAlarm (21),
+        plcGroupAlarm (22)
+    }
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION 
+        "The class of rectifier primary side communication fault alarm."
+    ::= { rectifierAlarmSetting 616 }
+  -- 1.3.6.1.4.1.39553.10.2.7.617
+    rectifierFanFaultClass OBJECT-TYPE
+    SYNTAX INTEGER{
+        none (0),
+        acAlarm (1),
+        dcAlarm (2),
+        communicationAlarm (3),
+        lvdAlarm (4),
+        batteryFuseAlarm (5),
+        batteryFuseCathodeAlarm (6),
+        batteryAlarm (7),
+        dcBranchBreak (8),
+        ambientTemperatureAlarm (9),
+        batteryTemperatureAlarm (10),
+        diAlarm (11),
+        acdcRectifierAlarm (12),
+        solarControllerAlarm (13),
+        sindControllerAlarm (14),
+        inverterAlarm (15),
+        dcdcConverterAlarm (16),
+        dcBranchSlightOverCurrentAlarm (17),
+        dcBranchSevereOverCurrentAlarm (18),
+        bmsAlarm (19),
+        plcArithmeticAlarm (20),
+        plcLogicAlarm (21),
+        plcGroupAlarm (22)
+    }
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION 
+        "The class of rectifier fan fault alarm."
+    ::= { rectifierAlarmSetting 617 }
+  -- 1.3.6.1.4.1.39553.10.2.7.618
+    rectifierStartResistorBreakClass OBJECT-TYPE
+    SYNTAX INTEGER{
+        none (0),
+        acAlarm (1),
+        dcAlarm (2),
+        communicationAlarm (3),
+        lvdAlarm (4),
+        batteryFuseAlarm (5),
+        batteryFuseCathodeAlarm (6),
+        batteryAlarm (7),
+        dcBranchBreak (8),
+        ambientTemperatureAlarm (9),
+        batteryTemperatureAlarm (10),
+        diAlarm (11),
+        acdcRectifierAlarm (12),
+        solarControllerAlarm (13),
+        sindControllerAlarm (14),
+        inverterAlarm (15),
+        dcdcConverterAlarm (16),
+        dcBranchSlightOverCurrentAlarm (17),
+        dcBranchSevereOverCurrentAlarm (18),
+        bmsAlarm (19),
+        plcArithmeticAlarm (20),
+        plcLogicAlarm (21),
+        plcGroupAlarm (22)
+    }
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION 
+        "The class of rectifier start resistor break alarm."
+    ::= { rectifierAlarmSetting 618 }
+  -- 1.3.6.1.4.1.39553.10.2.7.619
+    rectifierPFCOVPClass OBJECT-TYPE
+    SYNTAX INTEGER{
+        none (0),
+        acAlarm (1),
+        dcAlarm (2),
+        communicationAlarm (3),
+        lvdAlarm (4),
+        batteryFuseAlarm (5),
+        batteryFuseCathodeAlarm (6),
+        batteryAlarm (7),
+        dcBranchBreak (8),
+        ambientTemperatureAlarm (9),
+        batteryTemperatureAlarm (10),
+        diAlarm (11),
+        acdcRectifierAlarm (12),
+        solarControllerAlarm (13),
+        sindControllerAlarm (14),
+        inverterAlarm (15),
+        dcdcConverterAlarm (16),
+        dcBranchSlightOverCurrentAlarm (17),
+        dcBranchSevereOverCurrentAlarm (18),
+        bmsAlarm (19),
+        plcArithmeticAlarm (20),
+        plcLogicAlarm (21),
+        plcGroupAlarm (22)
+    }
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION 
+        "The class of rectifier PFC over voltage protection alarm."
+    ::= { rectifierAlarmSetting 619 }
+  -- 1.3.6.1.4.1.39553.10.2.7.620
+    rectifierPFCUVPClass OBJECT-TYPE
+    SYNTAX INTEGER{
+        none (0),
+        acAlarm (1),
+        dcAlarm (2),
+        communicationAlarm (3),
+        lvdAlarm (4),
+        batteryFuseAlarm (5),
+        batteryFuseCathodeAlarm (6),
+        batteryAlarm (7),
+        dcBranchBreak (8),
+        ambientTemperatureAlarm (9),
+        batteryTemperatureAlarm (10),
+        diAlarm (11),
+        acdcRectifierAlarm (12),
+        solarControllerAlarm (13),
+        sindControllerAlarm (14),
+        inverterAlarm (15),
+        dcdcConverterAlarm (16),
+        dcBranchSlightOverCurrentAlarm (17),
+        dcBranchSevereOverCurrentAlarm (18),
+        bmsAlarm (19),
+        plcArithmeticAlarm (20),
+        plcLogicAlarm (21),
+        plcGroupAlarm (22)
+    }
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION 
+        "The class of rectifier PFC under voltage protection alarm."
+    ::= { rectifierAlarmSetting 620 }
+  -- 1.3.6.1.4.1.39553.10.2.7.621
+    rectifierACImbalanceClass OBJECT-TYPE
+    SYNTAX INTEGER{
+        none (0),
+        acAlarm (1),
+        dcAlarm (2),
+        communicationAlarm (3),
+        lvdAlarm (4),
+        batteryFuseAlarm (5),
+        batteryFuseCathodeAlarm (6),
+        batteryAlarm (7),
+        dcBranchBreak (8),
+        ambientTemperatureAlarm (9),
+        batteryTemperatureAlarm (10),
+        diAlarm (11),
+        acdcRectifierAlarm (12),
+        solarControllerAlarm (13),
+        sindControllerAlarm (14),
+        inverterAlarm (15),
+        dcdcConverterAlarm (16),
+        dcBranchSlightOverCurrentAlarm (17),
+        dcBranchSevereOverCurrentAlarm (18),
+        bmsAlarm (19),
+        plcArithmeticAlarm (20),
+        plcLogicAlarm (21),
+        plcGroupAlarm (22)
+    }
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION 
+        "The class of rectifier AC imbalance alarm."
+    ::= { rectifierAlarmSetting 621 }
+  -- 1.3.6.1.4.1.39553.10.2.7.622
+    rectifierACLosePhaseClass OBJECT-TYPE
+    SYNTAX INTEGER{
+        none (0),
+        acAlarm (1),
+        dcAlarm (2),
+        communicationAlarm (3),
+        lvdAlarm (4),
+        batteryFuseAlarm (5),
+        batteryFuseCathodeAlarm (6),
+        batteryAlarm (7),
+        dcBranchBreak (8),
+        ambientTemperatureAlarm (9),
+        batteryTemperatureAlarm (10),
+        diAlarm (11),
+        acdcRectifierAlarm (12),
+        solarControllerAlarm (13),
+        sindControllerAlarm (14),
+        inverterAlarm (15),
+        dcdcConverterAlarm (16),
+        dcBranchSlightOverCurrentAlarm (17),
+        dcBranchSevereOverCurrentAlarm (18),
+        bmsAlarm (19),
+        plcArithmeticAlarm (20),
+        plcLogicAlarm (21),
+        plcGroupAlarm (22)
+    }
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION 
+        "The class of rectifier AC lose phase alarm."
+    ::= { rectifierAlarmSetting 622 }
+  -- 1.3.6.1.4.1.39553.10.2.7.623
+    rectifierACUVPClass OBJECT-TYPE
+    SYNTAX INTEGER{
+        none (0),
+        acAlarm (1),
+        dcAlarm (2),
+        communicationAlarm (3),
+        lvdAlarm (4),
+        batteryFuseAlarm (5),
+        batteryFuseCathodeAlarm (6),
+        batteryAlarm (7),
+        dcBranchBreak (8),
+        ambientTemperatureAlarm (9),
+        batteryTemperatureAlarm (10),
+        diAlarm (11),
+        acdcRectifierAlarm (12),
+        solarControllerAlarm (13),
+        sindControllerAlarm (14),
+        inverterAlarm (15),
+        dcdcConverterAlarm (16),
+        dcBranchSlightOverCurrentAlarm (17),
+        dcBranchSevereOverCurrentAlarm (18),
+        bmsAlarm (19),
+        plcArithmeticAlarm (20),
+        plcLogicAlarm (21),
+        plcGroupAlarm (22)
+    }
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION 
+        "The class of rectifier AC under voltage protection alarm."
+    ::= { rectifierAlarmSetting 623 }
+  -- 1.3.6.1.4.1.39553.10.2.7.624
+    rectifierACOVPClass OBJECT-TYPE
+    SYNTAX INTEGER{
+        none (0),
+        acAlarm (1),
+        dcAlarm (2),
+        communicationAlarm (3),
+        lvdAlarm (4),
+        batteryFuseAlarm (5),
+        batteryFuseCathodeAlarm (6),
+        batteryAlarm (7),
+        dcBranchBreak (8),
+        ambientTemperatureAlarm (9),
+        batteryTemperatureAlarm (10),
+        diAlarm (11),
+        acdcRectifierAlarm (12),
+        solarControllerAlarm (13),
+        sindControllerAlarm (14),
+        inverterAlarm (15),
+        dcdcConverterAlarm (16),
+        dcBranchSlightOverCurrentAlarm (17),
+        dcBranchSevereOverCurrentAlarm (18),
+        bmsAlarm (19),
+        plcArithmeticAlarm (20),
+        plcLogicAlarm (21),
+        plcGroupAlarm (22)
+    }
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION 
+        "The class of rectifier AC over voltage protection alarm."
+    ::= { rectifierAlarmSetting 624 }
+  -- 1.3.6.1.4.1.39553.10.2.7.625
+    rectifierInternalShortClass OBJECT-TYPE
+    SYNTAX INTEGER{
+        none (0),
+        acAlarm (1),
+        dcAlarm (2),
+        communicationAlarm (3),
+        lvdAlarm (4),
+        batteryFuseAlarm (5),
+        batteryFuseCathodeAlarm (6),
+        batteryAlarm (7),
+        dcBranchBreak (8),
+        ambientTemperatureAlarm (9),
+        batteryTemperatureAlarm (10),
+        diAlarm (11),
+        acdcRectifierAlarm (12),
+        solarControllerAlarm (13),
+        sindControllerAlarm (14),
+        inverterAlarm (15),
+        dcdcConverterAlarm (16),
+        dcBranchSlightOverCurrentAlarm (17),
+        dcBranchSevereOverCurrentAlarm (18),
+        bmsAlarm (19),
+        plcArithmeticAlarm (20),
+        plcLogicAlarm (21),
+        plcGroupAlarm (22)
+    }
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION 
+        "The class of rectifier internal circuit short alarm."
+    ::= { rectifierAlarmSetting 625 }
+  -- 1.3.6.1.4.1.39553.10.2.7.626
+    rectifierFuseBreakClass OBJECT-TYPE
+    SYNTAX INTEGER{
+        none (0),
+        acAlarm (1),
+        dcAlarm (2),
+        communicationAlarm (3),
+        lvdAlarm (4),
+        batteryFuseAlarm (5),
+        batteryFuseCathodeAlarm (6),
+        batteryAlarm (7),
+        dcBranchBreak (8),
+        ambientTemperatureAlarm (9),
+        batteryTemperatureAlarm (10),
+        diAlarm (11),
+        acdcRectifierAlarm (12),
+        solarControllerAlarm (13),
+        sindControllerAlarm (14),
+        inverterAlarm (15),
+        dcdcConverterAlarm (16),
+        dcBranchSlightOverCurrentAlarm (17),
+        dcBranchSevereOverCurrentAlarm (18),
+        bmsAlarm (19),
+        plcArithmeticAlarm (20),
+        plcLogicAlarm (21),
+        plcGroupAlarm (22)
+    }
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION 
+        "The class of rectifier output fuse break alarm."
+    ::= { rectifierAlarmSetting 626 }
+  -- 1.3.6.1.4.1.39553.10.2.7.627
+    rectifierSecondaryOverHotClass OBJECT-TYPE
+    SYNTAX INTEGER{
+        none (0),
+        acAlarm (1),
+        dcAlarm (2),
+        communicationAlarm (3),
+        lvdAlarm (4),
+        batteryFuseAlarm (5),
+        batteryFuseCathodeAlarm (6),
+        batteryAlarm (7),
+        dcBranchBreak (8),
+        ambientTemperatureAlarm (9),
+        batteryTemperatureAlarm (10),
+        diAlarm (11),
+        acdcRectifierAlarm (12),
+        solarControllerAlarm (13),
+        sindControllerAlarm (14),
+        inverterAlarm (15),
+        dcdcConverterAlarm (16),
+        dcBranchSlightOverCurrentAlarm (17),
+        dcBranchSevereOverCurrentAlarm (18),
+        bmsAlarm (19),
+        plcArithmeticAlarm (20),
+        plcLogicAlarm (21),
+        plcGroupAlarm (22)
+    }
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION 
+        "The class of rectifier secondary hot point over temperature alarm."
+    ::= { rectifierAlarmSetting 627 }
+  -- 1.3.6.1.4.1.39553.10.2.7.628
+    rectifierPrimaryOverHotClass OBJECT-TYPE
+    SYNTAX INTEGER{
+        none (0),
+        acAlarm (1),
+        dcAlarm (2),
+        communicationAlarm (3),
+        lvdAlarm (4),
+        batteryFuseAlarm (5),
+        batteryFuseCathodeAlarm (6),
+        batteryAlarm (7),
+        dcBranchBreak (8),
+        ambientTemperatureAlarm (9),
+        batteryTemperatureAlarm (10),
+        diAlarm (11),
+        acdcRectifierAlarm (12),
+        solarControllerAlarm (13),
+        sindControllerAlarm (14),
+        inverterAlarm (15),
+        dcdcConverterAlarm (16),
+        dcBranchSlightOverCurrentAlarm (17),
+        dcBranchSevereOverCurrentAlarm (18),
+        bmsAlarm (19),
+        plcArithmeticAlarm (20),
+        plcLogicAlarm (21),
+        plcGroupAlarm (22)
+    }
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION 
+        "The class of rectifier primary hot point over temperature alarm."
+    ::= { rectifierAlarmSetting 628 }
+  -- 1.3.6.1.4.1.39553.10.2.7.629
+    rectifierAmbientOverTempClass OBJECT-TYPE
+    SYNTAX INTEGER{
+        none (0),
+        acAlarm (1),
+        dcAlarm (2),
+        communicationAlarm (3),
+        lvdAlarm (4),
+        batteryFuseAlarm (5),
+        batteryFuseCathodeAlarm (6),
+        batteryAlarm (7),
+        dcBranchBreak (8),
+        ambientTemperatureAlarm (9),
+        batteryTemperatureAlarm (10),
+        diAlarm (11),
+        acdcRectifierAlarm (12),
+        solarControllerAlarm (13),
+        sindControllerAlarm (14),
+        inverterAlarm (15),
+        dcdcConverterAlarm (16),
+        dcBranchSlightOverCurrentAlarm (17),
+        dcBranchSevereOverCurrentAlarm (18),
+        bmsAlarm (19),
+        plcArithmeticAlarm (20),
+        plcLogicAlarm (21),
+        plcGroupAlarm (22)
+    }
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION 
+        "The class of rectifier ambient over temperature alarm."
+    ::= { rectifierAlarmSetting 629 }
+  -- 1.3.6.1.4.1.39553.10.2.7.630
+    rectifierOutputUVPClass OBJECT-TYPE
+    SYNTAX INTEGER{
+        none (0),
+        acAlarm (1),
+        dcAlarm (2),
+        communicationAlarm (3),
+        lvdAlarm (4),
+        batteryFuseAlarm (5),
+        batteryFuseCathodeAlarm (6),
+        batteryAlarm (7),
+        dcBranchBreak (8),
+        ambientTemperatureAlarm (9),
+        batteryTemperatureAlarm (10),
+        diAlarm (11),
+        acdcRectifierAlarm (12),
+        solarControllerAlarm (13),
+        sindControllerAlarm (14),
+        inverterAlarm (15),
+        dcdcConverterAlarm (16),
+        dcBranchSlightOverCurrentAlarm (17),
+        dcBranchSevereOverCurrentAlarm (18),
+        bmsAlarm (19),
+        plcArithmeticAlarm (20),
+        plcLogicAlarm (21),
+        plcGroupAlarm (22)
+    }
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION 
+        "The class of rectifier output under voltage protection alarm."
+    ::= { rectifierAlarmSetting 630 }
+  -- 1.3.6.1.4.1.39553.10.2.7.631
+    rectifierOutputOVPClass OBJECT-TYPE
+    SYNTAX INTEGER{
+        none (0),
+        acAlarm (1),
+        dcAlarm (2),
+        communicationAlarm (3),
+        lvdAlarm (4),
+        batteryFuseAlarm (5),
+        batteryFuseCathodeAlarm (6),
+        batteryAlarm (7),
+        dcBranchBreak (8),
+        ambientTemperatureAlarm (9),
+        batteryTemperatureAlarm (10),
+        diAlarm (11),
+        acdcRectifierAlarm (12),
+        solarControllerAlarm (13),
+        sindControllerAlarm (14),
+        inverterAlarm (15),
+        dcdcConverterAlarm (16),
+        dcBranchSlightOverCurrentAlarm (17),
+        dcBranchSevereOverCurrentAlarm (18),
+        bmsAlarm (19),
+        plcArithmeticAlarm (20),
+        plcLogicAlarm (21),
+        plcGroupAlarm (22)
+    }
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION 
+        "The class of rectifier output over voltage protection alarm."
+    ::= { rectifierAlarmSetting 631 }
+  -- 1.3.6.1.4.1.39553.10.2.7.632
+    rectifierInternalOVPClass OBJECT-TYPE
+    SYNTAX INTEGER{
+        none (0),
+        acAlarm (1),
+        dcAlarm (2),
+        communicationAlarm (3),
+        lvdAlarm (4),
+        batteryFuseAlarm (5),
+        batteryFuseCathodeAlarm (6),
+        batteryAlarm (7),
+        dcBranchBreak (8),
+        ambientTemperatureAlarm (9),
+        batteryTemperatureAlarm (10),
+        diAlarm (11),
+        acdcRectifierAlarm (12),
+        solarControllerAlarm (13),
+        sindControllerAlarm (14),
+        inverterAlarm (15),
+        dcdcConverterAlarm (16),
+        dcBranchSlightOverCurrentAlarm (17),
+        dcBranchSevereOverCurrentAlarm (18),
+        bmsAlarm (19),
+        plcArithmeticAlarm (20),
+        plcLogicAlarm (21),
+        plcGroupAlarm (22)
+    }
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION 
+        "The class of rectifier internal over voltage protection alarm."
+    ::= { rectifierAlarmSetting 632 }
+    -- 1.3.6.1.4.1.39553.10.2.7.633
+    rectifierPFCShortClass OBJECT-TYPE
+    SYNTAX INTEGER{
+        none (0),
+        acAlarm (1),
+        dcAlarm (2),
+        communicationAlarm (3),
+        lvdAlarm (4),
+        batteryFuseAlarm (5),
+        batteryFuseCathodeAlarm (6),
+        batteryAlarm (7),
+        dcBranchBreak (8),
+        ambientTemperatureAlarm (9),
+        batteryTemperatureAlarm (10),
+        diAlarm (11),
+        acdcRectifierAlarm (12),
+        solarControllerAlarm (13),
+        sindControllerAlarm (14),
+        inverterAlarm (15),
+        dcdcConverterAlarm (16),
+        dcBranchSlightOverCurrentAlarm (17),
+        dcBranchSevereOverCurrentAlarm (18),
+        bmsAlarm (19),
+        plcArithmeticAlarm (20),
+        plcLogicAlarm (21),
+        plcGroupAlarm (22)
+    }
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION 
+        "The class of rectifier PFC short alarm."
+    ::= { rectifierAlarmSetting 633 }
+    -- 1.3.6.1.4.1.39553.10.2.7.634
+    rectifierOVSDClass OBJECT-TYPE
+    SYNTAX INTEGER{
+        none (0),
+        acAlarm (1),
+        dcAlarm (2),
+        communicationAlarm (3),
+        lvdAlarm (4),
+        batteryFuseAlarm (5),
+        batteryFuseCathodeAlarm (6),
+        batteryAlarm (7),
+        dcBranchBreak (8),
+        ambientTemperatureAlarm (9),
+        batteryTemperatureAlarm (10),
+        diAlarm (11),
+        acdcRectifierAlarm (12),
+        solarControllerAlarm (13),
+        sindControllerAlarm (14),
+        inverterAlarm (15),
+        dcdcConverterAlarm (16),
+        dcBranchSlightOverCurrentAlarm (17),
+        dcBranchSevereOverCurrentAlarm (18),
+        bmsAlarm (19),
+        plcArithmeticAlarm (20),
+        plcLogicAlarm (21),
+        plcGroupAlarm (22)
+    }
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION 
+        "The class of rectifier OVSD alarm."
+    ::= { rectifierAlarmSetting 634 }
+    -- 1.3.6.1.4.1.39553.10.2.7.635
+    rectifierSecurityCodeErrorClass OBJECT-TYPE
+    SYNTAX INTEGER{
+        none (0),
+        acAlarm (1),
+        dcAlarm (2),
+        communicationAlarm (3),
+        lvdAlarm (4),
+        batteryFuseAlarm (5),
+        batteryFuseCathodeAlarm (6),
+        batteryAlarm (7),
+        dcBranchBreak (8),
+        ambientTemperatureAlarm (9),
+        batteryTemperatureAlarm (10),
+        diAlarm (11),
+        acdcRectifierAlarm (12),
+        solarControllerAlarm (13),
+        sindControllerAlarm (14),
+        inverterAlarm (15),
+        dcdcConverterAlarm (16),
+        dcBranchSlightOverCurrentAlarm (17),
+        dcBranchSevereOverCurrentAlarm (18),
+        bmsAlarm (19),
+        plcArithmeticAlarm (20),
+        plcLogicAlarm (21),
+        plcGroupAlarm (22)
+    }
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION 
+        "The class of rectifier security code error alarm."
+    ::= { rectifierAlarmSetting 635 }
+    -- 1.3.6.1.4.1.39553.10.2.7.649
+    rectifierSingleFaultClass OBJECT-TYPE
+    SYNTAX INTEGER{
+        none (0),
+        acAlarm (1),
+        dcAlarm (2),
+        communicationAlarm (3),
+        lvdAlarm (4),
+        batteryFuseAlarm (5),
+        batteryFuseCathodeAlarm (6),
+        batteryAlarm (7),
+        dcBranchBreak (8),
+        ambientTemperatureAlarm (9),
+        batteryTemperatureAlarm (10),
+        diAlarm (11),
+        acdcRectifierAlarm (12),
+        solarControllerAlarm (13),
+        sindControllerAlarm (14),
+        inverterAlarm (15),
+        dcdcConverterAlarm (16),
+        dcBranchSlightOverCurrentAlarm (17),
+        dcBranchSevereOverCurrentAlarm (18),
+        bmsAlarm (19),
+        plcArithmeticAlarm (20),
+        plcLogicAlarm (21),
+        plcGroupAlarm (22)
+    }
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION 
+        "The class of single rectifier alarm."
+    ::= { rectifierAlarmSetting 649 }
+  -- 1.3.6.1.4.1.39553.10.2.7.650
+    rectifierMutipleFaultClass OBJECT-TYPE
+    SYNTAX INTEGER{
+        none (0),
+        acAlarm (1),
+        dcAlarm (2),
+        communicationAlarm (3),
+        lvdAlarm (4),
+        batteryFuseAlarm (5),
+        batteryFuseCathodeAlarm (6),
+        batteryAlarm (7),
+        dcBranchBreak (8),
+        ambientTemperatureAlarm (9),
+        batteryTemperatureAlarm (10),
+        diAlarm (11),
+        acdcRectifierAlarm (12),
+        solarControllerAlarm (13),
+        sindControllerAlarm (14),
+        inverterAlarm (15),
+        dcdcConverterAlarm (16),
+        dcBranchSlightOverCurrentAlarm (17),
+        dcBranchSevereOverCurrentAlarm (18),
+        bmsAlarm (19),
+        plcArithmeticAlarm (20),
+        plcLogicAlarm (21),
+        plcGroupAlarm (22)
+    }
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION 
+        "The class of multiple rectifier alarm."
+    ::= { rectifierAlarmSetting 650 }
+    -- 1.3.6.1.4.1.39553.10.2.8
+        rectifierParameter OBJECT IDENTIFIER ::= { rectifier 8 }
+
+    -- 1.3.6.1.4.1.39553.10.2.8.1
+    acdcRectifierType OBJECT-TYPE
+    SYNTAX INTEGER {
+        can (0),
+        rs485 (1)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The type of ACDC rectifier."
+    ::= { rectifierParameter 1 }        
+    -- 1.3.6.1.4.1.39553.10.2.8.2
+    acdcRectifierWalkinVoltage OBJECT-TYPE
+    SYNTAX INTEGER(4200..5350)
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The walk-in valtage of ACDC rectifier.
+         The actual value = The receive data/100.
+         Unit is V."    
+    ::= { rectifierParameter 2 }
+    -- 1.3.6.1.4.1.39553.10.2.8.3
+    acdcRectifierWalkinTime OBJECT-TYPE
+    SYNTAX INTEGER(0..12000)
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The walk-in time of ACDC rectifier.
+         The actual value = The receive data/100.
+         Unit is S."    
+    ::= { rectifierParameter 3 }
+    -- 1.3.6.1.4.1.39553.10.2.8.4
+    acdcRectifierStartupDelayTime OBJECT-TYPE
+    SYNTAX INTEGER(0..60000)
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The start-up delay time of ACDC rectifier.
+         The actual value = The receive data/100.
+         Unit is S."    
+    ::= { rectifierParameter 4 }  
+    --------------------------------
+    --END OF DEFINITION
+    -------------------------------
+
+END

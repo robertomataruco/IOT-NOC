@@ -1,0 +1,513 @@
+{
+  "fields": {
+    "1": {
+      "name": "trapSequenceID",
+      "descr": "Trap Sequence ID."
+    },
+    "2": {
+      "name": "trapTimeStamp",
+      "descr": "Absolute Time (Time Stamp)."
+    },
+    "3": {
+      "name": "trapDeviceType",
+      "descr": "Device Type."
+    },
+    "4": {
+      "name": "trapDeviceSerial",
+      "descr": "Device Serial Number (Unique)."
+    },
+    "5": {
+      "name": "trapRemoteIndex",
+      "descr": "Remote Index."
+    },
+    "6": {
+      "name": "trapCtrlSerialNum",
+      "descr": "Control Unit Serial Number (Unique)."
+    },
+    "7": {
+      "name": "trapCtrlName",
+      "descr": "Control Unit Name."
+    },
+    "8": {
+      "name": "trapModuleName",
+      "descr": "Module Name."
+    },
+    "9": {
+      "name": "trapSeverity",
+      "descr": "Event's Severity."
+    },
+    "10": {
+      "name": "trapChannel",
+      "descr": "Addition data for specific event(seeModule Trap Description)."
+    },
+    "11": {
+      "name": "trapChannelDescription",
+      "descr": "Description of Addition data forspecificevent (see Module Trap Description)."
+    },
+    "12": {
+      "name": "trapBandID"
+    },
+    "13": {
+      "name": "trapSetOrClear",
+      "descr": "0=ClearTrap, 1=SetTrap"
+    },
+    "14": {
+      "name": "trapProbableCause",
+      "descr": "Alarm Probable Cause"
+    },
+    "15": {
+      "name": "trapHandleMeasures",
+      "descr": "Alarm Handle Measures"
+    }
+  },
+  "traps": {
+    "100": {
+      "name": "Alarme Geral do Módulo",
+      "descr": "Ocorre quando qualquer sub-alarme no módulo é acionado. Verifique a causa primária no equipamento.",
+      "severity": 2,
+      "probableCause": "The alarm will occur while any sub-alarm occur in A-POI module.",
+      "handleMeasures": "1. Check the  alarm source to find the root cause\n2. Clear the related alarm to clear the overall alarm"
+    },
+    "101": {
+      "name": "Desligamento por Potência Alta (A-POI)",
+      "descr": "Potência detectada no canal excede os limites de segurança (Overload). Verifique o atenuador/sinal de entrada.",
+      "severity": 3,
+      "probableCause": "The detected channel power >51dBm.",
+      "handleMeasures": "1. Please check the RIU input power\n2. Add the suitable attenuator on the input port of RIU"
+    },
+    "102": {
+      "name": "Falha no Ventilador (A-POI)",
+      "descr": "Um ou mais ventiladores (Cooler) falharam. Verifique as conexões ou substitua o ventilador.",
+      "severity": 1,
+      "probableCause": "The alarm will occur while any one of FANs fail.",
+      "handleMeasures": "1. Check the connection of the FAN\n2. Replace the related FAN module"
+    },
+    "103": {
+      "name": "Subtensão de Entrada (A-POI)",
+      "descr": "Tensão de energia muito baixa (Subtensão). Verifique a conexão do cabo ou substitua a fonte.",
+      "severity": 3,
+      "probableCause": "The alarm will occur while DC input power<38V or AC  input power<100V.",
+      "handleMeasures": "1. Check the power socket connection\n2. Change the PSU module for AC supply\n3. Change the RIU"
+    },
+    "104": {
+      "name": "Superaquecimento (A-POI)",
+      "descr": "Temperatura do equipamento ultrapassou o limiar máximo (80°C). Verifique a refrigeração do local e o ventilador.",
+      "severity": 3,
+      "probableCause": "The detected temperature greater than overtemperature threshold.",
+      "handleMeasures": "1. Check if there is FAN alarm\n2. Check the environment temperature, need to guarantee the environment temperature no more than 45 degree\n3. Check the mechanical of the device, make sure there is no dust in the device\n4. Keeps some clearance (20cm) of the device"
+    },
+    "105": {
+      "name": "Sobrecarga de Potência DL (A-POI)",
+      "descr": "Potência de canal detectada muito alta. Necessário verificar atenuação na entrada.",
+      "severity": 3,
+      "probableCause": "The detected channel power >49dBm(High Power)",
+      "handleMeasures": "1. Please check the RIU input power\n2. Add the suitable attenuator on the input port of RIU"
+    },
+    "106": {
+      "name": "Baixa Potência de RF DL (A-POI)",
+      "descr": "Potência do canal detectada está muito baixa. Verifique a entrada de RF ou cabos coaxiais.",
+      "severity": 2,
+      "probableCause": "The detected channel power <17dBm(Low Power)",
+      "handleMeasures": "1. Please check the input  power\n2. Adjust the suitable attenuator on the input port of RIU\n3. Check the RF input connection of RIU\n4. Change the RIU"
+    },
+    "107": {
+      "name": "Incompatibilidade de Versão (A-POI)",
+      "descr": "Versão do módulo incompatível. Verifique as versões de hardware/software.",
+      "severity": 0,
+      "probableCause": "Module version mismatch to A-POI."
+    },
+    "108": {
+      "name": "Serviço Desativado (A-POI)",
+      "descr": "O serviço do equipamento foi desativado. Reinicie o equipamento ou ative as operadoras.",
+      "severity": 0,
+      "probableCause": "A-POI service off - A-POI cann't operation."
+    },
+    "200": {
+      "name": "Alarme Geral (EU)",
+      "descr": "Ocorre quando qualquer sub-alarme no módulo é acionado. Verifique a fonte principal do problema.",
+      "severity": 2,
+      "probableCause": "The alarm will occur while any sub-alarm occur in the unit.",
+      "handleMeasures": "1. Check the  alarm source to find the root cause\n2. Clear the related alarm to clear the overall alarm"
+    },
+    "202": {
+      "name": "Subtensão de Entrada (EU)",
+      "descr": "Tensão de energia muito baixa (Subtensão). Verifique a conexão do cabo ou substitua a fonte.",
+      "severity": 3,
+      "probableCause": "The alarm will occur while DC input power<38V or AC  input power<100V.",
+      "handleMeasures": "1. Check the input power voltage range\n2. Check the connection of the power socket\n3. Replace the module"
+    },
+    "203": {
+      "name": "Superaquecimento da Fonte (EU)",
+      "descr": "Temperatura elevada na Fonte de Alimentação. Verifique a refrigeração.",
+      "severity": 3,
+      "probableCause": "The alarm will occur while power supply in high temperature.",
+      "handleMeasures": "1. Check if there is FAN alarm\n2. Check the environment temperature, need to guarantee the environment temperature no more than 45 degree\n3. Check the mechanical of the device, make sure there is no dust in the device\n4. Keeps some clearance (20cm) of the device"
+    },
+    "204": {
+      "name": "Falha no Ventilador (EU)",
+      "descr": "Um dos 4 ventiladores internos falhou. Perigo de superaquecimento.",
+      "severity": 1,
+      "probableCause": "The alarm will occur while any one of FANs(totally 4) fail.",
+      "handleMeasures": "1. Check the connection of the FAN\n2. Replace the related FAN module"
+    },
+    "205": {
+      "name": "Superaquecimento Geral (EU)",
+      "descr": "Temperatura do equipamento ultrapassou o limiar máximo (80°C). Verifique a refrigeração do local e o ventilador.",
+      "severity": 3,
+      "probableCause": "The detected temperature greater than overtemperature threshold.",
+      "handleMeasures": "1. Check if there is FAN alarm\n2. Check the environment temperature, need to guarantee the environment temperature no more than 45 degree\n3. Check the mechanical of the device, make sure there is no dust in the device\n4. Keeps some clearance (20cm) of the device"
+    },
+    "206": {
+      "name": "Falha de Transmissão CPRI (EU)",
+      "descr": "\"Indicates one of the following SFP problems :TX/RX levels, Temperature,",
+      "severity": 2,
+      "probableCause": "Indicates one of the following SFP problems :TX/RX levels, Temperature,\nTX/RX fault, TX/RX disable, absence (removing the SFP from the cage) .",
+      "handleMeasures": "1. Check if a fiber optic cable is disconnected, make sure the connection is stable\n2. Check if SFP problem- try to replace with another SFP\n3. Clean fiber optic cable/connector"
+    },
+    "207": {
+      "name": "Falha de Recepção CPRI (EU)",
+      "descr": "Falha no módulo SFP/Fibra. Verifique se o cabo está conectado corretamente ou se precisa de limpeza/troca.",
+      "severity": 2,
+      "probableCause": "Indicates one of the following SFP problems :TX/RX levels, Temperature,\nTX/RX fault, TX/RX disable, absence (removing the SFP from the cage) .",
+      "handleMeasures": "1. Check if a fiber optic cable is disconnected, make sure the connection is stable\n2. Check if SFP problem- try to replace with another SFP\n3. Clean fiber optic cable/connector"
+    },
+    "208": {
+      "name": "Falha de Sincronismo CPRI (EU)",
+      "descr": "Falha de sintetizador SFP. Possível defeito físico no módulo óptico.",
+      "severity": 2,
+      "probableCause": "Indicates the SFP Synthesizer failure .",
+      "handleMeasures": "1. Check if a fiber optic cable is disconnected \n2. Check if SFP problem- try to replace with another SFP\n3. Clean fiber optic cable/connector\n4. Check if the pair of SFPs are in same type\n5. Check the software version and its release note for the limitation"
+    },
+    "209": {
+      "name": "Falha no Link CPRI (EU)",
+      "descr": "Falha total no link da fibra óptica. O cabo pode estar rompido ou desconectado.",
+      "severity": 2,
+      "probableCause": "Indicates the SFP link failure.",
+      "handleMeasures": "1. Check if the fiber optic cable is disconnected \n2. Check if the Sync fault\n2. Check if SFP problem - try to replace with another SFP\n3. Clean fiber optic cable/connector\n4. Check if the pair of SFPs are in same type\n5. Reboot the device"
+    },
+    "210": {
+      "name": "Superaquecimento do SFP (EU)",
+      "descr": "O módulo de fibra óptica (SFP) está muito quente. Pode causar queda no link.",
+      "severity": 3,
+      "probableCause": "Indicates the SFP is in high temperature.",
+      "handleMeasures": "1. Check if the device has the over temperature alarm, and deal with OverallAlarm \n2. Check the SFP install  \n3. Change the SFP"
+    },
+    "211": {
+      "name": "SFP Não Certificado (EU)",
+      "descr": "O SFP não é homologado pelo fabricante. Pode causar instabilidade.",
+      "severity": 0,
+      "probableCause": "Indicates the SFP is not certificated by manufactured.",
+      "handleMeasures": ""
+    },
+    "212": {
+      "name": "Falha no Sintetizador (EU)",
+      "descr": "Falha no sistema de sincronismo interno.",
+      "severity": 0,
+      "probableCause": "Indicates the system Synthesizer failure ."
+    },
+    "213": {
+      "name": "Falha de Hardware (EU)",
+      "descr": "Uma falha grave de hardware foi detectada no equipamento. Tente reiniciar.",
+      "severity": 3,
+      "probableCause": "The alarm will occur while the hardware is fail",
+      "handleMeasures": "1. Check if any other alarms are occurred\n2. Reboot the device\n3. Change the device if hardware is fail"
+    },
+    "214": {
+      "name": "Incompatibilidade de Versão (EU)",
+      "descr": "Versões de firmware incompativeis entre a unidade e o sistema principal.",
+      "severity": 1,
+      "probableCause": "Module version not match to system version.",
+      "handleMeasures": "1. Please check the device version and system version\n2. Please check the release note for the version match"
+    },
+    "300": {
+      "name": "Alarme Geral (RU)",
+      "descr": "Ocorre quando qualquer sub-alarme no módulo é acionado. Verifique a fonte principal do problema.",
+      "severity": 2,
+      "probableCause": "The alarm will occur while any sub-alarm occur in the unit.",
+      "handleMeasures": "1. Check the  alarm source to find the root cause\n2. Clear the related alarm to clear the overall alarm"
+    },
+    "301": {
+      "name": "Falha de Hardware (RU)",
+      "descr": "Falha grave de hardware detectada na placa.",
+      "severity": 3,
+      "probableCause": "The alarm will occur while the hardware is fail.",
+      "handleMeasures": "1. Check if any other alarms are occurred\n2. Reboot the device\n3. Change the device if hardware is fail"
+    },
+    "302": {
+      "name": "Superaquecimento (RU)",
+      "descr": "Superaquecimento detectado no Rádio (RU). Verifique o local de instalação.",
+      "severity": 3,
+      "probableCause": "The alarm will occur while the temperature of RU is higher then threshold.",
+      "handleMeasures": "1. Check if there is FAN alarm(dMRU)\n2. Check the environment temperature, need to guarantee the environment temperature no more than 45 degree\n3. Check the mechanical of the device, make sure there is no dust in the device\n4. Keeps some clearance (20cm) of the device"
+    },
+    "303": {
+      "name": "Subtensão de Entrada (RU)",
+      "descr": "Tensão de energia muito baixa (Subtensão). Verifique a conexão do cabo ou substitua a fonte.",
+      "severity": 3,
+      "probableCause": "The alarm will occur while DC input power<38V or AC  input power<100V.",
+      "handleMeasures": "1. Verify input power level\n2. Check the connections of the power socket\n3. Replace the device"
+    },
+    "304": {
+      "name": "Falha de Transmissão SFP (RU)",
+      "descr": "Falha no módulo SFP/Fibra. Verifique cabo óptico ou nível de sinal.",
+      "severity": 2,
+      "probableCause": "Indicates one of the following SFP problems (aggregated per port):\nTX levels(<-3dBm or >5dBm),Temperature,TX disable,\nabsence (removing the SFP from the cage) and TBD.\nAdd Port number as Trap parameter.",
+      "handleMeasures": "1. Check if a fiber optic cable is disconnected, make sure the connection is stable\n2. Check if SFP problem- try to replace with another SFP\n3. Clean fiber optic cable/connector"
+    },
+    "305": {
+      "name": "Falha de Recepção SFP (RU)",
+      "descr": "Falha no módulo SFP/Fibra. Verifique cabo óptico ou nível de sinal.",
+      "severity": 2,
+      "probableCause": "Indicates one of the following SFP problems (aggregated per port):\nRX levels(<-10dBm ),Temperature, RX disable,\nabsence (removing the SFP from the cage) and TBD.\nAdd Port number as Trap parameter.",
+      "handleMeasures": "1. Check if a fiber optic cable is disconnected, make sure the connection is stable\n2. Check if SFP problem- try to replace with another SFP\n3. Clean fiber optic cable/connector"
+    },
+    "306": {
+      "name": "Falha de Sincronismo SFP (RU)",
+      "descr": "Falha de sintetizador SFP. Possível defeito físico no módulo óptico.",
+      "severity": 2,
+      "probableCause": "Indicates the SFP Synthesizer failure .",
+      "handleMeasures": "1. Check if a fiber optic cable is disconnected \n2. Check if SFP problem- try to replace with another SFP\n3. Clean fiber optic cable/connector\n4. Check if the pair of SFPs are in same type\n5. Check the software version and its release note for the limitation"
+    },
+    "307": {
+      "name": "Superaquecimento do SFP (RU)",
+      "descr": "Indicates the temperature of SFP is higher than threshold.",
+      "severity": 3,
+      "probableCause": "Indicates the temperature of SFP is higher than threshold.",
+      "handleMeasures": "1. Check if the device has the over temperature alarm, and deal with OverallAlarm \n2. Check the SFP install  \n3. Change the SFP"
+    },
+    "308": {
+      "name": "SFP Não Certificado (RU)",
+      "descr": "O SFP não é homologado pelo fabricante. Pode causar instabilidade.",
+      "severity": 0,
+      "probableCause": "Indicates the SFP is not certificated by manufactured.",
+      "handleMeasures": ""
+    },
+    "309": {
+      "name": "Falha no Ventilador (RU)",
+      "descr": "Um dos 4 ventiladores internos falhou. Perigo de superaquecimento.",
+      "severity": 0,
+      "probableCause": "The alarm will occur while any one of FANs(totally 4) fail."
+    },
+    "310": {
+      "name": "Consumo Excessivo de Energia (RU)",
+      "descr": "A unidade está puxando energia acima do consumo máximo projetado (Possível curto).",
+      "severity": 3,
+      "probableCause": "The alarm will occur while RU is working over its design power consumption.",
+      "handleMeasures": "1. Check the other alarms in the device\n2. Check if the output power if it is over the rated level \n3. Check the antenna port connections\n4. Reboot the device"
+    },
+    "311": {
+      "name": "Sobrecarga de Entrada UL (RU)",
+      "descr": "A entrada de uplink no Rádio (RU) está sobrecarregada (Overflow). Afaste os usuários muito próximos à antena.",
+      "severity": 3,
+      "probableCause": "Indicates the uplink input  of RU is overflow.",
+      "handleMeasures": "1. Keep the enough distance between UE's and RU's antenna\n2. Reboot the device"
+    },
+    "312": {
+      "name": "Baixa Transmissão DL (RU)",
+      "descr": "O sinal de entrada está normal, mas a unidade não está amplificando a saída. Possível falha interna.",
+      "severity": 1,
+      "probableCause": "Indicates the downlink input is normal, but the downlink output of device is too low.",
+      "handleMeasures": "1. Check the other alarms in the device\n2. Check if the output power is too low \n3. Reboot the device\n4. Change the device"
+    },
+    "313": {
+      "name": "Alarme de VSWR Alto (RU)",
+      "descr": "Alarme de VSWR. Reflexão de sinal muito alta. Verifique os cabos da antena ou conectores mal rosqueados.",
+      "severity": 2,
+      "probableCause": "Indicates the VSWR is more than threshold (2.0).",
+      "handleMeasures": "1. Check the connection of antenna port, make sure it is connection with antenna or load\n2. Check the connected antenna or load is in good condition\n3. Change the antenna or load\n4. Test the device VSWR \n5. Chane the device"
+    },
+    "314": {
+      "name": "Alarme de Antena/VSWR Crítico (RU)",
+      "descr": "Alarme Crítico de VSWR (Antena). Há circuito aberto ou cabo partido após a unidade.",
+      "severity": 3,
+      "probableCause": "Indicates the antenna port VSRW is more than threshold(2.5).",
+      "handleMeasures": "1. Check the connection of antenna port, make sure it is connection with antenna or load\n2. Check the connected antenna or load is in good condition\n3. Change the antenna or load\n4. Test the device VSWR \n5. Chane the device"
+    },
+    "315": {
+      "name": "Alarme de Amplificador (PA - RU)",
+      "descr": "Falha no amplificador de potência (PA). O rádio pode parar de transmitir.",
+      "severity": 3,
+      "probableCause": "The alarm will occur while PA is alarm.",
+      "handleMeasures": "1. Check the other alarms in the device\n2. Reboot the device\n3. Chane the device"
+    },
+    "317": {
+      "name": "Incompatibilidade de Versão (RU)",
+      "descr": "Versões de firmware incompativeis entre a unidade e o sistema principal.",
+      "severity": 1,
+      "probableCause": "Module version not match to system version.",
+      "handleMeasures": "1. Please check the device version and system version\n2. Please check the release note for the version match"
+    },
+    "318": {
+      "name": "Serviço Desativado (RU)",
+      "descr": "O rádio foi desligado via software ou parou de funcionar.",
+      "severity": 2,
+      "probableCause": "Device service off.",
+      "handleMeasures": "1. Check the other alarms in the device\n2. Try clear the related alarm\n3. Check the carrier, radio switch config\n4. Reboot the device\n5. Change the device if hardware issue"
+    },
+    "319": {
+      "name": "Incompatibilidade RU/EU (RU)",
+      "descr": "Incompatibilidade: O Rádio (RU) não suporta a porta em que foi conectado na unidade (EU).",
+      "severity": 1,
+      "probableCause": "The RU and EU module type is not match, the RU work abnormal.",
+      "handleMeasures": "1. Check the other alarms in the device\n2. Reboot the device\n3. Connect the RU to right EU"
+    },
+    "320": {
+      "name": "Potência de Saída Baixa (RU)",
+      "descr": "Potência de saída extremamente baixa. Ninguém vai conseguir se conectar.",
+      "severity": 1,
+      "probableCause": "Download Output Power is  less than threshold(-99 dBm as default value)",
+      "handleMeasures": "1. Check the other alarms in the device\n2. Check the input power in the AU\n3. Reboot the device\n4. Change the device"
+    },
+    "321": {
+      "name": "Potência de Saída Alta (RU)",
+      "descr": "Potência de saída estourada. Pode gerar interferência excessiva.",
+      "severity": 3,
+      "probableCause": "Download Output Power is  more than threshold(48dBm as default value)",
+      "handleMeasures": "1. Check the other alarms in the device\n2. Reboot the device\n3. Set some ATT value in RU"
+    },
+    "400": {
+      "name": "Alarme Geral (AU)",
+      "descr": "Ocorre quando qualquer sub-alarme no módulo é acionado. Verifique a fonte principal do problema.",
+      "severity": 2,
+      "probableCause": "The alarm will occur while any sub-alarm occur in the unit.",
+      "handleMeasures": "1. Check the  alarm source to find the root cause\n2. clear the related alarm to clear the overall alarm"
+    },
+    "402": {
+      "name": "Superaquecimento da Fonte (AU)",
+      "descr": "Temperatura elevada na Fonte de Alimentação. Verifique a refrigeração.",
+      "severity": 3,
+      "probableCause": "The alarm will occur while power supply in high temperature.",
+      "handleMeasures": "1. Check if there is FAN alarm\n2. Check the environment temperature, need to guarantee the environment temperature no more than 45 degree\n3. Check the mechanical of the device, make sure there is no dust in the device\n4. Keeps some clearance (20cm) of the device"
+    },
+    "403": {
+      "name": "Subtensão de Entrada (AU)",
+      "descr": "Tensão de energia muito baixa (Subtensão). Verifique a conexão do cabo ou substitua a fonte.",
+      "severity": 3,
+      "probableCause": "The alarm will occur while DC input power<38V or AC  input power<100V.",
+      "handleMeasures": "1. Check the input power voltage range\n2. Check the connection of the power socket\n3. Replace the module"
+    },
+    "404": {
+      "name": "Superaquecimento Geral (AU)",
+      "descr": "Temperatura do equipamento ultrapassou o limiar máximo (80°C). Verifique a refrigeração do local e o ventilador.",
+      "severity": 3,
+      "probableCause": "The detected temperature greater than overtemperature threshold.",
+      "handleMeasures": "1. Check if there is FAN alarm\n2. Check the environment temperature, need to guarantee the environment temperature no more than 45 degree\n3. Check the mechanical of the device, make sure there is no dust in the device\n4. Keeps some clearance (20cm) of the device"
+    },
+    "405": {
+      "name": "Falha no Ventilador (AU)",
+      "descr": "Falha em um dos ventiladores da Unidade AU. Necessário troca.",
+      "severity": 1,
+      "probableCause": "The alarm will occur while any one of FANs(totally 4) in AU fail.",
+      "handleMeasures": "1. Check the connection of the FAN\n2. Replace the related FAN module"
+    },
+    "406": {
+      "name": "Falha de Transmissão CPRI (AU)",
+      "descr": "Falha no módulo SFP/Fibra. Verifique se o cabo está conectado corretamente ou se precisa de limpeza/troca.",
+      "severity": 2,
+      "probableCause": "Indicates one of the following SFP problems :TX/RX levels, Temperature,\nTX/RX fault, TX/RX disable, absence (removing the SFP from the cage) .",
+      "handleMeasures": "1. Check if a fiber optic cable is disconnected, make sure the connection is stable\n2. Check if SFP problem- try to replace with another SFP\n3. Clean fiber optic cable/connector"
+    },
+    "407": {
+      "name": "Falha de Recepção CPRI (AU)",
+      "descr": "Falha no módulo SFP/Fibra. Verifique se o cabo está conectado corretamente ou se precisa de limpeza/troca.",
+      "severity": 2,
+      "probableCause": "Indicates one of the following SFP problems :TX/RX levels, Temperature,\nTX/RX fault, TX/RX disable, absence (removing the SFP from the cage) .",
+      "handleMeasures": "1. Check if a fiber optic cable is disconnected, make sure the connection is stable\n2. Check if SFP problem- try to replace with another SFP\n3. Clean fiber optic cable/connector"
+    },
+    "408": {
+      "name": "Falha de Sincronismo CPRI (AU)",
+      "descr": "Falha de sincronismo CPRI/SFP. Verifique a integridade da fibra ou substitua o SFP.",
+      "severity": 2,
+      "probableCause": "Indicates the SFP Synthesizer failure.",
+      "handleMeasures": "1. Check if a fiber optic cable is disconnected \n2. Check if SFP problem- try to replace with another SFP\n3. Clean fiber optic cable/connector\n4. Check if the pair of SFPs are in same type\n5. Check the software version and its release note for the limitation"
+    },
+    "409": {
+      "name": "Falha no Link CPRI (AU)",
+      "descr": "Falha total no link da fibra óptica. O cabo pode estar rompido ou desconectado.",
+      "severity": 3,
+      "probableCause": "Indicates the SFP link failure.",
+      "handleMeasures": "1. Check if the fiber optic cable is disconnected \n2. Check if the Sync fault\n2. Check if SFP problem - try to replace with another SFP\n3. Clean fiber optic cable/connector\n4. Check if the pair of SFPs are in same type\n5. Check the software version and its release note for the limitation"
+    },
+    "410": {
+      "name": "Superaquecimento do SFP (AU)",
+      "descr": "O módulo de fibra óptica (SFP) está muito quente. Pode causar queda no link.",
+      "severity": 3,
+      "probableCause": "Indicates the SFP is in high temperature.",
+      "handleMeasures": "1. Check if the device has the over temperature alarm, and deal with OverallAlarm \n2. Check the SFP install  \n3. Change the SFP"
+    },
+    "411": {
+      "name": "SFP Não Certificado (AU)",
+      "descr": "O SFP inserido não é certificado pelo fabricante.",
+      "severity": 0,
+      "probableCause": "Indicates the SFP is not certificated by manufactured .",
+      "handleMeasures": ""
+    },
+    "412": {
+      "name": "Falha de Hardware (AU)",
+      "descr": "Falha de hardware detectada. Pode ser necessário trocar o equipamento.",
+      "severity": 3,
+      "probableCause": "The alarm will occur while hardware is fail.",
+      "handleMeasures": "1. Check if any other alarms are occurred\n2. Reboot the device\n3. Change the device if hardware is fail"
+    },
+    "413": {
+      "name": "Falha no Sintetizador (AU)",
+      "descr": "Falha no sintetizador interno do equipamento.",
+      "severity": 0,
+      "probableCause": "Indicates the system Synthesizer failure."
+    },
+    "415": {
+      "name": "Atraso no Tempo do Sistema (AU)",
+      "descr": "Atraso no sinal de fibra (Delay). O cabo óptico entre os sites pode ser maior que o limite (10km).",
+      "severity": 3,
+      "probableCause": "AU system over time delay , the system delays more than 70us.",
+      "handleMeasures": "1.Check the delay threshold no more than 60us\n2. Check the fiber link connections\n3. Check the total fiber length, which is no more than 10km \n4. Rebootthe device\n5. Replace the device"
+    },
+    "416": {
+      "name": "Sobrecarga de Entrada DL (AU)",
+      "descr": "Potência na entrada da AU excede o máximo de 10dBm. Adicione um atenuador antes de ligar a BTS/Repetidor.",
+      "severity": 3,
+      "probableCause": "The DL input power is more than threshold(10dBm as default value).",
+      "handleMeasures": "1. Please check the input  power\n2. Adjust the suitable attenuator on the input port of RIU\n3. Check the RF input connection between RIU and AU\n4. Change the AU"
+    },
+    "417": {
+      "name": "Topologia Divergente (AU)",
+      "descr": "Mudança topológica: um novo equipamento foi conectado ou removido incorretamente.",
+      "severity": 0,
+      "probableCause": "The system topology changes, it is different from the baseline ."
+    },
+    "418": {
+      "name": "Incompatibilidade de Versão (AU)",
+      "descr": "Versões de firmware incompativeis entre a unidade e o sistema principal.",
+      "severity": 1,
+      "probableCause": "Module version not match to system version.",
+      "handleMeasures": "1. Please check the device version and system version\n2. Please check the release note for the version match"
+    },
+    "419": {
+      "name": "Serviço Desativado (AU)",
+      "descr": "Equipamento com serviço interrompido.",
+      "severity": 3,
+      "probableCause": "Device service off .",
+      "handleMeasures": "1. Check the other alarms in the device\n2. Try clear the related alarm\n3. Check the carrier, radio switch config\n4. Reboot the device\n5. Change the device if hardware issue"
+    },
+    "420": {
+      "name": "Perda de Sincronismo TDD NR (AU)",
+      "descr": "Falha de Sincronismo TDD (5G). Verifique o sinal de sincronismo GPS ou rede.",
+      "severity": 2,
+      "probableCause": "Only in TDD NR band, indicates the TDD NR sync failure.",
+      "handleMeasures": "1. Check the input signal config , make sure it is correct config \n2. Check the input level, it needs to fit the input signal level range"
+    },
+    "421": {
+      "name": "Perda de Sincronismo TDD LTE (AU)",
+      "descr": "Falha de Sincronismo TDD (4G). O rádio perdeu a janela de sincronia.",
+      "severity": 0,
+      "probableCause": "Only in TDD LTE band , indicates the TDD LTE sync failure."
+    },
+    "422": {
+      "name": "Heartbeat (Keepalive)",
+      "descr": "Sinal de vida do equipamento (Keepalive). Funcionamento normal.",
+      "severity": 0,
+      "probableCause": "Heartbeat.",
+      "handleMeasures": ""
+    }
+  }
+}

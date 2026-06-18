@@ -1,0 +1,40 @@
+                                      -+syyyso/.                                                                                                                                                        
+                                    `ohhhhhhhhhhs.                                                                                                                                                      
+                                   .shhhhhhhhhhhhy`                          `----------`                `..-----:::::::-          `.--::::::::::::.  `::::::::::::::::::::::::.                        
+                                  .yhhhhhhhhhhhhhh-                         `mMMMMMMMMMMd            -ohNMMMMMMMMMMMMMMMd     `/ydNMMMMMMMMMMMMMMMMo  :MMMMMMMMMMMMMMMMMMMMMMMMo                        
+                                 -yhhhhhhhhhhhhhhh--/                       hMMMMMMMMMMMMs         +mMMMMMMMMMMMMMMMMMMMd   `yMMMMMMMMMMMMMMMMMMMMMo  :MMMMMMMMMMMMMMMMMMMMMMMMo                        
+                                :yhhhhhhhhhhhhhhhy +h+                     oMMMMMM/+MMMMMM/      .dMMMMMMNho++//////////:   mMMMMMMdo/:::::::::::::.  .++++++++hMMMMMMd++++++++-                        
+                               /hhhhhhhhhhhhhhhhy.-yhho`                  :MMMMMM+  yMMMMMN-    .NMMMMMN+`                 `MMMMMMMs.                          oMMMMMMy                                 
+                              +hhhhhhhhhhhhhhhhy.:yhhhhs`                .NMMMMMh   `mMMMMMm`   yMMMMMM:      +ssssssssss:  oMMMMMMMMMNdhso/-`                 oMMMMMMy                                 
+                            `ohyyyyyyyyyyyyyyys`/hhhhhhhs.               dMMMMMm`    .NMMMMMh   mMMMMMN       mMMMMMMMMMMo   .smMMMMMMMMMMMMMMNh+`             oMMMMMMy                                 
+                            :---:::::::.      `+hhhhhhhhhy.             yMMMMMN.      +MMMMMMo  mMMMMMM`      mMMMMMMMMMMo      `-/osydmMMMMMMMMMMo            oMMMMMMy                                 
+                           -oyhhhhhhhhhy-    `shhhhhhhhhhhy-           /MMMMMM/        yMMMMMM: +MMMMMMy      ....-NMMMMMo               `-+NMMMMMM/           oMMMMMMy                                 
+                         .shhhhhhhhhhhhhy:  .yhhhhhhhhhhhhhy/         -MMMMMMy         `mMMMMMN. hMMMMMMm+.        NMMMMMo                `:NMMMMMM+           oMMMMMMy                                 
+                        `yhhhhhhhhhhhhhhhh+ ohhhhhhhhhhhhhhhh/       `mMMMMMm`          .NMMMMMd` oNMMMMMMMNdhhhhhhMMMMMMo .mmmmmmmmmmmmNNMMMMMMMMh            oMMMMMMy                                 
+                        -hhhhhhhhhhhhhhhhhho`ohhhhhhhhhhhhhhhy       hMMMMMM-            /MMMMMMy  `+hNMMMMMMMMMMMMMMMMMMo .MMMMMMMMMMMMMMMMMMMMh:             oMMMMMMy                                 
+                        `yhhhhhhhhhhhhhhhhhhs`+hhhhhhhhhhhhhhs      :hhhhhh+              ohhhhhh-     -/osyhhhhhhhhhhhhh/ `hhhhhhhhhhhhhhyso/-                :yyyyyy+                                 
+                         -yhhhhhhhhhhhhhhhhhhs.:yhhhhhhhhhhho`                                                                                                                                          
+                          `/syhhhhhhhhhhhhhhhhy:.+yhhhhhhs/.                                                                                                                                            
+                              ...........-------.  .-::-`                                                                                                                                               
+
+Neste documento será abordado o método de atualização do software Web Conflex. Será necessário um computador com acesso a rede local.
+
+ATENÇÃO: Este é um processo crítico e até o término bem sucedido, seu dispositivo pode ficar sem funcionar.
+
+PARA INSTALAR O WEB APLICATIVO 2.07.0069, SEGUIR A ORDEM ABAIXO:
+PRÉ-REQUISITOS:
+	1º- Web Firmware 3.60.06 (OBS: Caso possua uma versão diferente desta, entre em contato com a Assistência Técnica da AGST).
+PÓS-REQUISITOS:
+	1º- CLP Mensagens 1.02.0018 ou superior
+	2º- CLP Firmware 1.02.0018 ou superior
+
+OBS: Você pode verificar as versões de softwares do seu Conflex na página inicial da plataforma Web, no menu "Sobre o Conflex" da interface IHM do mesmo ou no aplicativo UpLoader.
+
+1 - Vá ao site da AGST e baixe o pacote "Softwares Conflex Web" que contém a ferramenta UpLoader, o arquivo MIB e o software "Web Aplicativo";
+2 - Descompacte o pacote baixado;
+3 - Execute a ferramenta UpLoader;
+4 - Vá na interface do Conflex e navegue até o menu "Sobre a Rede" e veja o endereço IP;
+5 - Indentifique e selecione na lista apresentada no UpLoader o dispositivo que tenha o mesmo IP e/ou MAC. Caso não esteja sendo listado certifique-se que o computador e o Conflex estejam na mesma rede. Para maiores informações consulte o manual do Conflex.
+6 - Aperte no botão "Abrir" e selecione o arquivo do software "Web Aplicativo";
+    Importante: Certifique-se que a versão do "Web Aplicativo" atende aos requesitos citados no início deste documento;
+7 - Aperte no botão "Enviar" no UpLoader. Ao término desta atualização será apresentado uma mensagem no UpLoader indicando que o envio do software está completo.

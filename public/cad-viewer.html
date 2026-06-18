@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ricas High-Fidelity WebGL CAD Workspace</title>
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <!-- Google Fonts Outfit & JetBrains Mono -->
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      background-color: #020617;
+      color: #f8fafc;
+      font-family: 'Outfit', sans-serif;
+      overflow: hidden;
+    }
+    .font-mono {
+      font-family: 'JetBrains Mono', monospace;
+    }
+    .glass {
+      background: rgba(15, 23, 42, 0.75);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .neon-border {
+      box-shadow: 0 0 20px rgba(6, 182, 212, 0.15);
+      border-color: rgba(6, 182, 212, 0.4);
+    }
+    #viewer-container {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 1;
+      background-color: #020617;
+    }
+    #ui-container {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 10;
+      pointer-events: none;
+    }
+    .interactive {
+      pointer-events: auto;
+    }
+  </style>
+</head>
+<body class="h-screen w-screen flex flex-col select-none overflow-hidden">
+
+  <!-- WebGL Render Canvas Container -->
+  <div id="viewer-container"></div>
+
+  <!-- Interactive HUD overlay -->
+  <div id="ui-container" class="flex flex-col justify-between p-6">
+    
+    <!-- Top Bar: Info and Layers -->
+    <div class="flex justify-between items-start">
+      <div class="glass neon-border rounded-2xl px-4 py-3 flex items-center gap-3 interactive shadow-2xl">
+        <div class="w-8 h-8 rounded-lg bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center">
+          <i class="fa-solid fa-microchip text-cyan-400 animate-pulse"></i>
+        </div>
+        <div>
+          <h2 class="text-xs font-black uppercase tracking-widest text-cyan-400">Ricas WebGL CAD Engine</h2>
+          <p class="text-[8px] font-mono text-slate-400" id="fileNameLabel">Carregando planta...</p>
+        </div>
+      </div>
+
+      <!-- Layers Sidebar Toggle -->
+      <div class="flex flex-col gap-2 items-end">
+        <button onclick="toggleLayersMenu()" class="glass hover:bg-slate-900 border border-slate-800/80 rounded-xl p-2.5 text-slate-300 hover:text-white interactive shadow-lg">
+          <i class="fa-solid fa-layer-group text-sm"></i>
+        </button>
+        
+        <!-- Layers Menu -->
+        <div id="layers-menu" class="glass border border-slate-800 rounded-2xl p-4 w-60 max-h-80 overflow-y-auto hidden interactive shadow-2xl space-y-3">
+          <h3 class="text-[10px] font-black uppercase text-slate-400 tracking-widest border-b border-slate-800 pb-1.5 flex items-center justify-between">
+            <span>Camadas CAD</span>
+            <i class="fa-solid fa-circle-check text-cyan-400"></i>
+          </h3>
+          <div id="layers-list" class="space-y-1.5 text-[10px] font-mono">
+            <!-- Dynamic list of layers -->
+            <p class="text-slate-500 italic">Nenhuma camada carregada.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom Bar: Status, Zoom, Coordinates -->
+    <div class="flex justify-between items-end">
+      <!-- Cursor coordinates reading -->
+      <div class="glass border border-slate-800 rounded-xl px-3 py-1.5 text-[9px] font-mono text-slate-400 flex items-center gap-2 interactive shadow-lg">
+        <i class="fa-solid fa-crosshairs text-cyan-400"></i>
+        <span>X: <span id="coordX" class="text-white font-bold">0.00</span></span>
+        <span>Y: <span id="coordY" class="text-white font-bold">0.00</span></span>
+      </div>
+
+      <!-- WebGL Camera Controls -->
+      <div class="glass border border-slate-800 rounded-xl px-2 py-1 flex items-center gap-1 interactive shadow-lg">
+        <button id="btnToggleTheme" class="p-1.5 hover:bg-slate-900 text-slate-450 hover:text-white rounded-lg transition-all" title="Alternar Fundo Claro/Escuro">
+          <i class="fa-solid fa-circle-half-stroke text-xs text-yellow-500 animate-pulse"></i>
+        </button>
+        <button id="btnZoomIn" class="p-1.5 hover:bg-slate-900 text-slate-400 hover:text-white rounded-lg transition-all" title="Aproximar">
+          <i class="fa-solid fa-magnifying-glass-plus text-xs"></i>
+        </button>
+        <button id="btnZoomOut" class="p-1.5 hover:bg-slate-900 text-slate-400 hover:text-white rounded-lg transition-all" title="Afastar">
+          <i class="fa-solid fa-magnifying-glass-minus text-xs"></i>
+        </button>
+        <button id="btnZoomFit" class="p-1.5 hover:bg-slate-900 text-slate-400 hover:text-white rounded-lg transition-all" title="Centralizar Desenho">
+          <i class="fa-solid fa-maximize text-xs"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Pulsing loading screen overlay -->
+  <div id="loading-screen" class="absolute inset-0 bg-slate-950/95 flex flex-col items-center justify-center z-50 transition-opacity duration-500">
+    <div id="loading-spinner" class="flex flex-col items-center justify-center space-y-4">
+      <div class="relative w-20 h-20 mb-4">
+        <div class="absolute inset-0 rounded-full border-4 border-cyan-500/10 animate-ping"></div>
+        <div class="absolute inset-0 rounded-full border-t-4 border-cyan-500 animate-spin"></div>
+      </div>
+      <p class="text-xs font-bold uppercase tracking-widest text-cyan-400 animate-pulse">Renderizando Planta WebGL...</p>
+      <p class="text-[9px] font-mono text-slate-500 mt-2">Extraindo vetores em aceleração de hardware 100% locais</p>
+    </div>
+  </div>
+
+  <!-- CAD Script Logic -->
+  <script type="module">
+    import { DxfViewer } from 'https://cdn.jsdelivr.net/npm/dxf-viewer@1.0.47/+esm';
+
+    let viewer;
+    const container = document.getElementById('viewer-container');
+    const loadingScreen = document.getElementById('loading-screen');
+
+    // Parse URL params for file path
+    const urlParams = new URLSearchParams(window.location.search);
+    const dxfUrl = urlParams.get('file');
+    const dxfName = urlParams.get('name') || 'planta_importada.dxf';
+
+    document.getElementById('fileNameLabel').innerText = dxfName;
+
+    async function initViewer() {
+      if (!dxfUrl) {
+        loadingScreen.innerHTML = `
+          <div class="text-center p-6 space-y-2">
+            <i class="fa-solid fa-triangle-exclamation text-yellow-500 text-3xl mb-2"></i>
+            <p class="text-xs font-bold text-slate-300 uppercase">Nenhum arquivo CAD foi importado ainda.</p>
+            <p class="text-[9px] font-mono text-slate-500">Importe seu arquivo DXF ou DWG no Site Survey para visualizá-lo aqui.</p>
+          </div>
+        `;
+        return;
+      }
+
+      try {
+        // Initialize DxfViewer
+        viewer = new DxfViewer(container, {
+          width: window.innerWidth,
+          height: window.innerHeight,
+          useDynamicSubdivision: true,
+          checkLayers: true
+        });
+
+        // Load DXF file from URL
+        await viewer.load(dxfUrl, (progress) => {
+          const pct = Math.round(progress * 100);
+          const txtEl = document.querySelector('#loading-spinner p');
+          if (txtEl) txtEl.innerText = `Carregando Planta... ${pct}%`;
+        });
+
+        // Setup mouse move coordinates reporting
+        container.addEventListener('mousemove', (e) => {
+          const pt = viewer.getOriginPoint(e.clientX, e.clientY);
+          if (pt) {
+            document.getElementById('coordX').innerText = pt.x.toFixed(2);
+            document.getElementById('coordY').innerText = pt.y.toFixed(2);
+          }
+        });
+
+        // Hide loading screen with fade out animation
+        loadingScreen.classList.add('opacity-0');
+        setTimeout(() => loadingScreen.style.display = 'none', 500);
+
+        // Populate layers panel dynamically
+        populateLayers();
+
+        // Bind buttons
+        let isDarkTheme = true;
+        document.getElementById('btnToggleTheme').onclick = () => {
+          isDarkTheme = !isDarkTheme;
+          const container = document.getElementById('viewer-container');
+          if (isDarkTheme) {
+            container.style.backgroundColor = '#020617';
+          } else {
+            container.style.backgroundColor = '#f8fafc';
+          }
+        };
+
+        document.getElementById('btnZoomIn').onclick = () => viewer && viewer.zoom(1.2);
+        document.getElementById('btnZoomOut').onclick = () => viewer && viewer.zoom(0.8);
+        document.getElementById('btnZoomFit').onclick = () => viewer && viewer.zoomFit();
+
+        // Broadcast bounds to parent Next.js application for calibration
+        const bounds = viewer.getBounds();
+        if (window.parent) {
+          window.parent.postMessage({
+            type: 'CAD_BOUNDS_LOADED',
+            bounds: {
+              minX: bounds.min.x,
+              minY: bounds.min.y,
+              maxX: bounds.max.x,
+              maxY: bounds.max.y,
+              width: bounds.max.x - bounds.min.x,
+              height: bounds.max.y - bounds.min.y
+            }
+          }, '*');
+        }
+
+      } catch (err) {
+        window.hasCadError = true;
+        console.error("Failed to initialize CAD WebGL Viewer: ", err);
+        loadingScreen.innerHTML = `
+          <div class="text-center p-6 space-y-3 max-w-lg">
+            <i class="fa-solid fa-circle-exclamation text-rose-500 text-4xl mb-2 animate-pulse"></i>
+            <p class="text-xs font-bold text-slate-200 uppercase">Falha ao processar arquivo CAD.</p>
+            <p class="text-[10px] font-mono text-rose-400 bg-rose-950/40 p-3 rounded-lg border border-rose-900/50 leading-relaxed text-left break-all select-text">
+              Erro: ${err.message || err}<br>
+              Pilha: ${err.stack || 'Não disponível'}
+            </p>
+            <button onclick="window.parent.postMessage({type: 'CAD_FORCE_FALLBACK'}, '*')" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-bold rounded-xl transition-all border border-slate-700 mt-2">
+              Usar Visualizador Integrado Padrão
+            </button>
+          </div>
+        `;
+      }
+    }
+
+    // Populate Layers Menu dynamically
+    function populateLayers() {
+      const layers = viewer.getLayers();
+      const listEl = document.getElementById('layers-list');
+      listEl.innerHTML = '';
+
+      if (!layers || layers.length === 0) {
+        listEl.innerHTML = '<p class="text-slate-500 italic">Nenhuma camada encontrada.</p>';
+        return;
+      }
+
+      layers.forEach(layer => {
+        const itemEl = document.createElement('label');
+        itemEl.className = 'flex items-center justify-between gap-3 cursor-pointer py-1 hover:bg-slate-900/60 rounded px-1.5 transition-all text-slate-300 hover:text-white select-none';
+        
+        // Dynamic layer color badge based on layer metadata
+        const lColor = layer.color ? '#' + layer.color.toString(16).padStart(6, '0') : '#06b6d4';
+        
+        itemEl.innerHTML = `
+          <span class="flex items-center gap-2 truncate">
+            <span class="w-2 h-2 rounded-full shadow-lg" style="background-color: ${lColor}"></span>
+            <span class="truncate">${layer.name}</span>
+          </span>
+          <input type="checkbox" checked class="rounded bg-slate-950 border-slate-800 text-cyan-500 focus:ring-0 cursor-pointer" id="layer-${layer.name}">
+        `;
+        listEl.appendChild(itemEl);
+        
+        document.getElementById(`layer-${layer.name}`).onchange = (e) => {
+          viewer.showLayer(layer.name, e.target.checked);
+        };
+      });
+    }
+
+    window.toggleLayersMenu = () => {
+      const el = document.getElementById('layers-menu');
+      el.classList.toggle('hidden');
+    };
+
+    // Resize listener for responsive WebGL rendering
+    window.addEventListener('resize', () => {
+      if (viewer) {
+        viewer.resize(window.innerWidth, window.innerHeight);
+      }
+    });
+
+    // Run initializer
+    initViewer();
+  </script>
+
+  <!-- Safeguard script: If still loading after 5 seconds, show fallback button -->
+  <script>
+    setTimeout(() => {
+      if (window.hasCadError) return;
+      const screen = document.getElementById('loading-screen');
+      if (screen && screen.style.display !== 'none' && !screen.classList.contains('opacity-0')) {
+        screen.innerHTML = `
+          <div class="text-center p-6 space-y-4 max-w-md">
+            <i class="fa-solid fa-triangle-exclamation text-amber-500 text-4xl animate-bounce mb-2"></i>
+            <p class="text-sm font-bold text-slate-200 uppercase">Tempo limite de carregamento excedido</p>
+            <p class="text-[10px] font-mono text-slate-400 leading-relaxed">
+              O visualizador 3D WebGL está levando mais tempo que o esperado para carregar as dependências de rede (jsDelivr).
+            </p>
+            <div class="flex flex-col gap-2 pt-2">
+              <button onclick="window.location.reload()" class="px-4 py-2 bg-cyan-600 hover:bg-cyan-500 text-white text-xs font-bold rounded-xl transition-all shadow-md">
+                <i class="fa-solid fa-rotate-right mr-1.5"></i> Tentar Novamente
+              </button>
+              <button onclick="window.parent.postMessage({type: 'CAD_FORCE_FALLBACK'}, '*')" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-bold rounded-xl transition-all border border-slate-700">
+                Usar Visualizador Integrado Padrão
+              </button>
+            </div>
+          </div>
+        `;
+      }
+    }, 5500);
+  </script>
+</body>
+</html>

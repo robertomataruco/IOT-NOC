@@ -2,26 +2,31 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
+@layer base {
+  body {
+    @apply bg-zabbix-dark text-slate-200 antialiased;
+    font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   }
 }
 
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+.glass-panel {
+  @apply bg-zabbix-card/60 backdrop-blur-md border border-slate-700/50 shadow-xl;
+}
+
+@keyframes flowRight {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(300%); }
+}
+
+@keyframes flowLeft {
+  0% { transform: translateX(300%); }
+  100% { transform: translateX(-100%); }
+}
+
+.animate-flow-right {
+  animation: flowRight 2s linear infinite;
+}
+
+.animate-flow-left {
+  animation: flowLeft 2s linear infinite;
 }

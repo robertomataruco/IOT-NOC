@@ -1,0 +1,3434 @@
+DPC-DISTRIBUTED-SOLARCONTROLLERINFO-MIB DEFINITIONS ::= BEGIN
+
+IMPORTS
+    NOTIFICATION-TYPE, OBJECT-TYPE, MODULE-IDENTITY, 
+    enterprises, Counter32, Integer32
+        FROM SNMPv2-SMI
+    NOTIFICATION-GROUP
+        FROM SNMPv2-CONF
+    DisplayString
+        FROM SNMPv2-TC;
+
+dpc MODULE-IDENTITY
+    LAST-UPDATED "201904091851Z"
+    ORGANIZATION 
+        "Beijing Dynamic Power Shenzhen R&D(DPC)"
+    CONTACT-INFO 
+        "Beijing Dynamic Power Shenzhen R&D(DPC).
+              Postal: 518000
+              Shenzhen,China
+              web:  www.dpc.com.cn"
+    DESCRIPTION 
+        "dpcDistributedPower is 10 of dpc.
+         Branch overview:
+         acDistribution is the branch of dpcDistributedPower`s node,which branch will be 1.
+		 rectifier is the branch of dpcDistributedPower`s node,which branch will be 2.
+		 dcDistribution is the branch of dpcDistributedPower`s node,which branch will be 3.
+		 systemAlarm is the branch of dpcDistributedPower`s node,which branch will be 4. 
+		 solarController is the branch of dpcDistributedPower`s node,which branch will be 5.
+		 dcdcConverter is the branch of dpcDistributedPower`s node,which branch will be 6.
+        "
+
+    REVISION "201904091852Z"
+    DESCRIPTION 
+        "Version:V100
+         First revision.
+        
+        
+        Author Henry, Black"
+        
+        
+            
+::= { enterprises 39553 }
+    
+--
+-- Node definitions
+--
+---------------------------------------------------------------
+--  DPC Distribution Information{ DPC 10 }
+--------------------------------------------------------------- 
+    -- 1.3.6.1.4.1.39553.10
+    dpcDistributedPower OBJECT IDENTIFIER ::= { dpc 10 }
+
+---------------------------------------------------------------
+--  Solar controller Information{ dpcDistributedPower 5 }
+---------------------------------------------------------------         
+    -- 1.3.6.1.4.1.39553.10.5
+    solarController OBJECT IDENTIFIER ::= { dpcDistributedPower 5 }
+
+        -- 1.3.6.1.4.1.39553.10.5.1
+        information OBJECT IDENTIFIER ::= { solarController 1 }
+
+    totalSolarControllerNumber OBJECT-TYPE
+    SYNTAX Counter32
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION "
+        The total number of solar Controller."
+    ::= { information 1 }
+    
+------------------------------------------------------------
+-- solar controller information table { information 2 }
+------------------------------------------------------------
+
+solarInformationTable OBJECT-TYPE
+    SYNTAX SEQUENCE OF SolarInformationEntry
+    MAX-ACCESS not-accessible
+    STATUS current
+    DESCRIPTION "
+        Table holding analog about the currently solar controller."
+    ::= { information 2 }
+
+solarInformationEntry OBJECT-TYPE
+    SYNTAX SolarInformationEntry
+    MAX-ACCESS not-accessible
+    STATUS current
+    DESCRIPTION "
+        An entry (conceptual row) in the solarInformationTable."
+    INDEX { solarControllerIndex }
+    ::= { solarInformationTable 1 }     
+    
+SolarInformationEntry ::= SEQUENCE {
+    solarControllerIndex INTEGER,
+    outputVoltage INTEGER,
+    outputCurrent INTEGER,
+    outputCurrentLimit INTEGER,
+    outputSetVoltage INTEGER,
+    inputVoltage INTEGER,
+    ambientTemperature INTEGER,
+    secondaryHotTemperature INTEGER,
+    runTime INTEGER,
+    type INTEGER,
+    barcodeA INTEGER,
+    barcodeB INTEGER,
+    barcodeC INTEGER,
+    barcodeD INTEGER,
+    state INTEGER,
+    alarmStatus INTEGER,
+    lastYearEnergy INTEGER,
+    totalEnergy INTEGER,
+    januaryEnergy INTEGER,
+    februaryEnergy INTEGER,
+    marchEnergy INTEGER,
+    aprilEnergy INTEGER,
+    mayEnergy INTEGER,
+    juneEnergy INTEGER,
+    julyEnergy INTEGER,
+    aguestEnergy INTEGER,
+    septemberEnergy INTEGER,
+    octoberEnergy INTEGER,
+    novemberEnergy INTEGER,
+    decemberEnergy INTEGER,
+    inputCurrent INTEGER,
+    workMode INTEGER
+    }
+
+solarControllerIndex OBJECT-TYPE
+    SYNTAX INTEGER {
+        solarController1    (1),
+        solarController2    (2),
+        solarController3    (3),
+        solarController4    (4),
+        solarController5    (5),
+        solarController6    (6),
+        solarController7    (7),
+        solarController8    (8),
+        solarController9    (9),
+        solarController10   (10),
+        solarController11   (11),
+        solarController12   (12),
+        solarController13   (13),
+        solarController14   (14),
+        solarController15   (15),
+        solarController16   (16),
+        solarController17   (17),
+        solarController18   (18),
+        solarController19   (19),
+        solarController20   (20),
+        --solarController20 (20),
+        solarController21   (21),
+        solarController22   (22),
+        solarController23   (23),
+        solarController24   (24),
+        solarController25   (25),
+        solarController26   (26),
+        solarController27   (27),
+        solarController28   (28),
+        solarController29   (29),
+        solarController30   (30),
+        solarController31   (31),
+        solarController32   (32)
+    }
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION "
+        The unique sequence number of this solar controller.
+        solarController1    (1),
+        solarController2    (2),
+        solarController3    (3),
+        solarController4    (4),
+        solarController5    (5),
+        solarController6    (6),
+        solarController7    (7),
+        solarController8    (8),
+        solarController9    (9),
+        solarController10   (10),
+        solarController11   (11),
+        solarController12   (12),
+        solarController13   (13),
+        solarController14   (14),
+        solarController15   (15),
+        solarController16   (16),
+        solarController17   (17),
+        solarController18   (18),
+        solarController19   (19),
+        solarController20   (20),
+        solarController21   (21),
+        solarController22   (22),
+        solarController23   (23),
+        solarController24   (24),
+        solarController25   (25),
+        solarController26   (26),
+        solarController27   (27),
+        solarController28   (28),
+        solarController29   (29),
+        solarController30   (30),
+        solarController31   (31),
+        solarController32   (32),
+        "
+    ::= { solarInformationEntry 1 }
+    
+    outputVoltage OBJECT-TYPE
+    SYNTAX INTEGER
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION "
+        Output voltage.
+         The actual value = The receive data/100.
+         The unit of actual value is volt."
+    ::= { solarInformationEntry 2 }
+    
+    outputCurrent OBJECT-TYPE
+    SYNTAX INTEGER
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION "
+        Output current.
+         The actual value = The receive data/100.
+         The unit of actual value is amper."
+    ::= { solarInformationEntry 3 }
+    
+    outputCurrentLimit OBJECT-TYPE
+    SYNTAX INTEGER
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION "
+        Output current limit.
+         The actual value = The receive data/100.
+         The unit of actual value is amper."
+    ::= { solarInformationEntry 4 }
+    
+    outputSetVoltage OBJECT-TYPE
+    SYNTAX INTEGER
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION "
+        Output voltage setting.
+         The actual value = The receive data/100.
+         The unit of actual value is volt."
+    ::= { solarInformationEntry 5 }
+    
+    inputVoltage OBJECT-TYPE
+    SYNTAX INTEGER
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION "
+        Input voltage.
+         The actual value = The receive data/100.
+         The unit of actual value is volt."
+    ::= { solarInformationEntry 6 }
+    
+    ambientTemperature OBJECT-TYPE
+    SYNTAX INTEGER
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION "
+        Ambient temperature.
+         The actual value = The receive data/100.
+         The unit of actual value is degree."
+    ::= { solarInformationEntry 7 }
+    
+    secondaryHotTemperature OBJECT-TYPE
+    SYNTAX INTEGER
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION "
+        The secondary hot point temperature.
+         The actual value = The receive data/100.
+         The unit of actual value is degree."
+    ::= { solarInformationEntry 8 }
+    
+    runTime OBJECT-TYPE
+    SYNTAX INTEGER
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION "
+        The total run time of solar controller.
+         The actual value = The receive data/100.
+         The unit of actual value is hour."
+    ::= { solarInformationEntry 9 }
+    
+    type OBJECT-TYPE
+    SYNTAX INTEGER
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION "
+        The type of solar controller."
+    ::= { solarInformationEntry 11 }
+    
+    barcodeA OBJECT-TYPE
+    SYNTAX INTEGER
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION "
+        The barcode A of solar controller."
+    ::= { solarInformationEntry 12 }
+
+    barcodeB OBJECT-TYPE
+    SYNTAX INTEGER
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION "
+        The barcode B of solar controller."
+    ::= { solarInformationEntry 13 }
+    
+    barcodeC OBJECT-TYPE
+    SYNTAX INTEGER
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION "
+        The barcode C of solar controller."
+    ::= { solarInformationEntry 14 }
+    
+    barcodeD OBJECT-TYPE
+    SYNTAX INTEGER
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION "
+        The barcode D of solar controller."
+    ::= { solarInformationEntry 15 }
+    
+    state OBJECT-TYPE
+    SYNTAX INTEGER
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION "
+        The state of solar controller."
+    ::= { solarInformationEntry 16 }
+    
+    alarmStatus OBJECT-TYPE
+    SYNTAX INTEGER
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION "
+        The alarm status of solar controller.
+         Each bit mean a alarm,when corresponding bit is 1 indicate have an alarm,
+         corresponding bit is 0 indicate no alarm.
+         bit0:Primary Calibrate Fault;
+         bit1:Single No output;
+         bit2:Outside Circuit Short;
+         bit3:Lost;
+         bit4:No Position;
+         bit5:Output Over Current;
+         bit6:E2PROM Fault;
+         bit7:CAN Communication Fault;
+         bit8:Second Side Commmunication Fault;
+         bit9:Primary Side Commmunication Fault;
+         bit10:Fan Fault;
+         bit11:PFC Over voltage Protection;
+         bit12:PFC Under voltage Protection;
+         bit13:Input Under Voltage Protection;
+         bit14:Input Over Voltage Protection;
+         bit15:Internal Circuit Short;
+         bit16:Secondary Hot Point Over Temperature;
+         bit17:Ambient Over Temperature;
+         bit18:Outer Over Voltage Protection;
+         bit19:Internal Over Voltage Protection;
+         bit20:Security Code Error;
+         bit21:Security Code Error;
+         bit22-bit31:not used."
+    ::= { solarInformationEntry 17 }
+    
+    lastYearEnergy OBJECT-TYPE
+    SYNTAX INTEGER
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION "
+        Last year energy.
+         The actual value = The receive data/100.
+         The unit of actual value is KWh."
+    ::= { solarInformationEntry 18 }
+    
+    totalEnergy OBJECT-TYPE
+    SYNTAX INTEGER
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION "
+        Total energy.
+         The actual value = The receive data/100.
+         The unit of actual value is KWh."
+    ::= { solarInformationEntry 19 }
+    
+    januaryEnergy OBJECT-TYPE
+    SYNTAX INTEGER
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION "
+        January energy.
+         The actual value = The receive data/100.
+         The unit of actual value is KWh."
+    ::= { solarInformationEntry 20 }
+    
+    februaryEnergy OBJECT-TYPE
+    SYNTAX INTEGER
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION "
+        February energy.
+         The actual value = The receive data/100.
+         The unit of actual value is KWh."
+    ::= { solarInformationEntry 21 }
+    
+    marchEnergy OBJECT-TYPE
+    SYNTAX INTEGER
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION "
+        March  energy.
+         The actual value = The receive data/100.
+         The unit of actual value is KWh."
+    ::= { solarInformationEntry 22 }
+    
+    aprilEnergy OBJECT-TYPE
+    SYNTAX INTEGER
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION "
+        April energy.
+         The actual value = The receive data/100.
+         The unit of actual value is KWh."
+    ::= { solarInformationEntry 23 }
+    
+    mayEnergy OBJECT-TYPE
+    SYNTAX INTEGER
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION "
+        May energy.
+         The actual value = The receive data/100.
+         The unit of actual value is KWh."
+    ::= { solarInformationEntry 24 }
+    
+    juneEnergy OBJECT-TYPE
+    SYNTAX INTEGER
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION "
+        June energy.
+         The actual value = The receive data/100.
+         The unit of actual value is KWh."
+    ::= { solarInformationEntry 25 }
+    
+    julyEnergy OBJECT-TYPE
+    SYNTAX INTEGER
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION "
+        July energy.
+         The actual value = The receive data/100.
+         The unit of actual value is KWh."
+    ::= { solarInformationEntry 26 }
+    
+    aguestEnergy OBJECT-TYPE
+    SYNTAX INTEGER
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION "
+        Aguest energy.
+         The actual value = The receive data/100.
+         The unit of actual value is KWh."
+    ::= { solarInformationEntry 27 }
+    
+    septemberEnergy OBJECT-TYPE
+    SYNTAX INTEGER
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION "
+        September energy.
+         The actual value = The receive data/100.
+         The unit of actual value is KWh."
+    ::= { solarInformationEntry 28 }
+    
+    octoberEnergy OBJECT-TYPE
+    SYNTAX INTEGER
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION "
+        October energy.
+         The actual value = The receive data/100.
+         The unit of actual value is KWh."
+    ::= { solarInformationEntry 29 }
+    
+    novemberEnergy OBJECT-TYPE
+    SYNTAX INTEGER
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION "
+        November energy.
+         The actual value = The receive data/100.
+         The unit of actual value is KWh."
+    ::= { solarInformationEntry 30 }
+    
+    decemberEnergy OBJECT-TYPE
+    SYNTAX INTEGER
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION "
+        December energy.
+         The actual value = The receive data/100.
+         The unit of actual value is KWh."
+    ::= { solarInformationEntry 31 }
+    
+    inputCurrent OBJECT-TYPE
+    SYNTAX INTEGER
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION "
+        Input current.
+         The actual value = The receive data/100.
+         The unit of actual value is amper."
+    ::= { solarInformationEntry 32 }
+    
+    workMode OBJECT-TYPE
+    SYNTAX INTEGER{
+    notWorking(0),
+    mpptMode(1),
+    cvMode(2)
+    }
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION "
+        Work mode of solar controller.
+         0:not working.
+         1:MPPT mode.
+         2:CV mode.
+         "
+    ::= { solarInformationEntry 33 }
+    
+    totalEnergyOfAllSolarController OBJECT-TYPE
+    SYNTAX INTEGER
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION "
+        Total energy.
+         The actual value = The receive data/100.
+         The unit of actual value is KWh."
+    ::= { information 3 }
+
+    lastYearEnergyOfAllSolarController OBJECT-TYPE
+    SYNTAX INTEGER
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION "
+        Last year energy.
+         The actual value = The receive data/100.
+         The unit of actual value is KWh."
+    ::= { information 4 }
+    
+    januaryEnergyOfAllSolarController OBJECT-TYPE
+    SYNTAX INTEGER
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION "
+        January energy.
+         The actual value = The receive data/100.
+         The unit of actual value is KWh."
+    ::= { information 5 }
+    
+    februaryEnergyOfAllSolarController OBJECT-TYPE
+    SYNTAX INTEGER
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION "
+        February energy.
+         The actual value = The receive data/100.
+         The unit of actual value is KWh."
+    ::= { information 6 }
+    
+    marchEnergyOfAllSolarController OBJECT-TYPE
+    SYNTAX INTEGER
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION "
+        March  energy.
+         The actual value = The receive data/100.
+         The unit of actual value is KWh."
+    ::= { information 7 }
+    
+    aprilEnergyOfAllSolarController OBJECT-TYPE
+    SYNTAX INTEGER
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION "
+        April energy.
+         The actual value = The receive data/100.
+         The unit of actual value is KWh."
+    ::= { information 8 }
+    
+    mayEnergyOfAllSolarController OBJECT-TYPE
+    SYNTAX INTEGER
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION "
+        May energy.
+         The actual value = The receive data/100.
+         The unit of actual value is KWh."
+    ::= { information 9 }
+    
+    juneEnergyOfAllSolarController OBJECT-TYPE
+    SYNTAX INTEGER
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION "
+        June energy.
+         The actual value = The receive data/100.
+         The unit of actual value is KWh."
+    ::= { information 10 }
+    
+    julyEnergyOfAllSolarController OBJECT-TYPE
+    SYNTAX INTEGER
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION "
+        July energy.
+         The actual value = The receive data/100.
+         The unit of actual value is KWh."
+    ::= { information 11 }
+    
+    aguestEnergyOfAllSolarController OBJECT-TYPE
+    SYNTAX INTEGER
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION "
+        Aguest energy.
+         The actual value = The receive data/100.
+         The unit of actual value is KWh."
+    ::= { information 12 }
+    
+    septemberEnergyOfAllSolarController OBJECT-TYPE
+    SYNTAX INTEGER
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION "
+        September energy.
+         The actual value = The receive data/100.
+         The unit of actual value is KWh."
+    ::= { information 13 }
+    
+    octoberEnergyOfAllSolarController OBJECT-TYPE
+    SYNTAX INTEGER
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION "
+        October energy.
+         The actual value = The receive data/100.
+         The unit of actual value is KWh."
+    ::= { information 14 }
+    
+    novemberEnergyOfAllSolarController OBJECT-TYPE
+    SYNTAX INTEGER
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION "
+        November energy.
+         The actual value = The receive data/100.
+         The unit of actual value is KWh."
+    ::= { information 15 }
+    
+    decemberEnergyOfAllSolarController OBJECT-TYPE
+    SYNTAX INTEGER
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION "
+        December energy.
+         The actual value = The receive data/100.
+         The unit of actual value is KWh."
+    ::= { information 16 }
+    
+        -- 1.3.6.1.4.1.39553.10.5.2
+        solarControllerAlarmSetting OBJECT IDENTIFIER ::= { solarController 2 }
+
+  -- 1.3.6.1.4.1.39553.10.2.7.101
+    solarControllerPrimaryCalibrateFaultLevel OBJECT-TYPE
+    SYNTAX INTEGER{
+        minor (0),
+        major (1),
+        critical (2)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The level of solar controller primary calibrate fault alarm."
+    ::= { solarControllerAlarmSetting 101 }
+  -- 1.3.6.1.4.1.39553.10.2.7.102
+    solarControllerSingleNoOutputLevel OBJECT-TYPE
+    SYNTAX INTEGER{
+        minor (0),
+        major (1),
+        critical (2)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The level of solar controller single no output alarm."
+    ::= { solarControllerAlarmSetting 102 }
+  -- 1.3.6.1.4.1.39553.10.2.7.103
+    solarControllerOutsideCircuitShortLevel OBJECT-TYPE
+    SYNTAX INTEGER{
+        minor (0),
+        major (1),
+        critical (2)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The level of solar controller outside  circuit short alarm."
+    ::= { solarControllerAlarmSetting 103 }
+  -- 1.3.6.1.4.1.39553.10.2.7.104
+    solarControllerLostLevel OBJECT-TYPE
+    SYNTAX INTEGER{
+        minor (0),
+        major (1),
+        critical (2)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The level of solar controller lost alarm."
+    ::= { solarControllerAlarmSetting 104 }
+  -- 1.3.6.1.4.1.39553.10.2.7.105
+    solarControllerNoPositionLevel OBJECT-TYPE
+    SYNTAX INTEGER{
+        minor (0),
+        major (1),
+        critical (2)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The level of solar controller no position alarm."
+    ::= { solarControllerAlarmSetting 105 }
+  -- 1.3.6.1.4.1.39553.10.2.7.106
+    solarControllerOutputOverCurrentLevel OBJECT-TYPE
+    SYNTAX INTEGER{
+        minor (0),
+        major (1),
+        critical (2)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The level of solar controller output over current alarm."
+    ::= { solarControllerAlarmSetting 106 }
+  -- 1.3.6.1.4.1.39553.10.2.7.107
+    solarControllerE2PROMFaultLevel OBJECT-TYPE
+    SYNTAX INTEGER{
+        minor (0),
+        major (1),
+        critical (2)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The level of solar controller e2prom fault alarm."
+    ::= { solarControllerAlarmSetting 107 }
+  -- 1.3.6.1.4.1.39553.10.2.7.108
+    solarControllerCANCommunicationFaultLevel OBJECT-TYPE
+    SYNTAX INTEGER{
+        minor (0),
+        major (1),
+        critical (2)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The level of solar controller can communication fault alarm."
+    ::= { solarControllerAlarmSetting 108 }
+  -- 1.3.6.1.4.1.39553.10.2.7.109
+    solarControllerSecondSideCommmunicationFaultLevel OBJECT-TYPE
+    SYNTAX INTEGER{
+        minor (0),
+        major (1),
+        critical (2)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The level of solar controller second side commmunication fault alarm."
+    ::= { solarControllerAlarmSetting 109 }
+  -- 1.3.6.1.4.1.39553.10.2.7.110
+    solarControllerPrimarySideCommmunicationFaultLevel OBJECT-TYPE
+    SYNTAX INTEGER{
+        minor (0),
+        major (1),
+        critical (2)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The level of solar controller primary side commmunication fault alarm."
+    ::= { solarControllerAlarmSetting 110 }
+  -- 1.3.6.1.4.1.39553.10.2.7.111
+    solarControllerFanFaultLevel OBJECT-TYPE
+    SYNTAX INTEGER{
+        minor (0),
+        major (1),
+        critical (2)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The level of solar controller fan fault alarm."
+    ::= { solarControllerAlarmSetting 111 }
+  -- 1.3.6.1.4.1.39553.10.2.7.112
+    solarControllerPFCOvervoltageProtectionLevel OBJECT-TYPE
+    SYNTAX INTEGER{
+        minor (0),
+        major (1),
+        critical (2)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The level of solar controller pfc over voltage protection alarm."
+    ::= { solarControllerAlarmSetting 112 }
+  -- 1.3.6.1.4.1.39553.10.2.7.113
+    solarControllerPFCUndervoltageProtectionLevel OBJECT-TYPE
+    SYNTAX INTEGER{
+        minor (0),
+        major (1),
+        critical (2)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The level of solar controller pfc under voltage protection alarm."
+    ::= { solarControllerAlarmSetting 113 }
+  -- 1.3.6.1.4.1.39553.10.2.7.114
+    solarControllerInputUnderVoltageProtectionLevel OBJECT-TYPE
+    SYNTAX INTEGER{
+        minor (0),
+        major (1),
+        critical (2)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The level of solar controller input under voltage protection alarm."
+    ::= { solarControllerAlarmSetting 114 }
+  -- 1.3.6.1.4.1.39553.10.2.7.115
+    solarControllerInputOverVoltageProtectionLevel OBJECT-TYPE
+    SYNTAX INTEGER{
+        minor (0),
+        major (1),
+        critical (2)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The level of solar controller input over voltage protection alarm."
+    ::= { solarControllerAlarmSetting 115 }
+  -- 1.3.6.1.4.1.39553.10.2.7.116
+    solarControllerInternalCircuitShortLevel OBJECT-TYPE
+    SYNTAX INTEGER{
+        minor (0),
+        major (1),
+        critical (2)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The level of solar controller internal circuit short alarm."
+    ::= { solarControllerAlarmSetting 116 }
+  -- 1.3.6.1.4.1.39553.10.2.7.117
+    solarControllerSecondaryHotPointOverTemperatureLevel OBJECT-TYPE
+    SYNTAX INTEGER{
+        minor (0),
+        major (1),
+        critical (2)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The level of solar controller secondary hot point over temperature alarm."
+    ::= { solarControllerAlarmSetting 117 }
+  -- 1.3.6.1.4.1.39553.10.2.7.118
+    solarControllerAmbientOverTemperatureLevel OBJECT-TYPE
+    SYNTAX INTEGER{
+        minor (0),
+        major (1),
+        critical (2)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The level of solar controller ambient over temperature alarm."
+    ::= { solarControllerAlarmSetting 118 }
+  -- 1.3.6.1.4.1.39553.10.2.7.119
+    solarControllerOuterOverVoltageProtectionLevel OBJECT-TYPE
+    SYNTAX INTEGER{
+        minor (0),
+        major (1),
+        critical (2)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The level of solar controller outer over voltage protection alarm."
+    ::= { solarControllerAlarmSetting 119 }
+  -- 1.3.6.1.4.1.39553.10.2.7.120
+    solarControllerInternalOverVoltageProtectionLevel OBJECT-TYPE
+    SYNTAX INTEGER{
+        minor (0),
+        major (1),
+        critical (2)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The level of solar controller internal over voltage protection alarm."
+    ::= { solarControllerAlarmSetting 120 }
+    -- 1.3.6.1.4.1.39553.10.2.7.121
+    solarControllerSecurityCodeErrorLevel OBJECT-TYPE
+    SYNTAX INTEGER{
+        minor (0),
+        major (1),
+        critical (2)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The level of solar controller security code error alarm."
+    ::= { solarControllerAlarmSetting 121 }
+    -- 1.3.6.1.4.1.39553.10.2.7.122
+    solarControllerPVPowerLackLevel OBJECT-TYPE
+    SYNTAX INTEGER{
+        minor (0),
+        major (1),
+        critical (2)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The level of solar controller PV power lack alarm."
+    ::= { solarControllerAlarmSetting 122 }
+    -- 1.3.6.1.4.1.39553.10.2.7.123
+    solarControllerPVLoopFaultLevel OBJECT-TYPE
+    SYNTAX INTEGER{
+        minor (0),
+        major (1),
+        critical (2)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The level of solar controller PV loop fault alarm."
+    ::= { solarControllerAlarmSetting 123 }
+    -- 1.3.6.1.4.1.39553.10.2.7.149
+    solarControllerSingleFaultLevel OBJECT-TYPE
+    SYNTAX INTEGER{
+        minor (0),
+        major (1),
+        critical (2)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The level of single solar controller alarm."
+    ::= { solarControllerAlarmSetting 149 }
+  -- 1.3.6.1.4.1.39553.10.2.7.150
+    solarControllerMutipleFaultLevel OBJECT-TYPE
+    SYNTAX INTEGER{
+        minor (0),
+        major (1),
+        critical (2)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The level of multiple solar controller alarm."
+    ::= { solarControllerAlarmSetting 150 }
+    
+  -- 1.3.6.1.4.1.39553.10.2.7.201
+    solarControllerPrimaryCalibrateFaultValid OBJECT-TYPE
+    SYNTAX INTEGER{
+        disable (0),
+        enable (1)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The validty of solar controller primary calibrate fault alarm."
+    ::= { solarControllerAlarmSetting 201 }
+  -- 1.3.6.1.4.1.39553.10.2.7.202
+    solarControllerSingleNoOutputValid OBJECT-TYPE
+    SYNTAX INTEGER{
+        disable (0),
+        enable (1)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The validty of solar controller single no output alarm."
+    ::= { solarControllerAlarmSetting 202 }
+  -- 1.3.6.1.4.1.39553.10.2.7.203
+    solarControllerOutsideCircuitShortValid OBJECT-TYPE
+    SYNTAX INTEGER{
+        disable (0),
+        enable (1)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The validty of solar controller outside  circuit short alarm."
+    ::= { solarControllerAlarmSetting 203 }
+  -- 1.3.6.1.4.1.39553.10.2.7.204
+    solarControllerLostValid OBJECT-TYPE
+    SYNTAX INTEGER{
+        disable (0),
+        enable (1)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The validty of solar controller lost alarm."
+    ::= { solarControllerAlarmSetting 204 }
+  -- 1.3.6.1.4.1.39553.10.2.7.205
+    solarControllerNoPositionValid OBJECT-TYPE
+    SYNTAX INTEGER{
+        disable (0),
+        enable (1)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The validty of solar controller no position alarm."
+    ::= { solarControllerAlarmSetting 205 }
+  -- 1.3.6.1.4.1.39553.10.2.7.206
+    solarControllerOutputOverCurrentValid OBJECT-TYPE
+    SYNTAX INTEGER{
+        disable (0),
+        enable (1)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The validty of solar controller output over current alarm."
+    ::= { solarControllerAlarmSetting 206 }
+  -- 1.3.6.1.4.1.39553.10.2.7.207
+    solarControllerE2PROMFaultValid OBJECT-TYPE
+    SYNTAX INTEGER{
+        disable (0),
+        enable (1)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The validty of solar controller e2prom fault alarm."
+    ::= { solarControllerAlarmSetting 207 }
+  -- 1.3.6.1.4.1.39553.10.2.7.208
+    solarControllerCANCommunicationFaultValid OBJECT-TYPE
+    SYNTAX INTEGER{
+        disable (0),
+        enable (1)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The validty of solar controller can communication fault alarm."
+    ::= { solarControllerAlarmSetting 208 }
+  -- 1.3.6.1.4.1.39553.10.2.7.209
+    solarControllerSecondSideCommmunicationFaultValid OBJECT-TYPE
+    SYNTAX INTEGER{
+        disable (0),
+        enable (1)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The validty of solar controller second side commmunication fault alarm."
+    ::= { solarControllerAlarmSetting 209 }
+  -- 1.3.6.1.4.1.39553.10.2.7.210
+    solarControllerPrimarySideCommmunicationFaultValid OBJECT-TYPE
+    SYNTAX INTEGER{
+        disable (0),
+        enable (1)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The validty of solar controller primary side commmunication fault alarm."
+    ::= { solarControllerAlarmSetting 210 }
+  -- 1.3.6.1.4.1.39553.10.2.7.211
+    solarControllerFanFaultValid OBJECT-TYPE
+    SYNTAX INTEGER{
+        disable (0),
+        enable (1)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The validty of solar controller fan fault alarm."
+    ::= { solarControllerAlarmSetting 211 }
+  -- 1.3.6.1.4.1.39553.10.2.7.212
+    solarControllerPFCOvervoltageProtectionValid OBJECT-TYPE
+    SYNTAX INTEGER{
+        disable (0),
+        enable (1)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The validty of solar controller pfc over voltage protection alarm."
+    ::= { solarControllerAlarmSetting 212 }
+  -- 1.3.6.1.4.1.39553.10.2.7.213
+    solarControllerPFCUndervoltageProtectionValid OBJECT-TYPE
+    SYNTAX INTEGER{
+        disable (0),
+        enable (1)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The validty of solar controller pfc under voltage protection alarm."
+    ::= { solarControllerAlarmSetting 213 }
+  -- 1.3.6.1.4.1.39553.10.2.7.214
+    solarControllerInputUnderVoltageProtectionValid OBJECT-TYPE
+    SYNTAX INTEGER{
+        disable (0),
+        enable (1)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The validty of solar controller input under voltage protection alarm."
+    ::= { solarControllerAlarmSetting 214 }
+  -- 1.3.6.1.4.1.39553.10.2.7.215
+    solarControllerInputOverVoltageProtectionValid OBJECT-TYPE
+    SYNTAX INTEGER{
+        disable (0),
+        enable (1)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The validty of solar controller input over voltage protection alarm."
+    ::= { solarControllerAlarmSetting 215 }
+  -- 1.3.6.1.4.1.39553.10.2.7.216
+    solarControllerInternalCircuitShortValid OBJECT-TYPE
+    SYNTAX INTEGER{
+        disable (0),
+        enable (1)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The validty of solar controller internal circuit short alarm."
+    ::= { solarControllerAlarmSetting 216 }
+  -- 1.3.6.1.4.1.39553.10.2.7.217
+    solarControllerSecondaryHotPointOverTemperatureValid OBJECT-TYPE
+    SYNTAX INTEGER{
+        disable (0),
+        enable (1)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The validty of solar controller secondary hot point over temperature alarm."
+    ::= { solarControllerAlarmSetting 217 }
+  -- 1.3.6.1.4.1.39553.10.2.7.218
+    solarControllerAmbientOverTemperatureValid OBJECT-TYPE
+    SYNTAX INTEGER{
+        disable (0),
+        enable (1)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The validty of solar controller ambient over temperature alarm."
+    ::= { solarControllerAlarmSetting 218 }
+  -- 1.3.6.1.4.1.39553.10.2.7.219
+    solarControllerOuterOverVoltageProtectionValid OBJECT-TYPE
+    SYNTAX INTEGER{
+        disable (0),
+        enable (1)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The validty of solar controller outer over voltage protection alarm."
+    ::= { solarControllerAlarmSetting 219 }
+  -- 1.3.6.1.4.1.39553.10.2.7.220
+    solarControllerInternalOverVoltageProtectionValid OBJECT-TYPE
+    SYNTAX INTEGER{
+        disable (0),
+        enable (1)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The validty of solar controller internal over voltage protection alarm."
+    ::= { solarControllerAlarmSetting 220 }
+    -- 1.3.6.1.4.1.39553.10.2.7.221
+    solarControllerSecurityCodeErrorValid OBJECT-TYPE
+    SYNTAX INTEGER{
+        disable (0),
+        enable (1)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The validty of solar controller security code error alarm."
+    ::= { solarControllerAlarmSetting 221 }
+    -- 1.3.6.1.4.1.39553.10.2.7.222
+    solarControllerPVPowerLackValid OBJECT-TYPE
+    SYNTAX INTEGER{
+        disable (0),
+        enable (1)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The validty of solar controller PV power lack alarm."
+    ::= { solarControllerAlarmSetting 222 }
+    -- 1.3.6.1.4.1.39553.10.2.7.223
+    solarControllerPVLoopFaultValid OBJECT-TYPE
+    SYNTAX INTEGER{
+        disable (0),
+        enable (1)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The validty of solar controller PV loop fault alarm."
+    ::= { solarControllerAlarmSetting 223 }
+    -- 1.3.6.1.4.1.39553.10.2.7.249
+    solarControllerSingleFaultValid OBJECT-TYPE
+    SYNTAX INTEGER{
+        disable (0),
+        enable (1)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The validty of single solar controller alarm."
+    ::= { solarControllerAlarmSetting 249 }
+  -- 1.3.6.1.4.1.39553.10.2.7.250
+    solarControllerMutipleFaultValid OBJECT-TYPE
+    SYNTAX INTEGER{
+        disable (0),
+        enable (1)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The validty of multiple solar controller alarm."
+    ::= { solarControllerAlarmSetting 250 }
+    
+  -- 1.3.6.1.4.1.39553.10.2.7.301
+    solarControllerPrimaryCalibrateFaultSound OBJECT-TYPE
+    SYNTAX INTEGER{
+        disable (0),
+        enable (1)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The sound of solar controller primary calibrate fault alarm."
+    ::= { solarControllerAlarmSetting 301 }
+  -- 1.3.6.1.4.1.39553.10.2.7.302
+    solarControllerSingleNoOutputSound OBJECT-TYPE
+    SYNTAX INTEGER{
+        disable (0),
+        enable (1)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The sound of solar controller single no output alarm."
+    ::= { solarControllerAlarmSetting 302 }
+  -- 1.3.6.1.4.1.39553.10.2.7.303
+    solarControllerOutsideCircuitShortSound OBJECT-TYPE
+    SYNTAX INTEGER{
+        disable (0),
+        enable (1)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The sound of solar controller outside  circuit short alarm."
+    ::= { solarControllerAlarmSetting 303 }
+  -- 1.3.6.1.4.1.39553.10.2.7.304
+    solarControllerLostSound OBJECT-TYPE
+    SYNTAX INTEGER{
+        disable (0),
+        enable (1)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The sound of solar controller lost alarm."
+    ::= { solarControllerAlarmSetting 304 }
+  -- 1.3.6.1.4.1.39553.10.2.7.305
+    solarControllerNoPositionSound OBJECT-TYPE
+    SYNTAX INTEGER{
+        disable (0),
+        enable (1)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The sound of solar controller no position alarm."
+    ::= { solarControllerAlarmSetting 305 }
+  -- 1.3.6.1.4.1.39553.10.2.7.306
+    solarControllerOutputOverCurrentSound OBJECT-TYPE
+    SYNTAX INTEGER{
+        disable (0),
+        enable (1)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The sound of solar controller output over current alarm."
+    ::= { solarControllerAlarmSetting 306 }
+  -- 1.3.6.1.4.1.39553.10.2.7.307
+    solarControllerE2PROMFaultSound OBJECT-TYPE
+    SYNTAX INTEGER{
+        disable (0),
+        enable (1)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The sound of solar controller e2prom fault alarm."
+    ::= { solarControllerAlarmSetting 307 }
+  -- 1.3.6.1.4.1.39553.10.2.7.308
+    solarControllerCANCommunicationFaultSound OBJECT-TYPE
+    SYNTAX INTEGER{
+        disable (0),
+        enable (1)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The sound of solar controller can communication fault alarm."
+    ::= { solarControllerAlarmSetting 308 }
+  -- 1.3.6.1.4.1.39553.10.2.7.309
+    solarControllerSecondSideCommmunicationFaultSound OBJECT-TYPE
+    SYNTAX INTEGER{
+        disable (0),
+        enable (1)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The sound of solar controller second side commmunication fault alarm."
+    ::= { solarControllerAlarmSetting 309 }
+  -- 1.3.6.1.4.1.39553.10.2.7.310
+    solarControllerPrimarySideCommmunicationFaultSound OBJECT-TYPE
+    SYNTAX INTEGER{
+        disable (0),
+        enable (1)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The sound of solar controller primary side commmunication fault alarm."
+    ::= { solarControllerAlarmSetting 310 }
+  -- 1.3.6.1.4.1.39553.10.2.7.311
+    solarControllerFanFaultSound OBJECT-TYPE
+    SYNTAX INTEGER{
+        disable (0),
+        enable (1)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The sound of solar controller fan fault alarm."
+    ::= { solarControllerAlarmSetting 311 }
+  -- 1.3.6.1.4.1.39553.10.2.7.312
+    solarControllerPFCOvervoltageProtectionSound OBJECT-TYPE
+    SYNTAX INTEGER{
+        disable (0),
+        enable (1)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The sound of solar controller pfc over voltage protection alarm."
+    ::= { solarControllerAlarmSetting 312 }
+  -- 1.3.6.1.4.1.39553.10.2.7.313
+    solarControllerPFCUndervoltageProtectionSound OBJECT-TYPE
+    SYNTAX INTEGER{
+        disable (0),
+        enable (1)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The sound of solar controller pfc under voltage protection alarm."
+    ::= { solarControllerAlarmSetting 313 }
+  -- 1.3.6.1.4.1.39553.10.2.7.314
+    solarControllerInputUnderVoltageProtectionSound OBJECT-TYPE
+    SYNTAX INTEGER{
+        disable (0),
+        enable (1)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The sound of solar controller input under voltage protection alarm."
+    ::= { solarControllerAlarmSetting 314 }
+  -- 1.3.6.1.4.1.39553.10.2.7.315
+    solarControllerInputOverVoltageProtectionSound OBJECT-TYPE
+    SYNTAX INTEGER{
+        disable(0),
+        enable(1)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The sound of solar controller input over voltage protection alarm."
+    ::= { solarControllerAlarmSetting 315 }
+  -- 1.3.6.1.4.1.39553.10.2.7.316
+    solarControllerInternalCircuitShortSound OBJECT-TYPE
+    SYNTAX INTEGER{
+        disable (0),
+        enable (1)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The sound of solar controller internal circuit short alarm."
+    ::= { solarControllerAlarmSetting 316 }
+  -- 1.3.6.1.4.1.39553.10.2.7.317
+    solarControllerSecondaryHotPointOverTemperatureSound OBJECT-TYPE
+    SYNTAX INTEGER{
+        disable (0),
+        enable (1)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The sound of solar controller secondary hot point over temperature alarm."
+    ::= { solarControllerAlarmSetting 317 }
+  -- 1.3.6.1.4.1.39553.10.2.7.318
+    solarControllerAmbientOverTemperatureSound OBJECT-TYPE
+    SYNTAX INTEGER{
+        disable (0),
+        enable (1)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The sound of solar controller ambient over temperature alarm."
+    ::= { solarControllerAlarmSetting 318 }
+  -- 1.3.6.1.4.1.39553.10.2.7.319
+    solarControllerOuterOverVoltageProtectionSound OBJECT-TYPE
+    SYNTAX INTEGER{
+        disable (0),
+        enable (1)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The sound of solar controller outer over voltage protection alarm."
+    ::= { solarControllerAlarmSetting 319 }
+  -- 1.3.6.1.4.1.39553.10.2.7.320
+    solarControllerInternalOverVoltageProtectionSound OBJECT-TYPE
+    SYNTAX INTEGER{
+        disable (0),
+        enable (1)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The sound of solar controller internal over voltage protection alarm."
+    ::= { solarControllerAlarmSetting 320 }
+    -- 1.3.6.1.4.1.39553.10.2.7.321
+    solarControllerSecurityCodeErrorSound OBJECT-TYPE
+    SYNTAX INTEGER{
+        disable (0),
+        enable (1)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The sound of solar controller security code error alarm."
+    ::= { solarControllerAlarmSetting 321 }
+    -- 1.3.6.1.4.1.39553.10.2.7.322
+    solarControllerPVPowerLackSound OBJECT-TYPE
+    SYNTAX INTEGER{
+        disable (0),
+        enable (1)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The sound of solar controller PV power lack alarm."
+    ::= { solarControllerAlarmSetting 322 }
+    -- 1.3.6.1.4.1.39553.10.2.7.323
+    solarControllerPVLoopFaultSound OBJECT-TYPE
+    SYNTAX INTEGER{
+        disable (0),
+        enable (1)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The sound of solar controller PV loop fault alarm."
+    ::= { solarControllerAlarmSetting 323 }
+    -- 1.3.6.1.4.1.39553.10.2.7.349
+    solarControllerSingleFaultSound OBJECT-TYPE
+    SYNTAX INTEGER{
+        disable (0),
+        enable (1)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The sound of single solar controller alarm."
+    ::= { solarControllerAlarmSetting 349 }
+  -- 1.3.6.1.4.1.39553.10.2.7.350
+    solarControllerMutipleFaultSound OBJECT-TYPE
+    SYNTAX INTEGER{
+        disable (0),
+        enable (1)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The sound of multiple solar controller alarm."
+    ::= { solarControllerAlarmSetting 350 }
+    
+  -- 1.3.6.1.4.1.39553.10.2.7.401
+    solarControllerPrimaryCalibrateFaultRelay OBJECT-TYPE
+    SYNTAX INTEGER{
+        relay1 (0),
+        relay2 (1),
+        relay3 (2),
+        relay4 (3),
+        relay5 (4),
+        relay6 (5),
+        relay7 (6),
+        relay8 (7),
+        relay9 (8),
+        relay10 (9),
+        relay11 (10),
+        relay12 (11),
+        relay13 (12),
+        relay14 (13),
+        relay15 (14),
+        relay16 (15)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The relay of solar controller primary calibrate fault alarm."
+    ::= { solarControllerAlarmSetting 401 }
+  -- 1.3.6.1.4.1.39553.10.2.7.402
+    solarControllerSingleNoOutputRelay OBJECT-TYPE
+    SYNTAX INTEGER{
+        relay1 (0),
+        relay2 (1),
+        relay3 (2),
+        relay4 (3),
+        relay5 (4),
+        relay6 (5),
+        relay7 (6),
+        relay8 (7),
+        relay9 (8),
+        relay10 (9),
+        relay11 (10),
+        relay12 (11),
+        relay13 (12),
+        relay14 (13),
+        relay15 (14),
+        relay16 (15)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The relay of solar controller single no output alarm."
+    ::= { solarControllerAlarmSetting 402 }
+  -- 1.3.6.1.4.1.39553.10.2.7.403
+    solarControllerOutsideCircuitShortRelay OBJECT-TYPE
+    SYNTAX INTEGER{
+        relay1 (0),
+        relay2 (1),
+        relay3 (2),
+        relay4 (3),
+        relay5 (4),
+        relay6 (5),
+        relay7 (6),
+        relay8 (7),
+        relay9 (8),
+        relay10 (9),
+        relay11 (10),
+        relay12 (11),
+        relay13 (12),
+        relay14 (13),
+        relay15 (14),
+        relay16 (15)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The relay of solar controller outside  circuit short alarm."
+    ::= { solarControllerAlarmSetting 403 }
+  -- 1.3.6.1.4.1.39553.10.2.7.404
+    solarControllerLostRelay OBJECT-TYPE
+    SYNTAX INTEGER{
+        relay1 (0),
+        relay2 (1),
+        relay3 (2),
+        relay4 (3),
+        relay5 (4),
+        relay6 (5),
+        relay7 (6),
+        relay8 (7),
+        relay9 (8),
+        relay10 (9),
+        relay11 (10),
+        relay12 (11),
+        relay13 (12),
+        relay14 (13),
+        relay15 (14),
+        relay16 (15)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The relay of solar controller lost alarm."
+    ::= { solarControllerAlarmSetting 404 }
+  -- 1.3.6.1.4.1.39553.10.2.7.405
+    solarControllerNoPositionRelay OBJECT-TYPE
+    SYNTAX INTEGER{
+        relay1 (0),
+        relay2 (1),
+        relay3 (2),
+        relay4 (3),
+        relay5 (4),
+        relay6 (5),
+        relay7 (6),
+        relay8 (7),
+        relay9 (8),
+        relay10 (9),
+        relay11 (10),
+        relay12 (11),
+        relay13 (12),
+        relay14 (13),
+        relay15 (14),
+        relay16 (15)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The relay of solar controller no position alarm."
+    ::= { solarControllerAlarmSetting 405 }
+  -- 1.3.6.1.4.1.39553.10.2.7.406
+    solarControllerOutputOverCurrentRelay OBJECT-TYPE
+    SYNTAX INTEGER{
+        relay1 (0),
+        relay2 (1),
+        relay3 (2),
+        relay4 (3),
+        relay5 (4),
+        relay6 (5),
+        relay7 (6),
+        relay8 (7),
+        relay9 (8),
+        relay10 (9),
+        relay11 (10),
+        relay12 (11),
+        relay13 (12),
+        relay14 (13),
+        relay15 (14),
+        relay16 (15)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The relay of solar controller output over current alarm."
+    ::= { solarControllerAlarmSetting 406 }
+  -- 1.3.6.1.4.1.39553.10.2.7.407
+    solarControllerE2PROMFaultRelay OBJECT-TYPE
+    SYNTAX INTEGER{
+        relay1 (0),
+        relay2 (1),
+        relay3 (2),
+        relay4 (3),
+        relay5 (4),
+        relay6 (5),
+        relay7 (6),
+        relay8 (7),
+        relay9 (8),
+        relay10 (9),
+        relay11 (10),
+        relay12 (11),
+        relay13 (12),
+        relay14 (13),
+        relay15 (14),
+        relay16 (15)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The relay of solar controller e2prom fault alarm."
+    ::= { solarControllerAlarmSetting 407 }
+  -- 1.3.6.1.4.1.39553.10.2.7.408
+    solarControllerCANCommunicationFaultRelay OBJECT-TYPE
+    SYNTAX INTEGER{
+        relay1 (0),
+        relay2 (1),
+        relay3 (2),
+        relay4 (3),
+        relay5 (4),
+        relay6 (5),
+        relay7 (6),
+        relay8 (7),
+        relay9 (8),
+        relay10 (9),
+        relay11 (10),
+        relay12 (11),
+        relay13 (12),
+        relay14 (13),
+        relay15 (14),
+        relay16 (15)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The relay of solar controller can communication fault alarm."
+    ::= { solarControllerAlarmSetting 408 }
+  -- 1.3.6.1.4.1.39553.10.2.7.409
+    solarControllerSecondSideCommmunicationFaultRelay OBJECT-TYPE
+    SYNTAX INTEGER{
+        relay1 (0),
+        relay2 (1),
+        relay3 (2),
+        relay4 (3),
+        relay5 (4),
+        relay6 (5),
+        relay7 (6),
+        relay8 (7),
+        relay9 (8),
+        relay10 (9),
+        relay11 (10),
+        relay12 (11),
+        relay13 (12),
+        relay14 (13),
+        relay15 (14),
+        relay16 (15)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The relay of solar controller second side commmunication fault alarm."
+    ::= { solarControllerAlarmSetting 409 }
+  -- 1.3.6.1.4.1.39553.10.2.7.410
+    solarControllerPrimarySideCommmunicationFaultRelay OBJECT-TYPE
+    SYNTAX INTEGER{
+        relay1 (0),
+        relay2 (1),
+        relay3 (2),
+        relay4 (3),
+        relay5 (4),
+        relay6 (5),
+        relay7 (6),
+        relay8 (7),
+        relay9 (8),
+        relay10 (9),
+        relay11 (10),
+        relay12 (11),
+        relay13 (12),
+        relay14 (13),
+        relay15 (14),
+        relay16 (15)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The relay of solar controller primary side commmunication fault alarm."
+    ::= { solarControllerAlarmSetting 410 }
+  -- 1.3.6.1.4.1.39553.10.2.7.411
+    solarControllerFanFaultRelay OBJECT-TYPE
+    SYNTAX INTEGER{
+        relay1 (0),
+        relay2 (1),
+        relay3 (2),
+        relay4 (3),
+        relay5 (4),
+        relay6 (5),
+        relay7 (6),
+        relay8 (7),
+        relay9 (8),
+        relay10 (9),
+        relay11 (10),
+        relay12 (11),
+        relay13 (12),
+        relay14 (13),
+        relay15 (14),
+        relay16 (15)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The relay of solar controller fan fault alarm."
+    ::= { solarControllerAlarmSetting 411 }
+  -- 1.3.6.1.4.1.39553.10.2.7.412
+    solarControllerPFCOvervoltageProtectionRelay OBJECT-TYPE
+    SYNTAX INTEGER{
+        relay1 (0),
+        relay2 (1),
+        relay3 (2),
+        relay4 (3),
+        relay5 (4),
+        relay6 (5),
+        relay7 (6),
+        relay8 (7),
+        relay9 (8),
+        relay10 (9),
+        relay11 (10),
+        relay12 (11),
+        relay13 (12),
+        relay14 (13),
+        relay15 (14),
+        relay16 (15)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The relay of solar controller pfc over voltage protection alarm."
+    ::= { solarControllerAlarmSetting 412 }
+  -- 1.3.6.1.4.1.39553.10.2.7.413
+    solarControllerPFCUndervoltageProtectionRelay OBJECT-TYPE
+    SYNTAX INTEGER{
+        relay1 (0),
+        relay2 (1),
+        relay3 (2),
+        relay4 (3),
+        relay5 (4),
+        relay6 (5),
+        relay7 (6),
+        relay8 (7),
+        relay9 (8),
+        relay10 (9),
+        relay11 (10),
+        relay12 (11),
+        relay13 (12),
+        relay14 (13),
+        relay15 (14),
+        relay16 (15)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The relay of solar controller pfc under voltage protection alarm."
+    ::= { solarControllerAlarmSetting 413 }
+  -- 1.3.6.1.4.1.39553.10.2.7.414
+    solarControllerInputUnderVoltageProtectionRelay OBJECT-TYPE
+    SYNTAX INTEGER{
+        relay1 (0),
+        relay2 (1),
+        relay3 (2),
+        relay4 (3),
+        relay5 (4),
+        relay6 (5),
+        relay7 (6),
+        relay8 (7),
+        relay9 (8),
+        relay10 (9),
+        relay11 (10),
+        relay12 (11),
+        relay13 (12),
+        relay14 (13),
+        relay15 (14),
+        relay16 (15)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The relay of solar controller input under voltage protection alarm."
+    ::= { solarControllerAlarmSetting 414 }
+  -- 1.3.6.1.4.1.39553.10.2.7.415
+    solarControllerInputOverVoltageProtectionRelay OBJECT-TYPE
+    SYNTAX INTEGER{
+        relay1 (0),
+        relay2 (1),
+        relay3 (2),
+        relay4 (3),
+        relay5 (4),
+        relay6 (5),
+        relay7 (6),
+        relay8 (7),
+        relay9 (8),
+        relay10 (9),
+        relay11 (10),
+        relay12 (11),
+        relay13 (12),
+        relay14 (13),
+        relay15 (14),
+        relay16 (15)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The relay of solar controller input over voltage protection alarm."
+    ::= { solarControllerAlarmSetting 415 }
+  -- 1.3.6.1.4.1.39553.10.2.7.416
+    solarControllerInternalCircuitShortRelay OBJECT-TYPE
+    SYNTAX INTEGER{
+        relay1 (0),
+        relay2 (1),
+        relay3 (2),
+        relay4 (3),
+        relay5 (4),
+        relay6 (5),
+        relay7 (6),
+        relay8 (7),
+        relay9 (8),
+        relay10 (9),
+        relay11 (10),
+        relay12 (11),
+        relay13 (12),
+        relay14 (13),
+        relay15 (14),
+        relay16 (15)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The relay of solar controller internal circuit short alarm."
+    ::= { solarControllerAlarmSetting 416 }
+  -- 1.3.6.1.4.1.39553.10.2.7.417
+    solarControllerSecondaryHotPointOverTemperatureRelay OBJECT-TYPE
+    SYNTAX INTEGER{
+        relay1 (0),
+        relay2 (1),
+        relay3 (2),
+        relay4 (3),
+        relay5 (4),
+        relay6 (5),
+        relay7 (6),
+        relay8 (7),
+        relay9 (8),
+        relay10 (9),
+        relay11 (10),
+        relay12 (11),
+        relay13 (12),
+        relay14 (13),
+        relay15 (14),
+        relay16 (15)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The relay of solar controller secondary hot point over temperature alarm."
+    ::= { solarControllerAlarmSetting 417 }
+  -- 1.3.6.1.4.1.39553.10.2.7.418
+    solarControllerAmbientOverTemperatureRelay OBJECT-TYPE
+    SYNTAX INTEGER{
+        relay1 (0),
+        relay2 (1),
+        relay3 (2),
+        relay4 (3),
+        relay5 (4),
+        relay6 (5),
+        relay7 (6),
+        relay8 (7),
+        relay9 (8),
+        relay10 (9),
+        relay11 (10),
+        relay12 (11),
+        relay13 (12),
+        relay14 (13),
+        relay15 (14),
+        relay16 (15)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The relay of solar controller ambient over temperature alarm."
+    ::= { solarControllerAlarmSetting 418 }
+  -- 1.3.6.1.4.1.39553.10.2.7.419
+    solarControllerOuterOverVoltageProtectionRelay OBJECT-TYPE
+    SYNTAX INTEGER{
+        relay1 (0),
+        relay2 (1),
+        relay3 (2),
+        relay4 (3),
+        relay5 (4),
+        relay6 (5),
+        relay7 (6),
+        relay8 (7),
+        relay9 (8),
+        relay10 (9),
+        relay11 (10),
+        relay12 (11),
+        relay13 (12),
+        relay14 (13),
+        relay15 (14),
+        relay16 (15)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The relay of solar controller outer over voltage protection alarm."
+    ::= { solarControllerAlarmSetting 419 }
+  -- 1.3.6.1.4.1.39553.10.2.7.420
+    solarControllerInternalOverVoltageProtectionRelay OBJECT-TYPE
+    SYNTAX INTEGER{
+        relay1 (0),
+        relay2 (1),
+        relay3 (2),
+        relay4 (3),
+        relay5 (4),
+        relay6 (5),
+        relay7 (6),
+        relay8 (7),
+        relay9 (8),
+        relay10 (9),
+        relay11 (10),
+        relay12 (11),
+        relay13 (12),
+        relay14 (13),
+        relay15 (14),
+        relay16 (15)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The relay of solar controller internal over voltage protection alarm."
+    ::= { solarControllerAlarmSetting 420 }
+    -- 1.3.6.1.4.1.39553.10.2.7.421
+    solarControllerSecurityCodeErrorRelay OBJECT-TYPE
+    SYNTAX INTEGER{
+        relay1 (0),
+        relay2 (1),
+        relay3 (2),
+        relay4 (3),
+        relay5 (4),
+        relay6 (5),
+        relay7 (6),
+        relay8 (7),
+        relay9 (8),
+        relay10 (9),
+        relay11 (10),
+        relay12 (11),
+        relay13 (12),
+        relay14 (13),
+        relay15 (14),
+        relay16 (15)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The relay of solar controller security code error alarm."
+    ::= { solarControllerAlarmSetting 421 }
+    -- 1.3.6.1.4.1.39553.10.2.7.422
+    solarControllerPVPowerLackRelay OBJECT-TYPE
+    SYNTAX INTEGER{
+        relay1 (0),
+        relay2 (1),
+        relay3 (2),
+        relay4 (3),
+        relay5 (4),
+        relay6 (5),
+        relay7 (6),
+        relay8 (7),
+        relay9 (8),
+        relay10 (9),
+        relay11 (10),
+        relay12 (11),
+        relay13 (12),
+        relay14 (13),
+        relay15 (14),
+        relay16 (15)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The relay of solar controller PV power lack alarm."
+    ::= { solarControllerAlarmSetting 422 }
+    -- 1.3.6.1.4.1.39553.10.2.7.423
+    solarControllerPVLoopFaultRelay OBJECT-TYPE
+    SYNTAX INTEGER{
+        relay1 (0),
+        relay2 (1),
+        relay3 (2),
+        relay4 (3),
+        relay5 (4),
+        relay6 (5),
+        relay7 (6),
+        relay8 (7),
+        relay9 (8),
+        relay10 (9),
+        relay11 (10),
+        relay12 (11),
+        relay13 (12),
+        relay14 (13),
+        relay15 (14),
+        relay16 (15)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The relay of solar controller PV loop fault alarm."
+    ::= { solarControllerAlarmSetting 423 }
+    -- 1.3.6.1.4.1.39553.10.2.7.449
+    solarControllerSingleFaultRelay OBJECT-TYPE
+    SYNTAX INTEGER{
+        relay1 (0),
+        relay2 (1),
+        relay3 (2),
+        relay4 (3),
+        relay5 (4),
+        relay6 (5),
+        relay7 (6),
+        relay8 (7),
+        relay9 (8),
+        relay10 (9),
+        relay11 (10),
+        relay12 (11),
+        relay13 (12),
+        relay14 (13),
+        relay15 (14),
+        relay16 (15)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The relay of single solar controller alarm."
+    ::= { solarControllerAlarmSetting 449 }
+  -- 1.3.6.1.4.1.39553.10.2.7.450
+    solarControllerMutipleFaultRelay OBJECT-TYPE
+    SYNTAX INTEGER{
+        relay1 (0),
+        relay2 (1),
+        relay3 (2),
+        relay4 (3),
+        relay5 (4),
+        relay6 (5),
+        relay7 (6),
+        relay8 (7),
+        relay9 (8),
+        relay10 (9),
+        relay11 (10),
+        relay12 (11),
+        relay13 (12),
+        relay14 (13),
+        relay15 (14),
+        relay16 (15)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The relay of multiple solar controller alarm."
+    ::= { solarControllerAlarmSetting 450 }
+    
+  -- 1.3.6.1.4.1.39553.10.2.7.501
+    solarControllerPrimaryCalibrateFaultRelayPlace OBJECT-TYPE
+    SYNTAX INTEGER{
+        none (0),
+        do (1),
+        ex1DO (2),
+        ex2DO (3),
+        ex3DO (4),
+        ex4DO (5),
+        ex5DO (6)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The relay place of solar controller primary calibrate fault alarm."
+    ::= { solarControllerAlarmSetting 501 }
+  -- 1.3.6.1.4.1.39553.10.2.7.502
+    solarControllerSingleNoOutputRelayPlace OBJECT-TYPE
+    SYNTAX INTEGER{
+        none (0),
+        do (1),
+        ex1DO (2),
+        ex2DO (3),
+        ex3DO (4),
+        ex4DO (5),
+        ex5DO (6)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The relay place of solar controller single no output alarm."
+    ::= { solarControllerAlarmSetting 502 }
+  -- 1.3.6.1.4.1.39553.10.2.7.503
+    solarControllerOutsideCircuitShortRelayPlace OBJECT-TYPE
+    SYNTAX INTEGER{
+        none (0),
+        do (1),
+        ex1DO (2),
+        ex2DO (3),
+        ex3DO (4),
+        ex4DO (5),
+        ex5DO (6)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The relay place of solar controller outside  circuit short alarm."
+    ::= { solarControllerAlarmSetting 503 }
+  -- 1.3.6.1.4.1.39553.10.2.7.504
+    solarControllerLostRelayPlace OBJECT-TYPE
+    SYNTAX INTEGER{
+        none (0),
+        do (1),
+        ex1DO (2),
+        ex2DO (3),
+        ex3DO (4),
+        ex4DO (5),
+        ex5DO (6)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The relay place of solar controller lost alarm."
+    ::= { solarControllerAlarmSetting 504 }
+  -- 1.3.6.1.4.1.39553.10.2.7.505
+    solarControllerNoPositionRelayPlace OBJECT-TYPE
+    SYNTAX INTEGER{
+        none (0),
+        do (1),
+        ex1DO (2),
+        ex2DO (3),
+        ex3DO (4),
+        ex4DO (5),
+        ex5DO (6)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The relay place of solar controller no position alarm."
+    ::= { solarControllerAlarmSetting 505 }
+  -- 1.3.6.1.4.1.39553.10.2.7.506
+    solarControllerOutputOverCurrentRelayPlace OBJECT-TYPE
+    SYNTAX INTEGER{
+        none (0),
+        do (1),
+        ex1DO (2),
+        ex2DO (3),
+        ex3DO (4),
+        ex4DO (5),
+        ex5DO (6)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The relay place of solar controller output over current alarm."
+    ::= { solarControllerAlarmSetting 506 }
+  -- 1.3.6.1.4.1.39553.10.2.7.507
+    solarControllerE2PROMFaultRelayPlace OBJECT-TYPE
+    SYNTAX INTEGER{
+        none (0),
+        do (1),
+        ex1DO (2),
+        ex2DO (3),
+        ex3DO (4),
+        ex4DO (5),
+        ex5DO (6)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The relay place of solar controller e2prom fault alarm."
+    ::= { solarControllerAlarmSetting 507 }
+  -- 1.3.6.1.4.1.39553.10.2.7.508
+    solarControllerCANCommunicationFaultRelayPlace OBJECT-TYPE
+    SYNTAX INTEGER{
+        none (0),
+        do (1),
+        ex1DO (2),
+        ex2DO (3),
+        ex3DO (4),
+        ex4DO (5),
+        ex5DO (6)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The relay place of solar controller can communication fault alarm."
+    ::= { solarControllerAlarmSetting 508 }
+  -- 1.3.6.1.4.1.39553.10.2.7.509
+    solarControllerSecondSideCommmunicationFaultRelayPlace OBJECT-TYPE
+    SYNTAX INTEGER{
+        none (0),
+        do (1),
+        ex1DO (2),
+        ex2DO (3),
+        ex3DO (4),
+        ex4DO (5),
+        ex5DO (6)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The relay place of solar controller second side commmunication fault alarm."
+    ::= { solarControllerAlarmSetting 509 }
+  -- 1.3.6.1.4.1.39553.10.2.7.510
+    solarControllerPrimarySideCommmunicationFaultRelayPlace OBJECT-TYPE
+    SYNTAX INTEGER{
+        none (0),
+        do (1),
+        ex1DO (2),
+        ex2DO (3),
+        ex3DO (4),
+        ex4DO (5),
+        ex5DO (6)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The relay place of solar controller primary side commmunication fault alarm."
+    ::= { solarControllerAlarmSetting 510 }
+  -- 1.3.6.1.4.1.39553.10.2.7.511
+    solarControllerFanFaultRelayPlace OBJECT-TYPE
+    SYNTAX INTEGER{
+        none (0),
+        do (1),
+        ex1DO (2),
+        ex2DO (3),
+        ex3DO (4),
+        ex4DO (5),
+        ex5DO (6)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The relay place of solar controller fan fault alarm."
+    ::= { solarControllerAlarmSetting 511 }
+  -- 1.3.6.1.4.1.39553.10.2.7.512
+    solarControllerPFCOvervoltageProtectionRelayPlace OBJECT-TYPE
+    SYNTAX INTEGER{
+        none (0),
+        do (1),
+        ex1DO (2),
+        ex2DO (3),
+        ex3DO (4),
+        ex4DO (5),
+        ex5DO (6)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The relay place of solar controller pfc over voltage protection alarm."
+    ::= { solarControllerAlarmSetting 512 }
+  -- 1.3.6.1.4.1.39553.10.2.7.513
+    solarControllerPFCUndervoltageProtectionRelayPlace OBJECT-TYPE
+    SYNTAX INTEGER{
+        none (0),
+        do (1),
+        ex1DO (2),
+        ex2DO (3),
+        ex3DO (4),
+        ex4DO (5),
+        ex5DO (6)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The relay place of solar controller pfc under voltage protection alarm."
+    ::= { solarControllerAlarmSetting 513 }
+  -- 1.3.6.1.4.1.39553.10.2.7.514
+    solarControllerInputUnderVoltageProtectionRelayPlace OBJECT-TYPE
+    SYNTAX INTEGER{
+        none (0),
+        do (1),
+        ex1DO (2),
+        ex2DO (3),
+        ex3DO (4),
+        ex4DO (5),
+        ex5DO (6)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The relay place of solar controller input under voltage protection alarm."
+    ::= { solarControllerAlarmSetting 514 }
+  -- 1.3.6.1.4.1.39553.10.2.7.515
+    solarControllerInputOverVoltageProtectionRelayPlace OBJECT-TYPE
+    SYNTAX INTEGER{
+        none (0),
+        do (1),
+        ex1DO (2),
+        ex2DO (3),
+        ex3DO (4),
+        ex4DO (5),
+        ex5DO (6)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The relay place of solar controller input over voltage protection alarm."
+    ::= { solarControllerAlarmSetting 515 }
+  -- 1.3.6.1.4.1.39553.10.2.7.516
+    solarControllerInternalCircuitShortRelayPlace OBJECT-TYPE
+    SYNTAX INTEGER{
+        none (0),
+        do (1),
+        ex1DO (2),
+        ex2DO (3),
+        ex3DO (4),
+        ex4DO (5),
+        ex5DO (6)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The relay place of solar controller internal circuit short alarm."
+    ::= { solarControllerAlarmSetting 516 }
+  -- 1.3.6.1.4.1.39553.10.2.7.517
+    solarControllerSecondaryHotPointOverTemperatureRelayPlace OBJECT-TYPE
+    SYNTAX INTEGER{
+        none (0),
+        do (1),
+        ex1DO (2),
+        ex2DO (3),
+        ex3DO (4),
+        ex4DO (5),
+        ex5DO (6)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The relay place of solar controller secondary hot point over temperature alarm."
+    ::= { solarControllerAlarmSetting 517 }
+  -- 1.3.6.1.4.1.39553.10.2.7.518
+    solarControllerAmbientOverTemperatureRelayPlace OBJECT-TYPE
+    SYNTAX INTEGER{
+        none (0),
+        do (1),
+        ex1DO (2),
+        ex2DO (3),
+        ex3DO (4),
+        ex4DO (5),
+        ex5DO (6)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The relay place of solar controller ambient over temperature alarm."
+    ::= { solarControllerAlarmSetting 518 }
+  -- 1.3.6.1.4.1.39553.10.2.7.519
+    solarControllerOuterOverVoltageProtectionRelayPlace OBJECT-TYPE
+    SYNTAX INTEGER{
+        none (0),
+        do (1),
+        ex1DO (2),
+        ex2DO (3),
+        ex3DO (4),
+        ex4DO (5),
+        ex5DO (6)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The relay place of solar controller outer over voltage protection alarm."
+    ::= { solarControllerAlarmSetting 519 }
+  -- 1.3.6.1.4.1.39553.10.2.7.520
+    solarControllerInternalOverVoltageProtectionRelayPlace OBJECT-TYPE
+    SYNTAX INTEGER{
+        none (0),
+        do (1),
+        ex1DO (2),
+        ex2DO (3),
+        ex3DO (4),
+        ex4DO (5),
+        ex5DO (6)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The relay place of solar controller internal over voltage protection alarm."
+    ::= { solarControllerAlarmSetting 520 }
+    -- 1.3.6.1.4.1.39553.10.2.7.521
+    solarControllerSecurityCodeErrorRelayPlace OBJECT-TYPE
+    SYNTAX INTEGER{
+        none (0),
+        do (1),
+        ex1DO (2),
+        ex2DO (3),
+        ex3DO (4),
+        ex4DO (5),
+        ex5DO (6)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The relay place of solar controller security code error alarm."
+    ::= { solarControllerAlarmSetting 521 }
+    -- 1.3.6.1.4.1.39553.10.2.7.522
+    solarControllerPVPowerLackRelayPlace OBJECT-TYPE
+    SYNTAX INTEGER{
+        none (0),
+        do (1),
+        ex1DO (2),
+        ex2DO (3),
+        ex3DO (4),
+        ex4DO (5),
+        ex5DO (6)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The relay place of solar controller PV power lack alarm."
+    ::= { solarControllerAlarmSetting 522 }
+    -- 1.3.6.1.4.1.39553.10.2.7.523
+    solarControllerPVLoopFaultRelayPlace OBJECT-TYPE
+    SYNTAX INTEGER{
+        none (0),
+        do (1),
+        ex1DO (2),
+        ex2DO (3),
+        ex3DO (4),
+        ex4DO (5),
+        ex5DO (6)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The relay place of solar controller PV loop fault alarm."
+    ::= { solarControllerAlarmSetting 523 }
+    -- 1.3.6.1.4.1.39553.10.2.7.549
+    solarControllerSingleFaultRelayPlace OBJECT-TYPE
+    SYNTAX INTEGER{
+        none (0),
+        do (1),
+        ex1DO (2),
+        ex2DO (3),
+        ex3DO (4),
+        ex4DO (5),
+        ex5DO (6)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The relay place of single solar controller alarm."
+    ::= { solarControllerAlarmSetting 549 }
+  -- 1.3.6.1.4.1.39553.10.2.7.550
+    solarControllerMutipleFaultRelayPlace OBJECT-TYPE
+    SYNTAX INTEGER{
+        none (0),
+        do (1),
+        ex1DO (2),
+        ex2DO (3),
+        ex3DO (4),
+        ex4DO (5),
+        ex5DO (6)
+    }
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The relay place of multiple solar controller alarm."
+    ::= { solarControllerAlarmSetting 550 }
+    
+  -- 1.3.6.1.4.1.39553.10.2.7.601
+    solarControllerPrimaryCalibrateFaultClass OBJECT-TYPE
+    SYNTAX INTEGER{
+        none (0),
+        acAlarm (1),
+        dcAlarm (2),
+        communicationAlarm (3),
+        lvdAlarm (4),
+        batteryFuseAlarm (5),
+        batteryFuseCathodeAlarm (6),
+        batteryAlarm (7),
+        dcBranchBreak (8),
+        ambientTemperatureAlarm (9),
+        batteryTemperatureAlarm (10),
+        diAlarm (11),
+        acdcRectifierAlarm (12),
+        solarControllerAlarm (13),
+        sindControllerAlarm (14),
+        inverterAlarm (15),
+        dcdcConverterAlarm (16),
+        dcBranchSlightOverCurrentAlarm (17),
+        dcBranchSevereOverCurrentAlarm (18),
+        bmsAlarm (19),
+        plcArithmeticAlarm (20),
+        plcLogicAlarm (21),
+        plcGroupAlarm (22)
+    }
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION 
+        "The class of solar controller primary calibrate fault alarm."
+    ::= { solarControllerAlarmSetting 601 }
+  -- 1.3.6.1.4.1.39553.10.2.7.602
+    solarControllerSingleNoOutputClass OBJECT-TYPE
+    SYNTAX INTEGER{
+        none (0),
+        acAlarm (1),
+        dcAlarm (2),
+        communicationAlarm (3),
+        lvdAlarm (4),
+        batteryFuseAlarm (5),
+        batteryFuseCathodeAlarm (6),
+        batteryAlarm (7),
+        dcBranchBreak (8),
+        ambientTemperatureAlarm (9),
+        batteryTemperatureAlarm (10),
+        diAlarm (11),
+        acdcRectifierAlarm (12),
+        solarControllerAlarm (13),
+        sindControllerAlarm (14),
+        inverterAlarm (15),
+        dcdcConverterAlarm (16),
+        dcBranchSlightOverCurrentAlarm (17),
+        dcBranchSevereOverCurrentAlarm (18),
+        bmsAlarm (19),
+        plcArithmeticAlarm (20),
+        plcLogicAlarm (21),
+        plcGroupAlarm (22)
+    }
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION 
+        "The class of solar controller single no output alarm."
+    ::= { solarControllerAlarmSetting 602 }
+  -- 1.3.6.1.4.1.39553.10.2.7.603
+    solarControllerOutsideCircuitShortClass OBJECT-TYPE
+    SYNTAX INTEGER{
+        none (0),
+        acAlarm (1),
+        dcAlarm (2),
+        communicationAlarm (3),
+        lvdAlarm (4),
+        batteryFuseAlarm (5),
+        batteryFuseCathodeAlarm (6),
+        batteryAlarm (7),
+        dcBranchBreak (8),
+        ambientTemperatureAlarm (9),
+        batteryTemperatureAlarm (10),
+        diAlarm (11),
+        acdcRectifierAlarm (12),
+        solarControllerAlarm (13),
+        sindControllerAlarm (14),
+        inverterAlarm (15),
+        dcdcConverterAlarm (16),
+        dcBranchSlightOverCurrentAlarm (17),
+        dcBranchSevereOverCurrentAlarm (18),
+        bmsAlarm (19),
+        plcArithmeticAlarm (20),
+        plcLogicAlarm (21),
+        plcGroupAlarm (22)
+    }
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION 
+        "The class of solar controller outside  circuit short alarm."
+    ::= { solarControllerAlarmSetting 603 }
+  -- 1.3.6.1.4.1.39553.10.2.7.604
+    solarControllerLostClass OBJECT-TYPE
+    SYNTAX INTEGER{
+        none (0),
+        acAlarm (1),
+        dcAlarm (2),
+        communicationAlarm (3),
+        lvdAlarm (4),
+        batteryFuseAlarm (5),
+        batteryFuseCathodeAlarm (6),
+        batteryAlarm (7),
+        dcBranchBreak (8),
+        ambientTemperatureAlarm (9),
+        batteryTemperatureAlarm (10),
+        diAlarm (11),
+        acdcRectifierAlarm (12),
+        solarControllerAlarm (13),
+        sindControllerAlarm (14),
+        inverterAlarm (15),
+        dcdcConverterAlarm (16),
+        dcBranchSlightOverCurrentAlarm (17),
+        dcBranchSevereOverCurrentAlarm (18),
+        bmsAlarm (19),
+        plcArithmeticAlarm (20),
+        plcLogicAlarm (21),
+        plcGroupAlarm (22)
+    }
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION 
+        "The class of solar controller lost alarm."
+    ::= { solarControllerAlarmSetting 604 }
+  -- 1.3.6.1.4.1.39553.10.2.7.605
+    solarControllerNoPositionClass OBJECT-TYPE
+    SYNTAX INTEGER{
+        none (0),
+        acAlarm (1),
+        dcAlarm (2),
+        communicationAlarm (3),
+        lvdAlarm (4),
+        batteryFuseAlarm (5),
+        batteryFuseCathodeAlarm (6),
+        batteryAlarm (7),
+        dcBranchBreak (8),
+        ambientTemperatureAlarm (9),
+        batteryTemperatureAlarm (10),
+        diAlarm (11),
+        acdcRectifierAlarm (12),
+        solarControllerAlarm (13),
+        sindControllerAlarm (14),
+        inverterAlarm (15),
+        dcdcConverterAlarm (16),
+        dcBranchSlightOverCurrentAlarm (17),
+        dcBranchSevereOverCurrentAlarm (18),
+        bmsAlarm (19),
+        plcArithmeticAlarm (20),
+        plcLogicAlarm (21),
+        plcGroupAlarm (22)
+    }
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION 
+        "The class of solar controller no position alarm."
+    ::= { solarControllerAlarmSetting 605 }
+  -- 1.3.6.1.4.1.39553.10.2.7.606
+    solarControllerOutputOverCurrentClass OBJECT-TYPE
+    SYNTAX INTEGER{
+        none (0),
+        acAlarm (1),
+        dcAlarm (2),
+        communicationAlarm (3),
+        lvdAlarm (4),
+        batteryFuseAlarm (5),
+        batteryFuseCathodeAlarm (6),
+        batteryAlarm (7),
+        dcBranchBreak (8),
+        ambientTemperatureAlarm (9),
+        batteryTemperatureAlarm (10),
+        diAlarm (11),
+        acdcRectifierAlarm (12),
+        solarControllerAlarm (13),
+        sindControllerAlarm (14),
+        inverterAlarm (15),
+        dcdcConverterAlarm (16),
+        dcBranchSlightOverCurrentAlarm (17),
+        dcBranchSevereOverCurrentAlarm (18),
+        bmsAlarm (19),
+        plcArithmeticAlarm (20),
+        plcLogicAlarm (21),
+        plcGroupAlarm (22)
+    }
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION 
+        "The class of solar controller output over current alarm."
+    ::= { solarControllerAlarmSetting 606 }
+  -- 1.3.6.1.4.1.39553.10.2.7.607
+    solarControllerE2PROMFaultClass OBJECT-TYPE
+    SYNTAX INTEGER{
+        none (0),
+        acAlarm (1),
+        dcAlarm (2),
+        communicationAlarm (3),
+        lvdAlarm (4),
+        batteryFuseAlarm (5),
+        batteryFuseCathodeAlarm (6),
+        batteryAlarm (7),
+        dcBranchBreak (8),
+        ambientTemperatureAlarm (9),
+        batteryTemperatureAlarm (10),
+        diAlarm (11),
+        acdcRectifierAlarm (12),
+        solarControllerAlarm (13),
+        sindControllerAlarm (14),
+        inverterAlarm (15),
+        dcdcConverterAlarm (16),
+        dcBranchSlightOverCurrentAlarm (17),
+        dcBranchSevereOverCurrentAlarm (18),
+        bmsAlarm (19),
+        plcArithmeticAlarm (20),
+        plcLogicAlarm (21),
+        plcGroupAlarm (22)
+    }
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION 
+        "The class of solar controller e2prom fault alarm."
+    ::= { solarControllerAlarmSetting 607 }
+  -- 1.3.6.1.4.1.39553.10.2.7.608
+    solarControllerCANCommunicationFaultClass OBJECT-TYPE
+    SYNTAX INTEGER{
+        none (0),
+        acAlarm (1),
+        dcAlarm (2),
+        communicationAlarm (3),
+        lvdAlarm (4),
+        batteryFuseAlarm (5),
+        batteryFuseCathodeAlarm (6),
+        batteryAlarm (7),
+        dcBranchBreak (8),
+        ambientTemperatureAlarm (9),
+        batteryTemperatureAlarm (10),
+        diAlarm (11),
+        acdcRectifierAlarm (12),
+        solarControllerAlarm (13),
+        sindControllerAlarm (14),
+        inverterAlarm (15),
+        dcdcConverterAlarm (16),
+        dcBranchSlightOverCurrentAlarm (17),
+        dcBranchSevereOverCurrentAlarm (18),
+        bmsAlarm (19),
+        plcArithmeticAlarm (20),
+        plcLogicAlarm (21),
+        plcGroupAlarm (22)
+    }
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION 
+        "The class of solar controller can communication fault alarm."
+    ::= { solarControllerAlarmSetting 608 }
+  -- 1.3.6.1.4.1.39553.10.2.7.609
+    solarControllerSecondSideCommmunicationFaultClass OBJECT-TYPE
+    SYNTAX INTEGER{
+        none (0),
+        acAlarm (1),
+        dcAlarm (2),
+        communicationAlarm (3),
+        lvdAlarm (4),
+        batteryFuseAlarm (5),
+        batteryFuseCathodeAlarm (6),
+        batteryAlarm (7),
+        dcBranchBreak (8),
+        ambientTemperatureAlarm (9),
+        batteryTemperatureAlarm (10),
+        diAlarm (11),
+        acdcRectifierAlarm (12),
+        solarControllerAlarm (13),
+        sindControllerAlarm (14),
+        inverterAlarm (15),
+        dcdcConverterAlarm (16),
+        dcBranchSlightOverCurrentAlarm (17),
+        dcBranchSevereOverCurrentAlarm (18),
+        bmsAlarm (19),
+        plcArithmeticAlarm (20),
+        plcLogicAlarm (21),
+        plcGroupAlarm (22)
+    }
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION 
+        "The class of solar controller second side commmunication fault alarm."
+    ::= { solarControllerAlarmSetting 609 }
+  -- 1.3.6.1.4.1.39553.10.2.7.610
+    solarControllerPrimarySideCommmunicationFaultClass OBJECT-TYPE
+    SYNTAX INTEGER{
+        none (0),
+        acAlarm (1),
+        dcAlarm (2),
+        communicationAlarm (3),
+        lvdAlarm (4),
+        batteryFuseAlarm (5),
+        batteryFuseCathodeAlarm (6),
+        batteryAlarm (7),
+        dcBranchBreak (8),
+        ambientTemperatureAlarm (9),
+        batteryTemperatureAlarm (10),
+        diAlarm (11),
+        acdcRectifierAlarm (12),
+        solarControllerAlarm (13),
+        sindControllerAlarm (14),
+        inverterAlarm (15),
+        dcdcConverterAlarm (16),
+        dcBranchSlightOverCurrentAlarm (17),
+        dcBranchSevereOverCurrentAlarm (18),
+        bmsAlarm (19),
+        plcArithmeticAlarm (20),
+        plcLogicAlarm (21),
+        plcGroupAlarm (22)
+    }
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION 
+        "The class of solar controller primary side commmunication fault alarm."
+    ::= { solarControllerAlarmSetting 610 }
+  -- 1.3.6.1.4.1.39553.10.2.7.611
+    solarControllerFanFaultClass OBJECT-TYPE
+    SYNTAX INTEGER{
+        none (0),
+        acAlarm (1),
+        dcAlarm (2),
+        communicationAlarm (3),
+        lvdAlarm (4),
+        batteryFuseAlarm (5),
+        batteryFuseCathodeAlarm (6),
+        batteryAlarm (7),
+        dcBranchBreak (8),
+        ambientTemperatureAlarm (9),
+        batteryTemperatureAlarm (10),
+        diAlarm (11),
+        acdcRectifierAlarm (12),
+        solarControllerAlarm (13),
+        sindControllerAlarm (14),
+        inverterAlarm (15),
+        dcdcConverterAlarm (16),
+        dcBranchSlightOverCurrentAlarm (17),
+        dcBranchSevereOverCurrentAlarm (18),
+        bmsAlarm (19),
+        plcArithmeticAlarm (20),
+        plcLogicAlarm (21),
+        plcGroupAlarm (22)
+    }
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION 
+        "The class of solar controller fan fault alarm."
+    ::= { solarControllerAlarmSetting 611 }
+  -- 1.3.6.1.4.1.39553.10.2.7.612
+    solarControllerPFCOvervoltageProtectionClass OBJECT-TYPE
+    SYNTAX INTEGER{
+        none (0),
+        acAlarm (1),
+        dcAlarm (2),
+        communicationAlarm (3),
+        lvdAlarm (4),
+        batteryFuseAlarm (5),
+        batteryFuseCathodeAlarm (6),
+        batteryAlarm (7),
+        dcBranchBreak (8),
+        ambientTemperatureAlarm (9),
+        batteryTemperatureAlarm (10),
+        diAlarm (11),
+        acdcRectifierAlarm (12),
+        solarControllerAlarm (13),
+        sindControllerAlarm (14),
+        inverterAlarm (15),
+        dcdcConverterAlarm (16),
+        dcBranchSlightOverCurrentAlarm (17),
+        dcBranchSevereOverCurrentAlarm (18),
+        bmsAlarm (19),
+        plcArithmeticAlarm (20),
+        plcLogicAlarm (21),
+        plcGroupAlarm (22)
+    }
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION 
+        "The class of solar controller pfc over voltage protection alarm."
+    ::= { solarControllerAlarmSetting 612 }
+  -- 1.3.6.1.4.1.39553.10.2.7.613
+    solarControllerPFCUndervoltageProtectionClass OBJECT-TYPE
+    SYNTAX INTEGER{
+        none (0),
+        acAlarm (1),
+        dcAlarm (2),
+        communicationAlarm (3),
+        lvdAlarm (4),
+        batteryFuseAlarm (5),
+        batteryFuseCathodeAlarm (6),
+        batteryAlarm (7),
+        dcBranchBreak (8),
+        ambientTemperatureAlarm (9),
+        batteryTemperatureAlarm (10),
+        diAlarm (11),
+        acdcRectifierAlarm (12),
+        solarControllerAlarm (13),
+        sindControllerAlarm (14),
+        inverterAlarm (15),
+        dcdcConverterAlarm (16),
+        dcBranchSlightOverCurrentAlarm (17),
+        dcBranchSevereOverCurrentAlarm (18),
+        bmsAlarm (19),
+        plcArithmeticAlarm (20),
+        plcLogicAlarm (21),
+        plcGroupAlarm (22)
+    }
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION 
+        "The class of solar controller pfc under voltage protection alarm."
+    ::= { solarControllerAlarmSetting 613 }
+  -- 1.3.6.1.4.1.39553.10.2.7.614
+    solarControllerInputUnderVoltageProtectionClass OBJECT-TYPE
+    SYNTAX INTEGER{
+        none (0),
+        acAlarm (1),
+        dcAlarm (2),
+        communicationAlarm (3),
+        lvdAlarm (4),
+        batteryFuseAlarm (5),
+        batteryFuseCathodeAlarm (6),
+        batteryAlarm (7),
+        dcBranchBreak (8),
+        ambientTemperatureAlarm (9),
+        batteryTemperatureAlarm (10),
+        diAlarm (11),
+        acdcRectifierAlarm (12),
+        solarControllerAlarm (13),
+        sindControllerAlarm (14),
+        inverterAlarm (15),
+        dcdcConverterAlarm (16),
+        dcBranchSlightOverCurrentAlarm (17),
+        dcBranchSevereOverCurrentAlarm (18),
+        bmsAlarm (19),
+        plcArithmeticAlarm (20),
+        plcLogicAlarm (21),
+        plcGroupAlarm (22)
+    }
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION 
+        "The class of solar controller input under voltage protection alarm."
+    ::= { solarControllerAlarmSetting 614 }
+  -- 1.3.6.1.4.1.39553.10.2.7.615
+    solarControllerInputOverVoltageProtectionClass OBJECT-TYPE
+    SYNTAX INTEGER{
+        none (0),
+        acAlarm (1),
+        dcAlarm (2),
+        communicationAlarm (3),
+        lvdAlarm (4),
+        batteryFuseAlarm (5),
+        batteryFuseCathodeAlarm (6),
+        batteryAlarm (7),
+        dcBranchBreak (8),
+        ambientTemperatureAlarm (9),
+        batteryTemperatureAlarm (10),
+        diAlarm (11),
+        acdcRectifierAlarm (12),
+        solarControllerAlarm (13),
+        sindControllerAlarm (14),
+        inverterAlarm (15),
+        dcdcConverterAlarm (16),
+        dcBranchSlightOverCurrentAlarm (17),
+        dcBranchSevereOverCurrentAlarm (18),
+        bmsAlarm (19),
+        plcArithmeticAlarm (20),
+        plcLogicAlarm (21),
+        plcGroupAlarm (22)
+    }
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION 
+        "The class of solar controller input over voltage protection alarm."
+    ::= { solarControllerAlarmSetting 615 }
+  -- 1.3.6.1.4.1.39553.10.2.7.616
+    solarControllerInternalCircuitShortClass OBJECT-TYPE
+    SYNTAX INTEGER{
+        none (0),
+        acAlarm (1),
+        dcAlarm (2),
+        communicationAlarm (3),
+        lvdAlarm (4),
+        batteryFuseAlarm (5),
+        batteryFuseCathodeAlarm (6),
+        batteryAlarm (7),
+        dcBranchBreak (8),
+        ambientTemperatureAlarm (9),
+        batteryTemperatureAlarm (10),
+        diAlarm (11),
+        acdcRectifierAlarm (12),
+        solarControllerAlarm (13),
+        sindControllerAlarm (14),
+        inverterAlarm (15),
+        dcdcConverterAlarm (16),
+        dcBranchSlightOverCurrentAlarm (17),
+        dcBranchSevereOverCurrentAlarm (18),
+        bmsAlarm (19),
+        plcArithmeticAlarm (20),
+        plcLogicAlarm (21),
+        plcGroupAlarm (22)
+    }
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION 
+        "The class of solar controller internal circuit short alarm."
+    ::= { solarControllerAlarmSetting 616 }
+  -- 1.3.6.1.4.1.39553.10.2.7.617
+    solarControllerSecondaryHotPointOverTemperatureClass OBJECT-TYPE
+    SYNTAX INTEGER{
+        none (0),
+        acAlarm (1),
+        dcAlarm (2),
+        communicationAlarm (3),
+        lvdAlarm (4),
+        batteryFuseAlarm (5),
+        batteryFuseCathodeAlarm (6),
+        batteryAlarm (7),
+        dcBranchBreak (8),
+        ambientTemperatureAlarm (9),
+        batteryTemperatureAlarm (10),
+        diAlarm (11),
+        acdcRectifierAlarm (12),
+        solarControllerAlarm (13),
+        sindControllerAlarm (14),
+        inverterAlarm (15),
+        dcdcConverterAlarm (16),
+        dcBranchSlightOverCurrentAlarm (17),
+        dcBranchSevereOverCurrentAlarm (18),
+        bmsAlarm (19),
+        plcArithmeticAlarm (20),
+        plcLogicAlarm (21),
+        plcGroupAlarm (22)
+    }
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION 
+        "The class of solar controller secondary hot point over temperature alarm."
+    ::= { solarControllerAlarmSetting 617 }
+  -- 1.3.6.1.4.1.39553.10.2.7.618
+    solarControllerAmbientOverTemperatureClass OBJECT-TYPE
+    SYNTAX INTEGER{
+        none (0),
+        acAlarm (1),
+        dcAlarm (2),
+        communicationAlarm (3),
+        lvdAlarm (4),
+        batteryFuseAlarm (5),
+        batteryFuseCathodeAlarm (6),
+        batteryAlarm (7),
+        dcBranchBreak (8),
+        ambientTemperatureAlarm (9),
+        batteryTemperatureAlarm (10),
+        diAlarm (11),
+        acdcRectifierAlarm (12),
+        solarControllerAlarm (13),
+        sindControllerAlarm (14),
+        inverterAlarm (15),
+        dcdcConverterAlarm (16),
+        dcBranchSlightOverCurrentAlarm (17),
+        dcBranchSevereOverCurrentAlarm (18),
+        bmsAlarm (19),
+        plcArithmeticAlarm (20),
+        plcLogicAlarm (21),
+        plcGroupAlarm (22)
+    }
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION 
+        "The class of solar controller ambient over temperature alarm."
+    ::= { solarControllerAlarmSetting 618 }
+  -- 1.3.6.1.4.1.39553.10.2.7.619
+    solarControllerOuterOverVoltageProtectionClass OBJECT-TYPE
+    SYNTAX INTEGER{
+        none (0),
+        acAlarm (1),
+        dcAlarm (2),
+        communicationAlarm (3),
+        lvdAlarm (4),
+        batteryFuseAlarm (5),
+        batteryFuseCathodeAlarm (6),
+        batteryAlarm (7),
+        dcBranchBreak (8),
+        ambientTemperatureAlarm (9),
+        batteryTemperatureAlarm (10),
+        diAlarm (11),
+        acdcRectifierAlarm (12),
+        solarControllerAlarm (13),
+        sindControllerAlarm (14),
+        inverterAlarm (15),
+        dcdcConverterAlarm (16),
+        dcBranchSlightOverCurrentAlarm (17),
+        dcBranchSevereOverCurrentAlarm (18),
+        bmsAlarm (19),
+        plcArithmeticAlarm (20),
+        plcLogicAlarm (21),
+        plcGroupAlarm (22)
+    }
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION 
+        "The class of solar controller outer over voltage protection alarm."
+    ::= { solarControllerAlarmSetting 619 }
+  -- 1.3.6.1.4.1.39553.10.2.7.620
+    solarControllerInternalOverVoltageProtectionClass OBJECT-TYPE
+    SYNTAX INTEGER{
+        none (0),
+        acAlarm (1),
+        dcAlarm (2),
+        communicationAlarm (3),
+        lvdAlarm (4),
+        batteryFuseAlarm (5),
+        batteryFuseCathodeAlarm (6),
+        batteryAlarm (7),
+        dcBranchBreak (8),
+        ambientTemperatureAlarm (9),
+        batteryTemperatureAlarm (10),
+        diAlarm (11),
+        acdcRectifierAlarm (12),
+        solarControllerAlarm (13),
+        sindControllerAlarm (14),
+        inverterAlarm (15),
+        dcdcConverterAlarm (16),
+        dcBranchSlightOverCurrentAlarm (17),
+        dcBranchSevereOverCurrentAlarm (18),
+        bmsAlarm (19),
+        plcArithmeticAlarm (20),
+        plcLogicAlarm (21),
+        plcGroupAlarm (22)
+    }
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION 
+        "The class of solar controller internal over voltage protection alarm."
+    ::= { solarControllerAlarmSetting 620 }
+    -- 1.3.6.1.4.1.39553.10.2.7.621
+    solarControllerSecurityCodeErrorClass OBJECT-TYPE
+    SYNTAX INTEGER{
+        none (0),
+        acAlarm (1),
+        dcAlarm (2),
+        communicationAlarm (3),
+        lvdAlarm (4),
+        batteryFuseAlarm (5),
+        batteryFuseCathodeAlarm (6),
+        batteryAlarm (7),
+        dcBranchBreak (8),
+        ambientTemperatureAlarm (9),
+        batteryTemperatureAlarm (10),
+        diAlarm (11),
+        acdcRectifierAlarm (12),
+        solarControllerAlarm (13),
+        sindControllerAlarm (14),
+        inverterAlarm (15),
+        dcdcConverterAlarm (16),
+        dcBranchSlightOverCurrentAlarm (17),
+        dcBranchSevereOverCurrentAlarm (18),
+        bmsAlarm (19),
+        plcArithmeticAlarm (20),
+        plcLogicAlarm (21),
+        plcGroupAlarm (22)
+    }
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION 
+        "The class of solar controller security code error alarm."
+    ::= { solarControllerAlarmSetting 621 }
+    -- 1.3.6.1.4.1.39553.10.2.7.622
+    solarControllerPVPowerLackClass OBJECT-TYPE
+    SYNTAX INTEGER{
+        none (0),
+        acAlarm (1),
+        dcAlarm (2),
+        communicationAlarm (3),
+        lvdAlarm (4),
+        batteryFuseAlarm (5),
+        batteryFuseCathodeAlarm (6),
+        batteryAlarm (7),
+        dcBranchBreak (8),
+        ambientTemperatureAlarm (9),
+        batteryTemperatureAlarm (10),
+        diAlarm (11),
+        acdcRectifierAlarm (12),
+        solarControllerAlarm (13),
+        sindControllerAlarm (14),
+        inverterAlarm (15),
+        dcdcConverterAlarm (16),
+        dcBranchSlightOverCurrentAlarm (17),
+        dcBranchSevereOverCurrentAlarm (18),
+        bmsAlarm (19),
+        plcArithmeticAlarm (20),
+        plcLogicAlarm (21),
+        plcGroupAlarm (22)
+    }
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION 
+        "The class of solar controller PV power lack alarm."
+    ::= { solarControllerAlarmSetting 622 }
+    -- 1.3.6.1.4.1.39553.10.2.7.623
+    solarControllerPVLoopFaultClass OBJECT-TYPE
+    SYNTAX INTEGER{
+        none (0),
+        acAlarm (1),
+        dcAlarm (2),
+        communicationAlarm (3),
+        lvdAlarm (4),
+        batteryFuseAlarm (5),
+        batteryFuseCathodeAlarm (6),
+        batteryAlarm (7),
+        dcBranchBreak (8),
+        ambientTemperatureAlarm (9),
+        batteryTemperatureAlarm (10),
+        diAlarm (11),
+        acdcRectifierAlarm (12),
+        solarControllerAlarm (13),
+        sindControllerAlarm (14),
+        inverterAlarm (15),
+        dcdcConverterAlarm (16),
+        dcBranchSlightOverCurrentAlarm (17),
+        dcBranchSevereOverCurrentAlarm (18),
+        bmsAlarm (19),
+        plcArithmeticAlarm (20),
+        plcLogicAlarm (21),
+        plcGroupAlarm (22)
+    }
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION 
+        "The class of solar controller PV loop fault alarm."
+    ::= { solarControllerAlarmSetting 623 }
+    -- 1.3.6.1.4.1.39553.10.5.2.649
+    solarControllerSingleFaultClass OBJECT-TYPE
+    SYNTAX INTEGER{
+        none (0),
+        acAlarm (1),
+        dcAlarm (2),
+        communicationAlarm (3),
+        lvdAlarm (4),
+        batteryFuseAlarm (5),
+        batteryFuseCathodeAlarm (6),
+        batteryAlarm (7),
+        dcBranchBreak (8),
+        ambientTemperatureAlarm (9),
+        batteryTemperatureAlarm (10),
+        diAlarm (11),
+        acdcRectifierAlarm (12),
+        solarControllerAlarm (13),
+        sindControllerAlarm (14),
+        inverterAlarm (15),
+        dcdcConverterAlarm (16),
+        dcBranchSlightOverCurrentAlarm (17),
+        dcBranchSevereOverCurrentAlarm (18),
+        bmsAlarm (19),
+        plcArithmeticAlarm (20),
+        plcLogicAlarm (21),
+        plcGroupAlarm (22)
+    }
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION 
+        "The class of single solar controller alarm."
+    ::= { solarControllerAlarmSetting 649 }
+  -- 1.3.6.1.4.1.39553.10.5.2.650
+    solarControllerMutipleFaultClass OBJECT-TYPE
+    SYNTAX INTEGER{
+        none (0),
+        acAlarm (1),
+        dcAlarm (2),
+        communicationAlarm (3),
+        lvdAlarm (4),
+        batteryFuseAlarm (5),
+        batteryFuseCathodeAlarm (6),
+        batteryAlarm (7),
+        dcBranchBreak (8),
+        ambientTemperatureAlarm (9),
+        batteryTemperatureAlarm (10),
+        diAlarm (11),
+        acdcRectifierAlarm (12),
+        solarControllerAlarm (13),
+        sindControllerAlarm (14),
+        inverterAlarm (15),
+        dcdcConverterAlarm (16),
+        dcBranchSlightOverCurrentAlarm (17),
+        dcBranchSevereOverCurrentAlarm (18),
+        bmsAlarm (19),
+        plcArithmeticAlarm (20),
+        plcLogicAlarm (21),
+        plcGroupAlarm (22)
+    }
+    MAX-ACCESS read-only
+    STATUS current
+    DESCRIPTION 
+        "The class of multiple solar controller alarm."
+    ::= { solarControllerAlarmSetting 650 }
+    
+        -- 1.3.6.1.4.1.39553.10.5.3
+        solarControllerParameter OBJECT IDENTIFIER ::= { solarController 3 }
+    
+    -- 1.3.6.1.4.1.39553.10.5.3.1
+    solarControllerDifferentialVoltage OBJECT-TYPE
+    SYNTAX INTEGER(30..200)
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The differential valtage between solar controller and ACDC rectifier.
+         The actual value = The receive data/100.
+         Unit is V."    
+    ::= { solarControllerParameter 1 }
+    
+    -- 1.3.6.1.4.1.39553.10.5.3.2
+    solarControllerChargeCurrentLimit OBJECT-TYPE
+    SYNTAX INTEGER(100..2000)
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The charge current limit of solar controller.
+         The actual value = The receive data/1000.
+         Unit is C10."  
+    ::= { solarControllerParameter 2 }
+    
+    -- 1.3.6.1.4.1.39553.10.5.3.3
+    solarControllerEmergencyVoltage OBJECT-TYPE
+    SYNTAX INTEGER(3000..6000)
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The emergency valtage of solar controller.
+         The actual value = The receive data/100.
+         Unit is V."    
+    ::= { solarControllerParameter 3 }
+    
+    -- 1.3.6.1.4.1.39553.10.5.3.4
+    solarControllerMaximumCurrentLimit OBJECT-TYPE
+    SYNTAX INTEGER(1000..12000)
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The maximum current limit of solar controller.
+         The actual value = The receive data/100.
+         Unit is %."    
+    ::= { solarControllerParameter 4 }
+    
+        -- 1.3.6.1.4.1.39553.10.5.3.5
+    solarControllerWalkinVoltage OBJECT-TYPE
+    SYNTAX INTEGER(4200..5350)
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The walk-in valtage of solar controller.
+         The actual value = The receive data/100.
+         Unit is V."    
+    ::= { solarControllerParameter 5 }
+    -- 1.3.6.1.4.1.39553.10.5.3.6
+    solarControllerWalkinTime OBJECT-TYPE
+    SYNTAX INTEGER(0..12000)
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The walk-in time of solar controller.
+         The actual value = The receive data/100.
+         Unit is S."    
+    ::= { solarControllerParameter 6 }
+    -- 1.3.6.1.4.1.39553.10.5.3.7
+    solarControllerStartupDelayTime OBJECT-TYPE
+    SYNTAX INTEGER(0..60000)
+    MAX-ACCESS read-write
+    STATUS current
+    DESCRIPTION 
+        "The start-up delay time of solar controller.
+         The actual value = The receive data/100.
+         Unit is S."    
+    ::= { solarControllerParameter 7 }
+    
+------------------------------------------------------------
+-- End of MIB definitions
+------------------------------------------------------------
+
+END

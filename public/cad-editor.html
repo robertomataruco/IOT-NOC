@@ -1,0 +1,930 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ricas CAD Studio v2.0 (High-Fidelity Native Workspace)</title>
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- Fabric.js CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/5.3.1/fabric.min.js"></script>
+
+  <!-- Google Fonts Outfit & JetBrains Mono -->
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      background-color: #030712;
+      color: #f3f4f6;
+      font-family: 'Outfit', sans-serif;
+      overflow: hidden;
+    }
+    .font-mono {
+      font-family: 'JetBrains Mono', monospace;
+    }
+    .glass {
+      background: rgba(15, 23, 42, 0.7);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+    }
+    .neon-border-cyan {
+      box-shadow: 0 0 15px rgba(6, 182, 212, 0.15);
+      border-color: rgba(6, 182, 212, 0.35);
+    }
+    .neon-border-emerald {
+      box-shadow: 0 0 15px rgba(16, 185, 129, 0.15);
+      border-color: rgba(16, 185, 129, 0.35);
+    }
+    /* Custom scrollbars */
+    ::-webkit-scrollbar {
+      width: 4px;
+      height: 4px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #020617;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #1e293b;
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #334155;
+    }
+    /* Active button styling */
+    .active-tool {
+      background-color: #0891b2 !important;
+      color: #ffffff !important;
+      border-color: #06b6d4 !important;
+      box-shadow: 0 0 12px rgba(6, 182, 212, 0.5);
+    }
+    .canvas-container {
+      outline: none;
+    }
+  </style>
+</head>
+<body class="h-screen w-screen flex flex-col select-none overflow-hidden">
+
+  <!-- TOP HEADER BAR -->
+  <header class="h-16 border-b border-slate-800/80 bg-slate-950/95 flex items-center justify-between px-6 z-20 shrink-0 shadow-lg">
+    <div class="flex items-center gap-3">
+      <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-cyan-600 to-emerald-500 p-0.5 flex items-center justify-center shadow-md">
+        <div class="w-full h-full bg-slate-955 rounded-[10px] flex items-center justify-center bg-slate-950">
+          <i class="fa-solid fa-compass text-cyan-400 animate-spin" style="animation-duration: 25s"></i>
+        </div>
+      </div>
+      <div>
+        <div class="flex items-center gap-2">
+          <h1 class="text-sm font-extrabold uppercase tracking-wider text-white">Ricas CAD Engineering Suite</h1>
+          <span class="px-1.5 py-0.5 rounded text-[8px] font-extrabold bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 tracking-wider">v2.1 NATIVA</span>
+        </div>
+        <p class="text-[9px] text-slate-400 font-mono flex items-center gap-1">
+          <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+          <span>Engine: Fabric.js Vector Engine · Acesso Direto</span>
+        </p>
+      </div>
+    </div>
+
+    <!-- Active File Badge -->
+    <div class="flex items-center gap-3">
+      <span class="px-3 py-1.5 rounded-xl bg-slate-900/90 border border-slate-800 font-mono text-[10px] font-bold text-cyan-400 shadow-inner flex items-center gap-2" id="fileNameBadge">
+        <i class="fa-solid fa-file-invoice"></i> Planta: Carregando...
+      </span>
+      
+      <div class="flex items-center gap-2">
+        <button onclick="saveToParent()" class="px-3 py-1.5 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 shadow-md shadow-emerald-950/50">
+          <i class="fa-solid fa-floppy-disk"></i> Salvar na Planta
+        </button>
+        <button onclick="exportToSVG()" class="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-200 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 border border-slate-700">
+          <i class="fa-solid fa-download"></i> Exportar SVG
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN WORKSPACE -->
+  <div class="flex-1 flex overflow-hidden relative">
+    
+    <!-- LEFT CAD TOOLBAR -->
+    <aside class="w-16 border-r border-slate-800/80 bg-slate-950/95 flex flex-col items-center py-4 gap-2.5 shrink-0 z-20 shadow-xl">
+      <button onclick="setTool('select')" id="tool-select" class="w-11 h-11 rounded-xl bg-slate-900 border border-slate-800 text-slate-450 hover:text-white flex items-center justify-center transition-all active-tool" title="Seleção (Mover / Rotacionar / Escalar)">
+        <i class="fa-solid fa-arrow-pointer text-sm"></i>
+      </button>
+      <button onclick="setTool('pan')" id="tool-pan" class="w-11 h-11 rounded-xl bg-slate-900 border border-slate-800 text-slate-400 hover:text-white flex items-center justify-center transition-all" title="Mover Mapa / Pan (Clique e Arraste)">
+        <i class="fa-solid fa-hand text-sm"></i>
+      </button>
+      <button onclick="fitDrawingToScreen()" class="w-11 h-11 rounded-xl bg-slate-900 border border-slate-800 text-cyan-400 hover:text-white flex items-center justify-center transition-all" title="Ajustar Planta na Tela (Zoom Extents)">
+        <i class="fa-solid fa-expand text-sm"></i>
+      </button>
+      
+      <div class="w-8 border-t border-slate-900 my-1"></div>
+
+      <button onclick="setTool('line')" id="tool-line" class="w-11 h-11 rounded-xl bg-slate-900 border border-slate-800 text-slate-400 hover:text-white flex items-center justify-center transition-all" title="Desenhar Parede (Linha)">
+        <i class="fa-solid fa-slash text-xs rotate-45"></i>
+      </button>
+      <button onclick="setTool('rect')" id="tool-rect" class="w-11 h-11 rounded-xl bg-slate-900 border border-slate-800 text-slate-400 hover:text-white flex items-center justify-center transition-all" title="Desenhar Sala (Retângulo)">
+        <i class="fa-solid fa-vector-square text-sm"></i>
+      </button>
+      <button onclick="setTool('circle')" id="tool-circle" class="w-11 h-11 rounded-xl bg-slate-900 border border-slate-800 text-slate-400 hover:text-white flex items-center justify-center transition-all" title="Área de Cobertura (Círculo)">
+        <i class="fa-solid fa-circle-dot text-sm"></i>
+      </button>
+      <button onclick="setTool('text')" id="tool-text" class="w-11 h-11 rounded-xl bg-slate-900 border border-slate-800 text-slate-400 hover:text-white flex items-center justify-center transition-all" title="Inserir Rótulo de Texto">
+        <i class="fa-solid fa-font text-xs"></i>
+      </button>
+      <button onclick="setTool('measure')" id="tool-measure" class="w-11 h-11 rounded-xl bg-slate-900 border border-slate-800 text-slate-450 hover:text-emerald-400 flex items-center justify-center transition-all" title="Calibrar Escala (Clique em 2 pontos)">
+        <i class="fa-solid fa-ruler-combined text-sm"></i>
+      </button>
+      
+      <div class="w-8 border-t border-slate-900 my-1"></div>
+
+      <!-- Color Selectors -->
+      <div class="flex flex-col gap-2 my-1">
+        <button onclick="setColor('#06b6d4')" class="w-6 h-6 rounded-full border border-white/20 transition-transform hover:scale-125 relative flex items-center justify-center" style="background-color: #06b6d4" title="Ciano">
+          <span class="w-1.5 h-1.5 bg-black rounded-full opacity-0" id="color-indicator-#06b6d4"></span>
+        </button>
+        <button onclick="setColor('#10b981')" class="w-6 h-6 rounded-full border border-white/20 transition-transform hover:scale-125 relative flex items-center justify-center" style="background-color: #10b981" title="Verde RF">
+          <span class="w-1.5 h-1.5 bg-black rounded-full opacity-0" id="color-indicator-#10b981"></span>
+        </button>
+        <button onclick="setColor('#ef4444')" class="w-6 h-6 rounded-full border border-white/20 transition-transform hover:scale-125 relative flex items-center justify-center" style="background-color: #ef4444" title="Fibra Óptica">
+          <span class="w-1.5 h-1.5 bg-black rounded-full opacity-0" id="color-indicator-#ef4444"></span>
+        </button>
+        <button onclick="setColor('#eab308')" class="w-6 h-6 rounded-full border border-white/20 transition-transform hover:scale-125 relative flex items-center justify-center" style="background-color: #eab308" title="Alerta Elétrica">
+          <span class="w-1.5 h-1.5 bg-black rounded-full opacity-0" id="color-indicator-#eab308"></span>
+        </button>
+      </div>
+      
+      <div class="w-8 border-t border-slate-900 my-1"></div>
+
+      <!-- Delete Selected / Clear All -->
+      <button onclick="deleteSelected()" class="w-11 h-11 rounded-xl bg-slate-900 border border-slate-800 hover:border-red-500/20 text-slate-400 hover:text-red-400 flex items-center justify-center transition-all" title="Excluir Elemento Selecionado (Del)">
+        <i class="fa-solid fa-eraser text-sm"></i>
+      </button>
+      <button onclick="toggleCanvasTheme()" class="w-11 h-11 rounded-xl bg-slate-900 border border-slate-800 hover:border-yellow-500/20 text-slate-400 hover:text-yellow-400 flex items-center justify-center transition-all" title="Alternar Fundo Claro/Escuro">
+        <i class="fa-solid fa-circle-half-stroke text-sm text-yellow-500 animate-pulse"></i>
+      </button>
+      <button onclick="toggleImageInvert()" class="w-11 h-11 rounded-xl bg-slate-900 border border-slate-800 hover:border-cyan-500/20 text-slate-400 hover:text-cyan-400 flex items-center justify-center transition-all" title="Inverter Cores da Planta (Alto Contraste)">
+        <i class="fa-solid fa-eye text-sm text-cyan-400 animate-pulse"></i>
+      </button>
+      <button onclick="clearCanvas()" class="w-11 h-11 rounded-xl bg-slate-900 border border-slate-800 hover:border-red-650/30 text-slate-500 hover:text-red-500 flex items-center justify-center transition-all" title="Limpar Todas as Camadas de Desenho">
+        <i class="fa-solid fa-trash-can text-xs"></i>
+      </button>
+    </aside>
+
+    <!-- CENTRAL CAD DRAWING WORKSPACE (100% RESPONSIVE CANVAS) -->
+    <main class="flex-1 bg-[#02040a] relative overflow-hidden flex items-center justify-center" id="canvas-wrapper">
+      <canvas id="cadCanvas" class="w-full h-full block"></canvas>
+      
+      <!-- Coordinate and Zoom HUD in Bottom-Left -->
+      <div class="absolute bottom-5 left-5 glass border border-slate-800/80 rounded-2xl p-4 font-mono text-[10px] text-cyan-400 select-none space-y-1.5 z-10 shadow-xl neon-border-cyan">
+        <div class="flex items-center gap-2">
+          <i class="fa-solid fa-crosshairs text-cyan-500"></i> 
+          <span>COORD X:</span> <span id="hud-x" class="text-white font-bold">0</span>px
+        </div>
+        <div class="flex items-center gap-2">
+          <i class="fa-solid fa-crosshairs text-emerald-500"></i> 
+          <span>COORD Y:</span> <span id="hud-y" class="text-white font-bold">0</span>px
+        </div>
+        <div class="flex items-center gap-2">
+          <i class="fa-solid fa-magnifying-glass text-cyan-400"></i>
+          <span>ZOOM:</span> <span id="hud-zoom" class="text-white font-bold">100%</span>
+        </div>
+        <div class="flex items-center gap-2 border-t border-slate-850 mt-1.5 pt-1.5 text-[8.5px] text-slate-400">
+          <i class="fa-solid fa-ruler text-amber-500"></i>
+          <span>CALIBRAÇÃO:</span> <span id="hud-scale" class="text-amber-400 font-bold">Não Calibrada</span>
+        </div>
+        <div class="text-[8px] text-slate-550 border-t border-slate-850 mt-1 pt-1 opacity-70">
+          ALT+DRAG / BOTÃO DO MEIO: MOVER TELA<br>
+          SCROLL MOUSE: ZOOM NO PONTEIRO
+        </div>
+      </div>
+
+      <!-- Instruction Calibration Overlay Hint -->
+      <div id="calibration-hint" class="hidden absolute top-5 left-1/2 -translate-x-1/2 px-5 py-2.5 rounded-full bg-amber-500/10 border border-amber-500/40 text-amber-400 text-xs font-bold font-mono tracking-wide z-20 flex items-center gap-2 shadow-2xl animate-pulse">
+        <i class="fa-solid fa-circle-exclamation text-amber-500"></i>
+        <span id="calibration-hint-text">Modo de Calibração: Clique no primeiro ponto da planta</span>
+      </div>
+    </main>
+
+    <!-- RIGHT LAYER MANAGEMENT SIDEBAR -->
+    <aside class="w-64 border-l border-slate-800/80 bg-slate-950/95 flex flex-col py-5 px-4 shrink-0 z-20 shadow-xl overflow-y-auto">
+      <div class="flex items-center justify-between mb-4 border-b border-slate-900 pb-3">
+        <h2 class="text-xs font-extrabold uppercase tracking-widest text-slate-200 flex items-center gap-1.5">
+          <i class="fa-solid fa-layer-group text-cyan-400"></i> Camadas do Projeto
+        </h2>
+        <button onclick="createNewLayer()" class="p-1 rounded bg-slate-900 border border-slate-800 text-slate-400 hover:text-white hover:border-cyan-500/30 transition-all" title="Criar Nova Camada">
+          <i class="fa-solid fa-plus text-[10px]"></i>
+        </button>
+      </div>
+
+      <!-- Layers Container -->
+      <div class="flex-1 flex flex-col gap-2.5 overflow-y-auto pr-1" id="layers-list">
+        <!-- Dyn layers will render here -->
+      </div>
+
+      <div class="mt-4 border-t border-slate-900 pt-4 space-y-2 text-[10px] text-slate-400">
+        <div class="bg-slate-900/50 rounded-xl p-3 border border-slate-900 space-y-1">
+          <div class="text-slate-200 font-bold uppercase tracking-wider text-[9px] mb-1 text-cyan-400">Instruções CAD</div>
+          <p>• Desenhe paredes e salas de rede usando <b>Linha</b> e <b>Retângulo</b>.</p>
+          <p>• Demarque áreas de cobertura de antenas usando <b>Círculo</b>.</p>
+          <p>• Use a <b>Régua</b> para calibrar o tamanho da planta e ter medições reais.</p>
+        </div>
+      </div>
+    </aside>
+  </div>
+
+  <!-- SCRIPT LOGIC -->
+  <script>
+    let canvas;
+    let activeTool = 'select';
+    let activeColor = '#06b6d4';
+    let isDrawing = false;
+    let origX = 0;
+    let origY = 0;
+    let drawingObject = null;
+
+    // Calibration variables
+    let calibrationPoints = [];
+    let scaleRatio = null; // pixels per meter
+
+    // Layer model
+    let layers = [
+      { id: 'background', name: 'Planta AutoCAD', visible: true, locked: true },
+      { id: 'infra', name: 'Infraestrutura', visible: true, locked: false },
+      { id: 'antenas', name: 'Antenas e RF', visible: true, locked: false },
+      { id: 'medicoes', name: 'Medições e Régua', visible: true, locked: false }
+    ];
+    let activeLayerId = 'infra';
+
+    window.onload = function() {
+      // Setup canvas size
+      const wrapper = document.getElementById('canvas-wrapper');
+      const canvasEl = document.getElementById('cadCanvas');
+      canvasEl.width = wrapper.clientWidth;
+      canvasEl.height = wrapper.clientHeight;
+
+      // Initialize Fabric.js Canvas
+      canvas = new fabric.Canvas('cadCanvas', {
+        backgroundColor: '#02040a',
+        selection: true,
+        preserveObjectStacking: true
+      });
+
+      // Infinite adaptive AutoCAD-style engineering grid in background
+      canvas.on('before:render', function() {
+        const ctx = canvas.getContext();
+        const vpt = canvas.viewportTransform;
+        const width = canvas.width;
+        const height = canvas.height;
+        
+        ctx.save();
+        
+        // Match grid lines to active light/dark background theme
+        const isDark = canvas.backgroundColor === '#02040a' || canvas.backgroundColor === '#000000';
+        ctx.strokeStyle = isDark ? 'rgba(30, 41, 59, 0.45)' : 'rgba(203, 213, 225, 0.45)'; // Slate-800 or Slate-300
+        ctx.lineWidth = 0.5;
+        
+        const zoom = canvas.getZoom();
+        
+        // Adaptive spacing to keep the canvas clean at any zoom level
+        let spacing = 40;
+        if (zoom < 0.25) spacing = 160;
+        else if (zoom < 0.5) spacing = 80;
+        else if (zoom > 4) spacing = 10;
+        else if (zoom > 8) spacing = 5;
+        
+        const gridSpacing = spacing * zoom;
+        
+        // Calculate offsets based on pan viewport transforms
+        const offsetX = vpt[4] % gridSpacing;
+        const offsetY = vpt[5] % gridSpacing;
+        
+        // Draw infinite vertical grid lines
+        for (let x = offsetX; x < width; x += gridSpacing) {
+          ctx.beginPath();
+          ctx.moveTo(x, 0);
+          ctx.lineTo(x, height);
+          ctx.stroke();
+        }
+        
+        // Draw infinite horizontal grid lines
+        for (let y = offsetY; y < height; y += gridSpacing) {
+          ctx.beginPath();
+          ctx.moveTo(0, y);
+          ctx.lineTo(width, y);
+          ctx.stroke();
+        }
+        
+        // Draw dynamic Cyan coordinate axes
+        ctx.strokeStyle = isDark ? 'rgba(6, 182, 212, 0.25)' : 'rgba(6, 182, 212, 0.4)';
+        ctx.lineWidth = 1;
+        
+        // X-axis line (y = 0 in canvas transformed coords)
+        const axisY = vpt[5];
+        if (axisY >= 0 && axisY <= height) {
+          ctx.beginPath();
+          ctx.moveTo(0, axisY);
+          ctx.lineTo(width, axisY);
+          ctx.stroke();
+        }
+        
+        // Y-axis line (x = 0 in canvas transformed coords)
+        const axisX = vpt[4];
+        if (axisX >= 0 && axisX <= width) {
+          ctx.beginPath();
+          ctx.moveTo(axisX, 0);
+          ctx.lineTo(axisX, height);
+          ctx.stroke();
+        }
+        
+        ctx.restore();
+      });
+
+      // Synchronize window size changes
+      window.addEventListener('resize', function() {
+        const w = wrapper.clientWidth;
+        const h = wrapper.clientHeight;
+        canvas.setWidth(w);
+        canvas.setHeight(h);
+        canvas.renderAll();
+      });
+
+      // Load image background from parent window
+      const parentImage = window.parent.activeCadImage;
+      const parentFileName = window.parent.activeCadFileName;
+
+      if (parentFileName) {
+        document.getElementById('fileNameBadge').innerHTML = `<i class="fa-solid fa-file-circle-check text-emerald-400"></i> ${parentFileName}`;
+      } else {
+        document.getElementById('fileNameBadge').innerHTML = `<i class="fa-solid fa-file-excel text-cyan-400"></i> Planta_Zabbix.dwg`;
+      }
+
+      if (parentImage) {
+        fabric.Image.fromURL(parentImage, function(img) {
+          // Centering and fitting image
+          const scaleX = canvas.width / img.width * 0.85;
+          const scaleY = canvas.height / img.height * 0.85;
+          const scale = Math.min(scaleX, scaleY);
+          
+          img.set({
+            left: (canvas.width - img.width * scale) / 2,
+            top: (canvas.height - img.height * scale) / 2,
+            scaleX: scale,
+            scaleY: scale,
+            selectable: false,
+            evented: false,
+            opacity: 0.85
+          });
+
+          // Tag the image as background layer
+          img.layerId = 'background';
+          
+          canvas.add(img);
+          canvas.sendToBack(img);
+          canvas.renderAll();
+          
+          // Fit viewport and center
+          updateHUD();
+        });
+      } else {
+        drawGrid();
+      }
+
+      // Restore saved drawings if parent has them
+      if (window.parent.activeCadJsonData) {
+        try {
+          const data = JSON.parse(window.parent.activeCadJsonData);
+          let shapes = [];
+          if (data && typeof data === 'object' && data.objects) {
+            shapes = data.objects;
+            if (data.scaleRatio) {
+              scaleRatio = data.scaleRatio;
+              document.getElementById('hud-scale').innerText = `1 metro = ${scaleRatio.toFixed(1)} px`;
+            }
+          } else if (Array.isArray(data)) {
+            shapes = data;
+          }
+          fabric.util.enlivenObjects(shapes, function(objects) {
+            objects.forEach(function(o) {
+              if (o.type !== 'image') {
+                canvas.add(o);
+              }
+            });
+            canvas.renderAll();
+          });
+        } catch (e) {
+          console.error("Failed to restore parent drawing annotations:", e);
+        }
+      }
+
+      // Initialize Interactive CAD Layer panel
+      renderLayersList();
+      setColor(activeColor);
+
+      // Key listeners for deletion
+      window.addEventListener('keydown', function(e) {
+        if (e.key === 'Delete' || e.key === 'Backspace') {
+          deleteSelected();
+        }
+      });
+
+      // Smooth mouse-wheel ZOOM
+      canvas.on('mouse:wheel', function(opt) {
+        const delta = opt.e.deltaY;
+        let zoom = canvas.getZoom();
+        zoom *= 0.999 ** delta;
+        if (zoom > 25) zoom = 25;
+        if (zoom < 0.05) zoom = 0.05;
+        
+        canvas.zoomToPoint({ x: opt.e.offsetX, y: opt.e.offsetY }, zoom);
+        opt.e.preventDefault();
+        opt.e.stopPropagation();
+        updateHUD();
+      });
+
+      // Smooth middle click or Alt + Drag PANNING
+      canvas.on('mouse:down', function(opt) {
+        const evt = opt.e;
+        if (evt.altKey || activeTool === 'pan' || evt.button === 1) {
+          this.isDragging = true;
+          this.selection = false;
+          this.lastPosX = evt.clientX;
+          this.lastPosY = evt.clientY;
+          canvas.setCursor('grab');
+          return;
+        }
+
+        // Draw modes
+        if (activeTool === 'select' || activeTool === 'pan') return;
+
+        const pointer = canvas.getPointer(opt.e);
+        
+        // Block drawing if active layer is locked
+        const activeLayerObj = layers.find(l => l.id === activeLayerId);
+        if (activeLayerObj && activeLayerObj.locked) {
+          alert(`A camada ativa [${activeLayerObj.name}] está bloqueada para edição!`);
+          setTool('select');
+          return;
+        }
+
+        if (activeTool === 'measure') {
+          // Calibration logic
+          calibrationPoints.push({ x: pointer.x, y: pointer.y });
+          
+          if (calibrationPoints.length === 1) {
+            document.getElementById('calibration-hint-text').innerText = "Calibração: Clique no segundo ponto da planta...";
+            
+            // Add a tiny marker circle
+            const marker = new fabric.Circle({
+              left: pointer.x - 4,
+              top: pointer.y - 4,
+              radius: 4,
+              fill: '#eab308',
+              selectable: false,
+              evented: false,
+              layerId: 'medicoes'
+            });
+            canvas.add(marker);
+            canvas.renderAll();
+          } else if (calibrationPoints.length === 2) {
+            const p1 = calibrationPoints[0];
+            const p2 = calibrationPoints[1];
+            const dx = p2.x - p1.x;
+            const dy = p2.y - p1.y;
+            const pixelDist = Math.sqrt(dx * dx + dy * dy);
+            
+            const distanceInput = prompt("Digite a distância real entre esses dois pontos em METROS:");
+            if (distanceInput && !isNaN(parseFloat(distanceInput)) && parseFloat(distanceInput) > 0) {
+              const meters = parseFloat(distanceInput);
+              scaleRatio = pixelDist / meters;
+              document.getElementById('hud-scale').innerText = `1 metro = ${scaleRatio.toFixed(1)} px`;
+              alert(`Escala calibrada! 1 metro = ${scaleRatio.toFixed(1)} pixels.`);
+            }
+            
+            // Clear markers and switch tool
+            calibrationPoints = [];
+            document.getElementById('calibration-hint').classList.add('hidden');
+            setTool('select');
+          }
+          return;
+        }
+
+        isDrawing = true;
+        origX = pointer.x;
+        origY = pointer.y;
+
+        if (activeTool === 'line') {
+          drawingObject = new fabric.Line([origX, origY, origX, origY], {
+            stroke: activeColor,
+            strokeWidth: 3,
+            selectable: true,
+            layerId: activeLayerId
+          });
+          canvas.add(drawingObject);
+        } else if (activeTool === 'rect') {
+          drawingObject = new fabric.Rect({
+            left: origX,
+            top: origY,
+            width: 0,
+            height: 0,
+            fill: 'transparent',
+            stroke: activeColor,
+            strokeWidth: 3,
+            selectable: true,
+            layerId: activeLayerId
+          });
+          canvas.add(drawingObject);
+        } else if (activeTool === 'circle') {
+          drawingObject = new fabric.Circle({
+            left: origX,
+            top: origY,
+            radius: 0,
+            fill: 'transparent',
+            stroke: activeColor,
+            strokeWidth: 3,
+            selectable: true,
+            layerId: activeLayerId
+          });
+          canvas.add(drawingObject);
+        } else if (activeTool === 'text') {
+          const textVal = prompt("Digite o texto do rótulo:");
+          if (textVal && textVal.trim()) {
+            const textObj = new fabric.Text(textVal.trim(), {
+              left: origX,
+              top: origY,
+              fontSize: 16,
+              fill: activeColor,
+              fontFamily: 'Outfit, sans-serif',
+              fontWeight: 'bold',
+              selectable: true,
+              layerId: activeLayerId
+            });
+            canvas.add(textObj);
+            setTool('select');
+          }
+          isDrawing = false;
+        }
+        canvas.renderAll();
+      });
+
+      // Mouse Move to update HUD coords and draw geometry
+      canvas.on('mouse:move', function(opt) {
+        const pointer = canvas.getPointer(opt.e);
+        document.getElementById('hud-x').innerText = Math.round(pointer.x);
+        document.getElementById('hud-y').innerText = Math.round(pointer.y);
+
+        if (this.isDragging) {
+          const e = opt.e;
+          const vpt = this.viewportTransform;
+          vpt[4] += e.clientX - this.lastPosX;
+          vpt[5] += e.clientY - this.lastPosY;
+          this.requestRenderAll();
+          this.lastPosX = e.clientX;
+          this.lastPosY = e.clientY;
+          return;
+        }
+
+        if (!isDrawing) return;
+
+        const p = canvas.getPointer(opt.e);
+        if (activeTool === 'line') {
+          drawingObject.set({ x2: p.x, y2: p.y });
+        } else if (activeTool === 'rect') {
+          const x = Math.min(origX, p.x);
+          const y = Math.min(origY, p.y);
+          const w = Math.abs(origX - p.x);
+          const h = Math.abs(origY - p.y);
+          drawingObject.set({ left: x, top: y, width: w, height: h });
+        } else if (activeTool === 'circle') {
+          const radius = Math.sqrt(Math.pow(origX - p.x, 2) + Math.pow(origY - p.y, 2)) / 2;
+          drawingObject.set({ left: Math.min(origX, p.x), top: Math.min(origY, p.y), radius: radius });
+        }
+        canvas.renderAll();
+      });
+
+      // Mouse Up to finish draw shapes or pan
+      canvas.on('mouse:up', function() {
+        if (this.isDragging) {
+          this.setViewportTransform(this.viewportTransform);
+          this.isDragging = false;
+          this.selection = true;
+          canvas.setCursor('default');
+          return;
+        }
+
+        if (isDrawing) {
+          isDrawing = false;
+          drawingObject = null;
+          if (activeTool !== 'select') {
+            setTool('select');
+          }
+        }
+      });
+    };
+
+    function setTool(toolName) {
+      activeTool = toolName;
+      
+      // Update UI button active states
+      ['select', 'pan', 'line', 'rect', 'circle', 'text', 'measure'].forEach(t => {
+        const btn = document.getElementById(`tool-${t}`);
+        if (!btn) return;
+        if (t === toolName) {
+          btn.classList.add('active-tool');
+        } else {
+          btn.classList.remove('active-tool');
+        }
+      });
+
+      // Hide or show calibration panel overlay
+      const calOverlay = document.getElementById('calibration-hint');
+      if (toolName === 'measure') {
+        calOverlay.classList.remove('hidden');
+        document.getElementById('calibration-hint-text').innerText = "Modo de Calibração: Clique no primeiro ponto da planta";
+        calibrationPoints = [];
+      } else {
+        calOverlay.classList.add('hidden');
+      }
+
+      if (toolName === 'select') {
+        canvas.selection = true;
+        canvas.defaultCursor = 'default';
+        canvas.hoverCursor = 'move';
+        canvas.forEachObject(obj => {
+          const isBg = obj.layerId === 'background';
+          const layerObj = layers.find(l => l.id === obj.layerId);
+          obj.selectable = !isBg && (!layerObj || !layerObj.locked);
+          obj.evented = !isBg && (!layerObj || !layerObj.locked);
+        });
+      } else {
+        canvas.selection = false;
+        if (toolName === 'pan') {
+          canvas.defaultCursor = 'grab';
+          canvas.hoverCursor = 'grab';
+        } else {
+          canvas.defaultCursor = 'crosshair';
+          canvas.hoverCursor = 'crosshair';
+        }
+        canvas.forEachObject(obj => {
+          obj.selectable = false;
+          obj.evented = false;
+        });
+      }
+      canvas.setCursor(canvas.defaultCursor);
+      canvas.renderAll();
+    }
+
+    function setColor(colorHex) {
+      activeColor = colorHex;
+      
+      // Apply neon color indicators active styles
+      ['#06b6d4', '#10b981', '#ef4444', '#eab308'].forEach(c => {
+        const ind = document.getElementById(`color-indicator-${c}`);
+        if (ind) {
+          ind.style.opacity = c === colorHex ? '1' : '0';
+        }
+      });
+
+      // Apply color to selected object if any
+      const activeObject = canvas.getActiveObject();
+      if (activeObject && activeObject.layerId !== 'background') {
+        const layerObj = layers.find(l => l.id === activeObject.layerId);
+        if (layerObj && !layerObj.locked) {
+          if (activeObject.type === 'text') {
+            activeObject.set({ fill: colorHex });
+          } else {
+            activeObject.set({ stroke: colorHex });
+          }
+          canvas.renderAll();
+        }
+      }
+    }
+
+    function deleteSelected() {
+      const activeObjects = canvas.getActiveObjects();
+      if (activeObjects.length > 0) {
+        activeObjects.forEach(obj => {
+          if (obj.layerId !== 'background') {
+            const layerObj = layers.find(l => l.id === obj.layerId);
+            if (!layerObj || !layerObj.locked) {
+              canvas.remove(obj);
+            }
+          }
+        });
+        canvas.discardActiveObject();
+        canvas.renderAll();
+      }
+    }
+
+    function clearCanvas() {
+      if (confirm("Você quer limpar todas as anotações feitas em cima da planta?")) {
+        const objects = canvas.getObjects();
+        for (let i = objects.length - 1; i >= 0; i--) {
+          if (objects[i].layerId !== 'background') {
+            canvas.remove(objects[i]);
+          }
+        }
+        canvas.renderAll();
+      }
+    }
+
+    function drawGrid() {
+      // Handled dynamically by the before:render adaptive grid
+    }
+
+    // --- Dynamic Layer Actions ---
+    function renderLayersList() {
+      const list = document.getElementById('layers-list');
+      list.innerHTML = '';
+      
+      layers.forEach(layer => {
+        const isActive = activeLayerId === layer.id;
+        const item = document.createElement('div');
+        item.className = `p-2.5 rounded-xl border flex items-center justify-between transition-all ${
+          isActive 
+            ? 'bg-cyan-950/20 border-cyan-500/30 text-white shadow-inner font-extrabold shadow-cyan-950' 
+            : 'bg-slate-900/60 border-slate-900 hover:border-slate-800 text-slate-400'
+        }`;
+        
+        item.innerHTML = `
+          <div class="flex items-center gap-2 cursor-pointer min-w-0 flex-1" onclick="selectLayer('${layer.id}')">
+            <span class="w-2 h-2 rounded-full ${isActive ? 'bg-cyan-400' : 'bg-slate-700'} shrink-0"></span>
+            <span class="text-xs truncate uppercase font-mono select-none">${layer.name}</span>
+          </div>
+          <div class="flex items-center gap-2.5 shrink-0">
+            <!-- Visibility eye icon button -->
+            <button onclick="toggleLayerVisibility('${layer.id}')" class="hover:text-cyan-400 transition-colors" title="${layer.visible ? 'Ocultar Camada' : 'Exibir Camada'}">
+              <i class="fa-solid ${layer.visible ? 'fa-eye' : 'fa-eye-slash text-slate-600'}"></i>
+            </button>
+            <!-- Lock edit icon button -->
+            <button onclick="toggleLayerLock('${layer.id}')" class="hover:text-amber-500 transition-colors" title="${layer.locked ? 'Desbloquear Edição' : 'Bloquear Edição'}">
+              <i class="fa-solid ${layer.locked ? 'fa-lock text-amber-500' : 'fa-lock-open text-slate-600'}"></i>
+            </button>
+          </div>
+        `;
+        list.appendChild(item);
+      });
+    }
+
+    function selectLayer(layerId) {
+      if (layerId === 'background') {
+        alert("A camada da Planta AutoCAD é somente leitura e não pode ser selecionada para edições!");
+        return;
+      }
+      activeLayerId = layerId;
+      renderLayersList();
+    }
+
+    function toggleLayerVisibility(layerId) {
+      const layer = layers.find(l => l.id === layerId);
+      if (layer) {
+        layer.visible = !layer.visible;
+        
+        // Apply visibility directly on Fabric.js elements
+        canvas.forEachObject(obj => {
+          if (obj.layerId === layerId) {
+            obj.set({ visible: layer.visible });
+          }
+        });
+        
+        canvas.discardActiveObject();
+        canvas.renderAll();
+        renderLayersList();
+      }
+    }
+
+    function toggleLayerLock(layerId) {
+      if (layerId === 'background') {
+        alert("A camada da Planta AutoCAD é obrigatória e deve permanecer bloqueada!");
+        return;
+      }
+      const layer = layers.find(l => l.id === layerId);
+      if (layer) {
+        layer.locked = !layer.locked;
+        
+        // Apply locked on Fabric.js elements
+        canvas.forEachObject(obj => {
+          if (obj.layerId === layerId) {
+            obj.set({
+              selectable: !layer.locked,
+              evented: !layer.locked
+            });
+          }
+        });
+        
+        canvas.discardActiveObject();
+        canvas.renderAll();
+        renderLayersList();
+      }
+    }
+
+    function createNewLayer() {
+      const name = prompt("Digite o nome da nova camada de engenharia:");
+      if (name && name.trim()) {
+        const id = 'layer_' + Date.now();
+        layers.push({
+          id: id,
+          name: name.trim(),
+          visible: true,
+          locked: false
+        });
+        activeLayerId = id;
+        renderLayersList();
+      }
+    }
+
+    let isDarkTheme = true;
+    function toggleCanvasTheme() {
+      isDarkTheme = !isDarkTheme;
+      if (isDarkTheme) {
+        canvas.setBackgroundColor('#02040a', canvas.renderAll.bind(canvas));
+        document.getElementById('canvas-wrapper').style.backgroundColor = '#02040a';
+      } else {
+        canvas.setBackgroundColor('#f8fafc', canvas.renderAll.bind(canvas));
+        document.getElementById('canvas-wrapper').style.backgroundColor = '#f8fafc';
+      }
+    }
+
+    let imageInverted = false;
+    function toggleImageInvert() {
+      const bgImg = canvas.getObjects().find(o => o.layerId === 'background');
+      if (!bgImg) {
+        alert("Nenhuma planta de fundo carregada para inverter as cores.");
+        return;
+      }
+      
+      imageInverted = !imageInverted;
+      if (imageInverted) {
+        bgImg.filters = [new fabric.Image.filters.Invert()];
+      } else {
+        bgImg.filters = [];
+      }
+      bgImg.applyFilters();
+      canvas.renderAll();
+    }
+
+    function fitDrawingToScreen() {
+      // Find background image object
+      const bgImg = canvas.getObjects().find(o => o.layerId === 'background' && o.type === 'image');
+      if (bgImg) {
+        // Reset viewport pan & zoom to center cleanly
+        canvas.setViewportTransform([1, 0, 0, 1, 0, 0]);
+        
+        // Calculate dynamic aspect scale
+        const scaleX = canvas.width / bgImg.width * 0.85;
+        const scaleY = canvas.height / bgImg.height * 0.85;
+        const scale = Math.min(scaleX, scaleY);
+        
+        // Apply transform coordinates
+        bgImg.set({
+          left: (canvas.width - bgImg.width * scale) / 2,
+          top: (canvas.height - bgImg.height * scale) / 2,
+          scaleX: scale,
+          scaleY: scale
+        });
+      } else {
+        // Fallback: reset zoom and pan transform
+        canvas.setViewportTransform([1, 0, 0, 1, 0, 0]);
+      }
+      canvas.renderAll();
+      updateHUD();
+    }
+
+    function updateHUD() {
+      const zoom = Math.round(canvas.getZoom() * 100);
+      document.getElementById('hud-zoom').innerText = `${zoom}%`;
+    }
+
+    // --- Persist data back to Portal ---
+    function saveToParent() {
+      const allObjects = canvas.getObjects().filter(o => o.layerId !== 'background');
+      const payload = {
+        objects: allObjects,
+        scaleRatio: scaleRatio
+      };
+      const serialized = JSON.stringify(payload);
+      
+      if (typeof window.parent.handleSaveCadAnnotations === 'function') {
+        window.parent.handleSaveCadAnnotations(serialized);
+        alert("Sucesso! O projeto CAD foi salvo com sucesso no banco de dados do Site Survey.");
+      } else {
+        localStorage.setItem('ricas_cad_annotations', serialized);
+        alert("Salvo no armazenamento local! (Pronto para sincronização com o banco de dados).");
+      }
+    }
+
+    function exportToSVG() {
+      const svg = canvas.toSVG();
+      const blob = new Blob([svg], { type: 'image/svg+xml' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `projeto_ricas_cad.svg`;
+      a.click();
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,1608 @@
+AGST-MIB
+
+DEFINITIONS ::= BEGIN
+
+IMPORTS
+	enterprises,
+	MODULE-IDENTITY,
+	OBJECT-TYPE
+		FROM SNMPv2-SMI;
+	
+agst MODULE-IDENTITY
+	LAST-UPDATED "201802151534Z"
+	ORGANIZATION "AGST"
+	CONTACT-INFO
+		"Tiago"
+	DESCRIPTION
+		"MIB AGST"
+--  Revision history
+	REVISION "201802151534Z"
+	DESCRIPTION
+		"Revisao que adiciona Entradas e Saidas individualmente"
+	REVISION "201606171511Z"
+	DESCRIPTION
+		"First version"
+	::= { enterprises 42588 }
+
+
+conflexLight			      	OBJECT IDENTIFIER ::= { agst 3 }
+	
+-- -------------------------------------------------------------
+-- groups in the AGST CONFLEX-LIGHT
+-- -------------------------------------------------------------
+saidaDigital 			OBJECT IDENTIFIER ::= { conflexLight 1 }	-- 1.3.6.1.4.1.42588.3.1 Saidas Digitais
+entradaDigital 		OBJECT IDENTIFIER ::= { conflexLight 2 }	-- 1.3.6.1.4.1.42588.3.2 Entradas Digitais
+entradaUniversal	OBJECT IDENTIFIER ::= { conflexLight 4 }	-- 1.3.6.1.4.1.42588.3.4 Entradas Universáis
+
+
+-- -------------------------------------------------------------
+-- The saidaDigital Group
+-- -------------------------------------------------------------
+--  ==============================
+--  sdFuncaoPortaSTR TABLE
+--  ==============================
+sdFuncaoPortaSTR OBJECT IDENTIFIER ::= { saidaDigital 1 }	-- 1.3.6.1.4.1.42588.3.1.1
+
+funcaoPortaSTRsd1 OBJECT-TYPE
+	SYNTAX  OCTET STRING
+	ACCESS read-only
+	STATUS  current
+	DESCRIPTION
+		"Retorna a FUNCAO da Saida Digital 1 (modo texto)"
+	::= { sdFuncaoPortaSTR 0 }	-- 1.3.6.1.4.1.42588.3.1.1.0
+
+funcaoPortaSTRsd2 OBJECT-TYPE
+	SYNTAX  OCTET STRING
+	ACCESS read-only
+	STATUS  current
+	DESCRIPTION
+		"Retorna a FUNCAO da Saida Digital 2 (modo texto)"
+	::= { sdFuncaoPortaSTR 1 }	-- 1.3.6.1.4.1.42588.3.1.1.1
+	
+funcaoPortaSTRsd3 OBJECT-TYPE
+	SYNTAX  OCTET STRING
+	ACCESS read-only
+	STATUS  current
+	DESCRIPTION
+		"Retorna a FUNCAO da Saida Digital 3 (modo texto)"
+	::= { sdFuncaoPortaSTR 2 }	-- 1.3.6.1.4.1.42588.3.1.1.2
+	
+funcaoPortaSTRsd4 OBJECT-TYPE
+	SYNTAX  OCTET STRING
+	ACCESS read-only
+	STATUS  current
+	DESCRIPTION
+		"Retorna a FUNCAO da Saida Digital 4 (modo texto)"
+	::= { sdFuncaoPortaSTR 3 }	-- 1.3.6.1.4.1.42588.3.1.1.3
+
+funcaoPortaSTRsd5 OBJECT-TYPE
+	SYNTAX  OCTET STRING
+	ACCESS read-only
+	STATUS  current
+	DESCRIPTION
+		"Retorna a FUNCAO da Saida Digital 5 (modo texto)"
+	::= { sdFuncaoPortaSTR 4 }	-- 1.3.6.1.4.1.42588.3.1.1.4	
+
+funcaoPortaSTRsd6 OBJECT-TYPE
+	SYNTAX  OCTET STRING
+	ACCESS read-only
+	STATUS  current
+	DESCRIPTION
+		"Retorna a FUNCAO da Saida Digital 6 (modo texto)"
+	::= { sdFuncaoPortaSTR 5 }	-- 1.3.6.1.4.1.42588.3.1.1.5
+
+funcaoPortaSTRsd7 OBJECT-TYPE
+	SYNTAX  OCTET STRING
+	ACCESS read-only
+	STATUS  current
+	DESCRIPTION
+		"Retorna a FUNCAO da Saida Digital 7 (modo texto)"
+	::= { sdFuncaoPortaSTR 6 }	-- 1.3.6.1.4.1.42588.3.1.1.6
+	
+funcaoPortaSTRsd8 OBJECT-TYPE
+	SYNTAX  OCTET STRING
+	ACCESS read-only
+	STATUS  current
+	DESCRIPTION
+		"Retorna a FUNCAO da Saida Digital 8 (modo texto)"
+	::= { sdFuncaoPortaSTR 7 }	-- 1.3.6.1.4.1.42588.3.1.1.7
+
+funcaoPortaSTRsd9 OBJECT-TYPE
+	SYNTAX  OCTET STRING
+	ACCESS read-only
+	STATUS  current
+	DESCRIPTION
+		"Retorna a FUNCAO da Saida Digital 9 (modo texto)"
+	::= { sdFuncaoPortaSTR 8 }	-- 1.3.6.1.4.1.42588.3.1.1.8
+
+funcaoPortaSTRsd10 OBJECT-TYPE
+	SYNTAX  OCTET STRING
+	ACCESS read-only
+	STATUS  current
+	DESCRIPTION
+		"Retorna a FUNCAO da Saida Digital 10 (modo texto)"
+	::= { sdFuncaoPortaSTR 9 }	-- 1.3.6.1.4.1.42588.3.1.1.9
+
+funcaoPortaSTRsd11 OBJECT-TYPE
+	SYNTAX  OCTET STRING
+	ACCESS read-only
+	STATUS  current
+	DESCRIPTION
+		"Retorna a FUNCAO da Saida Digital 11 (modo texto)"
+	::= { sdFuncaoPortaSTR 10 }	-- 1.3.6.1.4.1.42588.3.1.1.10
+
+funcaoPortaSTRsd12 OBJECT-TYPE
+	SYNTAX  OCTET STRING
+	ACCESS read-only
+	STATUS  current
+	DESCRIPTION
+		"Retorna a FUNCAO da Saida Digital 12 (modo texto)"
+	::= { sdFuncaoPortaSTR 11 }	-- 1.3.6.1.4.1.42588.3.1.1.11
+
+	
+--  ==============================
+--  sdStatusPortaSTR TABLE
+--  ==============================
+sdStatusPortaSTR OBJECT IDENTIFIER ::= { saidaDigital 2 }	-- 1.3.6.1.4.1.42588.3.1.2
+
+statusPortaSTRsd1 OBJECT-TYPE
+	SYNTAX  OCTET STRING
+	ACCESS read-only
+	STATUS  current
+	DESCRIPTION
+		"Retorna o STATUS da Saida Digital 1 (modo texto)"
+	::= { sdStatusPortaSTR 0 }	-- 1.3.6.1.4.1.42588.3.1.2.0
+
+statusPortaSTRsd2 OBJECT-TYPE
+	SYNTAX  OCTET STRING
+	ACCESS read-only
+	STATUS  current
+	DESCRIPTION
+		"Retorna o STATUS da Saida Digital 2 (modo texto)"
+	::= { sdStatusPortaSTR 1 }	-- 1.3.6.1.4.1.42588.3.1.2.1
+
+statusPortaSTRsd3 OBJECT-TYPE
+	SYNTAX  OCTET STRING
+	ACCESS read-only
+	STATUS  current
+	DESCRIPTION
+		"Retorna o STATUS da Saida Digital 3 (modo texto)"
+	::= { sdStatusPortaSTR 2 }	-- 1.3.6.1.4.1.42588.3.1.2.2
+
+statusPortaSTRsd4 OBJECT-TYPE
+	SYNTAX  OCTET STRING
+	ACCESS read-only
+	STATUS  current
+	DESCRIPTION
+		"Retorna o STATUS da Saida Digital 4 (modo texto)"
+	::= { sdStatusPortaSTR 3 }	-- 1.3.6.1.4.1.42588.3.1.2.3
+
+statusPortaSTRsd5 OBJECT-TYPE
+	SYNTAX  OCTET STRING
+	ACCESS read-only
+	STATUS  current
+	DESCRIPTION
+		"Retorna o STATUS da Saida Digital 5 (modo texto)"
+	::= { sdStatusPortaSTR 4 }	-- 1.3.6.1.4.1.42588.3.1.2.4
+
+statusPortaSTRsd6 OBJECT-TYPE
+	SYNTAX  OCTET STRING
+	ACCESS read-only
+	STATUS  current
+	DESCRIPTION
+		"Retorna o STATUS da Saida Digital 6 (modo texto)"
+	::= { sdStatusPortaSTR 5 }	-- 1.3.6.1.4.1.42588.3.1.2.5
+
+statusPortaSTRsd7 OBJECT-TYPE
+	SYNTAX  OCTET STRING
+	ACCESS read-only
+	STATUS  current
+	DESCRIPTION
+		"Retorna o STATUS da Saida Digital 7 (modo texto)"
+	::= { sdStatusPortaSTR 6 }	-- 1.3.6.1.4.1.42588.3.1.2.6
+
+statusPortaSTRsd8 OBJECT-TYPE
+	SYNTAX  OCTET STRING
+	ACCESS read-only
+	STATUS  current
+	DESCRIPTION
+		"Retorna o STATUS da Saida Digital 8 (modo texto)"
+	::= { sdStatusPortaSTR 7 }	-- 1.3.6.1.4.1.42588.3.1.2.7
+
+statusPortaSTRsd9 OBJECT-TYPE
+	SYNTAX  OCTET STRING
+	ACCESS read-only
+	STATUS  current
+	DESCRIPTION
+		"Retorna o STATUS da Saida Digital 9 (modo texto)"
+	::= { sdStatusPortaSTR 8 }	-- 1.3.6.1.4.1.42588.3.1.2.8
+
+statusPortaSTRsd10 OBJECT-TYPE
+	SYNTAX  OCTET STRING
+	ACCESS read-only
+	STATUS  current
+	DESCRIPTION
+		"Retorna o STATUS da Saida Digital 10 (modo texto)"
+	::= { sdStatusPortaSTR 9 }	-- 1.3.6.1.4.1.42588.3.1.2.9
+
+statusPortaSTRsd11 OBJECT-TYPE
+	SYNTAX  OCTET STRING
+	ACCESS read-only
+	STATUS  current
+	DESCRIPTION
+		"Retorna o STATUS da Saida Digital 11 (modo texto)"
+	::= { sdStatusPortaSTR 10 }	-- 1.3.6.1.4.1.42588.3.1.2.10
+
+statusPortaSTRsd12 OBJECT-TYPE
+	SYNTAX  OCTET STRING
+	ACCESS read-only
+	STATUS  current
+	DESCRIPTION
+		"Retorna o STATUS da Saida Digital 12 (modo texto)"
+	::= { sdStatusPortaSTR 11 }	-- 1.3.6.1.4.1.42588.3.1.2.11
+	
+--  ==============================
+--  sdStatusPortaINT TABLE
+--  ==============================
+sdStatusPortaINT OBJECT IDENTIFIER ::= { saidaDigital 3 }	-- 1.3.6.1.4.1.42588.3.1.3
+
+statusPortaINTsd1 OBJECT-TYPE
+	SYNTAX  INTEGER {
+			on(1),
+			off(2) }
+	ACCESS read-only
+	STATUS  current
+	DESCRIPTION
+		"Retorna o STATUS da Saida Digital 1 (modo numerico)"
+	::= { sdStatusPortaINT 0 }	-- 1.3.6.1.4.1.42588.3.1.3.0
+
+statusPortaINTsd2 OBJECT-TYPE
+	SYNTAX  INTEGER {
+			on(1),
+			off(2) }
+	ACCESS read-only
+	STATUS  current
+	DESCRIPTION
+		"Retorna o STATUS da Saida Digital 2 (modo numerico)"
+	::= { sdStatusPortaINT 1 }	-- 1.3.6.1.4.1.42588.3.1.3.1
+
+statusPortaINTsd3 OBJECT-TYPE
+	SYNTAX  INTEGER {
+			on(1),
+			off(2) }
+	ACCESS read-only
+	STATUS  current
+	DESCRIPTION
+		"Retorna o STATUS da Saida Digital 3 (modo numerico)"
+	::= { sdStatusPortaINT 2 }	-- 1.3.6.1.4.1.42588.3.1.3.2
+
+statusPortaINTsd4 OBJECT-TYPE
+	SYNTAX  INTEGER {
+			on(1),
+			off(2) }
+	ACCESS read-only
+	STATUS  current
+	DESCRIPTION
+		"Retorna o STATUS da Saida Digital 4 (modo numerico)"
+	::= { sdStatusPortaINT 3 }	-- 1.3.6.1.4.1.42588.3.1.3.3
+
+statusPortaINTsd5 OBJECT-TYPE
+	SYNTAX  INTEGER {
+			on(1),
+			off(2) }
+	ACCESS read-only
+	STATUS  current
+	DESCRIPTION
+		"Retorna o STATUS da Saida Digital 5 (modo numerico)"
+	::= { sdStatusPortaINT 4 }	-- 1.3.6.1.4.1.42588.3.1.3.4
+
+statusPortaINTsd6 OBJECT-TYPE
+	SYNTAX  INTEGER {
+			on(1),
+			off(2) }
+	ACCESS read-only
+	STATUS  current
+	DESCRIPTION
+		"Retorna o STATUS da Saida Digital 6 (modo numerico)"
+	::= { sdStatusPortaINT 5 }	-- 1.3.6.1.4.1.42588.3.1.3.5
+
+statusPortaINTsd7 OBJECT-TYPE
+	SYNTAX  INTEGER {
+			on(1),
+			off(2) }
+	ACCESS read-only
+	STATUS  current
+	DESCRIPTION
+		"Retorna o STATUS da Saida Digital 7 (modo numerico)"
+	::= { sdStatusPortaINT 6 }	-- 1.3.6.1.4.1.42588.3.1.3.6
+
+statusPortaINTsd8 OBJECT-TYPE
+	SYNTAX  INTEGER {
+			on(1),
+			off(2) }
+	ACCESS read-only
+	STATUS  current
+	DESCRIPTION
+		"Retorna o STATUS da Saida Digital 8 (modo numerico)"
+	::= { sdStatusPortaINT 7 }	-- 1.3.6.1.4.1.42588.3.1.3.7
+
+statusPortaINTsd9 OBJECT-TYPE
+	SYNTAX  INTEGER {
+			on(1),
+			off(2) }
+	ACCESS read-only
+	STATUS  current
+	DESCRIPTION
+		"Retorna o STATUS da Saida Digital 9 (modo numerico)"
+	::= { sdStatusPortaINT 8 }	-- 1.3.6.1.4.1.42588.3.1.3.8
+
+statusPortaINTsd10 OBJECT-TYPE
+	SYNTAX  INTEGER {
+			on(1),
+			off(2) }
+	ACCESS read-only
+	STATUS  current
+	DESCRIPTION
+		"Retorna o STATUS da Saida Digital 10 (modo numerico)"
+	::= { sdStatusPortaINT 9 }	-- 1.3.6.1.4.1.42588.3.1.3.9
+
+statusPortaINTsd11 OBJECT-TYPE
+	SYNTAX  INTEGER {
+			on(1),
+			off(2) }
+	ACCESS read-only
+	STATUS  current
+	DESCRIPTION
+		"Retorna o STATUS da Saida Digital 11 (modo numerico)"
+	::= { sdStatusPortaINT 10 }	-- 1.3.6.1.4.1.42588.3.1.3.10
+
+statusPortaINTsd12 OBJECT-TYPE
+	SYNTAX  INTEGER {
+			on(1),
+			off(2) }
+	ACCESS read-only
+	STATUS  current
+	DESCRIPTION
+		"Retorna o STATUS da Saida Digital 12 (modo numerico)"
+	::= { sdStatusPortaINT 11 }	-- 1.3.6.1.4.1.42588.3.1.3.11
+
+
+	
+--  ==============================
+--  sdStatusFuncaoPortaSTR TABLE
+--  ==============================
+sdStatusFuncaoPortaSTR OBJECT IDENTIFIER ::= { saidaDigital 4 }	-- 1.3.6.1.4.1.42588.3.1.4
+
+statusFuncaoPortaSTRsd1 OBJECT-TYPE
+	SYNTAX  OCTET STRING
+	ACCESS read-only
+	STATUS  current
+	DESCRIPTION
+		"Retorna STATUS e FUNCAO da Saida Digital 1 (modo	texto)"
+	::= { sdStatusFuncaoPortaSTR 0 }	-- 1.3.6.1.4.1.42588.3.1.4.0
+
+statusFuncaoPortaSTRsd2 OBJECT-TYPE
+	SYNTAX  OCTET STRING
+	ACCESS read-only
+	STATUS  current
+	DESCRIPTION
+		"Retorna STATUS e FUNCAO da Saida Digital 2 (modo	texto)"
+	::= { sdStatusFuncaoPortaSTR 1 }	-- 1.3.6.1.4.1.42588.3.1.4.1
+
+statusFuncaoPortaSTRsd3 OBJECT-TYPE
+	SYNTAX  OCTET STRING
+	ACCESS read-only
+	STATUS  current
+	DESCRIPTION
+		"Retorna STATUS e FUNCAO da Saida Digital 3 (modo	texto)"
+	::= { sdStatusFuncaoPortaSTR 2 }	-- 1.3.6.1.4.1.42588.3.1.4.2
+
+statusFuncaoPortaSTRsd4 OBJECT-TYPE
+	SYNTAX  OCTET STRING
+	ACCESS read-only
+	STATUS  current
+	DESCRIPTION
+		"Retorna STATUS e FUNCAO da Saida Digital 4 (modo	texto)"
+	::= { sdStatusFuncaoPortaSTR 3 }	-- 1.3.6.1.4.1.42588.3.1.4.3
+
+statusFuncaoPortaSTRsd5 OBJECT-TYPE
+	SYNTAX  OCTET STRING
+	ACCESS read-only
+	STATUS  current
+	DESCRIPTION
+		"Retorna STATUS e FUNCAO da Saida Digital 5 (modo	texto)"
+	::= { sdStatusFuncaoPortaSTR 4 }	-- 1.3.6.1.4.1.42588.3.1.4.4
+
+statusFuncaoPortaSTRsd6 OBJECT-TYPE
+	SYNTAX  OCTET STRING
+	ACCESS read-only
+	STATUS  current
+	DESCRIPTION
+		"Retorna STATUS e FUNCAO da Saida Digital 6 (modo	texto)"
+	::= { sdStatusFuncaoPortaSTR 5 }	-- 1.3.6.1.4.1.42588.3.1.4.5
+
+statusFuncaoPortaSTRsd7 OBJECT-TYPE
+	SYNTAX  OCTET STRING
+	ACCESS read-only
+	STATUS  current
+	DESCRIPTION
+		"Retorna STATUS e FUNCAO da Saida Digital 7 (modo	texto)"
+	::= { sdStatusFuncaoPortaSTR 6 }	-- 1.3.6.1.4.1.42588.3.1.4.6
+
+statusFuncaoPortaSTRsd8 OBJECT-TYPE
+	SYNTAX  OCTET STRING
+	ACCESS read-only
+	STATUS  current
+	DESCRIPTION
+		"Retorna STATUS e FUNCAO da Saida Digital 8 (modo	texto)"
+	::= { sdStatusFuncaoPortaSTR 7 }	-- 1.3.6.1.4.1.42588.3.1.4.7
+
+statusFuncaoPortaSTRsd9 OBJECT-TYPE
+	SYNTAX  OCTET STRING
+	ACCESS read-only
+	STATUS  current
+	DESCRIPTION
+		"Retorna STATUS e FUNCAO da Saida Digital 9 (modo	texto)"
+	::= { sdStatusFuncaoPortaSTR 8 }	-- 1.3.6.1.4.1.42588.3.1.4.8
+
+statusFuncaoPortaSTRsd10 OBJECT-TYPE
+	SYNTAX  OCTET STRING
+	ACCESS read-only
+	STATUS  current
+	DESCRIPTION
+		"Retorna STATUS e FUNCAO da Saida Digital 10 (modo	texto)"
+	::= { sdStatusFuncaoPortaSTR 9 }	-- 1.3.6.1.4.1.42588.3.1.4.9
+
+statusFuncaoPortaSTRsd11 OBJECT-TYPE
+	SYNTAX  OCTET STRING
+	ACCESS read-only
+	STATUS  current
+	DESCRIPTION
+		"Retorna STATUS e FUNCAO da Saida Digital 11 (modo	texto)"
+	::= { sdStatusFuncaoPortaSTR 10 }	-- 1.3.6.1.4.1.42588.3.1.4.10
+
+statusFuncaoPortaSTRsd12 OBJECT-TYPE
+	SYNTAX  OCTET STRING
+	ACCESS read-only
+	STATUS  current
+	DESCRIPTION
+		"Retorna STATUS e FUNCAO da Saida Digital 12 (modo	texto)"
+	::= { sdStatusFuncaoPortaSTR 11 }	-- 1.3.6.1.4.1.42588.3.1.4.11
+
+	
+-- -------------------------------------------------------------
+-- The entradaDigital Group
+-- -------------------------------------------------------------	
+--  ==============================
+--  edFuncaoPortaSTR TABLE
+--  ==============================
+edFuncaoPortaSTR OBJECT IDENTIFIER ::= { entradaDigital 1 }	-- 1.3.6.1.4.1.42588.3.2.1
+
+funcaoPortaSTRed1 OBJECT-TYPE
+	SYNTAX  OCTET STRING
+	ACCESS read-only
+	STATUS  current
+	DESCRIPTION
+		"Retorna a FUNCAO da Entrada Digital 1 (modo texto)"	
+	::= { edFuncaoPortaSTR 0 }	-- 1.3.6.1.4.1.42588.3.2.1.0
+	
+funcaoPortaSTRed2 OBJECT-TYPE
+	SYNTAX  OCTET STRING
+	ACCESS read-only
+	STATUS  current
+	DESCRIPTION
+		"Retorna a FUNCAO da Entrada Digital 2 (modo texto)"	
+	::= { edFuncaoPortaSTR 1 }	-- 1.3.6.1.4.1.42588.3.2.1.1
+
+funcaoPortaSTRed3 OBJECT-TYPE
+	SYNTAX  OCTET STRING
+	ACCESS read-only
+	STATUS  current
+	DESCRIPTION
+		"Retorna a FUNCAO da Entrada Digital 3 (modo texto)"	
+	::= { edFuncaoPortaSTR 2 }	-- 1.3.6.1.4.1.42588.3.2.1.2
+
+funcaoPortaSTRed4 OBJECT-TYPE
+	SYNTAX  OCTET STRING
+	ACCESS read-only
+	STATUS  current
+	DESCRIPTION
+		"Retorna a FUNCAO da Entrada Digital 4 (modo texto)"	
+	::= { edFuncaoPortaSTR 3 }	-- 1.3.6.1.4.1.42588.3.2.1.3
+
+funcaoPortaSTRed5 OBJECT-TYPE
+	SYNTAX  OCTET STRING
+	ACCESS read-only
+	STATUS  current
+	DESCRIPTION
+		"Retorna a FUNCAO da Entrada Digital 5 (modo texto)"	
+	::= { edFuncaoPortaSTR 4 }	-- 1.3.6.1.4.1.42588.3.2.1.4
+
+funcaoPortaSTRed6 OBJECT-TYPE
+	SYNTAX  OCTET STRING
+	ACCESS read-only
+	STATUS  current
+	DESCRIPTION
+		"Retorna a FUNCAO da Entrada Digital 6 (modo texto)"	
+	::= { edFuncaoPortaSTR 5 }	-- 1.3.6.1.4.1.42588.3.2.1.5
+
+funcaoPortaSTRed7 OBJECT-TYPE
+	SYNTAX  OCTET STRING
+	ACCESS read-only
+	STATUS  current
+	DESCRIPTION
+		"Retorna a FUNCAO da Entrada Digital 7 (modo texto)"	
+	::= { edFuncaoPortaSTR 6 }	-- 1.3.6.1.4.1.42588.3.2.1.6
+
+funcaoPortaSTRed8 OBJECT-TYPE
+	SYNTAX  OCTET STRING
+	ACCESS read-only
+	STATUS  current
+	DESCRIPTION
+		"Retorna a FUNCAO da Entrada Digital 8 (modo texto)"	
+	::= { edFuncaoPortaSTR 7 }	-- 1.3.6.1.4.1.42588.3.2.1.7
+
+funcaoPortaSTRed9 OBJECT-TYPE
+	SYNTAX  OCTET STRING
+	ACCESS read-only
+	STATUS  current
+	DESCRIPTION
+		"Retorna a FUNCAO da Entrada Digital 9 (modo texto)"	
+	::= { edFuncaoPortaSTR 8 }	-- 1.3.6.1.4.1.42588.3.2.1.8
+
+funcaoPortaSTRed10 OBJECT-TYPE
+	SYNTAX  OCTET STRING
+	ACCESS read-only
+	STATUS  current
+	DESCRIPTION
+		"Retorna a FUNCAO da Entrada Digital 10 (modo texto)"	
+	::= { edFuncaoPortaSTR 9 }	-- 1.3.6.1.4.1.42588.3.2.1.9
+
+funcaoPortaSTRed11 OBJECT-TYPE
+	SYNTAX  OCTET STRING
+	ACCESS read-only
+	STATUS  current
+	DESCRIPTION
+		"Retorna a FUNCAO da Entrada Digital 11 (modo texto)"	
+	::= { edFuncaoPortaSTR 10 }	-- 1.3.6.1.4.1.42588.3.2.1.10
+
+	
+--  ==============================
+--  edStatusPortaSTR TABLE
+--  ==============================
+edStatusPortaSTR OBJECT IDENTIFIER ::= { entradaDigital 2 }	-- 1.3.6.1.4.1.42588.3.2.2
+
+statusPortaSTRed1 OBJECT-TYPE
+	SYNTAX  OCTET STRING
+	ACCESS read-only
+	STATUS  current
+	DESCRIPTION
+		"Retorna o STATUS da Entrada Digital 1 (modo texto)"
+	::= { edStatusPortaSTR 0 }	-- 1.3.6.1.4.1.42588.3.2.2.0
+
+statusPortaSTRed2 OBJECT-TYPE
+	SYNTAX  OCTET STRING
+	ACCESS read-only
+	STATUS  current
+	DESCRIPTION
+		"Retorna o STATUS da Entrada Digital 2 (modo texto)"
+	::= { edStatusPortaSTR 1 }	-- 1.3.6.1.4.1.42588.3.2.2.1	
+
+statusPortaSTRed3 OBJECT-TYPE
+	SYNTAX  OCTET STRING
+	ACCESS read-only
+	STATUS  current
+	DESCRIPTION
+		"Retorna o STATUS da Entrada Digital 3 (modo texto)"
+	::= { edStatusPortaSTR 2 }	-- 1.3.6.1.4.1.42588.3.2.2.2	
+
+statusPortaSTRed4 OBJECT-TYPE
+	SYNTAX  OCTET STRING
+	ACCESS read-only
+	STATUS  current
+	DESCRIPTION
+		"Retorna o STATUS da Entrada Digital 4 (modo texto)"
+	::= { edStatusPortaSTR 3 }	-- 1.3.6.1.4.1.42588.3.2.2.3	
+
+statusPortaSTRed5 OBJECT-TYPE
+	SYNTAX  OCTET STRING
+	ACCESS read-only
+	STATUS  current
+	DESCRIPTION
+		"Retorna o STATUS da Entrada Digital 5 (modo texto)"
+	::= { edStatusPortaSTR 4 }	-- 1.3.6.1.4.1.42588.3.2.2.4	
+
+statusPortaSTRed6 OBJECT-TYPE
+	SYNTAX  OCTET STRING
+	ACCESS read-only
+	STATUS  current
+	DESCRIPTION
+		"Retorna o STATUS da Entrada Digital 6 (modo texto)"
+	::= { edStatusPortaSTR 5 }	-- 1.3.6.1.4.1.42588.3.2.2.5	
+
+statusPortaSTRed7 OBJECT-TYPE
+	SYNTAX  OCTET STRING
+	ACCESS read-only
+	STATUS  current
+	DESCRIPTION
+		"Retorna o STATUS da Entrada Digital 7 (modo texto)"
+	::= { edStatusPortaSTR 6 }	-- 1.3.6.1.4.1.42588.3.2.2.6	
+
+statusPortaSTRed8 OBJECT-TYPE
+	SYNTAX  OCTET STRING
+	ACCESS read-only
+	STATUS  current
+	DESCRIPTION
+		"Retorna o STATUS da Entrada Digital 8 (modo texto)"
+	::= { edStatusPortaSTR 7 }	-- 1.3.6.1.4.1.42588.3.2.2.7	
+
+statusPortaSTRed9 OBJECT-TYPE
+	SYNTAX  OCTET STRING
+	ACCESS read-only
+	STATUS  current
+	DESCRIPTION
+		"Retorna o STATUS da Entrada Digital 9 (modo texto)"
+	::= { edStatusPortaSTR 8 }	-- 1.3.6.1.4.1.42588.3.2.2.8	
+
+statusPortaSTRed10 OBJECT-TYPE
+	SYNTAX  OCTET STRING
+	ACCESS read-only
+	STATUS  current
+	DESCRIPTION
+		"Retorna o STATUS da Entrada Digital 10 (modo texto)"
+	::= { edStatusPortaSTR 9 }	-- 1.3.6.1.4.1.42588.3.2.2.9	
+
+statusPortaSTRed11 OBJECT-TYPE
+	SYNTAX  OCTET STRING
+	ACCESS read-only
+	STATUS  current
+	DESCRIPTION
+		"Retorna o STATUS da Entrada Digital 11 (modo texto)"
+	::= { edStatusPortaSTR 10 }	-- 1.3.6.1.4.1.42588.3.2.2.10	
+
+	
+--  ==============================
+--  edStatusPortaINT TABLE
+--  ==============================
+edStatusPortaINT OBJECT IDENTIFIER ::= { entradaDigital 3 }	-- 1.3.6.1.4.1.42588.3.2.3
+
+statusPortaINTed1 OBJECT-TYPE
+	SYNTAX  INTEGER {
+			on(1),
+			off(2) }
+	ACCESS read-only
+	STATUS  current
+	DESCRIPTION
+		"Retorna os STATUS da Entrada Digital 1 (modo numerico)"	
+	::= { edStatusPortaINT 0 }	-- 1.3.6.1.4.1.42588.3.2.3.0
+	
+statusPortaINTed2 OBJECT-TYPE
+	SYNTAX  INTEGER {
+			on(1),
+			off(2) }
+	ACCESS read-only
+	STATUS  current
+	DESCRIPTION
+		"Retorna os STATUS da Entrada Digital 2 (modo numerico)"	
+	::= { edStatusPortaINT 1 }	-- 1.3.6.1.4.1.42588.3.2.3.1
+
+statusPortaINTed3 OBJECT-TYPE
+	SYNTAX  INTEGER {
+			on(1),
+			off(2) }
+	ACCESS read-only
+	STATUS  current
+	DESCRIPTION
+		"Retorna os STATUS da Entrada Digital 3 (modo numerico)"	
+	::= { edStatusPortaINT 2 }	-- 1.3.6.1.4.1.42588.3.2.3.2
+
+statusPortaINTed4 OBJECT-TYPE
+	SYNTAX  INTEGER {
+			on(1),
+			off(2) }
+	ACCESS read-only
+	STATUS  current
+	DESCRIPTION
+		"Retorna os STATUS da Entrada Digital 4 (modo numerico)"	
+	::= { edStatusPortaINT 3 }	-- 1.3.6.1.4.1.42588.3.2.3.3
+
+statusPortaINTed5 OBJECT-TYPE
+	SYNTAX  INTEGER {
+			on(1),
+			off(2) }
+	ACCESS read-only
+	STATUS  current
+	DESCRIPTION
+		"Retorna os STATUS da Entrada Digital 5 (modo numerico)"	
+	::= { edStatusPortaINT 4 }	-- 1.3.6.1.4.1.42588.3.2.3.4
+
+statusPortaINTed6 OBJECT-TYPE
+	SYNTAX  INTEGER {
+			on(1),
+			off(2) }
+	ACCESS read-only
+	STATUS  current
+	DESCRIPTION
+		"Retorna os STATUS da Entrada Digital 6 (modo numerico)"	
+	::= { edStatusPortaINT 5 }	-- 1.3.6.1.4.1.42588.3.2.3.5
+
+statusPortaINTed7 OBJECT-TYPE
+	SYNTAX  INTEGER {
+			on(1),
+			off(2) }
+	ACCESS read-only
+	STATUS  current
+	DESCRIPTION
+		"Retorna os STATUS da Entrada Digital 7 (modo numerico)"	
+	::= { edStatusPortaINT 6 }	-- 1.3.6.1.4.1.42588.3.2.3.6
+
+statusPortaINTed8 OBJECT-TYPE
+	SYNTAX  INTEGER {
+			on(1),
+			off(2) }
+	ACCESS read-only
+	STATUS  current
+	DESCRIPTION
+		"Retorna os STATUS da Entrada Digital 8 (modo numerico)"	
+	::= { edStatusPortaINT 7 }	-- 1.3.6.1.4.1.42588.3.2.3.7
+
+statusPortaINTed9 OBJECT-TYPE
+	SYNTAX  INTEGER {
+			on(1),
+			off(2) }
+	ACCESS read-only
+	STATUS  current
+	DESCRIPTION
+		"Retorna os STATUS da Entrada Digital 9 (modo numerico)"	
+	::= { edStatusPortaINT 8 }	-- 1.3.6.1.4.1.42588.3.2.3.8
+
+statusPortaINTed10 OBJECT-TYPE
+	SYNTAX  INTEGER {
+			on(1),
+			off(2) }
+	ACCESS read-only
+	STATUS  current
+	DESCRIPTION
+		"Retorna os STATUS da Entrada Digital 10 (modo numerico)"	
+	::= { edStatusPortaINT 9 }	-- 1.3.6.1.4.1.42588.3.2.3.9
+
+statusPortaINTed11 OBJECT-TYPE
+	SYNTAX  INTEGER {
+			on(1),
+			off(2) }
+	ACCESS read-only
+	STATUS  current
+	DESCRIPTION
+		"Retorna os STATUS da Entrada Digital 11 (modo numerico)"	
+	::= { edStatusPortaINT 10 }	-- 1.3.6.1.4.1.42588.3.2.3.10
+
+
+--  ==============================
+--  edStatusFuncaoPortaSTR TABLE
+--  ==============================
+edStatusFuncaoPortaSTR OBJECT IDENTIFIER ::= { entradaDigital 4 }	-- 1.3.6.1.4.1.42588.3.2.4
+
+statusFuncaoPortaSTRed1 OBJECT-TYPE
+	SYNTAX  OCTET STRING
+	ACCESS read-only
+	STATUS  current
+	DESCRIPTION
+		"Retorna STATUS e FUNCAO da Entrada Digital 1 (modo texto)"
+	::= { edStatusFuncaoPortaSTR 0 }	-- 1.3.6.1.4.1.42588.3.2.4.0
+	
+statusFuncaoPortaSTRed2 OBJECT-TYPE
+	SYNTAX  OCTET STRING
+	ACCESS read-only
+	STATUS  current
+	DESCRIPTION
+		"Retorna STATUS e FUNCAO da Entrada Digital 2 (modo texto)"
+	::= { edStatusFuncaoPortaSTR 1 }	-- 1.3.6.1.4.1.42588.3.2.4.1
+
+statusFuncaoPortaSTRed3 OBJECT-TYPE
+	SYNTAX  OCTET STRING
+	ACCESS read-only
+	STATUS  current
+	DESCRIPTION
+		"Retorna STATUS e FUNCAO da Entrada Digital 3 (modo texto)"
+	::= { edStatusFuncaoPortaSTR 2 }	-- 1.3.6.1.4.1.42588.3.2.4.2
+
+statusFuncaoPortaSTRed4 OBJECT-TYPE
+	SYNTAX  OCTET STRING
+	ACCESS read-only
+	STATUS  current
+	DESCRIPTION
+		"Retorna STATUS e FUNCAO da Entrada Digital 4 (modo texto)"
+	::= { edStatusFuncaoPortaSTR 3 }	-- 1.3.6.1.4.1.42588.3.2.4.3
+
+statusFuncaoPortaSTRed5 OBJECT-TYPE
+	SYNTAX  OCTET STRING
+	ACCESS read-only
+	STATUS  current
+	DESCRIPTION
+		"Retorna STATUS e FUNCAO da Entrada Digital 5 (modo texto)"
+	::= { edStatusFuncaoPortaSTR 4 }	-- 1.3.6.1.4.1.42588.3.2.4.4
+
+statusFuncaoPortaSTRed6 OBJECT-TYPE
+	SYNTAX  OCTET STRING
+	ACCESS read-only
+	STATUS  current
+	DESCRIPTION
+		"Retorna STATUS e FUNCAO da Entrada Digital 6 (modo texto)"
+	::= { edStatusFuncaoPortaSTR 5 }	-- 1.3.6.1.4.1.42588.3.2.4.5
+
+statusFuncaoPortaSTRed7 OBJECT-TYPE
+	SYNTAX  OCTET STRING
+	ACCESS read-only
+	STATUS  current
+	DESCRIPTION
+		"Retorna STATUS e FUNCAO da Entrada Digital 7 (modo texto)"
+	::= { edStatusFuncaoPortaSTR 6 }	-- 1.3.6.1.4.1.42588.3.2.4.6
+
+statusFuncaoPortaSTRed8 OBJECT-TYPE
+	SYNTAX  OCTET STRING
+	ACCESS read-only
+	STATUS  current
+	DESCRIPTION
+		"Retorna STATUS e FUNCAO da Entrada Digital 8 (modo texto)"
+	::= { edStatusFuncaoPortaSTR 7 }	-- 1.3.6.1.4.1.42588.3.2.4.7
+
+statusFuncaoPortaSTRed9 OBJECT-TYPE
+	SYNTAX  OCTET STRING
+	ACCESS read-only
+	STATUS  current
+	DESCRIPTION
+		"Retorna STATUS e FUNCAO da Entrada Digital 9 (modo texto)"
+	::= { edStatusFuncaoPortaSTR 8 }	-- 1.3.6.1.4.1.42588.3.2.4.8
+
+statusFuncaoPortaSTRed10 OBJECT-TYPE
+	SYNTAX  OCTET STRING
+	ACCESS read-only
+	STATUS  current
+	DESCRIPTION
+		"Retorna STATUS e FUNCAO da Entrada Digital 10 (modo texto)"
+	::= { edStatusFuncaoPortaSTR 9 }	-- 1.3.6.1.4.1.42588.3.2.4.9
+
+statusFuncaoPortaSTRed11 OBJECT-TYPE
+	SYNTAX  OCTET STRING
+	ACCESS read-only
+	STATUS  current
+	DESCRIPTION
+		"Retorna STATUS e FUNCAO da Entrada Digital 11 (modo texto)"
+	::= { edStatusFuncaoPortaSTR 10 }	-- 1.3.6.1.4.1.42588.3.2.4.10
+
+
+-- -------------------------------------------------------------
+-- The entradaUniversal Group
+-- -------------------------------------------------------------	
+--  ==============================
+--  euFuncaoPortaSTR TABLE
+--  ==============================
+euFuncaoPortaSTR OBJECT IDENTIFIER ::= { entradaUniversal 1 }	-- 1.3.6.1.4.1.42588.3.4.1
+
+funcaoPortaSTReu1 OBJECT-TYPE
+	SYNTAX  OCTET STRING
+	ACCESS read-only
+	STATUS  current
+	DESCRIPTION
+		"Retorna a FUNCAO da Entrada Universal 1 (modo texto)"	
+	::= { euFuncaoPortaSTR 0 }	-- 1.3.6.1.4.1.42588.3.4.1.0
+	
+funcaoPortaSTReu2 OBJECT-TYPE
+	SYNTAX  OCTET STRING
+	ACCESS read-only
+	STATUS  current
+	DESCRIPTION
+		"Retorna a FUNCAO da Entrada Universal 2 (modo texto)"	
+	::= { euFuncaoPortaSTR 1 }	-- 1.3.6.1.4.1.42588.3.4.1.1
+
+funcaoPortaSTReu3 OBJECT-TYPE
+	SYNTAX  OCTET STRING
+	ACCESS read-only
+	STATUS  current
+	DESCRIPTION
+		"Retorna a FUNCAO da Entrada Universal 3 (modo texto)"	
+	::= { euFuncaoPortaSTR 2 }	-- 1.3.6.1.4.1.42588.3.4.1.2
+
+funcaoPortaSTReu4 OBJECT-TYPE
+	SYNTAX  OCTET STRING
+	ACCESS read-only
+	STATUS  current
+	DESCRIPTION
+		"Retorna a FUNCAO da Entrada Universal 4 (modo texto)"	
+	::= { euFuncaoPortaSTR 3 }	-- 1.3.6.1.4.1.42588.3.4.1.3
+
+funcaoPortaSTReu5 OBJECT-TYPE
+	SYNTAX  OCTET STRING
+	ACCESS read-only
+	STATUS  current
+	DESCRIPTION
+		"Retorna a FUNCAO da Entrada Universal 5 (modo texto)"	
+	::= { euFuncaoPortaSTR 4 }	-- 1.3.6.1.4.1.42588.3.4.1.4
+
+funcaoPortaSTReu6 OBJECT-TYPE
+	SYNTAX  OCTET STRING
+	ACCESS read-only
+	STATUS  current
+	DESCRIPTION
+		"Retorna a FUNCAO da Entrada Universal 6 (modo texto)"	
+	::= { euFuncaoPortaSTR 5 }	-- 1.3.6.1.4.1.42588.3.4.1.5
+
+funcaoPortaSTReu7 OBJECT-TYPE
+	SYNTAX  OCTET STRING
+	ACCESS read-only
+	STATUS  current
+	DESCRIPTION
+		"Retorna a FUNCAO da Entrada Universal 7 (modo texto)"	
+	::= { euFuncaoPortaSTR 6 }	-- 1.3.6.1.4.1.42588.3.4.1.6
+
+funcaoPortaSTReu8 OBJECT-TYPE
+	SYNTAX  OCTET STRING
+	ACCESS read-only
+	STATUS  current
+	DESCRIPTION
+		"Retorna a FUNCAO da Entrada Universal 8 (modo texto)"	
+	::= { euFuncaoPortaSTR 7 }	-- 1.3.6.1.4.1.42588.3.4.1.7
+
+funcaoPortaSTReu9 OBJECT-TYPE
+	SYNTAX  OCTET STRING
+	ACCESS read-only
+	STATUS  current
+	DESCRIPTION
+		"Retorna a FUNCAO da Entrada Universal 9 (modo texto)"	
+	::= { euFuncaoPortaSTR 8 }	-- 1.3.6.1.4.1.42588.3.4.1.8
+
+funcaoPortaSTReu10 OBJECT-TYPE
+	SYNTAX  OCTET STRING
+	ACCESS read-only
+	STATUS  current
+	DESCRIPTION
+		"Retorna a FUNCAO da Entrada Universal 10 (modo texto)"	
+	::= { euFuncaoPortaSTR 9 }	-- 1.3.6.1.4.1.42588.3.4.1.9
+
+funcaoPortaSTReu11 OBJECT-TYPE
+	SYNTAX  OCTET STRING
+	ACCESS read-only
+	STATUS  current
+	DESCRIPTION
+		"Retorna a FUNCAO da Entrada Universal 11 (modo texto)"	
+	::= { euFuncaoPortaSTR 10 }	-- 1.3.6.1.4.1.42588.3.4.1.10
+
+funcaoPortaSTReu12 OBJECT-TYPE
+	SYNTAX  OCTET STRING
+	ACCESS read-only
+	STATUS  current
+	DESCRIPTION
+		"Retorna a FUNCAO da Entrada Universal 12 (modo texto)"	
+	::= { euFuncaoPortaSTR 11 }	-- 1.3.6.1.4.1.42588.3.4.1.11
+
+funcaoPortaSTReu13 OBJECT-TYPE
+	SYNTAX  OCTET STRING
+	ACCESS read-only
+	STATUS  current
+	DESCRIPTION
+		"Retorna a FUNCAO da Entrada Universal 13 (modo texto)"	
+	::= { euFuncaoPortaSTR 12 }	-- 1.3.6.1.4.1.42588.3.4.1.12
+
+funcaoPortaSTReu14 OBJECT-TYPE
+	SYNTAX  OCTET STRING
+	ACCESS read-only
+	STATUS  current
+	DESCRIPTION
+		"Retorna a FUNCAO da Entrada Universal 14 (modo texto)"	
+	::= { euFuncaoPortaSTR 13 }	-- 1.3.6.1.4.1.42588.3.4.1.13
+
+funcaoPortaSTReu15 OBJECT-TYPE
+	SYNTAX  OCTET STRING
+	ACCESS read-only
+	STATUS  current
+	DESCRIPTION
+		"Retorna a FUNCAO da Entrada Universal 15 (modo texto)"	
+	::= { euFuncaoPortaSTR 14 }	-- 1.3.6.1.4.1.42588.3.4.1.14
+
+funcaoPortaSTReu16 OBJECT-TYPE
+	SYNTAX  OCTET STRING
+	ACCESS read-only
+	STATUS  current
+	DESCRIPTION
+		"Retorna a FUNCAO da Entrada Universal 16 (modo texto)"	
+	::= { euFuncaoPortaSTR 15 }	-- 1.3.6.1.4.1.42588.3.4.1.15
+
+funcaoPortaSTReu17 OBJECT-TYPE
+	SYNTAX  OCTET STRING
+	ACCESS read-only
+	STATUS  current
+	DESCRIPTION
+		"Retorna a FUNCAO da Entrada Universal 17 (modo texto)"	
+	::= { euFuncaoPortaSTR 16 }	-- 1.3.6.1.4.1.42588.3.4.1.16
+
+funcaoPortaSTReu18 OBJECT-TYPE
+	SYNTAX  OCTET STRING
+	ACCESS read-only
+	STATUS  current
+	DESCRIPTION
+		"Retorna a FUNCAO da Entrada Universal 18 (modo texto)"	
+	::= { euFuncaoPortaSTR 17 }	-- 1.3.6.1.4.1.42588.3.4.1.17
+
+funcaoPortaSTReu19 OBJECT-TYPE
+	SYNTAX  OCTET STRING
+	ACCESS read-only
+	STATUS  current
+	DESCRIPTION
+		"Retorna a FUNCAO da Entrada Universal 19 (modo texto)"	
+	::= { euFuncaoPortaSTR 18 }	-- 1.3.6.1.4.1.42588.3.4.1.18
+
+funcaoPortaSTReu20 OBJECT-TYPE
+	SYNTAX  OCTET STRING
+	ACCESS read-only
+	STATUS  current
+	DESCRIPTION
+		"Retorna a FUNCAO da Entrada Universal 20 (modo texto)"	
+	::= { euFuncaoPortaSTR 19 }	-- 1.3.6.1.4.1.42588.3.4.1.19
+
+funcaoPortaSTReu21 OBJECT-TYPE
+	SYNTAX  OCTET STRING
+	ACCESS read-only
+	STATUS  current
+	DESCRIPTION
+		"Retorna a FUNCAO da Entrada Universal 21 (modo texto)"	
+	::= { euFuncaoPortaSTR 20 }	-- 1.3.6.1.4.1.42588.3.4.1.20
+
+funcaoPortaSTReu22 OBJECT-TYPE
+	SYNTAX  OCTET STRING
+	ACCESS read-only
+	STATUS  current
+	DESCRIPTION
+		"Retorna a FUNCAO da Entrada Universal 22 (modo texto)"	
+	::= { euFuncaoPortaSTR 21 }	-- 1.3.6.1.4.1.42588.3.4.1.21
+
+
+--  ==============================
+--  euStatusPortaSTR TABLE
+--  ==============================
+euStatusPortaSTR OBJECT IDENTIFIER ::= { entradaUniversal 2 }	-- 1.3.6.1.4.1.42588.3.4.2
+
+statusPortaSTReu1 OBJECT-TYPE
+	SYNTAX  OCTET STRING
+	ACCESS read-only
+	STATUS  current
+	DESCRIPTION
+		"Retorna o STATUS da Entrada Universal 1 (modo texto)"
+	::= { euStatusPortaSTR 0 }	-- 1.3.6.1.4.1.42588.3.4.2.0
+
+statusPortaSTReu2 OBJECT-TYPE
+	SYNTAX  OCTET STRING
+	ACCESS read-only
+	STATUS  current
+	DESCRIPTION
+		"Retorna o STATUS da Entrada Universal 2 (modo texto)"
+	::= { euStatusPortaSTR 1 }	-- 1.3.6.1.4.1.42588.3.4.2.1
+
+statusPortaSTReu3 OBJECT-TYPE
+	SYNTAX  OCTET STRING
+	ACCESS read-only
+	STATUS  current
+	DESCRIPTION
+		"Retorna o STATUS da Entrada Universal 3 (modo texto)"
+	::= { euStatusPortaSTR 2cmd }	-- 1.3.6.1.4.1.42588.3.4.2.2
+
+statusPortaSTReu4 OBJECT-TYPE
+	SYNTAX  OCTET STRING
+	ACCESS read-only
+	STATUS  current
+	DESCRIPTION
+		"Retorna o STATUS da Entrada Universal 4 (modo texto)"
+	::= { euStatusPortaSTR 3 }	-- 1.3.6.1.4.1.42588.3.4.2.3
+
+statusPortaSTReu5 OBJECT-TYPE
+	SYNTAX  OCTET STRING
+	ACCESS read-only
+	STATUS  current
+	DESCRIPTION
+		"Retorna o STATUS da Entrada Universal 5 (modo texto)"
+	::= { euStatusPortaSTR 4 }	-- 1.3.6.1.4.1.42588.3.4.2.4
+
+statusPortaSTReu6 OBJECT-TYPE
+	SYNTAX  OCTET STRING
+	ACCESS read-only
+	STATUS  current
+	DESCRIPTION
+		"Retorna o STATUS da Entrada Universal 6 (modo texto)"
+	::= { euStatusPortaSTR 5 }	-- 1.3.6.1.4.1.42588.3.4.2.5
+
+statusPortaSTReu7 OBJECT-TYPE
+	SYNTAX  OCTET STRING
+	ACCESS read-only
+	STATUS  current
+	DESCRIPTION
+		"Retorna o STATUS da Entrada Universal 7 (modo texto)"
+	::= { euStatusPortaSTR 6 }	-- 1.3.6.1.4.1.42588.3.4.2.6
+
+statusPortaSTReu8 OBJECT-TYPE
+	SYNTAX  OCTET STRING
+	ACCESS read-only
+	STATUS  current
+	DESCRIPTION
+		"Retorna o STATUS da Entrada Universal 8 (modo texto)"
+	::= { euStatusPortaSTR 7 }	-- 1.3.6.1.4.1.42588.3.4.2.7
+
+statusPortaSTReu9 OBJECT-TYPE
+	SYNTAX  OCTET STRING
+	ACCESS read-only
+	STATUS  current
+	DESCRIPTION
+		"Retorna o STATUS da Entrada Universal 9 (modo texto)"
+	::= { euStatusPortaSTR 8 }	-- 1.3.6.1.4.1.42588.3.4.2.8
+
+statusPortaSTReu10 OBJECT-TYPE
+	SYNTAX  OCTET STRING
+	ACCESS read-only
+	STATUS  current
+	DESCRIPTION
+		"Retorna o STATUS da Entrada Universal 10 (modo texto)"
+	::= { euStatusPortaSTR 9 }	-- 1.3.6.1.4.1.42588.3.4.2.9
+
+statusPortaSTReu11 OBJECT-TYPE
+	SYNTAX  OCTET STRING
+	ACCESS read-only
+	STATUS  current
+	DESCRIPTION
+		"Retorna o STATUS da Entrada Universal 11 (modo texto)"
+	::= { euStatusPortaSTR 10 }	-- 1.3.6.1.4.1.42588.3.4.2.10
+
+statusPortaSTReu12 OBJECT-TYPE
+	SYNTAX  OCTET STRING
+	ACCESS read-only
+	STATUS  current
+	DESCRIPTION
+		"Retorna o STATUS da Entrada Universal 12 (modo texto)"
+	::= { euStatusPortaSTR 11 }	-- 1.3.6.1.4.1.42588.3.4.2.11
+
+statusPortaSTReu13 OBJECT-TYPE
+	SYNTAX  OCTET STRING
+	ACCESS read-only
+	STATUS  current
+	DESCRIPTION
+		"Retorna o STATUS da Entrada Universal 13 (modo texto)"
+	::= { euStatusPortaSTR 12 }	-- 1.3.6.1.4.1.42588.3.4.2.12
+
+statusPortaSTReu14 OBJECT-TYPE
+	SYNTAX  OCTET STRING
+	ACCESS read-only
+	STATUS  current
+	DESCRIPTION
+		"Retorna o STATUS da Entrada Universal 14 (modo texto)"
+	::= { euStatusPortaSTR 13 }	-- 1.3.6.1.4.1.42588.3.4.2.13
+
+statusPortaSTReu15 OBJECT-TYPE
+	SYNTAX  OCTET STRING
+	ACCESS read-only
+	STATUS  current
+	DESCRIPTION
+		"Retorna o STATUS da Entrada Universal 15 (modo texto)"
+	::= { euStatusPortaSTR 14 }	-- 1.3.6.1.4.1.42588.3.4.2.14
+
+statusPortaSTReu16 OBJECT-TYPE
+	SYNTAX  OCTET STRING
+	ACCESS read-only
+	STATUS  current
+	DESCRIPTION
+		"Retorna o STATUS da Entrada Universal 16 (modo texto)"
+	::= { euStatusPortaSTR 15 }	-- 1.3.6.1.4.1.42588.3.4.2.15
+
+statusPortaSTReu17 OBJECT-TYPE
+	SYNTAX  OCTET STRING
+	ACCESS read-only
+	STATUS  current
+	DESCRIPTION
+		"Retorna o STATUS da Entrada Universal 17 (modo texto)"
+	::= { euStatusPortaSTR 16 }	-- 1.3.6.1.4.1.42588.3.4.2.16
+
+statusPortaSTReu18 OBJECT-TYPE
+	SYNTAX  OCTET STRING
+	ACCESS read-only
+	STATUS  current
+	DESCRIPTION
+		"Retorna o STATUS da Entrada Universal 18 (modo texto)"
+	::= { euStatusPortaSTR 17 }	-- 1.3.6.1.4.1.42588.3.4.2.17
+
+statusPortaSTReu19 OBJECT-TYPE
+	SYNTAX  OCTET STRING
+	ACCESS read-only
+	STATUS  current
+	DESCRIPTION
+		"Retorna o STATUS da Entrada Universal 19 (modo texto)"
+	::= { euStatusPortaSTR 18 }	-- 1.3.6.1.4.1.42588.3.4.2.18
+
+statusPortaSTReu20 OBJECT-TYPE
+	SYNTAX  OCTET STRING
+	ACCESS read-only
+	STATUS  current
+	DESCRIPTION
+		"Retorna o STATUS da Entrada Universal 20 (modo texto)"
+	::= { euStatusPortaSTR 19 }	-- 1.3.6.1.4.1.42588.3.4.2.19
+
+statusPortaSTReu21 OBJECT-TYPE
+	SYNTAX  OCTET STRING
+	ACCESS read-only
+	STATUS  current
+	DESCRIPTION
+		"Retorna o STATUS da Entrada Universal 21 (modo texto)"
+	::= { euStatusPortaSTR 20 }	-- 1.3.6.1.4.1.42588.3.4.2.20
+
+statusPortaSTReu22 OBJECT-TYPE
+	SYNTAX  OCTET STRING
+	ACCESS read-only
+	STATUS  current
+	DESCRIPTION
+		"Retorna o STATUS da Entrada Universal 22 (modo texto)"
+	::= { euStatusPortaSTR 21 }	-- 1.3.6.1.4.1.42588.3.4.2.21
+
+	
+--  ==============================
+--  euStatusPortaINT TABLE
+--  ==============================
+euStatusPortaINT OBJECT IDENTIFIER ::= { entradaUniversal 3 }	-- 1.3.6.1.4.1.42588.3.4.3
+
+statusPortaINTeu1 OBJECT-TYPE
+	SYNTAX  Integer32
+	ACCESS read-only
+	STATUS  current
+	DESCRIPTION
+		"Retorna os STATUS da Entrada Universal 1 (modo numerico)"
+	::= { euStatusPortaINT 0 }	-- 1.3.6.1.4.1.42588.3.4.3.0
+
+statusPortaINTeu2 OBJECT-TYPE
+	SYNTAX  Integer32
+	ACCESS read-only
+	STATUS  current
+	DESCRIPTION
+		"Retorna os STATUS da Entrada Universal 2 (modo numerico)"
+	::= { euStatusPortaINT 1 }	-- 1.3.6.1.4.1.42588.3.4.3.1
+
+statusPortaINTeu3 OBJECT-TYPE
+	SYNTAX  Integer32
+	ACCESS read-only
+	STATUS  current
+	DESCRIPTION
+		"Retorna os STATUS da Entrada Universal 3 (modo numerico)"
+	::= { euStatusPortaINT 2 }	-- 1.3.6.1.4.1.42588.3.4.3.2
+
+statusPortaINTeu4 OBJECT-TYPE
+	SYNTAX  Integer32
+	ACCESS read-only
+	STATUS  current
+	DESCRIPTION
+		"Retorna os STATUS da Entrada Universal 4 (modo numerico)"
+	::= { euStatusPortaINT 3 }	-- 1.3.6.1.4.1.42588.3.4.3.3
+
+statusPortaINTeu5 OBJECT-TYPE
+	SYNTAX  Integer32
+	ACCESS read-only
+	STATUS  current
+	DESCRIPTION
+		"Retorna os STATUS da Entrada Universal 5 (modo numerico)"
+	::= { euStatusPortaINT 4 }	-- 1.3.6.1.4.1.42588.3.4.3.4
+
+statusPortaINTeu6 OBJECT-TYPE
+	SYNTAX  Integer32
+	ACCESS read-only
+	STATUS  current
+	DESCRIPTION
+		"Retorna os STATUS da Entrada Universal 6 (modo numerico)"
+	::= { euStatusPortaINT 5 }	-- 1.3.6.1.4.1.42588.3.4.3.5
+
+statusPortaINTeu7 OBJECT-TYPE
+	SYNTAX  Integer32
+	ACCESS read-only
+	STATUS  current
+	DESCRIPTION
+		"Retorna os STATUS da Entrada Universal 7 (modo numerico)"
+	::= { euStatusPortaINT 6 }	-- 1.3.6.1.4.1.42588.3.4.3.6
+
+statusPortaINTeu8 OBJECT-TYPE
+	SYNTAX  Integer32
+	ACCESS read-only
+	STATUS  current
+	DESCRIPTION
+		"Retorna os STATUS da Entrada Universal 8 (modo numerico)"
+	::= { euStatusPortaINT 7 }	-- 1.3.6.1.4.1.42588.3.4.3.7
+
+statusPortaINTeu9 OBJECT-TYPE
+	SYNTAX  Integer32
+	ACCESS read-only
+	STATUS  current
+	DESCRIPTION
+		"Retorna os STATUS da Entrada Universal 9 (modo numerico)"
+	::= { euStatusPortaINT 8 }	-- 1.3.6.1.4.1.42588.3.4.3.8
+
+statusPortaINTeu10 OBJECT-TYPE
+	SYNTAX  Integer32
+	ACCESS read-only
+	STATUS  current
+	DESCRIPTION
+		"Retorna os STATUS da Entrada Universal 10 (modo numerico)"
+	::= { euStatusPortaINT 9 }	-- 1.3.6.1.4.1.42588.3.4.3.9
+
+statusPortaINTeu11 OBJECT-TYPE
+	SYNTAX  Integer32
+	ACCESS read-only
+	STATUS  current
+	DESCRIPTION
+		"Retorna os STATUS da Entrada Universal 11 (modo numerico)"
+	::= { euStatusPortaINT 10 }	-- 1.3.6.1.4.1.42588.3.4.3.10
+
+statusPortaINTeu12 OBJECT-TYPE
+	SYNTAX  Integer32
+	ACCESS read-only
+	STATUS  current
+	DESCRIPTION
+		"Retorna os STATUS da Entrada Universal 12 (modo numerico)"
+	::= { euStatusPortaINT 11 }	-- 1.3.6.1.4.1.42588.3.4.3.11
+
+statusPortaINTeu13 OBJECT-TYPE
+	SYNTAX  Integer32
+	ACCESS read-only
+	STATUS  current
+	DESCRIPTION
+		"Retorna os STATUS da Entrada Universal 13 (modo numerico)"
+	::= { euStatusPortaINT 12 }	-- 1.3.6.1.4.1.42588.3.4.3.12
+
+statusPortaINTeu14 OBJECT-TYPE
+	SYNTAX  Integer32
+	ACCESS read-only
+	STATUS  current
+	DESCRIPTION
+		"Retorna os STATUS da Entrada Universal 14 (modo numerico)"
+	::= { euStatusPortaINT 13 }	-- 1.3.6.1.4.1.42588.3.4.3.13
+
+statusPortaINTeu15 OBJECT-TYPE
+	SYNTAX  Integer32
+	ACCESS read-only
+	STATUS  current
+	DESCRIPTION
+		"Retorna os STATUS da Entrada Universal 15 (modo numerico)"
+	::= { euStatusPortaINT 14 }	-- 1.3.6.1.4.1.42588.3.4.3.14
+
+statusPortaINTeu16 OBJECT-TYPE
+	SYNTAX  Integer32
+	ACCESS read-only
+	STATUS  current
+	DESCRIPTION
+		"Retorna os STATUS da Entrada Universal 16 (modo numerico)"
+	::= { euStatusPortaINT 15 }	-- 1.3.6.1.4.1.42588.3.4.3.15
+
+statusPortaINTeu17 OBJECT-TYPE
+	SYNTAX  Integer32
+	ACCESS read-only
+	STATUS  current
+	DESCRIPTION
+		"Retorna os STATUS da Entrada Universal 17 (modo numerico)"
+	::= { euStatusPortaINT 16 }	-- 1.3.6.1.4.1.42588.3.4.3.16
+
+statusPortaINTeu18 OBJECT-TYPE
+	SYNTAX  Integer32
+	ACCESS read-only
+	STATUS  current
+	DESCRIPTION
+		"Retorna os STATUS da Entrada Universal 18 (modo numerico)"
+	::= { euStatusPortaINT 17 }	-- 1.3.6.1.4.1.42588.3.4.3.17
+
+statusPortaINTeu19 OBJECT-TYPE
+	SYNTAX  Integer32
+	ACCESS read-only
+	STATUS  current
+	DESCRIPTION
+		"Retorna os STATUS da Entrada Universal 19 (modo numerico)"
+	::= { euStatusPortaINT 18 }	-- 1.3.6.1.4.1.42588.3.4.3.18
+
+statusPortaINTeu20 OBJECT-TYPE
+	SYNTAX  Integer32
+	ACCESS read-only
+	STATUS  current
+	DESCRIPTION
+		"Retorna os STATUS da Entrada Universal 20 (modo numerico)"
+	::= { euStatusPortaINT 19 }	-- 1.3.6.1.4.1.42588.3.4.3.19
+
+statusPortaINTeu21 OBJECT-TYPE
+	SYNTAX  Integer32
+	ACCESS read-only
+	STATUS  current
+	DESCRIPTION
+		"Retorna os STATUS da Entrada Universal 21 (modo numerico)"
+	::= { euStatusPortaINT 20 }	-- 1.3.6.1.4.1.42588.3.4.3.20
+
+statusPortaINTeu22 OBJECT-TYPE
+	SYNTAX  Integer32
+	ACCESS read-only
+	STATUS  current
+	DESCRIPTION
+		"Retorna os STATUS da Entrada Universal 22 (modo numerico)"
+	::= { euStatusPortaINT 21 }	-- 1.3.6.1.4.1.42588.3.4.3.21
+
+
+--  ==============================
+--  euStatusFuncaoPortaSTR TABLE
+--  ==============================
+euStatusFuncaoPortaSTR OBJECT IDENTIFIER ::= { entradaUniversal 4 }	-- 1.3.6.1.4.1.42588.3.4.4
+
+statusFuncaoPortaSTReu1 OBJECT-TYPE
+	SYNTAX  OCTET STRING
+	ACCESS read-only
+	STATUS  current
+	DESCRIPTION
+		"Retorna STATUS e FUNCAO da Entrada Universal 1 (modo texto)"
+	::= { euStatusFuncaoPortaSTR 0 }	-- 1.3.6.1.4.1.42588.3.4.4.0
+	
+statusFuncaoPortaSTReu2 OBJECT-TYPE
+	SYNTAX  OCTET STRING
+	ACCESS read-only
+	STATUS  current
+	DESCRIPTION
+		"Retorna STATUS e FUNCAO da Entrada Universal 2 (modo texto)"
+	::= { euStatusFuncaoPortaSTR 1 }	-- 1.3.6.1.4.1.42588.3.4.4.1
+
+statusFuncaoPortaSTReu3 OBJECT-TYPE
+	SYNTAX  OCTET STRING
+	ACCESS read-only
+	STATUS  current
+	DESCRIPTION
+		"Retorna STATUS e FUNCAO da Entrada Universal 3 (modo texto)"
+	::= { euStatusFuncaoPortaSTR 2 }	-- 1.3.6.1.4.1.42588.3.4.4.2
+
+statusFuncaoPortaSTReu4 OBJECT-TYPE
+	SYNTAX  OCTET STRING
+	ACCESS read-only
+	STATUS  current
+	DESCRIPTION
+		"Retorna STATUS e FUNCAO da Entrada Universal 4 (modo texto)"
+	::= { euStatusFuncaoPortaSTR 3 }	-- 1.3.6.1.4.1.42588.3.4.4.3
+
+statusFuncaoPortaSTReu5 OBJECT-TYPE
+	SYNTAX  OCTET STRING
+	ACCESS read-only
+	STATUS  current
+	DESCRIPTION
+		"Retorna STATUS e FUNCAO da Entrada Universal 5 (modo texto)"
+	::= { euStatusFuncaoPortaSTR 4 }	-- 1.3.6.1.4.1.42588.3.4.4.4
+
+statusFuncaoPortaSTReu6 OBJECT-TYPE
+	SYNTAX  OCTET STRING
+	ACCESS read-only
+	STATUS  current
+	DESCRIPTION
+		"Retorna STATUS e FUNCAO da Entrada Universal 6 (modo texto)"
+	::= { euStatusFuncaoPortaSTR 5 }	-- 1.3.6.1.4.1.42588.3.4.4.5
+
+statusFuncaoPortaSTReu7 OBJECT-TYPE
+	SYNTAX  OCTET STRING
+	ACCESS read-only
+	STATUS  current
+	DESCRIPTION
+		"Retorna STATUS e FUNCAO da Entrada Universal 7 (modo texto)"
+	::= { euStatusFuncaoPortaSTR 6 }	-- 1.3.6.1.4.1.42588.3.4.4.6
+
+statusFuncaoPortaSTReu8 OBJECT-TYPE
+	SYNTAX  OCTET STRING
+	ACCESS read-only
+	STATUS  current
+	DESCRIPTION
+		"Retorna STATUS e FUNCAO da Entrada Universal 8 (modo texto)"
+	::= { euStatusFuncaoPortaSTR 7 }	-- 1.3.6.1.4.1.42588.3.4.4.7
+
+statusFuncaoPortaSTReu9 OBJECT-TYPE
+	SYNTAX  OCTET STRING
+	ACCESS read-only
+	STATUS  current
+	DESCRIPTION
+		"Retorna STATUS e FUNCAO da Entrada Universal 9 (modo texto)"
+	::= { euStatusFuncaoPortaSTR 8 }	-- 1.3.6.1.4.1.42588.3.4.4.8
+
+statusFuncaoPortaSTReu10 OBJECT-TYPE
+	SYNTAX  OCTET STRING
+	ACCESS read-only
+	STATUS  current
+	DESCRIPTION
+		"Retorna STATUS e FUNCAO da Entrada Universal 10 (modo texto)"
+	::= { euStatusFuncaoPortaSTR 9 }	-- 1.3.6.1.4.1.42588.3.4.4.9
+
+statusFuncaoPortaSTReu11 OBJECT-TYPE
+	SYNTAX  OCTET STRING
+	ACCESS read-only
+	STATUS  current
+	DESCRIPTION
+		"Retorna STATUS e FUNCAO da Entrada Universal 11 (modo texto)"
+	::= { euStatusFuncaoPortaSTR 10 }	-- 1.3.6.1.4.1.42588.3.4.4.10
+
+statusFuncaoPortaSTReu12 OBJECT-TYPE
+	SYNTAX  OCTET STRING
+	ACCESS read-only
+	STATUS  current
+	DESCRIPTION
+		"Retorna STATUS e FUNCAO da Entrada Universal 12 (modo texto)"
+	::= { euStatusFuncaoPortaSTR 11 }	-- 1.3.6.1.4.1.42588.3.4.4.11
+
+statusFuncaoPortaSTReu13 OBJECT-TYPE
+	SYNTAX  OCTET STRING
+	ACCESS read-only
+	STATUS  current
+	DESCRIPTION
+		"Retorna STATUS e FUNCAO da Entrada Universal 13 (modo texto)"
+	::= { euStatusFuncaoPortaSTR 12 }	-- 1.3.6.1.4.1.42588.3.4.4.12
+
+statusFuncaoPortaSTReu14 OBJECT-TYPE
+	SYNTAX  OCTET STRING
+	ACCESS read-only
+	STATUS  current
+	DESCRIPTION
+		"Retorna STATUS e FUNCAO da Entrada Universal 14 (modo texto)"
+	::= { euStatusFuncaoPortaSTR 13 }	-- 1.3.6.1.4.1.42588.3.4.4.13
+
+statusFuncaoPortaSTReu15 OBJECT-TYPE
+	SYNTAX  OCTET STRING
+	ACCESS read-only
+	STATUS  current
+	DESCRIPTION
+		"Retorna STATUS e FUNCAO da Entrada Universal 15 (modo texto)"
+	::= { euStatusFuncaoPortaSTR 14 }	-- 1.3.6.1.4.1.42588.3.4.4.14
+
+statusFuncaoPortaSTReu16 OBJECT-TYPE
+	SYNTAX  OCTET STRING
+	ACCESS read-only
+	STATUS  current
+	DESCRIPTION
+		"Retorna STATUS e FUNCAO da Entrada Universal 16 (modo texto)"
+	::= { euStatusFuncaoPortaSTR 15 }	-- 1.3.6.1.4.1.42588.3.4.4.15
+
+statusFuncaoPortaSTReu17 OBJECT-TYPE
+	SYNTAX  OCTET STRING
+	ACCESS read-only
+	STATUS  current
+	DESCRIPTION
+		"Retorna STATUS e FUNCAO da Entrada Universal 17 (modo texto)"
+	::= { euStatusFuncaoPortaSTR 16 }	-- 1.3.6.1.4.1.42588.3.4.4.16
+
+statusFuncaoPortaSTReu18 OBJECT-TYPE
+	SYNTAX  OCTET STRING
+	ACCESS read-only
+	STATUS  current
+	DESCRIPTION
+		"Retorna STATUS e FUNCAO da Entrada Universal 18 (modo texto)"
+	::= { euStatusFuncaoPortaSTR 17 }	-- 1.3.6.1.4.1.42588.3.4.4.17
+
+statusFuncaoPortaSTReu19 OBJECT-TYPE
+	SYNTAX  OCTET STRING
+	ACCESS read-only
+	STATUS  current
+	DESCRIPTION
+		"Retorna STATUS e FUNCAO da Entrada Universal 19 (modo texto)"
+	::= { euStatusFuncaoPortaSTR 18 }	-- 1.3.6.1.4.1.42588.3.4.4.18
+
+statusFuncaoPortaSTReu20 OBJECT-TYPE
+	SYNTAX  OCTET STRING
+	ACCESS read-only
+	STATUS  current
+	DESCRIPTION
+		"Retorna STATUS e FUNCAO da Entrada Universal 20 (modo texto)"
+	::= { euStatusFuncaoPortaSTR 19 }	-- 1.3.6.1.4.1.42588.3.4.4.19
+
+statusFuncaoPortaSTReu21 OBJECT-TYPE
+	SYNTAX  OCTET STRING
+	ACCESS read-only
+	STATUS  current
+	DESCRIPTION
+		"Retorna STATUS e FUNCAO da Entrada Universal 21 (modo texto)"
+	::= { euStatusFuncaoPortaSTR 20 }	-- 1.3.6.1.4.1.42588.3.4.4.20
+
+statusFuncaoPortaSTReu22 OBJECT-TYPE
+	SYNTAX  OCTET STRING
+	ACCESS read-only
+	STATUS  current
+	DESCRIPTION
+		"Retorna STATUS e FUNCAO da Entrada Universal 22 (modo texto)"
+	::= { euStatusFuncaoPortaSTR 21 }	-- 1.3.6.1.4.1.42588.3.4.4.21
+
+	
+-- -------------------------------------------------------------
+-- End of  in the AGST CONFLEX-LIGHT 
+-- -------------------------------------------------------------
+END

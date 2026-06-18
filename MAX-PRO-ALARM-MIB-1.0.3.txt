@@ -1,0 +1,983 @@
+--
+-- MAX-PRO-ALARM-MIB.mib
+--
+
+    MAX-PRO-ALARM-MIB DEFINITIONS ::= BEGIN
+ 
+        IMPORTS
+            OBJECT-TYPE, MODULE-IDENTITY, NOTIFICATION-TYPE            
+                FROM SNMPv2-SMI            
+            DisplayString            
+                FROM SNMPv2-TC;
+    
+    
+        -- 1.3.6.1.4.1.15921.60.1.1
+        alarm MODULE-IDENTITY 
+            LAST-UPDATED "202406241413Z"		
+            ORGANIZATION 
+                "N/A"
+            CONTACT-INFO 
+                "N/A"
+            DESCRIPTION 
+                "The proprietary alarm MIB module for MAX-PRO products."
+            REVISION "202406241413Z"		
+            DESCRIPTION 
+                "Version 1.0.3"
+            ::= { std 1 } 
+
+        
+    
+    
+--
+-- Node definitions
+--
+    	-- 1.3.6.1.4.1
+    	enterprises OBJECT IDENTIFIER ::= { iso(1) org(3) dod(6) internet(1) private(4) 1 }
+    	
+    	
+        -- 1.3.6.1.4.1.15921
+        digitalDAS OBJECT IDENTIFIER ::= { enterprises 15921 }
+
+        
+        -- 1.3.6.1.4.1.15921.60
+        max-comflexpro OBJECT IDENTIFIER ::= { digitalDAS 60 }
+
+        
+        -- 1.3.6.1.4.1.15921.60.1
+        std OBJECT IDENTIFIER ::= {  max-comflexpro 1 }
+
+        
+        -- 1.3.6.1.4.1.15921.60.1.1.1
+        trapSequenceID OBJECT-TYPE
+            SYNTAX INTEGER
+            MAX-ACCESS read-only
+            STATUS current
+            DESCRIPTION
+                "Trap Sequence ID."
+            ::= { alarm 1 }
+
+        
+        -- 1.3.6.1.4.1.15921.60.1.1.2
+        trapTimeStamp OBJECT-TYPE
+            SYNTAX DisplayString
+            MAX-ACCESS read-only
+            STATUS current
+            DESCRIPTION
+                "Absolute Time (Time Stamp)."
+            ::= { alarm 2 }
+
+        
+        -- 1.3.6.1.4.1.15921.60.1.1.3
+        trapDeviceType OBJECT-TYPE
+            SYNTAX DisplayString
+            MAX-ACCESS read-only
+            STATUS current
+            DESCRIPTION
+                "Device Type."
+            ::= { alarm 3 }
+
+        
+        -- 1.3.6.1.4.1.15921.60.1.1.4
+        trapDeviceSerial OBJECT-TYPE
+            SYNTAX DisplayString
+            MAX-ACCESS read-only
+            STATUS current
+            DESCRIPTION
+                "Device Serial Number (Unique)."
+            ::= { alarm 4 }
+
+        
+        -- 1.3.6.1.4.1.15921.60.1.1.5
+        trapRemoteIndex OBJECT-TYPE
+            SYNTAX DisplayString
+            MAX-ACCESS read-only
+            STATUS current
+            DESCRIPTION
+                "Remote Index."
+            ::= { alarm 5 }
+
+        
+        -- 1.3.6.1.4.1.15921.60.1.1.6
+        trapCtrlSerialNum OBJECT-TYPE
+            SYNTAX DisplayString
+            MAX-ACCESS read-only
+            STATUS current
+            DESCRIPTION
+                "Control Unit Serial Number (Unique)."
+            ::= { alarm 6 }
+
+        
+        -- 1.3.6.1.4.1.15921.60.1.1.7
+        trapCtrlName OBJECT-TYPE
+            SYNTAX DisplayString
+            MAX-ACCESS read-only
+            STATUS current
+            DESCRIPTION
+                "Control Unit Name."
+            ::= { alarm 7 }
+
+        
+        -- 1.3.6.1.4.1.15921.60.1.1.8
+        trapModuleName OBJECT-TYPE
+            SYNTAX DisplayString
+            MAX-ACCESS read-only
+            STATUS current
+            DESCRIPTION
+                "Module Name."
+            ::= { alarm 8 }
+
+        
+        -- 1.3.6.1.4.1.15921.60.1.1.9
+        trapSeverity OBJECT-TYPE
+            SYNTAX INTEGER
+                { 
+                notification(0),
+                minor(1),
+                major(2),  
+                critical(3)
+                 }
+            MAX-ACCESS read-only
+            STATUS current
+            DESCRIPTION
+                "Event's Severity."
+            ::= { alarm 9 }
+
+        
+        -- 1.3.6.1.4.1.15921.60.1.1.10
+        trapChannel OBJECT-TYPE
+            SYNTAX DisplayString
+            MAX-ACCESS read-only
+            STATUS current
+            DESCRIPTION
+                "Addition data for specific event (see Module Trap Description)."
+            ::= { alarm 10 }
+
+        
+        -- 1.3.6.1.4.1.15921.60.1.1.11
+        trapChannelDescription OBJECT-TYPE
+            SYNTAX DisplayString
+            MAX-ACCESS read-only
+            STATUS current
+            DESCRIPTION
+                "Description of Addition data for specific event (see Module Trap Description)."
+            ::= { alarm 11 }
+            
+
+        -- 1.3.6.1.4.1.15921.60.1.1.12
+        trapBandID OBJECT-TYPE
+            SYNTAX INTEGER
+                {                	
+                	band-WCS(24),
+                	band-2500T(25),
+                	band-N3500F(44),
+                	band-N3500G(45),
+                	band-1900B(47),
+                	band-EAWS-A(48),
+	                band-N/A(0)
+                }
+            MAX-ACCESS read-only
+            STATUS current
+            DESCRIPTION
+                "Description of band information for the trap even"
+            ::= { alarm 12 }
+            
+            
+        -- 1.3.6.1.4.1.15921.60.1.1.13
+        trapSetOrClear OBJECT-TYPE
+            SYNTAX INTEGER
+                {
+                clearTrap(0),
+                setTrap(1)
+                }
+            MAX-ACCESS read-only
+            STATUS current
+            DESCRIPTION
+                "0=ClearTrap, 1=SetTrap"
+            ::= { alarm 13 }
+
+        -- 1.3.6.1.4.1.15921.60.1.1.14
+        fileOperatorType OBJECT-TYPE
+            SYNTAX INTEGER
+                {
+                	upgrade(1),
+                	importConfigFile(2),
+                	exportConfigFile(3),  
+                	exportLogFile(4)
+                }
+            MAX-ACCESS read-only
+            STATUS current
+            DESCRIPTION
+                "1=Upgrade, 2=ImportConfigFile, 3=ExportConfigFile,4=ExportLogFile"
+            ::= { alarm 14 }
+
+         -- 1.3.6.1.4.1.15921.60.1.1.15
+         fileType OBJECT-TYPE
+            SYNTAX INTEGER
+                {
+                	upgrade(1),
+                	configFile(2),  
+                	logFile(3)
+                }
+            MAX-ACCESS read-only
+            STATUS current
+            DESCRIPTION
+                "1=Upgrade, 2=ConfigFile, 3=LogFile"
+            ::= { alarm 15 } 
+            
+         -- 1.3.6.1.4.1.15921.60.1.1.16
+         fileOperatorResult OBJECT-TYPE
+            SYNTAX INTEGER
+                {
+                	success(0),
+                	failure(1)  
+                }
+            MAX-ACCESS read-only
+            STATUS current
+            DESCRIPTION
+                "0=Success, 1=Failure"
+            ::= { alarm 16 }
+
+         -- 1.3.6.1.4.1.15921.60.1.1.17
+         fileOperatorFailReason OBJECT-TYPE
+            SYNTAX DisplayString
+            MAX-ACCESS read-only
+            STATUS current
+            DESCRIPTION
+                "if result is failure, show the failure reason"
+            ::= { alarm 17 }
+
+
+        
+        -- 1.3.6.1.4.1.15921.60.1.2
+        traps OBJECT IDENTIFIER ::= { std 2 }
+
+        --AU 1.3.6.1.4.1.15921.60.1.2.400 - 1.3.6.1.4.1.15921.60.1.2.499
+        -- 1.3.6.1.4.1.15921.60.1.2.400
+        auOverallAlarm NOTIFICATION-TYPE
+            OBJECTS { trapSequenceID, trapTimeStamp, trapDeviceType, trapDeviceSerial, trapRemoteIndex, 
+                trapCtrlSerialNum, trapCtrlName, trapModuleName, trapSeverity, trapChannel, trapChannelDescription,
+                trapBandID, trapSetOrClear}
+            STATUS current
+            DESCRIPTION 
+                "The alarm will occur while any sub-alarm occur in the unit."
+            ::= { traps 400 }
+            
+         -- 1.3.6.1.4.1.15921.60.1.2.402
+        auPowerSupplyOverTemperature NOTIFICATION-TYPE
+            OBJECTS { trapSequenceID, trapTimeStamp, trapDeviceType, trapDeviceSerial, trapRemoteIndex, 
+                trapCtrlSerialNum, trapCtrlName, trapModuleName, trapSeverity, trapChannel, trapChannelDescription,
+                trapBandID, trapSetOrClear}
+            STATUS current
+            DESCRIPTION 
+                "The alarm will occur while power supply in high temperature."
+            ::= { traps 402 }
+
+        
+        -- 1.3.6.1.4.1.15921.60.1.2.403
+        auPowerSupplyInputUnderVoltage NOTIFICATION-TYPE
+            OBJECTS { trapSequenceID, trapTimeStamp, trapDeviceType, trapDeviceSerial, trapRemoteIndex, 
+                trapCtrlSerialNum, trapCtrlName, trapModuleName, trapSeverity, trapChannel, trapChannelDescription,
+                trapBandID, trapSetOrClear}
+            STATUS current
+            DESCRIPTION 
+                "The alarm will occur while power supply input voltage is lower than threshold."
+            ::= { traps 403 }
+
+        
+        -- 1.3.6.1.4.1.15921.60.1.2.404
+        auOverTemperature NOTIFICATION-TYPE
+            OBJECTS { trapSequenceID, trapTimeStamp, trapDeviceType, trapDeviceSerial, trapRemoteIndex, 
+                trapCtrlSerialNum, trapCtrlName, trapModuleName, trapSeverity, trapChannel, trapChannelDescription,
+                trapBandID, trapSetOrClear}
+            STATUS current
+            DESCRIPTION 
+                "The detected temperature greater than overtemperature threshold."
+            ::= { traps 404 }
+
+        
+        -- 1.3.6.1.4.1.15921.60.1.2.405
+        auFanFault NOTIFICATION-TYPE
+            OBJECTS { trapSequenceID, trapTimeStamp, trapDeviceType, trapDeviceSerial, trapRemoteIndex, 
+                trapCtrlSerialNum, trapCtrlName, trapModuleName, trapSeverity, trapChannel, trapChannelDescription,
+                trapBandID, trapSetOrClear}
+            STATUS current
+            DESCRIPTION 
+                "The alarm will occur while any one of FANs(totally 4) in AU fail."
+            ::= { traps 405 }
+
+        
+        -- 1.3.6.1.4.1.15921.60.1.2.406
+        auCpriLinkTxFault NOTIFICATION-TYPE
+            OBJECTS { trapSequenceID, trapTimeStamp, trapDeviceType, trapDeviceSerial, trapRemoteIndex, 
+                trapCtrlSerialNum, trapCtrlName, trapModuleName, trapSeverity, trapChannel, trapChannelDescription,
+                trapBandID, trapSetOrClear}
+            STATUS current
+            DESCRIPTION 
+                "Indicates one of the following SFP problems : TX/RX levels, Temperature, 
+                TX/RX fault, TX/RX disable, absence (removing the SFP from the cage) ."
+            ::= { traps 406 }
+
+        
+        -- 1.3.6.1.4.1.15921.60.1.2.407
+        auCpriLinkRxFault NOTIFICATION-TYPE
+            OBJECTS { trapSequenceID, trapTimeStamp, trapDeviceType, trapDeviceSerial, trapRemoteIndex, 
+                trapCtrlSerialNum, trapCtrlName, trapModuleName, trapSeverity, trapChannel, trapChannelDescription,
+                trapBandID, trapSetOrClear}
+            STATUS current
+            DESCRIPTION 
+                "Indicates one of the following SFP problems : TX/RX levels, Temperature, 
+                TX/RX fault, TX/RX disable, absence (removing the SFP from the cage) ."
+            ::= { traps 407 }
+
+        
+        -- 1.3.6.1.4.1.15921.60.1.2.408
+        auCpriSyncFault NOTIFICATION-TYPE
+            OBJECTS { trapSequenceID, trapTimeStamp, trapDeviceType, trapDeviceSerial, trapRemoteIndex, 
+                trapCtrlSerialNum, trapCtrlName, trapModuleName, trapSeverity, trapChannel, trapChannelDescription,
+                trapBandID, trapSetOrClear}
+            STATUS current
+            DESCRIPTION 
+                "Indicates the SFP Synthesizer failure."
+            ::= { traps 408 }
+
+        
+        -- 1.3.6.1.4.1.15921.60.1.2.409
+        auCpriLinkFault NOTIFICATION-TYPE
+            OBJECTS { trapSequenceID, trapTimeStamp, trapDeviceType, trapDeviceSerial, trapRemoteIndex, 
+                trapCtrlSerialNum, trapCtrlName, trapModuleName, trapSeverity, trapChannel, trapChannelDescription,
+                trapBandID, trapSetOrClear}
+            STATUS current
+            DESCRIPTION 
+                "Indicates the SFP link failure."
+            ::= { traps 409 }
+
+        
+        -- 1.3.6.1.4.1.15921.60.1.2.410
+        auCpriOverTemperature NOTIFICATION-TYPE
+            OBJECTS { trapSequenceID, trapTimeStamp, trapDeviceType, trapDeviceSerial, trapRemoteIndex, 
+                trapCtrlSerialNum, trapCtrlName, trapModuleName, trapSeverity, trapChannel, trapChannelDescription,
+                trapBandID, trapSetOrClear}
+            STATUS current
+            DESCRIPTION 
+                "Indicates the SFP is in high temperature."
+            ::= { traps 410 }
+
+        
+        -- 1.3.6.1.4.1.15921.60.1.2.411
+        auCpriManufacturerInvalid NOTIFICATION-TYPE
+            OBJECTS { trapSequenceID, trapTimeStamp, trapDeviceType, trapDeviceSerial, trapRemoteIndex, 
+                trapCtrlSerialNum, trapCtrlName, trapModuleName, trapSeverity, trapChannel, trapChannelDescription,
+                trapBandID, trapSetOrClear}
+            STATUS current
+            DESCRIPTION 
+                "Indicates the SFP is not certificated by manufactured ."
+            ::= { traps 411 }
+
+        
+        -- 1.3.6.1.4.1.15921.60.1.2.412
+         auHardwareFault NOTIFICATION-TYPE
+            OBJECTS { trapSequenceID, trapTimeStamp, trapDeviceType, trapDeviceSerial, trapRemoteIndex, 
+                trapCtrlSerialNum, trapCtrlName, trapModuleName, trapSeverity, trapChannel, trapChannelDescription,
+                trapBandID, trapSetOrClear}
+            STATUS current
+            DESCRIPTION 
+                "The alarm will occur while hardware is fail."
+            ::= { traps 412 }
+
+        
+        -- 1.3.6.1.4.1.15921.60.1.2.413
+        auSynthesizerUnlocked NOTIFICATION-TYPE
+            OBJECTS { trapSequenceID, trapTimeStamp, trapDeviceType, trapDeviceSerial, trapRemoteIndex, 
+                trapCtrlSerialNum, trapCtrlName, trapModuleName, trapSeverity, trapChannel, trapChannelDescription,
+                trapBandID, trapSetOrClear}
+            STATUS current
+            DESCRIPTION 
+                "Indicates the system Synthesizer failure."
+            ::= { traps 413 }
+                     
+           
+        -- 1.3.6.1.4.1.15921.60.1.2.415
+        auSystemOverTimeDelay NOTIFICATION-TYPE
+            OBJECTS { trapSequenceID, trapTimeStamp, trapDeviceType, trapDeviceSerial, trapRemoteIndex, 
+                trapCtrlSerialNum, trapCtrlName, trapModuleName, trapSeverity, trapChannel, trapChannelDescription,
+                trapBandID, trapSetOrClear}
+            STATUS current
+            DESCRIPTION 
+                "AU system over time delay , the system delays more than 60us."
+            ::= { traps 415 }
+            
+        -- 1.3.6.1.4.1.15921.60.1.2.416
+        auDLInputOverPowerInChannel NOTIFICATION-TYPE
+            OBJECTS { trapSequenceID, trapTimeStamp, trapDeviceType, trapDeviceSerial, trapRemoteIndex, 
+                trapCtrlSerialNum, trapCtrlName, trapModuleName, trapSeverity, trapChannel, trapChannelDescription,
+                trapBandID, trapSetOrClear}
+            STATUS current
+            DESCRIPTION 
+                "The DL input power is more than threshold(10dBm as default value)."
+            ::= { traps 416 }
+            
+        -- 1.3.6.1.4.1.15921.60.1.2.417
+        auBaselineBaselineDismatch NOTIFICATION-TYPE
+            OBJECTS { trapSequenceID, trapTimeStamp, trapDeviceType, trapDeviceSerial, trapRemoteIndex, 
+                trapCtrlSerialNum, trapCtrlName, trapModuleName, trapSeverity, trapChannel, trapChannelDescription,
+                trapBandID, trapSetOrClear}
+            STATUS current
+            DESCRIPTION 
+                "The system topology changes, it is different from the baseline ."
+            ::= { traps 417 }    
+
+        -- 1.3.6.1.4.1.15921.60.1.2.418
+        auVersionMismatch NOTIFICATION-TYPE
+            OBJECTS { trapSequenceID, trapTimeStamp, trapDeviceType, trapDeviceSerial, trapRemoteIndex, 
+                trapCtrlSerialNum, trapCtrlName, trapModuleName, trapSeverity, trapChannel, trapChannelDescription,
+                trapBandID, trapSetOrClear}
+            STATUS current
+            DESCRIPTION 
+                "Module version not match to system version."
+            ::= { traps 418 }
+            
+        -- 1.3.6.1.4.1.15921.60.1.2.419
+        auServiceOff  NOTIFICATION-TYPE
+            OBJECTS { trapSequenceID, trapTimeStamp, trapDeviceType, trapDeviceSerial, trapRemoteIndex, 
+                trapCtrlSerialNum, trapCtrlName, trapModuleName, trapSeverity, trapChannel, trapChannelDescription,
+                trapBandID, trapSetOrClear}
+            STATUS current
+            DESCRIPTION 
+                "Device service off ."
+            ::= { traps 419 } 
+            
+             -- 1.3.6.1.4.1.15921.60.1.2.420
+        auTddNrSyncLoss NOTIFICATION-TYPE
+            OBJECTS { trapSequenceID, trapTimeStamp, trapDeviceType, trapDeviceSerial, trapRemoteIndex, 
+                trapCtrlSerialNum, trapCtrlName, trapModuleName, trapSeverity, trapChannel, trapChannelDescription,
+                trapBandID, trapSetOrClear}
+            STATUS current
+            DESCRIPTION 
+                "Only in TDD NR band, indicates the TDD NR sync failure."
+            ::= { traps 420 }    
+            
+             -- 1.3.6.1.4.1.15921.60.1.2.421
+        auTddLteSyncLoss NOTIFICATION-TYPE
+            OBJECTS { trapSequenceID, trapTimeStamp, trapDeviceType, trapDeviceSerial, trapRemoteIndex, 
+                trapCtrlSerialNum, trapCtrlName, trapModuleName, trapSeverity, trapChannel, trapChannelDescription,
+                trapBandID, trapSetOrClear}
+            STATUS current
+            DESCRIPTION 
+                "Only in TDD LTE band , indicates the TDD LTE sync failure."
+            ::= { traps 421 }
+
+               -- 1.3.6.1.4.1.15921.60.1.2.422
+        auHeartbeat NOTIFICATION-TYPE
+            OBJECTS { trapSequenceID, trapTimeStamp, trapDeviceType, trapDeviceSerial, trapRemoteIndex, 
+                trapCtrlSerialNum, trapCtrlName, trapModuleName, trapSeverity, trapChannel, trapChannelDescription,
+                trapBandID, trapSetOrClear}
+            STATUS current
+            DESCRIPTION 
+                "Heartbeat."
+            ::= { traps 422 }
+  
+            
+        
+        --A-POI 1.3.6.1.4.1.15921.60.1.2.100 - 1.3.6.1.4.1.15921.60.1.2.199
+        -- 1.3.6.1.4.1.15921.60.1.2.101
+        a-poiOverallAlarm NOTIFICATION-TYPE
+            OBJECTS { trapSequenceID, trapTimeStamp, trapDeviceType, trapDeviceSerial, trapRemoteIndex, 
+                trapCtrlSerialNum, trapCtrlName, trapModuleName, trapSeverity, trapChannel, trapChannelDescription,
+                trapBandID, trapSetOrClear}
+            STATUS current
+            DESCRIPTION 
+                "The alarm will occur while any sub-alarm occur in A-POI module."
+            ::= { traps 100 }
+
+        
+        -- 1.3.6.1.4.1.15921.60.1.2.101
+         a-poiDlInputShutdownAlarm NOTIFICATION-TYPE
+            OBJECTS { trapSequenceID, trapTimeStamp, trapDeviceType, trapDeviceSerial, trapRemoteIndex, 
+                trapCtrlSerialNum, trapCtrlName, trapModuleName, trapSeverity, trapChannel, trapChannelDescription,
+                trapBandID, trapSetOrClear}
+            STATUS current
+            DESCRIPTION 
+                "The detected channel power >38dBm(default value)."
+            ::= { traps 101 }
+
+        
+        -- 1.3.6.1.4.1.15921.60.1.2.102
+        a-poiFanFault NOTIFICATION-TYPE
+            OBJECTS { trapSequenceID, trapTimeStamp, trapDeviceType, trapDeviceSerial, trapRemoteIndex, 
+                trapCtrlSerialNum, trapCtrlName, trapModuleName, trapSeverity, trapChannel, trapChannelDescription,
+                trapBandID, trapSetOrClear}
+            STATUS current
+            DESCRIPTION 
+                "The alarm will occur while any one of FANs fail."
+            ::= { traps 102 }
+
+        
+        -- 1.3.6.1.4.1.15921.60.1.2.103
+         a-poiLowInputPower NOTIFICATION-TYPE
+            OBJECTS { trapSequenceID, trapTimeStamp, trapDeviceType, trapDeviceSerial, trapRemoteIndex, 
+                trapCtrlSerialNum, trapCtrlName, trapModuleName, trapSeverity, trapChannel, trapChannelDescription,
+                trapBandID, trapSetOrClear}
+            STATUS current
+            DESCRIPTION 
+                "The alarm will occur while input power<38V ."
+            ::= { traps 103 }
+
+        
+        -- 1.3.6.1.4.1.15921.60.1.2.104
+        a-poiOverTemperature NOTIFICATION-TYPE
+            OBJECTS { trapSequenceID, trapTimeStamp, trapDeviceType, trapDeviceSerial, trapRemoteIndex, 
+                trapCtrlSerialNum, trapCtrlName, trapModuleName, trapSeverity, trapChannel, trapChannelDescription,
+                trapBandID, trapSetOrClear}
+            STATUS current
+            DESCRIPTION 
+                "The detected temperature greater than overtemperature threshold."
+            ::= { traps 104 }
+
+        
+        -- 1.3.6.1.4.1.15921.60.1.2.105
+        a-poiDlInputOverloadAlarm NOTIFICATION-TYPE
+            OBJECTS { trapSequenceID, trapTimeStamp, trapDeviceType, trapDeviceSerial, trapRemoteIndex, 
+                trapCtrlSerialNum, trapCtrlName, trapModuleName, trapSeverity, trapChannel, trapChannelDescription,
+                trapBandID, trapSetOrClear}
+            STATUS current
+            DESCRIPTION 
+                "The detected channel power >37dBm(default value)."
+            ::= { traps 105 }
+
+        
+        -- 1.3.6.1.4.1.15921.60.1.2.106
+         a-poiDlRfLowPower NOTIFICATION-TYPE
+            OBJECTS { trapSequenceID, trapTimeStamp, trapDeviceType, trapDeviceSerial, trapRemoteIndex, 
+                trapCtrlSerialNum, trapCtrlName, trapModuleName, trapSeverity, trapChannel, trapChannelDescription,
+                trapBandID, trapSetOrClear}
+            STATUS current
+            DESCRIPTION 
+                "The detected channel power <10dBm(default value) ."
+            ::= { traps 106 }
+
+        
+        -- 1.3.6.1.4.1.15921.60.1.2.107
+        a-poiVersionMismatch NOTIFICATION-TYPE
+            OBJECTS { trapSequenceID, trapTimeStamp, trapDeviceType, trapDeviceSerial, trapRemoteIndex, 
+                trapCtrlSerialNum, trapCtrlName, trapModuleName, trapSeverity, trapChannel, trapChannelDescription,
+                trapBandID, trapSetOrClear}
+            STATUS current
+            DESCRIPTION 
+                "Module version mismatch to A-POI."
+            ::= { traps 107 }        
+            
+            
+        -- 1.3.6.1.4.1.15921.60.1.2.108
+        a-poiServiceOff  NOTIFICATION-TYPE
+            OBJECTS { trapSequenceID, trapTimeStamp, trapDeviceType, trapDeviceSerial, trapRemoteIndex, 
+                trapCtrlSerialNum, trapCtrlName, trapModuleName, trapSeverity, trapChannel, trapChannelDescription,
+                trapBandID, trapSetOrClear}
+            STATUS current
+            DESCRIPTION 
+                "A-POI service off - A-POI cann't operation."
+            ::= { traps 108 }    
+            
+
+        
+        --EU 1.3.6.1.4.1.15921.60.1.2.200 - 1.3.6.1.4.1.15921.60.1.2.299
+        -- 1.3.6.1.4.1.15921.60.1.2.200
+        euOverallAlarm NOTIFICATION-TYPE
+            OBJECTS { trapSequenceID, trapTimeStamp, trapDeviceType, trapDeviceSerial, trapRemoteIndex, 
+                trapCtrlSerialNum, trapCtrlName, trapModuleName, trapSeverity, trapChannel, trapChannelDescription,
+                trapBandID, trapSetOrClear}
+            STATUS current
+            DESCRIPTION 
+                "The alarm will occur while any sub-alarm occur in the unit."
+            ::= { traps 200 }                    
+            
+
+        -- 1.3.6.1.4.1.15921.60.1.2.202
+        euInputUnderVoltage NOTIFICATION-TYPE
+            OBJECTS { trapSequenceID, trapTimeStamp, trapDeviceType, trapDeviceSerial, trapRemoteIndex, 
+                trapCtrlSerialNum, trapCtrlName, trapModuleName, trapSeverity, trapChannel, trapChannelDescription,
+                trapBandID, trapSetOrClear}
+            STATUS current
+            DESCRIPTION 
+                "The alarm will occur while power supply input voltage is lower than threshold."
+            ::= { traps 202 }
+
+
+        -- 1.3.6.1.4.1.15921.60.1.2.203
+        euPowerSupplyOverTemperature NOTIFICATION-TYPE
+            OBJECTS { trapSequenceID, trapTimeStamp, trapDeviceType, trapDeviceSerial, trapRemoteIndex, 
+                trapCtrlSerialNum, trapCtrlName, trapModuleName, trapSeverity, trapChannel, trapChannelDescription,
+                trapBandID, trapSetOrClear}
+            STATUS current
+            DESCRIPTION 
+                "The alarm will occur while power supply in high temperature."
+            ::= { traps 203 }
+            
+            
+         -- 1.3.6.1.4.1.15921.60.1.2.204
+        euFanFault NOTIFICATION-TYPE
+            OBJECTS { trapSequenceID, trapTimeStamp, trapDeviceType, trapDeviceSerial, trapRemoteIndex, 
+                trapCtrlSerialNum, trapCtrlName, trapModuleName, trapSeverity, trapChannel, trapChannelDescription,
+                trapBandID, trapSetOrClear}
+            STATUS current
+            DESCRIPTION 
+                "The alarm will occur while any one of FANs(totally 4) fail."
+            ::= { traps 204 }
+        
+        
+        -- 1.3.6.1.4.1.15921.60.1.2.205
+        euOverTemperature NOTIFICATION-TYPE
+            OBJECTS { trapSequenceID, trapTimeStamp, trapDeviceType, trapDeviceSerial, trapRemoteIndex, 
+                trapCtrlSerialNum, trapCtrlName, trapModuleName, trapSeverity, trapChannel, trapChannelDescription,
+                trapBandID, trapSetOrClear}
+            STATUS current
+            DESCRIPTION 
+                "The detected temperature greater than overtemperature threshold."
+            ::= { traps 205 }
+
+      
+        -- 1.3.6.1.4.1.15921.60.1.2.206
+        euCpriLinkTxFault NOTIFICATION-TYPE
+            OBJECTS { trapSequenceID, trapTimeStamp, trapDeviceType, trapDeviceSerial, trapRemoteIndex, 
+                trapCtrlSerialNum, trapCtrlName, trapModuleName, trapSeverity, trapChannel, trapChannelDescription,
+                trapBandID, trapSetOrClear}
+            STATUS current
+            DESCRIPTION 
+                "Indicates one of the following SFP problems : TX/RX levels, Temperature,
+                 TX/RX fault, TX/RX disable, absence (removing the SFP from the cage) . "
+            ::= { traps 206 }
+
+        
+        -- 1.3.6.1.4.1.15921.60.1.2.207
+        euCpriLinkRxFault NOTIFICATION-TYPE
+            OBJECTS { trapSequenceID, trapTimeStamp, trapDeviceType, trapDeviceSerial, trapRemoteIndex, 
+                trapCtrlSerialNum, trapCtrlName, trapModuleName, trapSeverity, trapChannel, trapChannelDescription,
+                trapBandID, trapSetOrClear}
+            STATUS current
+            DESCRIPTION 
+                "Indicates one of the following SFP problems : TX/RX levels, Temperature,
+                 TX/RX fault, TX/RX disable, absence (removing the SFP from the cage) . "
+            ::= { traps 207 }
+
+        
+        -- 1.3.6.1.4.1.15921.60.1.2.208
+        euCpriSyncFault NOTIFICATION-TYPE
+            OBJECTS { trapSequenceID, trapTimeStamp, trapDeviceType, trapDeviceSerial, trapRemoteIndex, 
+                trapCtrlSerialNum, trapCtrlName, trapModuleName, trapSeverity, trapChannel, trapChannelDescription,
+                trapBandID, trapSetOrClear}
+            STATUS current
+            DESCRIPTION 
+                "Indicates the SFP Synthesizer failure ."
+            ::= { traps 208 }
+
+        
+        -- 1.3.6.1.4.1.15921.60.1.2.209
+        euCpriLinkFault NOTIFICATION-TYPE
+            OBJECTS { trapSequenceID, trapTimeStamp, trapDeviceType, trapDeviceSerial, trapRemoteIndex, 
+                trapCtrlSerialNum, trapCtrlName, trapModuleName, trapSeverity, trapChannel, trapChannelDescription,
+                trapBandID, trapSetOrClear}
+            STATUS current
+            DESCRIPTION 
+                "Indicates the SFP link failure."
+            ::= { traps 209 }
+
+        
+        -- 1.3.6.1.4.1.15921.60.1.2.210
+        euCpriOverTemperature NOTIFICATION-TYPE
+            OBJECTS { trapSequenceID, trapTimeStamp, trapDeviceType, trapDeviceSerial, trapRemoteIndex, 
+                trapCtrlSerialNum, trapCtrlName, trapModuleName, trapSeverity, trapChannel, trapChannelDescription,
+                trapBandID, trapSetOrClear}
+            STATUS current
+            DESCRIPTION 
+                "Indicates the SFP is in high temperature."
+            ::= { traps 210 }
+
+        
+        -- 1.3.6.1.4.1.15921.60.1.2.211
+        euCpriManufacturerInvalid NOTIFICATION-TYPE
+            OBJECTS { trapSequenceID, trapTimeStamp, trapDeviceType, trapDeviceSerial, trapRemoteIndex, 
+                trapCtrlSerialNum, trapCtrlName, trapModuleName, trapSeverity, trapChannel, trapChannelDescription,
+                trapBandID, trapSetOrClear}
+            STATUS current
+            DESCRIPTION 
+                "Indicates the SFP is not certificated by manufactured."
+            ::= { traps 211 }
+
+        
+        -- 1.3.6.1.4.1.15921.60.1.2.212
+        euSynthesizerUnlocked NOTIFICATION-TYPE
+            OBJECTS { trapSequenceID, trapTimeStamp, trapDeviceType, trapDeviceSerial, trapRemoteIndex, 
+                trapCtrlSerialNum, trapCtrlName, trapModuleName, trapSeverity, trapChannel, trapChannelDescription,
+                trapBandID, trapSetOrClear}
+            STATUS current
+            DESCRIPTION 
+                "Indicates the system Synthesizer failure . "
+            ::= { traps 212 }
+        
+        -- 1.3.6.1.4.1.15921.60.1.2.213
+         euHardwareFault NOTIFICATION-TYPE
+            OBJECTS { trapSequenceID, trapTimeStamp, trapDeviceType, trapDeviceSerial, trapRemoteIndex, 
+                trapCtrlSerialNum, trapCtrlName, trapModuleName, trapSeverity, trapChannel, trapChannelDescription,
+                trapBandID, trapSetOrClear}
+            STATUS current
+            DESCRIPTION 
+                "The alarm will occur while the hardware is fail"
+            ::= { traps 213 }
+            
+            
+        -- 1.3.6.1.4.1.15921.60.1.2.214
+        euVersionMismatch NOTIFICATION-TYPE
+            OBJECTS { trapSequenceID, trapTimeStamp, trapDeviceType, trapDeviceSerial, trapRemoteIndex, 
+                trapCtrlSerialNum, trapCtrlName, trapModuleName, trapSeverity, trapChannel, trapChannelDescription,
+                trapBandID, trapSetOrClear}
+            STATUS current
+            DESCRIPTION 
+                "Module version not match to system version."
+            ::= { traps 214 }
+            
+
+        
+        
+        --DLRU 1.3.6.1.4.1.15921.60.1.2.300 - 1.3.6.1.4.1.15921.60.1.2.399
+        -- 1.3.6.1.4.1.15921.60.1.2.300
+        ruOverallAlarm NOTIFICATION-TYPE
+            OBJECTS { trapSequenceID, trapTimeStamp, trapDeviceType, trapDeviceSerial, trapRemoteIndex, 
+                trapCtrlSerialNum, trapCtrlName, trapModuleName, trapSeverity, trapChannel, trapChannelDescription,
+                trapBandID, trapSetOrClear}
+            STATUS current
+            DESCRIPTION 
+                "The alarm will occur while any sub-alarm occur in the unit."
+            ::= { traps 300 }
+
+        
+        -- 1.3.6.1.4.1.15921.60.1.2.301
+        ruHardwareFault NOTIFICATION-TYPE
+            OBJECTS { trapSequenceID, trapTimeStamp, trapDeviceType, trapDeviceSerial, trapRemoteIndex, 
+                trapCtrlSerialNum, trapCtrlName, trapModuleName, trapSeverity, trapChannel, trapChannelDescription,
+                trapBandID, trapSetOrClear}
+            STATUS current
+            DESCRIPTION 
+                "The alarm will occur while the hardware is fail."
+            ::= { traps 301 }
+
+        
+        -- 1.3.6.1.4.1.15921.60.1.2.302
+        ruOverTemperature NOTIFICATION-TYPE
+            OBJECTS { trapSequenceID, trapTimeStamp, trapDeviceType, trapDeviceSerial, trapRemoteIndex, 
+                trapCtrlSerialNum, trapCtrlName, trapModuleName, trapSeverity, trapChannel, trapChannelDescription,
+                trapBandID, trapSetOrClear}
+            STATUS current
+            DESCRIPTION 
+                "The alarm will occur while the temperature of RU is higher then threshold."
+            ::= { traps 302 }
+
+        
+        -- 1.3.6.1.4.1.15921.60.1.2.303
+        ruUnderVoltage NOTIFICATION-TYPE
+            OBJECTS { trapSequenceID, trapTimeStamp, trapDeviceType, trapDeviceSerial, trapRemoteIndex, 
+                trapCtrlSerialNum, trapCtrlName, trapModuleName, trapSeverity, trapChannel, trapChannelDescription,
+                trapBandID, trapSetOrClear}
+            STATUS current
+            DESCRIPTION 
+                "The input power is less than threshold ( DC power<38V)."
+            ::= { traps 303 }
+
+        
+        -- 1.3.6.1.4.1.15921.0.1.2.304
+        ruSfpTxFault NOTIFICATION-TYPE
+            OBJECTS { trapSequenceID, trapTimeStamp, trapDeviceType, trapDeviceSerial, trapRemoteIndex, 
+                trapCtrlSerialNum, trapCtrlName, trapModuleName, trapSeverity, trapChannel, trapChannelDescription,
+                trapBandID, trapSetOrClear}
+            STATUS current
+            DESCRIPTION 
+                "Indicates one of the following SFP problems (aggregated per port): 
+                TX levels(<-3dBm or >5dBm),Temperature,TX disable, 
+                absence (removing the SFP from the cage) and TBD. 
+                Add Port number as Trap parameter."
+            ::= { traps 304 }
+
+        
+        -- 1.3.6.1.4.1.15921.60.1.2.305
+        ruSfpRxFault NOTIFICATION-TYPE
+            OBJECTS { trapSequenceID, trapTimeStamp, trapDeviceType, trapDeviceSerial, trapRemoteIndex, 
+                trapCtrlSerialNum, trapCtrlName, trapModuleName, trapSeverity, trapChannel, trapChannelDescription,
+                trapBandID, trapSetOrClear}
+            STATUS current
+            DESCRIPTION 
+                "Indicates one of the following SFP problems (aggregated per port): 
+                RX levels(<-10dBm ),Temperature, RX disable, 
+                absence (removing the SFP from the cage) and TBD. 
+                Add Port number as Trap parameter."
+            ::= { traps 305 }
+
+        
+        -- 1.3.6.1.4.1.15921.60.1.2.306
+        ruSfpSyncfault NOTIFICATION-TYPE
+            OBJECTS { trapSequenceID, trapTimeStamp, trapDeviceType, trapDeviceSerial, trapRemoteIndex, 
+                trapCtrlSerialNum, trapCtrlName, trapModuleName, trapSeverity, trapChannel, trapChannelDescription,
+                trapBandID, trapSetOrClear}
+            STATUS current
+            DESCRIPTION 
+                "Indicates the SFP Synthesizer failure ."
+            ::= { traps 306 }
+
+        
+        -- 1.3.6.1.4.1.15921.60.1.2.307
+        ruSfpOverTemperature NOTIFICATION-TYPE
+            OBJECTS { trapSequenceID, trapTimeStamp, trapDeviceType, trapDeviceSerial, trapRemoteIndex, 
+                trapCtrlSerialNum, trapCtrlName, trapModuleName, trapSeverity, trapChannel, trapChannelDescription,
+                trapBandID, trapSetOrClear}
+            STATUS current
+            DESCRIPTION 
+                "Indicates the temperature of SFP is higher than threshold."
+            ::= { traps 307 }
+
+        
+        -- 1.3.6.1.4.1.15921.60.1.2.308
+        ruSfpManufacturerInvalid NOTIFICATION-TYPE
+            OBJECTS { trapSequenceID, trapTimeStamp, trapDeviceType, trapDeviceSerial, trapRemoteIndex, 
+                trapCtrlSerialNum, trapCtrlName, trapModuleName, trapSeverity, trapChannel, trapChannelDescription,
+                trapBandID, trapSetOrClear}
+            STATUS current
+            DESCRIPTION 
+                "Indicates the SFP is not certificated by manufactured."
+            ::= { traps 308 }
+ 
+        -- 1.3.6.1.4.1.15921.60.1.2.309
+        ruFanAlarm NOTIFICATION-TYPE
+            OBJECTS { trapSequenceID, trapTimeStamp, trapDeviceType, trapDeviceSerial, trapRemoteIndex, 
+                trapCtrlSerialNum, trapCtrlName, trapModuleName, trapSeverity, trapChannel, trapChannelDescription,
+                trapBandID, trapSetOrClear}
+            STATUS current
+            DESCRIPTION 
+                "The alarm will occur while any one of FANs(totally 4) fail."
+            ::= { traps 309 }
+            
+        -- 1.3.6.1.4.1.15921.60.1.2.310
+        ruOverPowerConsumption NOTIFICATION-TYPE
+            OBJECTS { trapSequenceID, trapTimeStamp, trapDeviceType, trapDeviceSerial, trapRemoteIndex, 
+                trapCtrlSerialNum, trapCtrlName, trapModuleName, trapSeverity, trapChannel, trapChannelDescription,
+                trapBandID, trapSetOrClear}
+            STATUS current
+            DESCRIPTION 
+                "The alarm will occur while RU is working over its design power consumption."
+            ::= { traps 310 }
+            
+        -- 1.3.6.1.4.1.15921.60.1.2.311
+        ruOverflow NOTIFICATION-TYPE
+            OBJECTS { trapSequenceID, trapTimeStamp, trapDeviceType, trapDeviceSerial, trapRemoteIndex, 
+                trapCtrlSerialNum, trapCtrlName, trapModuleName, trapSeverity, trapChannel, trapChannelDescription,
+                trapBandID, trapSetOrClear}
+            STATUS current
+            DESCRIPTION 
+                "Indicates the input of RU is overflow."
+            ::= { traps 311 }
+            
+        -- 1.3.6.1.4.1.15921.60.1.2.312
+        ruLowTransmission NOTIFICATION-TYPE
+            OBJECTS { trapSequenceID, trapTimeStamp, trapDeviceType, trapDeviceSerial, trapRemoteIndex, 
+                trapCtrlSerialNum, trapCtrlName, trapModuleName, trapSeverity, trapChannel, trapChannelDescription,
+                trapBandID, trapSetOrClear}
+            STATUS current
+            DESCRIPTION 
+                "Indicates the input of device is too low."
+            ::= { traps 312 }
+            
+        -- 1.3.6.1.4.1.15921.60.1.2.313
+        ruVswrAlarm NOTIFICATION-TYPE
+            OBJECTS { trapSequenceID, trapTimeStamp, trapDeviceType, trapDeviceSerial, trapRemoteIndex, 
+                trapCtrlSerialNum, trapCtrlName, trapModuleName, trapSeverity, trapChannel, trapChannelDescription,
+                trapBandID, trapSetOrClear}
+            STATUS current
+            DESCRIPTION 
+                "Indicates the VSWR is largr than threshold (2.0)."
+            ::= { traps 313 }
+            
+       -- 1.3.6.1.4.1.15921.60.1.2.314
+        ruAntennaAlarm NOTIFICATION-TYPE
+            OBJECTS { trapSequenceID, trapTimeStamp, trapDeviceType, trapDeviceSerial, trapRemoteIndex, 
+                trapCtrlSerialNum, trapCtrlName, trapModuleName, trapSeverity, trapChannel, trapChannelDescription,
+                trapBandID, trapSetOrClear}
+            STATUS current
+            DESCRIPTION 
+                "Indicates the antenna port VSRW is largr than threshold(3.0)."
+            ::= { traps 314 }
+            
+        -- 1.3.6.1.4.1.15921.60.1.2.315
+        ruPaAlarm NOTIFICATION-TYPE
+            OBJECTS { trapSequenceID, trapTimeStamp, trapDeviceType, trapDeviceSerial, trapRemoteIndex, 
+                trapCtrlSerialNum, trapCtrlName, trapModuleName, trapSeverity, trapChannel, trapChannelDescription,
+                trapBandID, trapSetOrClear}
+            STATUS current
+            DESCRIPTION 
+                "The alarm will occur while PA is alarm."
+            ::= { traps 315 }            
+                 
+        -- 1.3.6.1.4.1.15921.60.1.2.317
+        ruVersionMismatch NOTIFICATION-TYPE
+            OBJECTS { trapSequenceID, trapTimeStamp, trapDeviceType, trapDeviceSerial, trapRemoteIndex, 
+                trapCtrlSerialNum, trapCtrlName, trapModuleName, trapSeverity, trapChannel, trapChannelDescription,
+                trapBandID, trapSetOrClear}
+            STATUS current
+            DESCRIPTION 
+                "Module version dose not match to system version."
+            ::= { traps 317 }
+
+        
+        -- 1.3.6.1.4.1.15921.60.1.2.318
+        ruServiceOff NOTIFICATION-TYPE
+            OBJECTS { trapSequenceID, trapTimeStamp, trapDeviceType, trapDeviceSerial, trapRemoteIndex, 
+                trapCtrlSerialNum, trapCtrlName, trapModuleName, trapSeverity, trapChannel, trapChannelDescription,
+                trapBandID, trapSetOrClear}
+            STATUS current
+            DESCRIPTION 
+                "Device service off."
+            ::= { traps 318 } 
+            
+          -- 1.3.6.1.4.1.15921.60.1.2.319
+        ruMismatch NOTIFICATION-TYPE
+            OBJECTS { trapSequenceID, trapTimeStamp, trapDeviceType, trapDeviceSerial, trapRemoteIndex, 
+                trapCtrlSerialNum, trapCtrlName, trapModuleName, trapSeverity, trapChannel, trapChannelDescription,
+                trapBandID, trapSetOrClear}
+            STATUS current
+            DESCRIPTION 
+                "RU module dose not match to EU."
+            ::= { traps 319 }  
+            
+             -- 1.3.6.1.4.1.15921.60.1.2.320
+        ruDLOutputLowAlarm NOTIFICATION-TYPE
+            OBJECTS { trapSequenceID, trapTimeStamp, trapDeviceType, trapDeviceSerial, trapRemoteIndex, 
+                trapCtrlSerialNum, trapCtrlName, trapModuleName, trapSeverity, trapChannel, trapChannelDescription,
+                trapBandID, trapSetOrClear}
+            STATUS current
+            DESCRIPTION 
+                "Download Output Power is less than threshold(-99dBm as default value)."
+            ::= { traps 320 } 
+            
+             -- 1.3.6.1.4.1.15921.60.1.2.321
+        ruDLOutputOverAlarm NOTIFICATION-TYPE
+            OBJECTS { trapSequenceID, trapTimeStamp, trapDeviceType, trapDeviceSerial, trapRemoteIndex, 
+                trapCtrlSerialNum, trapCtrlName, trapModuleName, trapSeverity, trapChannel, trapChannelDescription,
+                trapBandID, trapSetOrClear}
+            STATUS current
+            DESCRIPTION 
+                "Download Output Power is more than threshold(48dBm as default value)."
+            ::= { traps 321 }
+
+            
+        -- 1.3.6.1.4.1.15921.60.1.3
+        fileOperator OBJECT IDENTIFIER ::= { std 3 }  
+        
+        -- 1.3.6.1.4.1.15921.60.1.2.318
+        fileOperatorReport NOTIFICATION-TYPE
+            OBJECTS { fileOperatorType, fileType, fileOperatorResult, fileOperatorFailReason}
+            STATUS current
+            DESCRIPTION 
+                "file operator report"
+            ::= { fileOperator 1 }  
+        
+    
+    END
+
+--
+-- MAX-PRO-ALARM-MIB.mib
+--

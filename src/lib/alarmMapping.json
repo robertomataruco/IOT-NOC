@@ -1,0 +1,284 @@
+{
+  "oids": {
+    ".1.3.6.1.4.1.15921.60.1.2.100": {
+      "name": "a-poiOverallAlarm",
+      "cause": "The alarm will occur while any sub-alarm occur in A-POI module.",
+      "action": "1. Check the  alarm source to find the root cause"
+    },
+    ".1.3.6.1.4.1.15921.60.1.2.101": {
+      "name": "a-poiDlInputShutdownAlarm",
+      "cause": "The detected channel power >51dBm.",
+      "action": "1. Please check the RIU input power"
+    },
+    ".1.3.6.1.4.1.15921.60.1.2.102": {
+      "name": "a-poiFanFault",
+      "cause": "The alarm will occur while any one of FANs fail.",
+      "action": "1. Check the connection of the FAN"
+    },
+    ".1.3.6.1.4.1.15921.60.1.2.103": {
+      "name": "a-poiLowInputPower",
+      "cause": "The alarm will occur while DC input power<38V or AC  input power<100V.",
+      "action": "1. Check the power socket connection"
+    },
+    ".1.3.6.1.4.1.15921.60.1.2.104": {
+      "name": "a-poiOverTemperature",
+      "cause": "The detected temperature greater than overtemperature threshold.",
+      "action": "1. Check if there is FAN alarm"
+    },
+    ".1.3.6.1.4.1.15921.60.1.2.105": {
+      "name": "a-poiDlInputOverloadAlarm",
+      "cause": "The detected channel power >49dBm(High Power)",
+      "action": "1. Please check the RIU input power"
+    },
+    ".1.3.6.1.4.1.15921.60.1.2.106": {
+      "name": "a-poiDlRfLowPower",
+      "cause": "The detected channel power <17dBm(Low Power)",
+      "action": "1. Please check the input  power"
+    },
+    ".1.3.6.1.4.1.15921.60.1.2.200": {
+      "name": "euOverallAlarm",
+      "cause": "The alarm will occur while any sub-alarm occur in the unit.",
+      "action": "1. Check the  alarm source to find the root cause"
+    },
+    ".1.3.6.1.4.1.15921.60.1.2.202": {
+      "name": "euInputUnderVoltage",
+      "cause": "The alarm will occur while DC input power<38V or AC  input power<100V.",
+      "action": "1. Check the input power voltage range"
+    },
+    ".1.3.6.1.4.1.15921.60.1.2.203": {
+      "name": "euPowerSupplyOverTemperature",
+      "cause": "The alarm will occur while power supply in high temperature.",
+      "action": "1. Check if there is FAN alarm"
+    },
+    ".1.3.6.1.4.1.15921.60.1.2.204": {
+      "name": "euFanFault",
+      "cause": "The alarm will occur while any one of FANs(totally 4) fail.",
+      "action": "1. Check the connection of the FAN"
+    },
+    ".1.3.6.1.4.1.15921.60.1.2.205": {
+      "name": "euOverTemperature",
+      "cause": "The detected temperature greater than overtemperature threshold.",
+      "action": "1. Check if there is FAN alarm"
+    },
+    ".1.3.6.1.4.1.15921.60.1.2.208": {
+      "name": "euCpriSyncFault",
+      "cause": "Indicates the SFP Synthesizer failure .",
+      "action": "1. Check if a fiber optic cable is disconnected"
+    },
+    ".1.3.6.1.4.1.15921.60.1.2.209": {
+      "name": "euCpriLinkFault",
+      "cause": "Indicates the SFP link failure.",
+      "action": "1. Check if the fiber optic cable is disconnected"
+    },
+    ".1.3.6.1.4.1.15921.60.1.2.210": {
+      "name": "euCpriOverTemperature",
+      "cause": "Indicates the SFP is in high temperature.",
+      "action": "1. Check if the device has the over temperature alarm, and deal with OverallAlarm"
+    },
+    ".1.3.6.1.4.1.15921.60.1.2.213": {
+      "name": "euHardwareFault",
+      "cause": "The alarm will occur while the hardware is fail",
+      "action": "1. Check if any other alarms are occurred"
+    },
+    ".1.3.6.1.4.1.15921.60.1.2.214": {
+      "name": "euVersionMismatch",
+      "cause": "Module version not match to system version.",
+      "action": "1. Please check the device version and system version"
+    },
+    ".1.3.6.1.4.1.15921.60.1.2.300": {
+      "name": "ruOverallAlarm",
+      "cause": "The alarm will occur while any sub-alarm occur in the unit.",
+      "action": "1. Check the  alarm source to find the root cause"
+    },
+    ".1.3.6.1.4.1.15921.60.1.2.301": {
+      "name": "ruHardwareFault",
+      "cause": "The alarm will occur while the hardware is fail.",
+      "action": "1. Check if any other alarms are occurred"
+    },
+    ".1.3.6.1.4.1.15921.60.1.2.302": {
+      "name": "ruOverTemperature",
+      "cause": "The alarm will occur while the temperature of RU is higher then threshold.",
+      "action": "1. Check if there is FAN alarm(dMRU)"
+    },
+    ".1.3.6.1.4.1.15921.60.1.2.303": {
+      "name": "ruUnderVoltage",
+      "cause": "The alarm will occur while DC input power<38V or AC  input power<100V.",
+      "action": "1. Verify input power level"
+    },
+    ".1.3.6.1.4.1.15921.60.1.2.306": {
+      "name": "ruSfpSyncfault",
+      "cause": "Indicates the SFP Synthesizer failure .",
+      "action": "1. Check if a fiber optic cable is disconnected"
+    },
+    ".1.3.6.1.4.1.15921.60.1.2.307": {
+      "name": "ruSfpOverTemperature",
+      "cause": "Indicates the temperature of SFP is higher than threshold.",
+      "action": "1. Check if the device has the over temperature alarm, and deal with OverallAlarm"
+    },
+    ".1.3.6.1.4.1.15921.60.1.2.311": {
+      "name": "ruOverflow",
+      "cause": "Indicates the uplink input  of RU is overflow.",
+      "action": "1. Keep the enough distance between UE's and RU's antenna"
+    },
+    ".1.3.6.1.4.1.15921.60.1.2.312": {
+      "name": "ruLowTransmission",
+      "cause": "Indicates the downlink input is normal, but the downlink output of device is too low.",
+      "action": "1. Check the other alarms in the device"
+    },
+    ".1.3.6.1.4.1.15921.60.1.2.313": {
+      "name": "ruVswrAlarm",
+      "cause": "Indicates the VSWR is more than threshold (2.0).",
+      "action": "1. Check the connection of antenna port, make sure it is connection with antenna or load"
+    },
+    ".1.3.6.1.4.1.15921.60.1.2.314": {
+      "name": "ruAntennaAlarm",
+      "cause": "Indicates the antenna port VSRW is more than threshold(2.5).",
+      "action": "1. Check the connection of antenna port, make sure it is connection with antenna or load"
+    },
+    ".1.3.6.1.4.1.15921.60.1.2.315": {
+      "name": "ruPaAlarm",
+      "cause": "The alarm will occur while PA is alarm.",
+      "action": "1. Check the other alarms in the device"
+    },
+    ".1.3.6.1.4.1.15921.60.1.2.317": {
+      "name": "ruVersionMismatch",
+      "cause": "Module version not match to system version.",
+      "action": "1. Please check the device version and system version"
+    },
+    ".1.3.6.1.4.1.15921.60.1.2.318": {
+      "name": "ruServiceOff",
+      "cause": "Device service off.",
+      "action": "1. Check the other alarms in the device"
+    },
+    ".1.3.6.1.4.1.15921.60.1.2.319": {
+      "name": "ruMismatch",
+      "cause": "The RU and EU module type is not match, the RU work abnormal.",
+      "action": "1. Check the other alarms in the device"
+    },
+    ".1.3.6.1.4.1.15921.60.1.2.320": {
+      "name": "ruDLOutputLowAlarm",
+      "cause": "Download Output Power is  less than threshold(-99 dBm as default value)",
+      "action": "1. Check the other alarms in the device"
+    },
+    ".1.3.6.1.4.1.15921.60.1.2.400": {
+      "name": "auOverallAlarm",
+      "cause": "The alarm will occur while any sub-alarm occur in the unit.",
+      "action": "1. Check the  alarm source to find the root cause"
+    },
+    ".1.3.6.1.4.1.15921.60.1.2.402": {
+      "name": "Alta Temperatura na Fonte",
+      "cause": "The alarm will occur while power supply in high temperature.",
+      "action": "1. Check if there is FAN alarm"
+    },
+    ".1.3.6.1.4.1.15921.60.1.2.403": {
+      "name": "Subtensão de Entrada (Fonte)",
+      "cause": "The alarm will occur while DC input power<38V or AC  input power<100V.",
+      "action": "1. Check the input power voltage range"
+    },
+    ".1.3.6.1.4.1.15921.60.1.2.404": {
+      "name": "Alta Temperatura Geral",
+      "cause": "The detected temperature greater than overtemperature threshold.",
+      "action": "1. Check if there is FAN alarm"
+    },
+    ".1.3.6.1.4.1.15921.60.1.2.405": {
+      "name": "Falha no Cooler (Fan)",
+      "cause": "The alarm will occur while any one of FANs(totally 4) in AU fail.",
+      "action": "1. Check the connection of the FAN"
+    },
+    ".1.3.6.1.4.1.15921.60.1.2.408": {
+      "name": "Falha de Sincronismo CPRI",
+      "cause": "Indicates the SFP Synthesizer failure.",
+      "action": "1. Check if a fiber optic cable is disconnected"
+    },
+    ".1.3.6.1.4.1.15921.60.1.2.409": {
+      "name": "Falha no Link CPRI",
+      "cause": "Indicates the SFP link failure.",
+      "action": "1. Check if the fiber optic cable is disconnected"
+    },
+    ".1.3.6.1.4.1.15921.60.1.2.410": {
+      "name": "Alta Temperatura no SFP",
+      "cause": "Indicates the SFP is in high temperature.",
+      "action": "1. Check if the device has the over temperature alarm, and deal with OverallAlarm"
+    },
+    ".1.3.6.1.4.1.15921.60.1.2.412": {
+      "name": "Falha de Hardware",
+      "cause": "The alarm will occur while hardware is fail.",
+      "action": "1. Check if any other alarms are occurred"
+    },
+    ".1.3.6.1.4.1.15921.60.1.2.415": {
+      "name": "Atraso de Tempo do Sistema",
+      "cause": "AU system over time delay , the system delays more than 70us.",
+      "action": "1.Check the delay threshold no more than 60us"
+    },
+    ".1.3.6.1.4.1.15921.60.1.2.416": {
+      "name": "Sobrecarga de Entrada DL",
+      "cause": "The DL input power is more than threshold(10dBm as default value).",
+      "action": "1. Please check the input  power"
+    },
+    ".1.3.6.1.4.1.15921.60.1.2.418": {
+      "name": "Versão Incompatível",
+      "cause": "Module version not match to system version.",
+      "action": "1. Please check the device version and system version"
+    },
+    ".1.3.6.1.4.1.15921.60.1.2.419": {
+      "name": "Serviço Desativado",
+      "cause": "Device service off .",
+      "action": "1. Check the other alarms in the device"
+    },
+    ".1.3.6.1.4.1.15921.60.1.2.420": {
+      "name": "Perda de Sincronismo TDD",
+      "cause": "Only in TDD NR band, indicates the TDD NR sync failure.",
+      "action": "1. Check the input signal config , make sure it is correct config"
+    },
+    ".1.3.6.1.4.1.15921.60.1.2.406": {
+      "name": "Falha de Transmissão CPRI",
+      "cause": "Causa não definida.",
+      "action": "Verifique o equipamento."
+    },
+    ".1.3.6.1.4.1.15921.60.1.2.407": {
+      "name": "Falha de Recepção CPRI",
+      "cause": "Causa não definida.",
+      "action": "Verifique o equipamento."
+    },
+    ".1.3.6.1.4.1.39553.10.4.2.1.1.2": {
+      "name": "Sobretensão AC (AC Over Voltage)",
+      "cause": "A tensão da rede AC de entrada está acima do limite permitido.",
+      "action": "Verificar o quadro de entrada AC e medir a tensão das fases."
+    },
+    ".1.3.6.1.4.1.39553.10.4.2.1.1.3": {
+      "name": "Subtensão AC (AC Under Voltage)",
+      "cause": "A tensão da rede AC de entrada está abaixo do limite permitido.",
+      "action": "Verificar a tensão da concessionária ou instabilidade no fornecimento local."
+    },
+    ".1.3.6.1.4.1.39553.10.4.2.1.1.5": {
+      "name": "Queda de Rede AC (Mains Failure)",
+      "cause": "Falha no fornecimento de energia elétrica da concessionária.",
+      "action": "Verificar o disjuntor geral de entrada AC e a rede elétrica local."
+    },
+    ".1.3.6.1.4.1.39553.10.4.2.1.1.86": {
+      "name": "Sobretensão DC (DC Over Voltage)",
+      "cause": "A tensão do barramento de saída DC ou dos retificadores está excessivamente alta.",
+      "action": "Verificar a calibração de tensão dos módulos retificadores e da controladora."
+    },
+    ".1.3.6.1.4.1.39553.10.4.2.1.1.88": {
+      "name": "Tensão DC Baixa (DC Low Voltage)",
+      "cause": "A tensão do barramento DC caiu abaixo do limite de segurança secundário.",
+      "action": "Verificar se as baterias estão esgotando e se há retificadores desligados."
+    },
+    ".1.3.6.1.4.1.39553.10.4.2.1.1.89": {
+      "name": "Subtensão DC (DC Under Voltage / LVD)",
+      "cause": "A tensão do barramento DC está criticamente baixa, risco de desligamento LVD.",
+      "action": "Ação imediata! Conectar gerador ou restabelecer a rede elétrica AC com urgência."
+    },
+    ".1.3.6.1.4.1.39553.10.4.2.1.1.333": {
+      "name": "Disjuntor de Bateria Aberto (Battery Break)",
+      "cause": "O disjuntor de proteção do banco de baterias foi desarmado ou está desconectado.",
+      "action": "Verificar o disjuntor físico das baterias no armário de energia."
+    },
+    ".1.3.6.1.4.1.39553.10.4.2.1.1.476": {
+      "name": "Bateria em Descarga (Battery Discharging)",
+      "cause": "O equipamento está operando através das baterias devido à falta de rede AC.",
+      "action": "Monitorar a autonomia das baterias. Se a rede não retornar, preparar desligamento preventivo."
+    }
+  }
+}

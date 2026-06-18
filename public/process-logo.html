@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Processador de Logo - Ricas IOT NOC</title>
+</head>
+<body style="background: #0f172a; color: white; font-family: sans-serif; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; margin: 0;">
+  <div style="text-align: center; max-width: 600px; padding: 20px; border: 1px solid #1e293b; background: #020617; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
+    <h2>Processador de Logo - Ricas IOT NOC</h2>
+    <p style="font-size: 13px; color: #94a3b8; margin-bottom: 20px;">
+      Este utilitário carrega a imagem em <code>temp-logo-source.png</code>, remove o fundo azul e gera a versão transparente.
+    </p>
+    
+    <canvas id="canvas" style="border: 1px solid #334155; margin-bottom: 20px; max-width: 100%; display: none;"></canvas>
+    
+    <div id="status" style="font-size: 14px; font-weight: bold;">Iniciando processamento...</div>
+  </div>
+  
+  <script>
+    // Load the image directly from the server
+    const img = new Image();
+    // Cache bust to make sure we load the newly copied image
+    img.src = '/temp-logo-source.png?v=' + Date.now();
+    
+    img.onload = function() {
+      const canvas = document.getElementById('canvas');
+      const ctx = canvas.getContext('2d');
+      canvas.width = img.width;
+      canvas.height = img.height;
+      canvas.style.display = 'block';
+      ctx.drawImage(img, 0, 0);
+      
+      const imgData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+      const data = imgData.data;
+      
+      for (let y = 0; y < canvas.height; y++) {
+        for (let x = 0; x < canvas.width; x++) {
+          const i = (y * canvas.width + x) * 4;
+          const r = data[i];
+          
+          // The blue background color `#0088cc` has R=0. The white elements have R=255.
+          // Using the Red channel to drive the Alpha channel:
+          const thresholdMin = 40;
+          const thresholdMax = 220;
+          let val = r;
+          if (val < thresholdMin) {
+            val = 0;
+          } else if (val > thresholdMax) {
+            val = 255;
+          } else {
+            val = Math.round(((val - thresholdMin) / (thresholdMax - thresholdMin)) * 255);
+          }
+          
+          // Remove borders/artifacts completely (top 6px, bottom 10px, left 4px, right 4px)
+          if (y < 6 || y > canvas.height - 10 || x < 4 || x > canvas.width - 4) {
+            data[i+3] = 0;
+          } else {
+            data[i+3] = val;
+          }
+          
+          // Force the output RGB to white so that there's no blue fringing/border artifacts.
+          data[i] = 255;
+          data[i+1] = 255;
+          data[i+2] = 255;
+        }
+      }
+      
+      ctx.putImageData(imgData, 0, 0);
+      const processedBase64 = canvas.toDataURL('image/png');
+      
+      document.getElementById('status').innerText = "Salvando no servidor...";
+      
+      fetch('/api/temp-save-logo', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ base64: processedBase64 })
+      })
+      .then(res => res.json())
+      .then(res => {
+        if (res.success) {
+          document.getElementById('status').innerHTML = "<h3 style='color: #22c55e; margin: 0;'>Logo processado e salvo com sucesso!</h3>";
+        } else {
+          document.getElementById('status').innerHTML = "<h3 style='color: #ef4444; margin: 0;'>Erro ao salvar: " + res.error + "</h3>";
+        }
+      })
+      .catch(err => {
+        document.getElementById('status').innerHTML = "<h3 style='color: #ef4444; margin: 0;'>Erro ao salvar: " + err.message + "</h3>";
+      });
+    };
+    
+    img.onerror = function() {
+      document.getElementById('status').innerHTML = "<h3 style='color: #ef4444; margin: 0;'>Erro ao carregar a imagem '/temp-logo-source.png'</h3>";
+    };
+  </script>
+</body>
+</html>

@@ -1,0 +1,180 @@
+/*******************************************************************************
+VERSÃO: 2.07.0069
+RESPONSÁVEL: Wagner Rebello
+DATA: 29/08/2018 - 00:00
+ *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+- Ignora as tentativas de envio de SMSs caso não seja possivel ligar o modem (Se aplica a modelo ETH sem GSM tambem)
+- Campos de OffSet das entradas universais se auto-corrigem qndo valor da função é alterado.
+- Implementado novo metodo de envio de emails ****
+
+/*******************************************************************************
+VERSÃO: 2.06.0068
+RESPONSÁVEL: Wagner Rebello
+DATA: 14/08/2018 - 16:00
+ *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+- Envio de SMS estava entrando em um estado não esperado ao configurar um grupo de alertas sem numeros de telefones.
+- Passo do OffSet das EUs é enviado corretamente quando função é alterada para umidade.
+
+/*******************************************************************************
+VERSÃO: 2.06.0067
+RESPONSÁVEL: Wagner Rebello
+DATA: 14/08/2018 - 16:00
+ *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+- Processo de envio de SMS e Emails agora ocorre de forma idependente, um não impede o prosseguimento do outro.
+- Cada Alarme é enviado em 1 SMS separado para evitar quebra de caracteres e alarmes não enviados.
+- Quando pagina de login é aberta via motor de economia de dados (Chrome/Opera Mobile) é informado ao usuario que login pode falhar e que é necessario desativar o mecanismo.
+
+/*******************************************************************************
+VERSÃO: 2.05.0065
+RESPONSÁVEL: Tiago dAvila
+DATA: 24/07/2018 - 12:10
+ *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+- Corrigido o envio de SMS p/ múltiplos números em um mesmo grupo, pois só
+enviava p/ o primeiro número
+- Corrigido a forma de ler o número do telefone permitindo ler números menores
+que 11 dígitos;
+- Adicionado cor na linha da tabela onde o mouse estiver p/ destacar;
+
+/*******************************************************************************
+VERSÃO: 2.04.0064
+RESPONSÁVEL: Tiago dAvila
+DATA: 20/07/2018 - 14:51
+ *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+- Troca dos texto do msgs.txt linha 39 p/ "Sistema desumidificando" pois o docu-
+mento estava errado "Bloqueio de incendio". Também foi desabilitado dos alarmes;
+- Leitura dos flags de Alimentação das maquinas p/ envio de alarmes snmp e smtp;
+
+/*******************************************************************************
+VERSÃO: 2.03.0063
+RESPONSÁVEL: Wagner Rebello
+DATA: 29/06/2018 - 10:07
+ *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+- Atualizado texto de confirmação de senha na tela de configurações de acesso
+
+/*******************************************************************************
+VERSÃO: 2.03.0062
+RESPONSÁVEL: Wagner Rebello
+DATA: 28/06/2018 - 17:31
+ *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+- Bloqueada possibilidade de editar o nome do proprio usuario.
+- Bloqueada a possibilidade de alterar o nivel de acesso do proprio usuario.
+
+/*******************************************************************************
+VERSÃO: 2.03.0061
+RESPONSÁVEL: Wagner Rebello
+DATA: 28/06/2018 - 12:00
+ *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+- Corrigida falha de consulta ao DNS ao tentar reenviar emails caso consulta anterior tenha falhado.
+- Corrigido rotina de Login (Ao tentar acessar com um usuario que possua mais que 8 caracteres ocorria erro de login.
+- Alterado metodo utilizado para default de fabrica via pagina configurações (Agora abre uma pagina com um loader de 60s informando que a pagina TENTARA se autocarregar após o processo)
+- Corrigido processo de DHCP ao carregar padrão de fabrica.
+- Corrigido Listner de OnChange do checkbox de DHCP que não alterava a disponibilidade dos campos de configuração de REDE quando alterado ao importar um arquivo ".agst"
+- Corrigida falha onde ao enviar dados de Entradas e Saidas via pagina algumas vezes eram enviados valores errados para o controlador. (Ocorria somente no Firefox)
+- Tamanho do nome do dispositivo fixado em 15.
+- Trap de Falha de comunicação estava enviando texto de Defeito de Maquina e não estava enviando numero da maquina com falha, realizada correção.
+- Corrigido falha em que SMS não adicionava o numero da maquina na mensagem quando necessario.
+- Loop de aguarde para buffer serial movido para dentro da interrupção do CLP visto que o mesmo estava atrasando a execução do software devido a dados recebidos do chip GSM.
+- Ao adicionar NOVOS usuarios com senha vazia pagina retorna sem o usuario adicionado e com mensagem de erro.
+- Corrigidos tamanhos dos campos para senha e nome de usuario.
+
+/*******************************************************************************
+VERSÃO: 2.03.0060
+RESPONSÁVEL: Wagner Rebello
+DATA: 25/06/2018 - 12:00
+ *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+- Maquina de estado da tarefa principal sofreu alteração devido a falha no TCC
+- Correção do envio de Trap para o segundo agente SNMP
+- Correção do comando GET SNMP.
+- Os dois gerentes SNMP Trap compartilham o mesmo socket agora.
+- DNS e SNMP Trap agora compartilham o mesmo socket.
+- Melhoria nas rotinas de abertura e encerramento de conexões de sockets.
+- Terceiro socket para trafego HTTP é temporariamente desativado (buffers tambem são zerados nesse tempo) durante processos de envio de emails e descoberta/renovação DHCP.
+- Adicionados alertas para defeito de compressor e ventilador.
+
+/*******************************************************************************
+VERSÃO: 2.03.0054
+RESPONSÁVEL: Wagner Rebello
+DATA: 13/06/2018 - 12:00
+ *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+- Corrigido envio erroneo de caracteres invalidos para a memoria na pagina alertas. (A mesma não carregava mais corretamente após envio)
+  *Devido a essa correção ao enviar essa versão os usuarios de alertas serão restaurados para os padrões de fabrica. (Atualizar de qualquer versão inferior a essa para essa ou superiores tambem ira restaurar os dados)
+
+/*******************************************************************************
+VERSÃO: 2.02.0053
+RESPONSÁVEL: Wagner Rebello
+DATA: 11/06/2018 - 09:20
+ *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+- Ao preencher o campo de usuario de email com o valor "alarmes@agst.com.br" e deixar o campo de senha vazio a senha de fabrica é automaticamente configurada. (enviar teste de email com senha vazia se email for este tambem salva senha padrão de fabrica)
+- Campos de senha vem por padrão com valores vazios ao carregar as paginas.
+- Corrigidas caixas de datas dos graficos de entradas universais.
+- Corrigido problema onde Painel não carregava completamente devido a valores de Entradas e Saidas não ter sido entregue pelo dispositivo.
+- Pagina de alertas agora exibe aviso ao tentar descarregar (sair ou fechar) a mesma sem salvar alterações.
+- Pagina alertas agora exibe "tooltip" qndo mouse é colocado sobre os campos de emails.
+- Ao clicar em um campo já preenchido de email, telefone ou nome de grupo na pagina de alertas a mesma seleciona automaticamente todo o campo.
+- Alterado metodo de concessão de sessão de usuario para um metodo mais seguro.
+- Corrigido envio de Traps v2 (Não estava encerrando a conexão do primeiro agente nunca fazendo com que o primeiro agente sempre recebesse 2 notificações de trap)
+- Status (ON/OFF) é enviado juntamente aos traps agora.
+- Corrigido falha onde encerrar uma conexão de TRAP não reabria as mesmas nunca mais.
+- Corrigido envio de Traps onde Alarmes que não deviam ser enviados (Com "-" na frente do nome) estavam sendo enviados.
+
+/*******************************************************************************
+VERSÃO: 2.01.0051
+RESPONSÁVEL: Wagner Rebello
+DATA: 29/05/2018 - 14:00
+ *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+- Corrigido texto "Sem Função" das entradas universais, removido "ç" e removida caixa alta das letras.
+- Textos dos gauges não mais removem o "ºC" ao atualizar seus valores.
+- Pagina painel carrega com mais agilidade pois folha de estilos e script dos gauges foram reduzidos com minify
+
+/*******************************************************************************
+VERSÃO: 2.00
+RESPONSÁVEL: Tiago dAvila
+DATA: 21/02/2018 - 11:46
+ *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+- Pagina de configurações exibe menu corretamente quando usuario logado é operador (Exibe menu e "Sem Acesso")
+- Pagina de parametros redirecionando corretamente quando usuario não esta logado.
+- DNS recebe novo IP ao alterar configurações SMTP
+- Adicionado LEDs ao desconectar e conectar cabo ETH (Vermelho sem cabo, Vermelho piscando com cabo e APIPA, verde ligado capo e endereco IP staticou ou recibido do servidor DHCP).
+- Adicionado Contador a pagina de preloader.
+- Novo visual p/ interface web;
+- Configuracao dos pinos;
+- Implementado um sinal de watdog p/ o CLP que inverte seu sinal acada segundo;
+  Ha tambem o monitoramento do fluxo da serial;
+- Sistema de login/sessao;
+- Sistema p/ exportar e importar config. de rede;
+- Ao plugar cabo de rede, informa dados de rede p/ IHM; Caso nao tenha cabo 
+  anvia valores zeros, e a IHM apresenta "Rede Ethernet Desconectada";
+- Obetemos via modbus as informacoes do CLP p/ apresentar na pag. index;
+- A pagina p/ config. da interface de rede nao exige reiniciar CLP, apenas a 
+  interface redireciona p/ novo endereco;
+- Maquina de estado p/ dividir o processador;
+  *Obter informacoes p/ webserver (Rede, Info);
+  *Routeamento de dados via sockt p/ o CLP;
+  *Obtem/Renovar endereco DHCP;
+- Implementado novo DNS
+- Acrescentado mais processos a tarefa de leitura das informações do CLP via modbus;
+- Adicionado a pagina de Painel;
+  Permite acompanhar online o funcionamento do sistema, apresentando os valores das variáveis e algumas configurações;
+  Apresenta a seqüencial de revezamento;
+  Apresenta o gráfico com 48 (24hr/30mim) pontos da média da temperatura e da umidade do sistema;
+- Adicionado a pagina de Parametrização;
+  Permite configurar todo o CLP, exportar esta configuração e importa-la;
+  Ao alterar alguma variável, será destacado p/ que o usuário identifique que este valor esta diferente do CLP;
+- Adicionado pagina de Comandos;
+- Inserido processo p/ enviar os comandos;
+- Adicionado pagina de contadores;
+- Adicionada biblioteca SNMP;
+- Adicionado a página de Histórico;
+  Tem acesso instantâneo aos 56 registros de Eventos e Falhas do sistema (28 de cada);
+  Disponibiliza acessar todos os registros do CLP;
+  Os registros são disponibilizados na tela e pode ser filtrado por textos das colunas;
+  Pode ser feito o download p/ arquivo cvs, que pode ser aberto no Excel;
+- Adicionado a página de Gráfico;
+  Permite acessar até um mês (31 dias c/ período de 15min totalizando 2976);
+  O gráfico é disponibilizado na página e pode ser filtrado por data;
+  Pode ser feito o download p/ arquivo cvs, que pode ser aberto na Excel;
+- Correções no eixo X do gráfico do painel;
+- Nova MIB exclusiva onde lista de forma individual cada variavel que o sistema
+  fornece;
+- Correção na sinalização de importação de "aplicação" ou "configuração";
+- Auto-completar do navegador desabilitado na pagina "configuração";
