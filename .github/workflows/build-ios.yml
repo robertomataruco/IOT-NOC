@@ -9,7 +9,7 @@ on:
 
 jobs:
   build-ios:
-    name: Build iOS (Simulator)
+    name: Build and Package iOS IPA
     runs-on: macos-15 # macOS 15 com suporte nativo a Xcode 16 e ferramentas atualizadas
 
     steps:
@@ -30,11 +30,30 @@ jobs:
         env:
           DEBUG: 'capacitor:*'
 
-      - name: Build Xcode Project (Unsigned for Simulator)
+      - name: Build Xcode Project (Unsigned for iOS Device)
         run: |
           xcodebuild -project ios/App/App.xcodeproj \
                      -scheme App \
-                     -sdk iphonesimulator \
-                     -configuration Debug \
+                     -sdk iphoneos \
+                     -configuration Release \
+                     -derivedDataPath build \
+                     CODE_SIGNING_ALLOWED=NO \
+                     CODE_SIGNING_REQUIRED=NO \
+                     CODE_SIGN_IDENTITY="" \
+                     AD_HOC_CODE_SIGNING_ALLOWED=YES \
                      clean build
         shell: bash
+
+      - name: Package IPA (Payload structure)
+        run: |
+          mkdir Payload
+          cp -r build/Build/Products/Release-iphoneos/App.app Payload/
+          zip -r App.ipa Payload
+        shell: bash
+
+      - name: Upload IPA Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: NOC-Portal-Zabbix-Unsigned
+          path: App.ipa
+          retention-days: 7
